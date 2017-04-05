@@ -24,28 +24,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="Button" />
+                android:text="Options" />
 
-            <Button
-                android:id="@+id/button9"
+            <ToggleButton
+                android:id="@+id/toggleButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="Button" />
+                android:text="Map" />
 
-            <Button
-                android:id="@+id/button8"
+            <ToggleButton
+                android:id="@+id/toggleButton2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="Button" />
+                android:text="Questions" />
 
             <Button
                 android:id="@+id/button7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="Button" />
+                android:text="Help" />
 
         </LinearLayout>
 
