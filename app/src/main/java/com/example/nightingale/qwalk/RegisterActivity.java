@@ -1,61 +1,59 @@
 package com.example.nightingale.qwalk;
 
-        import android.app.Dialog;
-        import android.app.ProgressDialog;
-        import android.content.Intent;
-        import android.os.AsyncTask;
-        import android.support.v7.app.AppCompatActivity;
-        import android.os.Bundle;
-        import android.util.Log;
-        import android.view.View;
-        import android.widget.EditText;
-        import android.widget.Toast;
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
-        import org.json.JSONArray;
-        import org.json.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-        import java.io.BufferedReader;
-        import java.io.BufferedWriter;
-        import java.io.InputStreamReader;
-        import java.io.OutputStream;
-        import java.io.OutputStreamWriter;
-        import java.net.HttpURLConnection;
-        import java.net.URL;
-        import java.net.URLEncoder;
-        import java.sql.Timestamp;
-        import java.util.Iterator;
-        import java.util.UUID;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.sql.Timestamp;
+import java.util.Iterator;
+import java.util.UUID;
 
-        import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.HttpsURLConnection;
 
-public class LoginActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
+    private ProgressDialog progress;
+
+
     EditText UsernameInput;
     EditText PasswordInput;
-    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+    EditText ConfirmPasswordInput;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        UsernameInput   = (EditText)findViewById(R.id.username);
-        PasswordInput   = (EditText)findViewById(R.id.password);
+        setContentView(R.layout.activity_register);
+        UsernameInput   = (EditText)findViewById(R.id.usernameRegister);
+        PasswordInput   = (EditText)findViewById(R.id.passwordRegister);
+        ConfirmPasswordInput   = (EditText)findViewById(R.id.confirmPasswordRegister);
+
     }
 
-    /** Called when the user taps the Send button */
-    public void guestButtonClicked(View view) {
-        Intent intent = new Intent(this, MapsActivity.class);
-        startActivity(intent);
-    }
-    public void RegisterButtonClicked(View view) {
-        Intent intent = new Intent(this, RegisterActivity.class);
-        startActivity(intent);
-    }    private ProgressDialog progress;
+    public void SendButtonClicked(View view) {
 
-
-
-
-
-    public void LoginButtonClicked(View view) {
+        if(PasswordInput.getText().toString().equals(ConfirmPasswordInput.getText().toString())) {
             new SendRequest().execute();
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "Passwords don't match", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public class SendRequest extends AsyncTask<String, Void, String> {
@@ -68,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
 
             try{
 
-                URL url = new URL("https://programmeringsprinsessorna.000webhostapp.com/validera.php");
+                URL url = new URL("https://programmeringsprinsessorna.000webhostapp.com/insert.php");
 
                 JSONObject postDataParams = new JSONObject();
 
@@ -126,21 +124,28 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             result= result.replaceAll("\\s+","");
-            if(result.equals("1")) {
-                Toast.makeText(getApplicationContext(), "Admin Success",
-                        Toast.LENGTH_LONG).show();
+if(result.equals("0")) {
+    Toast.makeText(getApplicationContext(), "Success",
+            Toast.LENGTH_LONG).show();
 
-            }
-            else if(result.equals("2")){
-                Toast.makeText(getApplicationContext(), "Success",
-                        Toast.LENGTH_LONG).show();
+}
+else if(result.equals("1")){
+    Toast.makeText(getApplicationContext(), "Username Taken",
+            Toast.LENGTH_LONG).show();
 
-            }
-            else if(result.equals("3")){
-                Toast.makeText(getApplicationContext(), "Incorret Password/Username",
-                        Toast.LENGTH_LONG).show();
+}
+else if(result.equals("2")){
+    Toast.makeText(getApplicationContext(), "Username Empty",
+            Toast.LENGTH_LONG).show();
 
-            }
+}
+else if(result.equals("3")){
+    Toast.makeText(getApplicationContext(), "Password Empty",
+            Toast.LENGTH_LONG).show();
+
+}
+
+
 
         }
     }
@@ -170,4 +175,3 @@ public class LoginActivity extends AppCompatActivity {
         return result.toString();
     }
 }
-
