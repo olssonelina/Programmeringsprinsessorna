@@ -16,117 +16,13 @@
         </ScrollView>
 
         <TextView
-            android:id="@+id/number3"
+            android:id="@+id/questionX"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/radioButton3"
-            android:layout_marginLeft="20dp"
-            android:text="3."
-            android:textSize="20dp"
-            android:visibility="invisible" />
-
-        <Button
-            android:id="@+id/nextQuestion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/done"
-            android:layout_alignBottom="@+id/done"
-            android:layout_alignLeft="@+id/number4"
-            android:layout_alignTop="@+id/number4"
-            android:ems="9"
-            android:onClick="addQuestion"
-
-            android:text="Lägg till fråga" />
-
-        <TextView
-            android:id="@+id/number4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/radioButton4"
-            android:layout_marginLeft="20dp"
-            android:text="4."
-            android:textSize="20dp"
-            android:visibility="invisible" />
-
-        <TextView
-            android:id="@+id/number1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/radioButton1"
-            android:layout_marginLeft="20dp"
-            android:text="+"
-            android:textSize="20dp" />
-
-        <RadioButton
-            android:id="@+id/radioButton3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/radioButton1"
-            android:layout_alignTop="@+id/radioButton2"
-            android:layout_marginTop="50dp"
-            android:visibility="invisible" />
-
-        <EditText
-            android:id="@+id/option3Field"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/radioButton3"
-            android:layout_alignBottom="@+id/radioButton3"
-            android:layout_alignLeft="@+id/option1Field"
-            android:ems="12"
-            android:inputType="textPersonName"
-            android:text="Alternativ 3"
-            android:visibility="invisible" />
-
-        <RadioButton
-            android:id="@+id/radioButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/radioButton1"
-            android:layout_alignTop="@+id/radioButton1"
-            android:layout_marginTop="50dp"
-            android:visibility="invisible" />
-
-        <RadioButton
-            android:id="@+id/radioButton4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/radioButton1"
-            android:layout_alignTop="@+id/radioButton3"
-            android:layout_marginTop="50dp"
-            android:visibility="invisible" />
-
-        <Button
-            android:id="@+id/done"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/radioButton4"
-            android:layout_alignTop="@+id/radioButton4"
-            android:layout_marginTop="80dp"
-            android:ems="9"
-            android:text="Klar" />
-
-        <EditText
-            android:id="@+id/option2Field"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/radioButton2"
-            android:layout_alignBottom="@+id/radioButton2"
-            android:layout_alignLeft="@+id/option1Field"
-            android:ems="12"
-            android:inputType="textPersonName"
-            android:text="Alternativ 2"
-            android:visibility="invisible" />
-
-        <TextView
-            android:id="@+id/number2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/radioButton2"
-            android:layout_marginLeft="20dp"
-            android:text="2."
-            android:textSize="20dp"
-            android:visibility="invisible" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:text="Fråga 1."
+            android:textSize="24dp" />
 
         <EditText
             android:id="@+id/questionField"
@@ -135,52 +31,169 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="80dp"
             android:ems="15"
-            android:inputType="textMultiLine"
-            android:onClick="clearQuestion"
-            android:text="Skriv fråga här" />
+            android:hint="Skriv fråga här"
+            android:inputType="textMultiLine" />
 
-        <RadioButton
-            android:id="@+id/radioButton1"
+        <TextView
+            android:id="@+id/number1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/questionField"
-            android:layout_marginBottom="-80dp"
-            android:layout_marginLeft="310dp"
-            android:checked="false"
-            android:onClick="radioButtonCheck" />
+            android:layout_alignTop="@+id/questionField"
+            android:layout_marginTop="110dp"
+            android:layout_marginLeft="20dp"
+            android:text="+"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/number2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/number1"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="20dp"
+            android:text="2."
+            android:textSize="20dp"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/number3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/number2"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="20dp"
+            android:text="3."
+            android:textSize="20dp"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/number4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/number3"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="20dp"
+            android:text="4."
+            android:textSize="20dp"
+            android:visibility="visible" />
 
         <EditText
             android:id="@+id/option1Field"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/radioButton1"
-            android:layout_alignBottom="@+id/radioButton1"
+            android:layout_alignTop="@+id/questionField"
             android:layout_marginLeft="50dp"
+            android:layout_marginTop="100dp"
+            android:ems="12"
+            android:hint="Lägg till alternativ"
+            android:inputType="textPersonName"
+            android:onClick="addOption" />
+
+        <EditText
+            android:id="@+id/option2Field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/option1Field"
+            android:layout_alignTop="@+id/option1Field"
+            android:layout_marginTop="50dp"
             android:ems="12"
             android:inputType="textPersonName"
-            android:onClick="clearOption1"
-            android:text="Alternativ 1" />
+            android:hint="Lägg till alternativ"
+            android:visibility="visible" />
+
+        <EditText
+            android:id="@+id/option3Field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/option1Field"
+            android:layout_alignTop="@+id/option2Field"
+            android:layout_marginTop="50dp"
+            android:ems="12"
+            android:inputType="textPersonName"
+            android:hint="Lägg till alternativ"
+            android:visibility="visible" />
 
         <EditText
             android:id="@+id/option4Field"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/radioButton4"
-            android:layout_alignBottom="@+id/radioButton4"
             android:layout_alignLeft="@+id/option1Field"
+            android:layout_alignTop="@+id/option3Field"
+            android:layout_marginTop="50dp"
             android:ems="12"
             android:inputType="textPersonName"
-            android:text="Alternativ 4"
-            android:visibility="invisible" />
+            android:hint="Lägg till alternativ"
+            android:visibility="visible" />
 
-        <TextView
-            android:id="@+id/questionX"
+
+        <RadioGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:text="Fråga 1."
-            android:textSize="24dp" />
+            android:layout_marginLeft="310dp"
+            android:layout_alignTop="@+id/questionField"
+            android:layout_marginTop="100dp"
+            android:visibility="visible" >
+
+            <RadioButton
+                android:id="@+id/radioButton1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/questionField"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:checked="false"
+                android:visibility="visible" />
+
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/radioButton1"
+                android:layout_alignTop="@+id/radioButton1"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:visibility="visible" />
+
+            <RadioButton
+                android:id="@+id/radioButton3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/radioButton1"
+                android:layout_alignTop="@+id/radioButton2"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:visibility="visible" />
+
+            <RadioButton
+                android:id="@+id/radioButton4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/radioButton1"
+                android:layout_alignTop="@+id/radioButton3"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:visibility="visible" />
+
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/nextQuestion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/done"
+            android:layout_marginLeft="20dp"
+            android:ems="9"
+            android:onClick="addQuestion"
+            android:text="Lägg till fråga" />
+
+        <Button
+            android:id="@+id/done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="450dp"
+            android:layout_marginLeft="200dp"
+            android:ems="9"
+            android:text="Klar" />
 
     </RelativeLayout>
 </LinearLayout>

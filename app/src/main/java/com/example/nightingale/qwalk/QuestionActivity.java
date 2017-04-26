@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,7 +20,7 @@ public class QuestionActivity extends AppCompatActivity {
 
     TextView questionNumber;
     EditText question;
-    EditText option1;
+    EditText option1;       //Kolla upp så det blev rätt med variabler och textfält
     EditText option2;
     EditText option3;
     EditText option4;
@@ -61,24 +62,12 @@ public class QuestionActivity extends AppCompatActivity {
         radioButton4 = (RadioButton) findViewById(R.id.radioButton4);
 
         questionNumber = (TextView) findViewById(R.id.questionX);
+
     }
 
     //final String questionDefault = question.getText().toString();
 
-
-    /*Hur gör jag detta till en generell metod?*/
-    public void clearText(View v, EditText textField) {
-        textField.getText().clear();
-    }
-
-    public void clearQuestion(View view) {      //Clear "this" field. Googla "Find click component"
-        if (question.getText().toString().equals("Skriv fråga här")) {
-            question.getText().clear();
-        }
-    }
-
-    public void clearOption1(View view) {   //Kolla upp hur man selectar child för generella metoder
-        option1.getText().clear();
+    public void addOption(View view) {   //Kolla upp hur man selectar child för generella metoder
         number1.setText("1.");
         number2.setVisibility(View.VISIBLE);
         number2.setText("+");
@@ -88,35 +77,33 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
     /*Hur gör jag detta till en generell metod?*/
-    public void radioButtonCheck(View view) {
-        if (radioButton2.isChecked() || radioButton3.isChecked() || radioButton4.isChecked())
-            radioButton2.setChecked(false);
-        radioButton3.setChecked(false);
-        radioButton4.setChecked(false);
-    }
-
-    /*Hur gör jag detta till en generell metod?*/
     public int correctAnswer() {
         if (radioButton1.isChecked()) {
-            return correctAnswer = 0;
+            return 0;
         }
         else if (radioButton2.isChecked()) {
-            return correctAnswer = 1;
+            return 1;
         }
         else if (radioButton3.isChecked()) {
-            return correctAnswer = 2;
+            return 2;
         }
         else if (radioButton4.isChecked()) {
-            return correctAnswer = 3;
+            return 3;
         }
         return -1;      //Returnerar -1 om inget alternativ är markerat
     }
 
     /*Ska kolla om användaren har markerat det rätta svaret, spara frågan och gå till nästa fråga*/
     public void addQuestion(View view) {
+        int toastYPosition = 220;
+        /*if(option1.getText().equals(null)) {
+            Toast toast = Toast.makeText(getApplicationContext(), "Du måste ha minst 2 alternativ", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, toastYPosition);
+            toast.show();
+        }*/
         if (!(radioButton1.isChecked() || radioButton2.isChecked() || radioButton3.isChecked() || radioButton4.isChecked())) {
             Toast toast = Toast.makeText(getApplicationContext(), "Markera rätt svar", Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 220);
+            toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, toastYPosition);
             toast.show();
         } else {
             saveQuestion();
