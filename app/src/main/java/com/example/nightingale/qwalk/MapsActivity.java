@@ -29,14 +29,16 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener {
+        LocationListener,
+        GoogleMap.OnMarkerClickListener{
 
     private GoogleMap mMap;
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
     Location mMarkerLocation;
-    Marker mCurrLocationMarker;
+    Marker mMarker;
     LocationRequest mLocationRequest;
+    boolean inRange = false;
 
 
     @Override
@@ -51,6 +53,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
     }
 
     public void OptionButtonClicked(View view) {
@@ -85,6 +88,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             buildGoogleApiClient();
             mMap.setMyLocationEnabled(true);
         }
+
+        mMap.setOnMarkerClickListener(this);
+
     }
 
     protected synchronized void buildGoogleApiClient() {
@@ -123,29 +129,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         mLastLocation = location;
-        if (mCurrLocationMarker == null) {
-            mMarkerLocation = location;
+        if (mMarker == null) {
+            mMarkerLocation = new Location("");
             mMarkerLocation.setLongitude(11.979162);
             mMarkerLocation.setLatitude(57.688290);
 
+            inRange = false;
 
             //Place a location marker
             LatLng latLng = new LatLng(mMarkerLocation.getLatitude(), mMarkerLocation.getLongitude());
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(latLng);
             markerOptions.title("Hubben 2.1");
-            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
-            mCurrLocationMarker = mMap.addMarker(markerOptions);
-
-            Toast.makeText(this, "Placed Marker", Toast.LENGTH_LONG).show();
+            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+            mMarker = mMap.addMarker(markerOptions);
 
             //move map camera
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
             mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
         }
 
-        if (location.distanceTo(mMarkerLocation) < 15){
-            Toast.makeText(this, "Closer than 15 m", Toast.LENGTH_LONG).show();
+        if (location.distanceTo(mMarkerLocation) < 20){
+            mMarker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+            inRange = true;
         }
         /*else if (location.distanceTo(mMarkerLocation) > 30) {
             Toast.makeText(this, "Farther away than 30 m ", Toast.LENGTH_LONG).show();
@@ -230,4 +236,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        if (marker.equals(mMarker) && inRange)
+        {
+            Intent intent = new Intent(this, AnswerActivity.class);
+            startActivity(intent);
+        }
+
+        return false;
+    }
 }
