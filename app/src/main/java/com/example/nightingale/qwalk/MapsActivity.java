@@ -34,6 +34,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
+    Location mMarkerLocation;
     Marker mCurrLocationMarker;
     LocationRequest mLocationRequest;
 
@@ -120,27 +121,40 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onLocationChanged(Location location) {
 
+
         mLastLocation = location;
-        if (mCurrLocationMarker != null) {
-            mCurrLocationMarker.remove();
+        if (mCurrLocationMarker == null) {
+            mMarkerLocation = location;
+            mMarkerLocation.setLongitude(11.979162);
+            mMarkerLocation.setLatitude(57.688290);
+
+
+            //Place a location marker
+            LatLng latLng = new LatLng(mMarkerLocation.getLatitude(), mMarkerLocation.getLongitude());
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.position(latLng);
+            markerOptions.title("Hubben 2.1");
+            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+            mCurrLocationMarker = mMap.addMarker(markerOptions);
+
+            Toast.makeText(this, "Placed Marker", Toast.LENGTH_LONG).show();
+
+            //move map camera
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
         }
 
-        //Place current location marker
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(latLng);
-        markerOptions.title("Current Position");
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
-        mCurrLocationMarker = mMap.addMarker(markerOptions);
+        if (location.distanceTo(mMarkerLocation) < 15){
+            Toast.makeText(this, "Closer than 15 m", Toast.LENGTH_LONG).show();
+        }
+        /*else if (location.distanceTo(mMarkerLocation) > 30) {
+            Toast.makeText(this, "Farther away than 30 m ", Toast.LENGTH_LONG).show();
+        }*/
 
-        //move map camera
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
-
-        //stop location updates
+        /*//stop location updates
         if (mGoogleApiClient != null) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-        }
+        }*/
 
     }
 
