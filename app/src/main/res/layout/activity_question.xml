@@ -41,7 +41,7 @@
             android:layout_alignTop="@+id/questionField"
             android:layout_marginTop="110dp"
             android:layout_marginLeft="20dp"
-            android:text="+"
+            android:text="1."
             android:textSize="20dp" />
 
         <TextView
@@ -51,7 +51,7 @@
             android:layout_alignTop="@+id/number1"
             android:layout_marginTop="50dp"
             android:layout_marginLeft="20dp"
-            android:text="2."
+            android:text="+"
             android:textSize="20dp"
             android:visibility="visible" />
 
@@ -60,22 +60,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/number2"
-            android:layout_marginTop="50dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="50dp"
             android:text="3."
             android:textSize="20dp"
-            android:visibility="visible" />
+            android:visibility="invisible" />
 
         <TextView
             android:id="@+id/number4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/number3"
-            android:layout_marginTop="50dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="50dp"
             android:text="4."
             android:textSize="20dp"
-            android:visibility="visible" />
+            android:visibility="invisible" />
 
         <EditText
             android:id="@+id/option1Field"
@@ -86,8 +86,7 @@
             android:layout_marginTop="100dp"
             android:ems="12"
             android:hint="Lägg till alternativ"
-            android:inputType="textPersonName"
-            android:onClick="addOption" />
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/option2Field"
@@ -97,8 +96,9 @@
             android:layout_alignTop="@+id/option1Field"
             android:layout_marginTop="50dp"
             android:ems="12"
-            android:inputType="textPersonName"
             android:hint="Lägg till alternativ"
+            android:inputType="textPersonName"
+            android:onClick="addOption2"
             android:visibility="visible" />
 
         <EditText
@@ -109,9 +109,10 @@
             android:layout_alignTop="@+id/option2Field"
             android:layout_marginTop="50dp"
             android:ems="12"
-            android:inputType="textPersonName"
             android:hint="Lägg till alternativ"
-            android:visibility="visible" />
+            android:inputType="textPersonName"
+            android:onClick="addOption3"
+            android:visibility="invisible" />
 
         <EditText
             android:id="@+id/option4Field"
@@ -121,9 +122,10 @@
             android:layout_alignTop="@+id/option3Field"
             android:layout_marginTop="50dp"
             android:ems="12"
-            android:inputType="textPersonName"
             android:hint="Lägg till alternativ"
-            android:visibility="visible" />
+            android:inputType="textPersonName"
+            android:onClick="addOption4"
+            android:visibility="invisible" />
 
 
         <RadioGroup
@@ -162,7 +164,7 @@
                 android:layout_alignTop="@+id/radioButton2"
                 android:layout_marginTop="20dp"
                 android:layout_weight="1"
-                android:visibility="visible" />
+                android:visibility="invisible" />
 
             <RadioButton
                 android:id="@+id/radioButton4"
@@ -172,7 +174,7 @@
                 android:layout_alignTop="@+id/radioButton3"
                 android:layout_marginTop="20dp"
                 android:layout_weight="1"
-                android:visibility="visible" />
+                android:visibility="invisible" />
 
         </RadioGroup>
 

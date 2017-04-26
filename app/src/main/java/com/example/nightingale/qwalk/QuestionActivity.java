@@ -33,12 +33,14 @@ public class QuestionActivity extends AppCompatActivity {
     RadioButton radioButton3;
     RadioButton radioButton4;
 
+
     String questionTitle;
     String questionOption1;     //Gör detta till en String array istället?
     String questionOption2;
     String questionOption3;
     String questionOption4;
     String[] questionOptions = {questionOption1, questionOption2, questionOption3, questionOption4};
+    RadioButton[] radioButtons = new RadioButton[4];
     int correctAnswer;
 
     int counter = 1;
@@ -60,6 +62,10 @@ public class QuestionActivity extends AppCompatActivity {
         radioButton2 = (RadioButton) findViewById(R.id.radioButton2);
         radioButton3 = (RadioButton) findViewById(R.id.radioButton3);
         radioButton4 = (RadioButton) findViewById(R.id.radioButton4);
+        radioButtons[0] = radioButton1;
+        radioButtons[1] = radioButton2;
+        radioButtons[2] = radioButton3;
+        radioButtons[3] = radioButton4;
 
         questionNumber = (TextView) findViewById(R.id.questionX);
 
@@ -67,49 +73,73 @@ public class QuestionActivity extends AppCompatActivity {
 
     //final String questionDefault = question.getText().toString();
 
-    public void addOption(View view) {   //Kolla upp hur man selectar child för generella metoder
-        number1.setText("1.");
+    public void addOption2(View view) {   //Kolla upp hur man selectar child för generella metoder
+        number2.setText("2.");
         number2.setVisibility(View.VISIBLE);
-        number2.setText("+");
-        option2.setVisibility(View.VISIBLE);
-        option2.setText("");
-        radioButton2.setVisibility(View.VISIBLE);
+        number3.setText("+");
+        number3.setVisibility(View.VISIBLE);
+        option3.setVisibility(View.VISIBLE);
+        radioButton3.setVisibility(View.VISIBLE);
     }
 
-    /*Hur gör jag detta till en generell metod?*/
-    public int correctAnswer() {
-        if (radioButton1.isChecked()) {
-            return 0;
-        }
-        else if (radioButton2.isChecked()) {
-            return 1;
-        }
-        else if (radioButton3.isChecked()) {
-            return 2;
-        }
-        else if (radioButton4.isChecked()) {
-            return 3;
-        }
-        return -1;      //Returnerar -1 om inget alternativ är markerat
+    public void addOption3(View view) {   //Kolla upp hur man selectar child för generella metoder
+        number3.setText("3.");
+        number3.setVisibility(View.VISIBLE);
+        number4.setText("+");
+        number4.setVisibility(View.VISIBLE);
+        option4.setVisibility(View.VISIBLE);
+        radioButton4.setVisibility(View.VISIBLE);
     }
+
+    public void addOption4(View view) {   //Kolla upp hur man selectar child för generella metoder
+        number4.setText("4.");
+        number4.setVisibility(View.VISIBLE);
+    }
+
+    public int correctAnswer() {
+        for(int i = 0; i < radioButtons.length; i++) {
+            if(radioButtons[i].isChecked()) {
+                return i;
+            }
+        }
+        return 77;
+    }
+
 
     /*Ska kolla om användaren har markerat det rätta svaret, spara frågan och gå till nästa fråga*/
     public void addQuestion(View view) {
-        int toastYPosition = 220;
-        /*if(option1.getText().equals(null)) {
-            Toast toast = Toast.makeText(getApplicationContext(), "Du måste ha minst 2 alternativ", Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, toastYPosition);
-            toast.show();
-        }*/
-        if (!(radioButton1.isChecked() || radioButton2.isChecked() || radioButton3.isChecked() || radioButton4.isChecked())) {
-            Toast toast = Toast.makeText(getApplicationContext(), "Markera rätt svar", Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, toastYPosition);
-            toast.show();
-        } else {
+        if(isQuestionComplete()) {
             saveQuestion();
             newQuestion();
         }
+        else
+            errorMessages();
+    }
 
+    public boolean isQuestionComplete() {
+        if(question.getText().toString().equals("") || option2.getText().toString().equals("") || !(radioButton1.isChecked() || radioButton2.isChecked() || radioButton3.isChecked() || radioButton4.isChecked())) {
+            return false;
+        }
+        return true;
+    }
+
+    public void errorMessages() {
+        String errorMsg;
+        if(question.getText().toString().equals("")) {
+            errorMsg = "Skriv en fråga";
+        }
+        else if(option2.getText().toString().equals("")) {
+            errorMsg = "Du måste ha minst 2 alternativ";
+        }
+        else if (!(radioButton1.isChecked() || radioButton2.isChecked() || radioButton3.isChecked() || radioButton4.isChecked())) {
+            errorMsg = "Välj rätt svarsalternativ";
+        }
+        else {
+            errorMsg = "";
+        }
+        Toast toast = Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 160);
+        toast.show();
     }
 
     private void newQuestion() {
