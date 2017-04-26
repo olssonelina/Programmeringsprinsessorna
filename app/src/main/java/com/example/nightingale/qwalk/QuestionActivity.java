@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -71,9 +70,9 @@ public class QuestionActivity extends AppCompatActivity {
 
     }
 
-    //final String questionDefault = question.getText().toString();
 
-    public void addOption2(View view) {   //Kolla upp hur man selectar child för generella metoder
+    //Hur gör jag addOptions till en generell metod?
+    public void addOption2(View view) {
         number2.setText("2.");
         number2.setVisibility(View.VISIBLE);
         number3.setText("+");
@@ -82,7 +81,7 @@ public class QuestionActivity extends AppCompatActivity {
         radioButton3.setVisibility(View.VISIBLE);
     }
 
-    public void addOption3(View view) {   //Kolla upp hur man selectar child för generella metoder
+    public void addOption3(View view) {
         number3.setText("3.");
         number3.setVisibility(View.VISIBLE);
         number4.setText("+");
@@ -91,7 +90,7 @@ public class QuestionActivity extends AppCompatActivity {
         radioButton4.setVisibility(View.VISIBLE);
     }
 
-    public void addOption4(View view) {   //Kolla upp hur man selectar child för generella metoder
+    public void addOption4(View view) {
         number4.setText("4.");
         number4.setVisibility(View.VISIBLE);
     }
@@ -105,15 +104,21 @@ public class QuestionActivity extends AppCompatActivity {
         return 77;
     }
 
-
-    /*Ska kolla om användaren har markerat det rätta svaret, spara frågan och gå till nästa fråga*/
     public void addQuestion(View view) {
         if(isQuestionComplete()) {
             saveQuestion();
             newQuestion();
         }
         else
-            errorMessages();
+            sendErrorMsg();
+    }
+
+    public void questionsDone(View view) {
+        if(isQuestionComplete()) {
+            saveQuestion();
+        }
+        else
+            sendErrorMsg();
     }
 
     public boolean isQuestionComplete() {
@@ -123,7 +128,7 @@ public class QuestionActivity extends AppCompatActivity {
         return true;
     }
 
-    public void errorMessages() {
+    public void sendErrorMsg() {
         String errorMsg;
         if(question.getText().toString().equals("")) {
             errorMsg = "Skriv en fråga";
@@ -137,6 +142,7 @@ public class QuestionActivity extends AppCompatActivity {
         else {
             errorMsg = "";
         }
+
         Toast toast = Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 160);
         toast.show();
@@ -152,7 +158,6 @@ public class QuestionActivity extends AppCompatActivity {
         option4.getText().clear();
     }
 
-    /* Denna metod ska spara information till klassen Question */
     private void saveQuestion() {
         //Spara all input till strängar, bild och position
         //Skapa ny fråga genom att anropa konstruktorn i Question och skicka med titel, alternativ, rätt svar, bild och position
