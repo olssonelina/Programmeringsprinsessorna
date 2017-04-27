@@ -3,6 +3,8 @@ package com.example.nightingale.qwalk;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
@@ -52,7 +54,7 @@ public class CreateQuestionActivity extends AppCompatActivity {
     int correctAnswer;
 
     int questionCounter = 1;
-    int addOptionCounter = 1;
+    int addOptionCounter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +74,39 @@ public class CreateQuestionActivity extends AppCompatActivity {
         radioButton3 = (RadioButton) findViewById(R.id.radioButton3);
         radioButton4 = (RadioButton) findViewById(R.id.radioButton4);
         questionNumber = (TextView) findViewById(R.id.questionX);
+
+        /*option1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                numbers[addOptionCounter].setText("×");
+                numbers[addOptionCounter].setVisibility(View.VISIBLE);
+                if (addOptionCounter != 3) {
+                    numbers[addOptionCounter + 1].setText("+");
+                    numbers[addOptionCounter + 1].setVisibility(View.VISIBLE);
+                    options[addOptionCounter + 1].setVisibility(View.VISIBLE);
+                    radioButtons[addOptionCounter + 1].setVisibility(View.VISIBLE);
+                    if(addOptionCounter == 1)
+                        addOptionCounter++;
+                    else if (addOptionCounter == 2)
+                        addOptionCounter++;
+                    else if (addOptionCounter == 3)
+                        addOptionCounter++;
+                }
+            }
+        });*/
+
         makeArrays();
+        //option1.addTextChangedListener(new addListenerOnTextChange(this, option1));
 
     }
 
@@ -93,21 +127,17 @@ public class CreateQuestionActivity extends AppCompatActivity {
         options[3] = option4;
     }
 
-    
+
     public void addOption(View view) {
-        if (addOptionCounter != 3) {
-            numbers[addOptionCounter].setText("×");
-            numbers[addOptionCounter].setVisibility(View.VISIBLE);
+        numbers[addOptionCounter].setText("×");
+        numbers[addOptionCounter].setVisibility(View.VISIBLE);
+        if (addOptionCounter < 3) {
             numbers[addOptionCounter + 1].setText("+");
             numbers[addOptionCounter + 1].setVisibility(View.VISIBLE);
             options[addOptionCounter + 1].setVisibility(View.VISIBLE);
             radioButtons[addOptionCounter + 1].setVisibility(View.VISIBLE);
             addOptionCounter++;
-        } else {
-            numbers[addOptionCounter].setText("4.");
-            number4.setVisibility(View.VISIBLE);
         }
-
     }
 
     public int correctAnswer() {
@@ -126,6 +156,7 @@ public class CreateQuestionActivity extends AppCompatActivity {
         } else
             sendErrorMsg();
     }
+    
 
     public void questionsDone(View view) {
         if (isQuestionComplete()) {
@@ -162,10 +193,17 @@ public class CreateQuestionActivity extends AppCompatActivity {
         questionCounter++;
         questionNumber.setText("Fråga " + questionCounter + ".");
         question.getText().clear();
-        option1.getText().clear();
-        option2.getText().clear();
-        option3.getText().clear();
-        option4.getText().clear();
+
+        for(int i = 0; i < options.length; i++) {
+            options[i].getText().clear();
+        }
+
+        for(int i = 1; i < numbers.length; i++) {
+            options[i].setVisibility(View.INVISIBLE);
+            numbers[i].setVisibility(View.INVISIBLE);
+            radioButtons[i].setVisibility(View.INVISIBLE);
+        }
+
     }
 
     private void saveQuestion() {
@@ -182,7 +220,7 @@ public class CreateQuestionActivity extends AppCompatActivity {
         questionsToSave.add(question);
     }
 
-    public void addPosition(View view){
+    public void addPosition(View view) {
         Intent intent = new Intent(this, GetPositionActivity.class);
         startActivity(intent);
     }
