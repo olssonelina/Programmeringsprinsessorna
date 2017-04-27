@@ -1,5 +1,6 @@
 package com.example.nightingale.qwalk;
 
+import android.location.Location;
 import android.media.Image;
 
 /**
@@ -14,6 +15,7 @@ public class Question {
     private String option3;
     private String option4;
     private int correctAnswer;
+    private Location location;
 
     public Question(String title, String option1, String option2, String option3, String option4, int correctAnswer/*Image image, Position position*/ ) {
         this.questionTitle = title;
@@ -24,4 +26,17 @@ public class Question {
         this.correctAnswer = correctAnswer;
     }
 
+    public void setLocation(double latitude, double longitude) {
+        location = new Location("");
+        location.setLatitude(latitude);
+        location.setLongitude(longitude);
+    }
+
+    public double getLatitude() {
+        return location.getLatitude();
+    }
+
+    public double getLongitude() {
+        return location.getLongitude();
+    }
 }

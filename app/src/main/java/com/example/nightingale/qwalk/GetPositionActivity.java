@@ -5,10 +5,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
@@ -26,25 +27,26 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
+/**
+ * Created by Elina Olsson on 2017-04-27.
+ */
+
+public class GetPositionActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener,
-        GoogleMap.OnMarkerClickListener{
+        LocationListener{
 
     private GoogleMap mMap;
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
-    Location mMarkerLocation;
-    Marker mMarker;
+    Marker mCurrLocationMarker;
     LocationRequest mLocationRequest;
-    boolean inRange = false;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
+        setContentView(R.layout.activity_getposition);
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
@@ -55,12 +57,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
     }
-
-    public void OptionButtonClicked(View view) {
-        Intent intent = new Intent(this, CreateQuestionActivity.class);
-        startActivity(intent);
-    }
-
 
     /**
      * Manipulates the map once available.
@@ -88,8 +84,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             buildGoogleApiClient();
             mMap.setMyLocationEnabled(true);
         }
-
-        mMap.setOnMarkerClickListener(this);
 
     }
 
@@ -125,43 +119,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void onLocationChanged(Location location) {
-
-
+    public void onLocationChanged(Location location)
+    {
         mLastLocation = location;
-        if (mMarker == null) {
-            mMarkerLocation = new Location("");
-            mMarkerLocation.setLongitude(11.979162);
-            mMarkerLocation.setLatitude(57.688290);
-
-            inRange = false;
-
-            //Place a location marker
-            LatLng latLng = new LatLng(mMarkerLocation.getLatitude(), mMarkerLocation.getLongitude());
-            MarkerOptions markerOptions = new MarkerOptions();
-            markerOptions.position(latLng);
-            markerOptions.title("Hubben 2.1");
-            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-            mMarker = mMap.addMarker(markerOptions);
-
-            //move map camera
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
+        if (mCurrLocationMarker != null) {
+            mCurrLocationMarker.remove();
         }
 
-        if (location.distanceTo(mMarkerLocation) < 20){
-            mMarker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
-            inRange = true;
-        }
-        /*else if (location.distanceTo(mMarkerLocation) > 30) {
-            Toast.makeText(this, "Farther away than 30 m ", Toast.LENGTH_LONG).show();
-        }*/
+        //Place current location marker
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(latLng);
+        markerOptions.title("Current Position");
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+        mCurrLocationMarker = mMap.addMarker(markerOptions);
 
-        /*//stop location updates
+        //move map camera
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+
+        //stop location updates
         if (mGoogleApiClient != null) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-        }*/
-
+        }
     }
 
     @Override
@@ -235,15 +215,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             // You can add here other case statements according to your requirement.
         }
     }
-
-    @Override
-    public boolean onMarkerClick(Marker marker) {
-        if (marker.equals(mMarker) && inRange)
-        {
-            Intent intent = new Intent(this, AnswerActivity.class);
-            startActivity(intent);
-        }
-
-        return false;
-    }
 }
+

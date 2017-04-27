@@ -13,6 +13,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lägg till position"
+                android:layout_marginLeft="130dp"
+                android:layout_marginTop="400dp"
+                android:textColor="@color/wallet_holo_blue_light"
+                android:onClick="addPosition"
+                />
         </ScrollView>
 
         <TextView
@@ -41,8 +52,9 @@
             android:layout_alignTop="@+id/questionField"
             android:layout_marginTop="110dp"
             android:layout_marginLeft="20dp"
-            android:text="1."
-            android:textSize="20dp" />
+            android:text="×"
+            android:textSize="24dp"
+            />
 
         <TextView
             android:id="@+id/number2"
@@ -52,7 +64,7 @@
             android:layout_marginTop="50dp"
             android:layout_marginLeft="20dp"
             android:text="+"
-            android:textSize="20dp"
+            android:textSize="24dp"
             android:visibility="visible" />
 
         <TextView
@@ -63,7 +75,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="50dp"
             android:text="3."
-            android:textSize="20dp"
+            android:textSize="24dp"
             android:visibility="invisible" />
 
         <TextView
@@ -74,8 +86,9 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="50dp"
             android:text="4."
-            android:textSize="20dp"
+            android:textSize="24dp"
             android:visibility="invisible" />
+
 
         <EditText
             android:id="@+id/option1Field"
@@ -85,6 +98,7 @@
             android:layout_marginLeft="50dp"
             android:layout_marginTop="100dp"
             android:ems="12"
+            android:maxLength="35"
             android:hint="Lägg till alternativ"
             android:inputType="textPersonName" />
 
@@ -96,9 +110,10 @@
             android:layout_alignTop="@+id/option1Field"
             android:layout_marginTop="50dp"
             android:ems="12"
+            android:maxLength="35"
             android:hint="Lägg till alternativ"
             android:inputType="textPersonName"
-            android:onClick="addOption2"
+            android:onClick="addOption"
             android:visibility="visible" />
 
         <EditText
@@ -109,9 +124,10 @@
             android:layout_alignTop="@+id/option2Field"
             android:layout_marginTop="50dp"
             android:ems="12"
+            android:maxLength="35"
             android:hint="Lägg till alternativ"
             android:inputType="textPersonName"
-            android:onClick="addOption3"
+            android:onClick="addOption"
             android:visibility="invisible" />
 
         <EditText
@@ -122,11 +138,11 @@
             android:layout_alignTop="@+id/option3Field"
             android:layout_marginTop="50dp"
             android:ems="12"
+            android:maxLength="35"
             android:hint="Lägg till alternativ"
             android:inputType="textPersonName"
-            android:onClick="addOption4"
+            android:onClick="addOption"
             android:visibility="invisible" />
-
 
         <RadioGroup
             android:layout_width="wrap_content"

@@ -1,5 +1,6 @@
 package com.example.nightingale.qwalk;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
@@ -9,13 +10,17 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Elina Olsson on 2017-04-24.
  */
 
-public class QuestionActivity extends AppCompatActivity {
+public class CreateQuestionActivity extends AppCompatActivity {
 
     //Välj olika namn på variabler och "ikoner"
+    ArrayList<Question> questionsToSave = new ArrayList<Question>();
 
     TextView questionNumber;
     EditText question;
@@ -38,16 +43,21 @@ public class QuestionActivity extends AppCompatActivity {
     String questionOption2;
     String questionOption3;
     String questionOption4;
-    String[] questionOptions = {questionOption1, questionOption2, questionOption3, questionOption4};
+
     RadioButton[] radioButtons = new RadioButton[4];
+    TextView[] numbers = new TextView[4];
+    EditText[] options = new EditText[4];
+
+
     int correctAnswer;
 
-    int counter = 1;
+    int questionCounter = 1;
+    int addOptionCounter = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_question); //ändra namnet till rätt xml-fil
+        setContentView(R.layout.activity_createquestion); //ändra namnet till rätt xml-fil
         question = (EditText) findViewById(R.id.questionField);
         option1 = (EditText) findViewById(R.id.option1Field);
         option2 = (EditText) findViewById(R.id.option2Field);
@@ -61,43 +71,48 @@ public class QuestionActivity extends AppCompatActivity {
         radioButton2 = (RadioButton) findViewById(R.id.radioButton2);
         radioButton3 = (RadioButton) findViewById(R.id.radioButton3);
         radioButton4 = (RadioButton) findViewById(R.id.radioButton4);
+        questionNumber = (TextView) findViewById(R.id.questionX);
+        makeArrays();
+
+    }
+
+    public void makeArrays() {
         radioButtons[0] = radioButton1;
         radioButtons[1] = radioButton2;
         radioButtons[2] = radioButton3;
         radioButtons[3] = radioButton4;
 
-        questionNumber = (TextView) findViewById(R.id.questionX);
+        numbers[0] = number1;
+        numbers[1] = number2;
+        numbers[2] = number3;
+        numbers[3] = number4;
 
+        options[0] = option1;
+        options[1] = option2;
+        options[2] = option3;
+        options[3] = option4;
     }
 
+    
+    public void addOption(View view) {
+        if (addOptionCounter != 3) {
+            numbers[addOptionCounter].setText("×");
+            numbers[addOptionCounter].setVisibility(View.VISIBLE);
+            numbers[addOptionCounter + 1].setText("+");
+            numbers[addOptionCounter + 1].setVisibility(View.VISIBLE);
+            options[addOptionCounter + 1].setVisibility(View.VISIBLE);
+            radioButtons[addOptionCounter + 1].setVisibility(View.VISIBLE);
+            addOptionCounter++;
+        } else {
+            numbers[addOptionCounter].setText("4.");
+            number4.setVisibility(View.VISIBLE);
+        }
 
-    //Hur gör jag addOptions till en generell metod?
-    public void addOption2(View view) {
-        number2.setText("2.");
-        number2.setVisibility(View.VISIBLE);
-        number3.setText("+");
-        number3.setVisibility(View.VISIBLE);
-        option3.setVisibility(View.VISIBLE);
-        radioButton3.setVisibility(View.VISIBLE);
-    }
-
-    public void addOption3(View view) {
-        number3.setText("3.");
-        number3.setVisibility(View.VISIBLE);
-        number4.setText("+");
-        number4.setVisibility(View.VISIBLE);
-        option4.setVisibility(View.VISIBLE);
-        radioButton4.setVisibility(View.VISIBLE);
-    }
-
-    public void addOption4(View view) {
-        number4.setText("4.");
-        number4.setVisibility(View.VISIBLE);
     }
 
     public int correctAnswer() {
-        for(int i = 0; i < radioButtons.length; i++) {
-            if(radioButtons[i].isChecked()) {
+        for (int i = 0; i < radioButtons.length; i++) {
+            if (radioButtons[i].isChecked()) {
                 return i;
             }
         }
@@ -105,24 +120,22 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
     public void addQuestion(View view) {
-        if(isQuestionComplete()) {
+        if (isQuestionComplete()) {
             saveQuestion();
             newQuestion();
-        }
-        else
+        } else
             sendErrorMsg();
     }
 
     public void questionsDone(View view) {
-        if(isQuestionComplete()) {
+        if (isQuestionComplete()) {
             saveQuestion();
-        }
-        else
+        } else
             sendErrorMsg();
     }
 
     public boolean isQuestionComplete() {
-        if(question.getText().toString().equals("") || option2.getText().toString().equals("") || !(radioButton1.isChecked() || radioButton2.isChecked() || radioButton3.isChecked() || radioButton4.isChecked())) {
+        if (question.getText().toString().equals("") || option2.getText().toString().equals("") || !(radioButton1.isChecked() || radioButton2.isChecked() || radioButton3.isChecked() || radioButton4.isChecked())) {
             return false;
         }
         return true;
@@ -130,16 +143,13 @@ public class QuestionActivity extends AppCompatActivity {
 
     public void sendErrorMsg() {
         String errorMsg;
-        if(question.getText().toString().equals("")) {
+        if (question.getText().toString().equals("")) {
             errorMsg = "Skriv en fråga";
-        }
-        else if(option2.getText().toString().equals("")) {
+        } else if (option2.getText().toString().equals("")) {
             errorMsg = "Du måste ha minst 2 alternativ";
-        }
-        else if (!(radioButton1.isChecked() || radioButton2.isChecked() || radioButton3.isChecked() || radioButton4.isChecked())) {
+        } else if (!(radioButton1.isChecked() || radioButton2.isChecked() || radioButton3.isChecked() || radioButton4.isChecked())) {
             errorMsg = "Välj rätt svarsalternativ";
-        }
-        else {
+        } else {
             errorMsg = "";
         }
 
@@ -149,8 +159,8 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
     private void newQuestion() {
-        counter++;
-        questionNumber.setText("Fråga " + counter + ".");
+        questionCounter++;
+        questionNumber.setText("Fråga " + questionCounter + ".");
         question.getText().clear();
         option1.getText().clear();
         option2.getText().clear();
@@ -167,10 +177,13 @@ public class QuestionActivity extends AppCompatActivity {
         questionOption3 = option3.getText().toString();
         questionOption4 = option4.getText().toString();
         correctAnswer = correctAnswer();
-        /*
-        position = ...
-        image = ...
-         */
+
         Question question = new Question(questionTitle, questionOption1, questionOption2, questionOption3, questionOption4, correctAnswer);
+        questionsToSave.add(question);
+    }
+
+    public void addPosition(View view){
+        Intent intent = new Intent(this, GetPositionActivity.class);
+        startActivity(intent);
     }
 }
