@@ -61,6 +61,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         startActivity(intent);
     }
 
+    public void HelpButtonClicked(View view) {
+        Intent intent = new Intent(this, QuizActivity.class);
+        startActivity(intent);
+    }
 
     /**
      * Manipulates the map once available.
