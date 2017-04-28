@@ -64,7 +64,7 @@ public class CreateQuizActivity extends AppCompatActivity {
 
     public void sendErrorMsg() {
         String msg;
-        if(quizTitle.getText().equals(null)){
+        if(quizTitle.getText().toString().equals("")){
             msg = "Fyll i titel";
         }
         else {
