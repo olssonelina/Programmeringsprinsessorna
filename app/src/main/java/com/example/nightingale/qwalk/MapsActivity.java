@@ -56,13 +56,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    public void OptionButtonClicked(View view) {
-        Intent intent = new Intent(this, CreateQuestionActivity.class);
+    public void createQuizClicked(View view) {
+        Intent intent = new Intent(this, CreateQuizActivity.class);
         startActivity(intent);
     }
 
     public void HelpButtonClicked(View view) {
-        Intent intent = new Intent(this, QuizActivity.class);
+        Intent intent = new Intent(this, CreateQuizActivity.class);
         startActivity(intent);
     }
 

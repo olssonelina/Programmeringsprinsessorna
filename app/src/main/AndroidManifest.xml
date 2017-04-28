@@ -91,7 +91,7 @@
         </activity>
 
 
-        <activity android:name=".QuizActivity"
+        <activity android:name=".CreateQuizActivity"
             android:parentActivityName=".MapsActivity" >
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
