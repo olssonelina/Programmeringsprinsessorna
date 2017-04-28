@@ -1,6 +1,7 @@
 package com.example.nightingale.qwalk;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +37,8 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class CreateQuestionActivity extends AppCompatActivity {
 
+    public static final int GET_POSITION_CODE = 97;
+
     //Välj olika namn på variabler och "ikoner"
     ArrayList<Question> questionsToSave = new ArrayList<Question>();
 
@@ -64,6 +67,9 @@ public class CreateQuestionActivity extends AppCompatActivity {
     RadioButton[] radioButtons = new RadioButton[4];
     TextView[] numbers = new TextView[4];
     EditText[] options = new EditText[4];
+
+    private double latitude;
+    private double longitude;
 
 
     int correctAnswer;
@@ -234,11 +240,21 @@ public class CreateQuestionActivity extends AppCompatActivity {
         correctAnswer = correctAnswer();
 
         Question question = new Question(questionTitle, questionOption1, questionOption2, questionOption3, questionOption4, correctAnswer);
+        question.setLocation(latitude, longitude);
         questionsToSave.add(question);
     }
 
     public void addPosition(View view) {
         Intent intent = new Intent(this, GetPositionActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, GET_POSITION_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == GET_POSITION_CODE) {
+            Location l = (Location) data.getExtras().get("result");
+            latitude = l.getLatitude();
+            longitude = l.getLongitude();
+        }
     }
 }
