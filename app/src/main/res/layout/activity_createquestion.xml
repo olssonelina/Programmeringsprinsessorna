@@ -213,7 +213,8 @@
             android:layout_marginLeft="200dp"
             android:ems="9"
             android:onClick="questionsDone"
-            android:text="Klar" />
+            android:text="Klar"
+            />
 
     </RelativeLayout>
 </LinearLayout>
