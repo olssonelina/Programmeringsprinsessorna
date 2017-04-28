@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/headline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Skapa nytt quiz"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:textSize="24dp"
+            />
+
+        <EditText
+            android:id="@+id/quizTitleField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+            android:ems="14"
+            android:inputType="textPersonName"
+            android:hint="Titel"
+            android:text="" />
+
+        <EditText
+            android:id="@+id/descriptionField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/quizTitleField"
+            android:layout_alignStart="@+id/quizTitleField"
+            android:layout_below="@+id/quizTitleField"
+            android:layout_marginTop="32dp"
+            android:ems="14"
+            android:hint="Kort beskrivning"
+            android:inputType="textMultiLine" />
+
+        <Button
+            android:id="@+id/addQuestionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="18dp"
+            android:ems="9"
+            android:text="Lägg till frågor"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="19dp"
+            android:layout_marginStart="19dp"
+            android:onClick="addQuestionButtonClicked"
+            />
+
+        <Button
+            android:id="@+id/createQuizButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Skapa quiz"
+            android:ems="9"
+            android:layout_alignBaseline="@+id/addQuestionButton"
+            android:layout_alignBottom="@+id/addQuestionButton"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
+            android:onClick="createQuiz"
+            />
+
+    </RelativeLayout>
+</LinearLayout>
