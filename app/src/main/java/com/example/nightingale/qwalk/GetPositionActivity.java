@@ -34,13 +34,20 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class GetPositionActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
+        GoogleMap.OnMapClickListener,
         LocationListener{
 
     private GoogleMap mMap;
     GoogleApiClient mGoogleApiClient;
-    Location mLastLocation;
     Marker mCurrLocationMarker;
     LocationRequest mLocationRequest;
+
+    public Location getLocation(){
+        Location a = new Location("");
+        a.setLatitude(mCurrLocationMarker.getPosition().latitude);
+        a.setLongitude(mCurrLocationMarker.getPosition().longitude);
+        return a;
+    }
 
 
     @Override
@@ -84,6 +91,7 @@ public class GetPositionActivity extends FragmentActivity implements OnMapReadyC
             buildGoogleApiClient();
             mMap.setMyLocationEnabled(true);
         }
+        mMap.setOnMapClickListener(this);
 
     }
 
@@ -121,17 +129,18 @@ public class GetPositionActivity extends FragmentActivity implements OnMapReadyC
     @Override
     public void onLocationChanged(Location location)
     {
-        mLastLocation = location;
+        /*mLastLocation = location;
         if (mCurrLocationMarker != null) {
             mCurrLocationMarker.remove();
-        }
+        }*/
 
         //Place current location marker
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
-        markerOptions.title("Current Position");
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+        markerOptions.title("Current Question");
+        markerOptions.draggable(true);
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
         mCurrLocationMarker = mMap.addMarker(markerOptions);
 
         //move map camera
@@ -143,6 +152,19 @@ public class GetPositionActivity extends FragmentActivity implements OnMapReadyC
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
         }
     }
+
+    public void PlaceQuestionButtonClicked(View view){
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("result", getLocation());
+        setResult(GetPositionActivity.RESULT_OK, returnIntent);
+        finish();
+    }
+
+    @Override
+    public void onMapClick(LatLng latLng) {
+        mCurrLocationMarker.setPosition(latLng);
+    }
+
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
@@ -215,5 +237,7 @@ public class GetPositionActivity extends FragmentActivity implements OnMapReadyC
             // You can add here other case statements according to your requirement.
         }
     }
+
+
 }
 
