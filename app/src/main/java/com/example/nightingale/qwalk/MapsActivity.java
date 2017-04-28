@@ -126,16 +126,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    public void createQuizClicked(View view) {
-        Intent intent = new Intent(this, CreateQuizActivity.class);
-        startActivity(intent);
-    }
-
-    public void HelpButtonClicked(View view) {
-        Intent intent = new Intent(this, CreateQuizActivity.class);
-        startActivity(intent);
-    }
-
     @Override
     public boolean onMarkerClick(Marker marker) {
         if (marker.equals(mMarker) && inQuestionRange) {
