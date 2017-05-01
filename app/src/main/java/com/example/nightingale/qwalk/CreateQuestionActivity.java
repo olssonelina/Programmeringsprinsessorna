@@ -11,7 +11,9 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +43,9 @@ public class CreateQuestionActivity extends AppCompatActivity {
 
     //Välj olika namn på variabler och "ikoner"
     ArrayList<Question> questionsToSave = new ArrayList<Question>();
+
+    RelativeLayout relativeLayout;
+    LinearLayout linearLayout;
 
     TextView questionNumber;
     EditText question;
@@ -81,6 +86,9 @@ public class CreateQuestionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createquestion); //ändra namnet till rätt xml-fil
+        relativeLayout = (RelativeLayout) findViewById((R.id.realtiveLayout));
+        linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
+
         question = (EditText) findViewById(R.id.questionField);
         option1 = (EditText) findViewById(R.id.option1Field);
         option2 = (EditText) findViewById(R.id.option2Field);
@@ -148,18 +156,86 @@ public class CreateQuestionActivity extends AppCompatActivity {
         options[3] = option4;
     }
 
+    public void testAddOption(final View view) {
+        String id = view.getResources().getResourceEntryName(view.getId());
+        String stringIndex = id.substring(6, 7);
+        final int index = Integer.parseInt(stringIndex) - 1;
+        
+        options[index].addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (index == 3) {
+                    numbers[index].setText("×");
+                    numbers[index].setVisibility(View.VISIBLE);
+                } else if (!options[index + 1].isShown()) {
+                    numbers[index].setText("×");
+                    numbers[index].setVisibility(View.VISIBLE);
+                    numbers[index + 1].setText("+");
+                    numbers[index + 1].setVisibility(View.VISIBLE);
+                    options[index + 1].setVisibility(View.VISIBLE);
+                    radioButtons[index + 1].setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+    }
+
 
     public void addOption(View view) {
-        numbers[addOptionCounter].setText("×");
-        numbers[addOptionCounter].setVisibility(View.VISIBLE);
-        if (addOptionCounter < 3) {
-            numbers[addOptionCounter + 1].setText("+");
-            numbers[addOptionCounter + 1].setVisibility(View.VISIBLE);
-            options[addOptionCounter + 1].setVisibility(View.VISIBLE);
-            radioButtons[addOptionCounter + 1].setVisibility(View.VISIBLE);
-            addOptionCounter++;
+        String id = view.getResources().getResourceEntryName(view.getId());
+        String stringIndex = id.substring(6, 7);
+        int index = Integer.parseInt(stringIndex) - 1;
+        if (index == 3) {
+            numbers[index].setText("×");
+            numbers[index].setVisibility(View.VISIBLE);
+        } else if (!options[index + 1].isShown()) {
+            numbers[index].setText("×");
+            numbers[index].setVisibility(View.VISIBLE);
+            numbers[index + 1].setText("+");
+            numbers[index + 1].setVisibility(View.VISIBLE);
+            options[index + 1].setVisibility(View.VISIBLE);
+            radioButtons[index + 1].setVisibility(View.VISIBLE);
         }
     }
+
+
+    public void removeOption(View view) {
+        String id = view.getResources().getResourceEntryName(view.getId());
+        String stringIndex = id.substring(6);
+        int index = Integer.parseInt(stringIndex) - 1;
+        if (numbers[index].getText().toString().equals("×")) {
+            options[index].getText().clear();
+            moveOptions(index);
+        }
+    }
+
+
+    public void moveOptions(int index) {
+        for (int i = index; i < options.length - 1; i++) {
+            options[i].setText(options[i + 1].getText());
+            options[i + 1].getText().clear();
+            numbers[numbers.length - 1].setText("+");
+        }
+        for (int j = 0; j < options.length - 1; j++) {
+            if (options[j].getText().toString().equals("")) {
+                numbers[j].setText("+");
+                if (options[j].getText().toString().equals("") && options[j + 1].getText().toString().equals("")) {
+                    numbers[j + 1].setVisibility(View.INVISIBLE);
+                    options[j + 1].setVisibility(View.INVISIBLE);
+                    radioButtons[j + 1].setVisibility(View.INVISIBLE);
+                }
+            }
+        }
+    }
+
 
     public int correctAnswer() {
         for (int i = 0; i < radioButtons.length; i++) {
@@ -177,7 +253,7 @@ public class CreateQuestionActivity extends AppCompatActivity {
         } else
             sendErrorMsg();
     }
-    
+
 
     public void questionsDone(View view) {
         if (isQuestionComplete()) {
@@ -217,11 +293,11 @@ public class CreateQuestionActivity extends AppCompatActivity {
         questionNumber.setText("Fråga " + questionCounter + ".");
         question.getText().clear();
 
-        for(int i = 0; i < options.length; i++) {
+        for (int i = 0; i < options.length; i++) {
             options[i].getText().clear();
         }
 
-        for(int i = 1; i < numbers.length; i++) {
+        for (int i = 1; i < numbers.length; i++) {
             options[i].setVisibility(View.INVISIBLE);
             numbers[i].setVisibility(View.INVISIBLE);
             radioButtons[i].setVisibility(View.INVISIBLE);
