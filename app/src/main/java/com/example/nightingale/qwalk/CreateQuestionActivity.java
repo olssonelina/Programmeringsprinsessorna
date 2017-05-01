@@ -160,7 +160,7 @@ public class CreateQuestionActivity extends AppCompatActivity {
         String id = view.getResources().getResourceEntryName(view.getId());
         String stringIndex = id.substring(6, 7);
         final int index = Integer.parseInt(stringIndex) - 1;
-        
+
         options[index].addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -292,9 +292,11 @@ public class CreateQuestionActivity extends AppCompatActivity {
         questionCounter++;
         questionNumber.setText("Fråga " + questionCounter + ".");
         question.getText().clear();
+        number1.setText("+");
 
         for (int i = 0; i < options.length; i++) {
             options[i].getText().clear();
+            radioButtons[i].setChecked(false);
         }
 
         for (int i = 1; i < numbers.length; i++) {
