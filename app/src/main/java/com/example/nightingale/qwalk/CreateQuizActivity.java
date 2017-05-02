@@ -1,67 +1,87 @@
 package com.example.nightingale.qwalk;
 
-        import android.app.Dialog;
-        import android.app.ProgressDialog;
-        import android.content.Intent;
-        import android.os.AsyncTask;
-        import android.support.v7.app.AppCompatActivity;
-        import android.os.Bundle;
-        import android.util.Log;
-        import android.view.View;
-        import android.widget.EditText;
-        import android.widget.Toast;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
-        import org.json.JSONArray;
-        import org.json.JSONObject;
+import org.json.JSONObject;
 
-        import java.io.BufferedReader;
-        import java.io.BufferedWriter;
-        import java.io.InputStreamReader;
-        import java.io.OutputStream;
-        import java.io.OutputStreamWriter;
-        import java.net.HttpURLConnection;
-        import java.net.URL;
-        import java.net.URLEncoder;
-        import java.sql.Timestamp;
-        import java.util.Iterator;
-        import java.util.UUID;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.Iterator;
 
-        import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.HttpsURLConnection;
 
-public class LoginActivity extends AppCompatActivity {
-    EditText UsernameInput;
-    EditText PasswordInput;
-    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+/**
+ * Created by Kraft on 2017-04-27.
+ */
+
+public class CreateQuizActivity extends AppCompatActivity {
+
+    EditText quizTitle;
+    EditText quizDescription;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        UsernameInput   = (EditText)findViewById(R.id.username);
-        PasswordInput   = (EditText)findViewById(R.id.password);
+        setContentView(R.layout.activity_createquiz);
+
+        quizTitle = (EditText) findViewById(R.id.quizTitleField);
+        quizDescription = (EditText) findViewById(R.id.descriptionField);
+
     }
 
-    /** Called when the user taps the Send button */
-    public void guestButtonClicked(View view) {
-        Intent intent = new Intent(this, MenuActivity.class);
+    public void addQuestionButtonClicked(View view) {
+        Intent intent = new Intent(this, CreateQuestionActivity.class);
         startActivity(intent);
     }
-    public void RegisterButtonClicked(View view) {
-        Intent intent = new Intent(this, RegisterActivity.class);
-        startActivity(intent);
-    }    private ProgressDialog progress;
 
+    public void createQuiz(View view) {
+        if(!isQuizComplete()){
+            sendErrorMsg();
+        }
+        saveQuiz();
+    }
 
+    public boolean isQuizComplete() {
+        if(quizTitle.getText().toString().equals("") || quizDescription.getText().toString().equals("")){
+            return false;
+        }
+        return true;
+    }
 
+    public void sendErrorMsg() {
+        String msg;
+        if(quizTitle.getText().toString().equals("")){
+            msg = "Fyll i titel";
+        }
+        else {
+            msg = "Fyll i beskrivning";
+        }
+        Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 160);
+        toast.show();
+    }
 
-
-    public void LoginButtonClicked(View view) {
-            new SendRequest().execute();
+    public void saveQuiz() {
+        Quiz quiz = new Quiz(quizTitle.getText().toString(), quizDescription.getText().toString());
     }
 
     public class SendRequest extends AsyncTask<String, Void, String> {
 
-        String Username = UsernameInput.getText().toString();
-        String Password = PasswordInput.getText().toString();
+
         protected void onPreExecute(){}
 
         protected String doInBackground(String... arg0) {
@@ -72,9 +92,15 @@ public class LoginActivity extends AppCompatActivity {
 
                 JSONObject postDataParams = new JSONObject();
 
-
-                postDataParams.put("username", Username);
-                postDataParams.put("password", Password);
+                /*
+                postDataParams.put("description", questionTitle);
+                postDataParams.put("option1", questionOption1);
+                postDataParams.put("option2", questionOption2);
+                postDataParams.put("option3", questionOption3);
+                postDataParams.put("option4", questionOption4);
+                //postDataParams.put("longitude", );
+                //postDataParams.put("latitude", );
+                */
 
 
                 Log.e("params",postDataParams.toString());
@@ -169,5 +195,6 @@ public class LoginActivity extends AppCompatActivity {
         }
         return result.toString();
     }
-}
 
+
+}

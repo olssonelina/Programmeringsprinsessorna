@@ -5,10 +5,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
@@ -26,122 +27,33 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.List;
+/**
+ * Created by Elina Olsson on 2017-04-27.
+ */
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
+public class GetPositionActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener,
-        GoogleMap.OnMarkerClickListener {
+        GoogleMap.OnMapClickListener,
+        LocationListener{
 
     private GoogleMap mMap;
     GoogleApiClient mGoogleApiClient;
+    Marker mCurrLocationMarker;
     LocationRequest mLocationRequest;
 
-    private Location mLastLocation;
-    private Location mMarkerLocation;
-    private Marker mMarker;
-
-    public final static int QUESTION_RANGE = 25;
-    private boolean inQuestionRange = false;
-    private List<Question> currentQuiz;
-    private Question currentQuestion;
-
-    /**
-     * This method is called whenever the location of the device is updated.
-     * Checks distances to the location of questions and resets the map if necessary.
-     * Also saves the current location.
-     *
-     * @param location The device's current location
-     */
-    @Override
-    public void onLocationChanged(Location location) {
-
-        if (mMarker == null) {
-            resetMap(location);
-            currentQuiz = StandardQuizzes.getChalmersQuiz();
-            nextQuestion();
-        }
-
-        mLastLocation = location;
-
-        if (location.distanceTo(mMarkerLocation) < QUESTION_RANGE) {
-            mMarker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
-            inQuestionRange = true;
-        }
-
-        /*//stop location updates
-        if (mGoogleApiClient != null) {
-            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-        }*/
-
+    public Location getLocation(){
+        Location a = new Location("");
+        a.setLatitude(mCurrLocationMarker.getPosition().latitude);
+        a.setLongitude(mCurrLocationMarker.getPosition().longitude);
+        return a;
     }
 
-    private void resetMap(Location currentLocation) {
-        inQuestionRange = false;
-        LatLng latitudeLongitude = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latitudeLongitude));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
-    }
-
-    private void nextQuestion(){
-        inQuestionRange = false; // Reset the inRange boolean
-        if (currentQuestion == null){ // Start quiz
-            currentQuestion = currentQuiz.get(0);
-            showQuestionOnMap(currentQuestion);
-            return;
-        }
-        else {
-            if(currentQuestion.getLatitude() == currentQuiz.get(currentQuiz.size()-1).getLatitude()){ // End quiz
-                //TODO det som ska hända när ett quiz är klart
-                finish();
-            }else { // Continue quiz by figuring out which the next question is
-                for (int i = 0; i < currentQuiz.size() - 1; i++){
-                    if (currentQuestion.getLatitude() == currentQuiz.get(i).getLatitude()){ //TODO det borde vara en korrekt equalsmetod
-                        currentQuestion = currentQuiz.get(i+1);
-                        showQuestionOnMap(currentQuestion);
-                        return;
-                    }
-                }
-            }
-        }
-    }
-
-    private void showQuestionOnMap(Question question){
-        if (mMarker == null){
-            MarkerOptions markerOptions = new MarkerOptions();
-            markerOptions.position(new LatLng(question.getLatitude(), question.getLongitude()));
-            markerOptions.title("Question");
-            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-            mMarker = mMap.addMarker(markerOptions);
-        }
-        else {
-            mMarker.setPosition(new LatLng(question.getLatitude(), question.getLongitude()));
-            mMarker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-        }
-        Location l = new Location(""); // TODO denna omvandlingen är dum, gör en till getmetod i question
-        l.setLongitude(question.getLongitude());
-        l.setLatitude(question.getLatitude());
-        mMarkerLocation = l;
-
-    }
-
-    @Override
-    public boolean onMarkerClick(Marker marker) {
-        if (marker.equals(mMarker) && inQuestionRange) {
-            /*Intent intent = new Intent(this, AnswerActivity.class); //TODO här öppnas istället frågan.
-            startActivity(intent);*/
-            nextQuestion(); //TODO flytta denna till en metod som kollar när frågan är avslutad.
-        }
-        return false;
-    }
-
-    //region Hidden code
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
+        setContentView(R.layout.activity_getposition);
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
@@ -179,8 +91,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             buildGoogleApiClient();
             mMap.setMyLocationEnabled(true);
         }
-
-        mMap.setOnMarkerClickListener(this);
+        mMap.setOnMapClickListener(this);
 
     }
 
@@ -195,6 +106,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onConnected(Bundle bundle) {
+
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(1000);
         mLocationRequest.setFastestInterval(1000);
@@ -204,14 +116,60 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 == PackageManager.PERMISSION_GRANTED) {
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
         }
+
+    }
+
+
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onLocationChanged(Location location)
+    {
+        /*mLastLocation = location;
+        if (mCurrLocationMarker != null) {
+            mCurrLocationMarker.remove();
+        }*/
+
+        //Place current location marker
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(latLng);
+        markerOptions.title("Current Question");
+        markerOptions.draggable(true);
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
+        mCurrLocationMarker = mMap.addMarker(markerOptions);
+
+        //move map camera
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+
+        //stop location updates
+        if (mGoogleApiClient != null) {
+            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+        }
+    }
+
+    public void PlaceQuestionButtonClicked(View view){
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("result", getLocation());
+        setResult(GetPositionActivity.RESULT_OK, returnIntent);
+        finish();
+    }
+
+    @Override
+    public void onMapClick(LatLng latLng) {
+        mCurrLocationMarker.setPosition(latLng);
     }
 
 
     @Override
-    public void onConnectionSuspended(int i) {}
+    public void onConnectionFailed(ConnectionResult connectionResult) {
 
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {}
+    }
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
@@ -281,5 +239,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-//endregion
 }
+
