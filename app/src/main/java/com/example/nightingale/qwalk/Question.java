@@ -3,11 +3,13 @@ package com.example.nightingale.qwalk;
 import android.location.Location;
 import android.media.Image;
 
+import java.io.Serializable;
+
 /**
  * Created by Elina Olsson on 2017-04-24.
  */
 
-public class Question {
+public class Question{
 
     private String questionTitle;
     private String option1;
@@ -38,5 +40,34 @@ public class Question {
 
     public double getLongitude() {
         return location.getLongitude();
+    }
+
+
+    public String getQuestionTitle() {
+        return questionTitle;
+    }
+
+    public String getOption1() {
+        return option1;
+    }
+
+    public String getOption2() {
+        return option2;
+    }
+
+    public String getOption3() {
+        return option3;
+    }
+
+    public String getOption4() {
+        return option4;
+    }
+
+    public int getCorrectAnswer() {
+        return correctAnswer;
+    }
+
+    public Location getLocation() {
+        return location;
     }
 }

@@ -47,6 +47,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private List<Question> currentQuiz;
     private Question currentQuestion;
 
+    public static final int ANSWER_CODE = 4331;
+
     /**
      * This method is called whenever the location of the device is updated.
      * Checks distances to the location of questions and resets the map if necessary.
@@ -119,23 +121,40 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMarker.setPosition(new LatLng(question.getLatitude(), question.getLongitude()));
             mMarker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
         }
-        Location l = new Location(""); // TODO denna omvandlingen är dum, gör en till getmetod i question
-        l.setLongitude(question.getLongitude());
-        l.setLatitude(question.getLatitude());
-        mMarkerLocation = l;
+        mMarkerLocation = question.getLocation();;
 
     }
 
     @Override
     public boolean onMarkerClick(Marker marker) {
         if (marker.equals(mMarker) && inQuestionRange) {
-            /*Intent intent = new Intent(this, AnswerActivity.class); //TODO här öppnas istället frågan.
-            startActivity(intent);*/
-            nextQuestion(); //TODO flytta denna till en metod som kollar när frågan är avslutad.
+            Intent intent = new Intent(getBaseContext(), AnswerActivity.class);
+
+            Bundle b = new Bundle();
+            b.putString("questionTitle", currentQuestion.getQuestionTitle());
+            b.putString("option1", currentQuestion.getOption1());
+            b.putString("option2", currentQuestion.getOption2());
+            b.putString("option3", currentQuestion.getOption3());
+            b.putString("option4", currentQuestion.getOption4());
+            intent.putExtras(b);
+            startActivityForResult(intent, ANSWER_CODE);
         }
         return false;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == ANSWER_CODE) {
+            int answer = (int) data.getExtras().get("answer");
+
+            //TODO hantera resultatet
+
+            Toast.makeText(this, "Chosen answer: " + answer, Toast.LENGTH_LONG).show();
+            nextQuestion();
+
+
+        }
+    }
     //region Hidden code
 
     @Override
