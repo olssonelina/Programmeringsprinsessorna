@@ -44,7 +44,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public final static int QUESTION_RANGE = 25;
     private boolean inQuestionRange = false;
-    private List<Question> currentQuiz;
+    private Quiz currentQuiz;
     private Question currentQuestion;
 
     public static final int ANSWER_CODE = 4331;
@@ -61,7 +61,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         if (mMarker == null) {
             resetMap(location);
-            currentQuiz = StandardQuizzes.getChalmersQuiz();
             nextQuestion();
         }
 
@@ -84,6 +83,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng latitudeLongitude = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latitudeLongitude));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
+        currentQuiz =  getIntent().getParcelableExtra("quiz");
     }
 
     private void nextQuestion(){
