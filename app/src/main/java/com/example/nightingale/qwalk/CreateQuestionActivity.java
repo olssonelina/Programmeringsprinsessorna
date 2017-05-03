@@ -258,8 +258,10 @@ public class CreateQuestionActivity extends AppCompatActivity {
     public void questionsDone(View view) {
         if (isQuestionComplete()) {
             saveQuestion();
-            Intent intent = new Intent(this, CreateQuizActivity.class);
-            startActivity(intent);
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("questions", questionsToSave);
+            setResult(GetPositionActivity.RESULT_OK, returnIntent);
+            finish();
         } else
             sendErrorMsg();
     }
