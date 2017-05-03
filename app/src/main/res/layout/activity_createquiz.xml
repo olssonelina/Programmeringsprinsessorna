@@ -11,12 +11,11 @@
             android:id="@+id/headline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:text="Skapa nytt quiz"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:textSize="24dp"
-            />
+            android:layout_marginTop="40dp"
+            android:text="Skapa nytt quiz"
+            android:textSize="24dp" />
 
         <EditText
             android:id="@+id/quizTitleField"
@@ -25,8 +24,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="100dp"
             android:ems="14"
-            android:inputType="textPersonName"
             android:hint="Titel"
+            android:inputType="textPersonName"
             android:text="" />
 
         <EditText
@@ -45,31 +44,48 @@
             android:id="@+id/addQuestionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="18dp"
-            android:ems="9"
-            android:text="Lägg till frågor"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="19dp"
-            android:layout_marginStart="19dp"
+            android:layout_below="@+id/descriptionField"
+            android:layout_marginLeft="28dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="59dp"
+            android:ems="9"
             android:onClick="addQuestionButtonClicked"
-            />
+            android:text="Lägg till frågor" />
 
         <Button
             android:id="@+id/createQuizButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Skapa quiz"
-            android:ems="9"
             android:layout_alignBaseline="@+id/addQuestionButton"
             android:layout_alignBottom="@+id/addQuestionButton"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginRight="20dp"
+            android:layout_alignParentRight="true"
             android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:ems="9"
             android:onClick="createQuiz"
-            />
+            android:text="Spara" />
+
+        <ListView
+            android:id="@+id/questionList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/addQuestionButton"
+            android:layout_marginTop="50dp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Frågor"
+            android:layout_below="@+id/addQuestionButton"
+            android:layout_alignLeft="@+id/addQuestionButton"
+            android:layout_alignStart="@+id/addQuestionButton"
+            android:layout_marginTop="12dp" />
 
     </RelativeLayout>
 </LinearLayout>

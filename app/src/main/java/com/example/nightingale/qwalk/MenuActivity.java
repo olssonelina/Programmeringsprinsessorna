@@ -80,8 +80,11 @@ public class MenuActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CREATE_QUIZ_CODE) {
 
-            quizzes.add((Quiz)data.getParcelableExtra("quiz"));
+            Quiz newQuiz = (Quiz)data.getParcelableExtra("quiz");
+            quizzes.add(newQuiz);
             loadList();
+
+            //TODO ladda upp nya quizzen här!
         }
     }
 }

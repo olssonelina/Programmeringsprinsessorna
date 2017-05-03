@@ -8,8 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -41,6 +43,7 @@ public class CreateQuizActivity extends AppCompatActivity {
     EditText quizTitle;
     EditText quizDescription;
     ArrayList<Question> questions = new ArrayList<>();
+    private ListView questionList;
 
     public final static int QUESTION_CODE = 7;
 
@@ -107,16 +110,10 @@ public class CreateQuizActivity extends AppCompatActivity {
 
     public void saveQuiz() throws InterruptedException {
 
-       /* Quiz quiz = new Quiz(quizTitle.getText().toString(), quizDescription.getText().toString());
+       Quiz quiz = new Quiz(quizTitle.getText().toString(), quizDescription.getText().toString());
         quiz.setQuestions(questions);
 
-        //TODO det är här en får lägga upp det i databasen med kanske
 
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra("quiz", quiz);
-        setResult(GetPositionActivity.RESULT_OK, returnIntent);
-        finish();
-        */
 
         counter = 0;
 
@@ -137,6 +134,12 @@ public class CreateQuizActivity extends AppCompatActivity {
         readycheck = 1;
         counter = 0;
         new SendRequest().execute();
+
+
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("quiz", quiz);
+        setResult(GetPositionActivity.RESULT_OK, returnIntent);
+        finish();
 
     }
 
@@ -304,8 +307,30 @@ public class CreateQuizActivity extends AppCompatActivity {
 
 
             questions = (ArrayList<Question>) data.getSerializableExtra("questions");
+            loadList();
 
         }
+    }
+
+    private void loadList() {
+        questionList = (ListView) findViewById(R.id.questionList);
+        String[] values = new String[questions.size()];
+        for (int i = 0; i < values.length; i++) {
+            values[i] = questions.get(i).getQuestionTitle();
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, values);
+
+        questionList.setAdapter(adapter);
+
+        /*questionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });*/
     }
 
 
