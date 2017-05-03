@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/realtiveLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="visible">
@@ -18,12 +21,11 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lägg till position"
                 android:layout_marginLeft="130dp"
                 android:layout_marginTop="400dp"
-                android:textColor="@color/wallet_holo_blue_light"
                 android:onClick="addPosition"
-                />
+                android:text="Lägg till position"
+                android:textColor="@color/wallet_holo_blue_light" />
         </ScrollView>
 
         <TextView
@@ -50,10 +52,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/questionField"
-            android:layout_marginTop="110dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="100dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:text="+"
             android:textSize="24dp"
+            android:onClick="removeOption"
             />
 
         <TextView
@@ -61,33 +68,51 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/number1"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="50dp"
-            android:layout_marginLeft="20dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:text="+"
             android:textSize="24dp"
-            android:visibility="invisible" />
+            android:visibility="invisible"
+            android:onClick="removeOption"
+            />
 
         <TextView
             android:id="@+id/number3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/number2"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="50dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:text="3."
             android:textSize="24dp"
-            android:visibility="invisible" />
+            android:visibility="invisible"
+            android:onClick="removeOption"
+            />
 
         <TextView
             android:id="@+id/number4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/number3"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="50dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:text="4."
             android:textSize="24dp"
-            android:visibility="invisible" />
+            android:visibility="invisible"
+            android:onClick="removeOption"
+            />
 
 
         <EditText
@@ -98,10 +123,11 @@
             android:layout_marginLeft="50dp"
             android:layout_marginTop="100dp"
             android:ems="12"
-            android:maxLength="35"
-            android:onClick="addOption"
             android:hint="Lägg till alternativ"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:maxLength="35"
+            android:onClick="testAddOption"
+            />
 
         <EditText
             android:id="@+id/option2Field"
@@ -111,10 +137,10 @@
             android:layout_alignTop="@+id/option1Field"
             android:layout_marginTop="50dp"
             android:ems="12"
-            android:maxLength="35"
             android:hint="Lägg till alternativ"
             android:inputType="textPersonName"
-            android:onClick="addOption"
+            android:maxLength="35"
+            android:onClick="testAddOption"
             android:visibility="invisible" />
 
         <EditText
@@ -125,10 +151,10 @@
             android:layout_alignTop="@+id/option2Field"
             android:layout_marginTop="50dp"
             android:ems="12"
-            android:maxLength="35"
             android:hint="Lägg till alternativ"
             android:inputType="textPersonName"
-            android:onClick="addOption"
+            android:maxLength="35"
+            android:onClick="testAddOption"
             android:visibility="invisible" />
 
         <EditText
@@ -139,19 +165,19 @@
             android:layout_alignTop="@+id/option3Field"
             android:layout_marginTop="50dp"
             android:ems="12"
-            android:maxLength="35"
             android:hint="Lägg till alternativ"
             android:inputType="textPersonName"
-            android:onClick="addOption"
+            android:maxLength="35"
+            android:onClick="testAddOption"
             android:visibility="invisible" />
 
         <RadioGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="310dp"
             android:layout_alignTop="@+id/questionField"
+            android:layout_marginLeft="310dp"
             android:layout_marginTop="100dp"
-            android:visibility="visible" >
+            android:visibility="visible">
 
             <RadioButton
                 android:id="@+id/radioButton1"
@@ -209,12 +235,11 @@
             android:id="@+id/done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="450dp"
             android:layout_marginLeft="200dp"
+            android:layout_marginTop="450dp"
             android:ems="9"
             android:onClick="questionsDone"
-            android:text="Klar"
-            />
+            android:text="Klar" />
 
     </RelativeLayout>
 </LinearLayout>

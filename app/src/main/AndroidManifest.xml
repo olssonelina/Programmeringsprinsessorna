@@ -49,11 +49,11 @@
         </activity>
 
         <activity android:name=".MapsActivity"
-            android:parentActivityName=".LoginActivity" >
+            android:parentActivityName=".MenuActivity" >
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".LoginActivity" />
+                android:value=".MenuActivity" />
         </activity>
 
         <activity android:name=".RegisterActivity"
@@ -65,12 +65,12 @@
         </activity>
 
         <activity android:name=".CreateQuestionActivity"
-            android:parentActivityName=".MapsActivity"
+            android:parentActivityName=".CreateQuizActivity"
             android:windowSoftInputMode="adjustPan">
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MapsActivity" />
+                android:value=".CreateQuizActivity" />
         </activity>
 
         <activity android:name=".AnswerActivity"
@@ -92,11 +92,20 @@
 
 
         <activity android:name=".CreateQuizActivity"
-            android:parentActivityName=".MapsActivity" >
+            android:parentActivityName=".MenuActivity" >
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MapsActivity" />
+                android:value=".MenuActivity" />
+
+        </activity>
+
+        <activity android:name=".MenuActivity"
+            android:parentActivityName=".LoginActivity" >
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".LoginActivity" />
 
         </activity>
 

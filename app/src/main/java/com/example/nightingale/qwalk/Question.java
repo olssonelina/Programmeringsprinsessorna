@@ -2,6 +2,10 @@ package com.example.nightingale.qwalk;
 
 import android.location.Location;
 import android.media.Image;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
 
 import java.util.ArrayList;
 
@@ -9,7 +13,7 @@ import java.util.ArrayList;
  * Created by Elina Olsson on 2017-04-24.
  */
 
-public class Question {
+public class Question implements Parcelable {
 
     public static ArrayList<Question> questionsToSend = new ArrayList<Question>();
 
@@ -47,6 +51,10 @@ public class Question {
         return location.getLongitude();
     }
 
+
+
+
+
     public String getOption1() {
         return option1;
     }
@@ -78,4 +86,44 @@ public class Question {
     public static ArrayList<Question> getQuestionsToSend(){
         return questionsToSend;
     }
+
+
+    protected Question(Parcel in) {
+        questionTitle = in.readString();
+        option1 = in.readString();
+        option2 = in.readString();
+        option3 = in.readString();
+        option4 = in.readString();
+        correctAnswer = in.readInt();
+        location = (Location) in.readValue(Location.class.getClassLoader());
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(questionTitle);
+        dest.writeString(option1);
+        dest.writeString(option2);
+        dest.writeString(option3);
+        dest.writeString(option4);
+        dest.writeInt(correctAnswer);
+        dest.writeValue(location);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Question> CREATOR = new Parcelable.Creator<Question>() {
+        @Override
+        public Question createFromParcel(Parcel in) {
+            return new Question(in);
+        }
+
+        @Override
+        public Question[] newArray(int size) {
+            return new Question[size];
+        }
+    };
 }

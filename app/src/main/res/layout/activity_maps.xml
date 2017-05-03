@@ -24,9 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="Create quiz"
-                android:onClick="createQuizClicked"
-                />
+                android:text="Create quiz" />
 
             <ToggleButton
                 android:id="@+id/toggleButton"
@@ -47,8 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="Help"
-                android:onClick="HelpButtonClicked" />
+                android:text="Help" />
 
         </LinearLayout>
 

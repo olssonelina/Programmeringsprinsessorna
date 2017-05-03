@@ -2,12 +2,10 @@ package com.example.nightingale.qwalk;
 
 import android.content.Intent;
 import android.location.Location;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
@@ -15,21 +13,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.net.ssl.HttpsURLConnection;
 
 /**
  * Created by Elina Olsson on 2017-04-24.
@@ -39,13 +23,12 @@ public class CreateQuestionActivity extends AppCompatActivity {
 
     public static final int GET_POSITION_CODE = 97;
 
-    //Välj olika namn på variabler och "ikoner"
-
+    ArrayList<Question> questionsToSave = new ArrayList<Question>();
 
 
     TextView questionNumber;
     EditText question;
-    EditText option1;       //Kolla upp så det blev rätt med variabler och textfält
+    EditText option1;
     EditText option2;
     EditText option3;
     EditText option4;
@@ -58,9 +41,8 @@ public class CreateQuestionActivity extends AppCompatActivity {
     RadioButton radioButton3;
     RadioButton radioButton4;
 
-
     String questionTitle;
-    String questionOption1;     //Gör detta till en String array istället?
+    String questionOption1;
     String questionOption2;
     String questionOption3;
     String questionOption4;
@@ -69,70 +51,42 @@ public class CreateQuestionActivity extends AppCompatActivity {
     TextView[] numbers = new TextView[4];
     EditText[] options = new EditText[4];
 
-    private double latitude;
-    private double longitude;
-
+    private double latitude = 0;
+    private double longitude = 0;
 
     int correctAnswer;
 
     int questionCounter = 1;
-    int addOptionCounter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_createquestion); //ändra namnet till rätt xml-fil
+        setContentView(R.layout.activity_createquestion);
+
         question = (EditText) findViewById(R.id.questionField);
+
         option1 = (EditText) findViewById(R.id.option1Field);
         option2 = (EditText) findViewById(R.id.option2Field);
         option3 = (EditText) findViewById(R.id.option3Field);
         option4 = (EditText) findViewById(R.id.option4Field);
+
         number1 = (TextView) findViewById(R.id.number1);
         number2 = (TextView) findViewById(R.id.number2);
         number3 = (TextView) findViewById(R.id.number3);
         number4 = (TextView) findViewById(R.id.number4);
+
         radioButton1 = (RadioButton) findViewById(R.id.radioButton1);
         radioButton2 = (RadioButton) findViewById(R.id.radioButton2);
         radioButton3 = (RadioButton) findViewById(R.id.radioButton3);
         radioButton4 = (RadioButton) findViewById(R.id.radioButton4);
+
         questionNumber = (TextView) findViewById(R.id.questionX);
 
-        /*option1.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                numbers[addOptionCounter].setText("×");
-                numbers[addOptionCounter].setVisibility(View.VISIBLE);
-                if (addOptionCounter != 3) {
-                    numbers[addOptionCounter + 1].setText("+");
-                    numbers[addOptionCounter + 1].setVisibility(View.VISIBLE);
-                    options[addOptionCounter + 1].setVisibility(View.VISIBLE);
-                    radioButtons[addOptionCounter + 1].setVisibility(View.VISIBLE);
-                    if(addOptionCounter == 1)
-                        addOptionCounter++;
-                    else if (addOptionCounter == 2)
-                        addOptionCounter++;
-                    else if (addOptionCounter == 3)
-                        addOptionCounter++;
-                }
-            }
-        });*/
-
-        makeArrays();
-        //option1.addTextChangedListener(new addListenerOnTextChange(this, option1));
+        fillArrays();
 
     }
 
-    public void makeArrays() {
+    public void fillArrays() {
         radioButtons[0] = radioButton1;
         radioButtons[1] = radioButton2;
         radioButtons[2] = radioButton3;
@@ -149,27 +103,148 @@ public class CreateQuestionActivity extends AppCompatActivity {
         options[3] = option4;
     }
 
+    /**
+     * Makes it possible for the user to add one more option by using a TextChangeListener by
+     * showing a new text field, radio button and a "+" symbol. It also changes the symbol "+"
+     * to "×" to show that an option is added and make it possible to delete it.
+     *
+     * Problem: The TextChangeListener only works if the text field is clicked twice
+     *
+     * @param view origin of clicked component
+     */
+
+    public void testAddOption(final View view) {
+
+        //Get index for current option in the option arrays by looking into the view's id
+        String id = view.getResources().getResourceEntryName(view.getId());
+        String stringIndex = id.substring(6, 7);
+        final int index = Integer.parseInt(stringIndex) - 1;
+
+        options[index].addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (index == 3) {
+                    numbers[index].setText("×");
+                    numbers[index].setVisibility(View.VISIBLE);
+                } else if (!options[index + 1].isShown()) {
+                    numbers[index].setText("×");
+                    numbers[index].setVisibility(View.VISIBLE);
+                    numbers[index + 1].setText("+");
+                    numbers[index + 1].setVisibility(View.VISIBLE);
+                    options[index + 1].setVisibility(View.VISIBLE);
+                    radioButtons[index + 1].setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+    }
+
+    /**
+     * Makes it possible for the user to add one more option when clicking the text field by
+     * showing a new text field, radio button and a "+" symbol. It also changes the symbol "+"
+     * to "×" to show that an option is added and make it possible to delete it.
+     *
+     * It only works if the text field is clicked twice
+     *
+     * Currently using the testAddOption method instead
+     *
+     * @param view origin of clicked component
+     */
 
     public void addOption(View view) {
-        numbers[addOptionCounter].setText("×");
-        numbers[addOptionCounter].setVisibility(View.VISIBLE);
-        if (addOptionCounter < 3) {
-            numbers[addOptionCounter + 1].setText("+");
-            numbers[addOptionCounter + 1].setVisibility(View.VISIBLE);
-            options[addOptionCounter + 1].setVisibility(View.VISIBLE);
-            radioButtons[addOptionCounter + 1].setVisibility(View.VISIBLE);
-            addOptionCounter++;
+
+        //Get index for current option in the option arrays by looking into the view's id
+        String id = view.getResources().getResourceEntryName(view.getId());
+        String stringIndex = id.substring(6, 7);
+        int index = Integer.parseInt(stringIndex) - 1;
+
+        if (index == 3) {
+            numbers[index].setText("×");
+            numbers[index].setVisibility(View.VISIBLE);
+        } else if (!options[index + 1].isShown()) {
+            numbers[index].setText("×");
+            numbers[index].setVisibility(View.VISIBLE);
+            numbers[index + 1].setText("+");
+            numbers[index + 1].setVisibility(View.VISIBLE);
+            options[index + 1].setVisibility(View.VISIBLE);
+            radioButtons[index + 1].setVisibility(View.VISIBLE);
         }
     }
 
-    public int correctAnswer() {
-        for (int i = 0; i < radioButtons.length; i++) {
-            if (radioButtons[i].isChecked()) {
-                return i;
+
+    /**
+     * Clears text field if the icon "×" is clicked
+    */
+
+    public void removeOption(View view) {
+        //Get index for current option in the option array by looking into the view's id
+        String id = view.getResources().getResourceEntryName(view.getId());
+        String stringIndex = id.substring(6);
+        int index = Integer.parseInt(stringIndex) - 1;
+
+        if (numbers[index].getText().toString().equals("×")) {
+            options[index].getText().clear();
+            shiftOptions(index);
+        }
+    }
+
+
+    /**
+     * Shifts options and make unused text fields invisible if options are removed.
+     *
+     * @param index
+     */
+
+    public void shiftOptions(int index) {
+        for (int i = index; i < options.length - 1; i++) {
+            options[i].setText(options[i + 1].getText());
+            options[i + 1].getText().clear();
+            numbers[numbers.length - 1].setText("+");
+        }
+        for (int j = 0; j < options.length - 1; j++) {
+            if (options[j].getText().toString().equals("")) {
+                numbers[j].setText("+");
+                if (options[j].getText().toString().equals("") && options[j + 1].getText().toString().equals("")) {
+                    numbers[j + 1].setVisibility(View.INVISIBLE);
+                    options[j + 1].setVisibility(View.INVISIBLE);
+                    radioButtons[j + 1].setVisibility(View.INVISIBLE);
+                }
             }
         }
-        return 77;
     }
+
+
+    /**
+     * Returns index of the right answer by looking which radio button is checked.
+     *
+     * @return index of the right answer
+     */
+
+    public int correctAnswer() {
+        for (int index = 0; index < radioButtons.length; index++) {
+            if (radioButtons[index].isChecked()) {
+                return index;
+            }
+        }
+        return 77;          //is never going to reach this
+    }
+
+
+    /**
+     * Checks if all all parts of a question is completed. If it is completed the question is
+     * saved and the user can type in the next question. If not, the user gets error messages
+     * of which information is missing.
+     *
+     * @param view origin of clicked component
+     */
 
     public void addQuestion(View view) {
         if (isQuestionComplete()) {
@@ -178,25 +253,34 @@ public class CreateQuestionActivity extends AppCompatActivity {
         } else
             sendErrorMsg();
     }
-    
+
+    /**
+     * Checks if all all parts of the question is completed. If it is completed the question is
+     * saved and the user goes back to the view where he/she started to create the quiz. If the
+     * question is not completed the user gets error messages of which information is missing.
+     *
+     * @param view origin of clicked component
+     */
 
     public void questionsDone(View view) {
         if (isQuestionComplete()) {
             saveQuestion();
-            Intent intent = new Intent(this, CreateQuizActivity.class);
-            startActivity(intent);
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("questions", questionsToSave);
+            setResult(GetPositionActivity.RESULT_OK, returnIntent);
+            finish();
         } else
             sendErrorMsg();
     }
 
-    public boolean isQuestionComplete() {
-        if (question.getText().toString().equals("") || option2.getText().toString().equals("") || !(radioButton1.isChecked() || radioButton2.isChecked() || radioButton3.isChecked() || radioButton4.isChecked())) {
+    private boolean isQuestionComplete() {
+        if (question.getText().toString().equals("") || option2.getText().toString().equals("") || !(radioButton1.isChecked() || radioButton2.isChecked() || radioButton3.isChecked() || radioButton4.isChecked()) || latitude == 0 || longitude == 0) {
             return false;
         }
         return true;
     }
 
-    public void sendErrorMsg() {
+    private void sendErrorMsg() {
         String errorMsg;
         if (question.getText().toString().equals("")) {
             errorMsg = "Skriv en fråga";
@@ -204,6 +288,8 @@ public class CreateQuestionActivity extends AppCompatActivity {
             errorMsg = "Du måste ha minst 2 alternativ";
         } else if (!(radioButton1.isChecked() || radioButton2.isChecked() || radioButton3.isChecked() || radioButton4.isChecked())) {
             errorMsg = "Välj rätt svarsalternativ";
+        } else if (latitude == 0 || longitude == 0) {
+            errorMsg = "Välj position";
         } else {
             errorMsg = "";
         }
@@ -217,12 +303,14 @@ public class CreateQuestionActivity extends AppCompatActivity {
         questionCounter++;
         questionNumber.setText("Fråga " + questionCounter + ".");
         question.getText().clear();
+        number1.setText("+");
 
-        for(int i = 0; i < options.length; i++) {
+        for (int i = 0; i < options.length; i++) {
             options[i].getText().clear();
+            radioButtons[i].setChecked(false);
         }
 
-        for(int i = 1; i < numbers.length; i++) {
+        for (int i = 1; i < numbers.length; i++) {
             options[i].setVisibility(View.INVISIBLE);
             numbers[i].setVisibility(View.INVISIBLE);
             radioButtons[i].setVisibility(View.INVISIBLE);
@@ -243,6 +331,12 @@ public class CreateQuestionActivity extends AppCompatActivity {
         Question question = new Question(questionTitle, questionOption1, questionOption2, questionOption3, questionOption4, correctAnswer, latitude, longitude);
         Question.questionsToSend.add(question);
     }
+
+    /**
+     * Shows map view for adding position of the question
+     *
+     * @param view origin of clicked component
+     */
 
     public void addPosition(View view) {
         Intent intent = new Intent(this, GetPositionActivity.class);

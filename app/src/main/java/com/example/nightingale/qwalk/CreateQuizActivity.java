@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -39,6 +40,9 @@ public class CreateQuizActivity extends AppCompatActivity {
     private int readycheck = 0;
     EditText quizTitle;
     EditText quizDescription;
+    ArrayList<Question> questions = new ArrayList<>();
+
+    public final static int QUESTION_CODE = 7;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,24 +56,23 @@ public class CreateQuizActivity extends AppCompatActivity {
 
     public void addQuestionButtonClicked(View view) {
         Intent intent = new Intent(this, CreateQuestionActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, QUESTION_CODE);
     }
 
     public void createQuiz(View view) {
-        if(!isQuizComplete()){
+        if (!isQuizComplete()) {
             sendErrorMsg();
-        }
-        else {
+        } else {
             try {
                 saveQuiz();
-            }catch (Exception e){
+            } catch (Exception e) {
 
             }
         }
     }
 
     public boolean isQuizComplete() {
-        if(quizTitle.getText().toString().equals("") || quizDescription.getText().toString().equals("")){
+        if(quizTitle.getText().toString().equals("") || quizDescription.getText().toString().equals("") || questions.size() == 0 ){
             return false;
         }
         else if(Question.getQuestionsToSend().size() == 0){
@@ -85,24 +88,40 @@ public class CreateQuizActivity extends AppCompatActivity {
         if(quizTitle.getText().toString().equals("")){
             msg = "Fyll i titel";
         }
-
         else if(quizDescription.getText().toString().equals("")){
             msg = "Fyll i beskrivning";
         }
         else if(Question.getQuestionsToSend().size() == 0){
             msg = "Lägg till minst en fråga";
         }
-        else msg = "Error";
+        else if (quizDescription.getText().toString().equals("")) {
+            msg = "Fyll i beskrivning";
+        }
+        else{
+        msg = "Error";
+        }
         Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 160);
         toast.show();
     }
 
-    public synchronized void saveQuiz() throws InterruptedException {
-        counter=0;
+    public void saveQuiz() throws InterruptedException {
+
+       /* Quiz quiz = new Quiz(quizTitle.getText().toString(), quizDescription.getText().toString());
+        quiz.setQuestions(questions);
+
+        //TODO det är här en får lägga upp det i databasen med kanske
+
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("quiz", quiz);
+        setResult(GetPositionActivity.RESULT_OK, returnIntent);
+        finish();
+        */
+
+        counter = 0;
 
         ArrayList<Question> questionToSend = Question.getQuestionsToSend();
-        for (int i=0; i<Question.getQuestionsToSend().size(); i++) {
+        for (int i = 0; i < Question.getQuestionsToSend().size(); i++) {
             try {
                 test = new SendRequest().execute().get();
             } catch (Exception e) {
@@ -118,7 +137,6 @@ public class CreateQuizActivity extends AppCompatActivity {
         readycheck = 1;
         counter = 0;
         new SendRequest().execute();
-
 
     }
 
@@ -278,6 +296,16 @@ public class CreateQuizActivity extends AppCompatActivity {
 
         }
         return result.toString();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == QUESTION_CODE) {
+
+
+            questions = (ArrayList<Question>) data.getSerializableExtra("questions");
+
+        }
     }
 
 

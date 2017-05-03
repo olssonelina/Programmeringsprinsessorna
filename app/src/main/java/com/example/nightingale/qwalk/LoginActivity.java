@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
 
     /** Called when the user taps the Send button */
     public void guestButtonClicked(View view) {
-        Intent intent = new Intent(this, MapsActivity.class);
+        Intent intent = new Intent(this, MenuActivity.class);
         startActivity(intent);
     }
     public void RegisterButtonClicked(View view) {
