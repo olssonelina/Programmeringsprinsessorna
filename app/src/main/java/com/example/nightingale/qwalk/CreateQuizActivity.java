@@ -110,13 +110,10 @@ public class CreateQuizActivity extends AppCompatActivity {
 
     public void saveQuiz() throws InterruptedException {
 
-       /* Quiz quiz = new Quiz(quizTitle.getText().toString(), quizDescription.getText().toString());
+       Quiz quiz = new Quiz(quizTitle.getText().toString(), quizDescription.getText().toString());
         quiz.setQuestions(questions);
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra("quiz", quiz);
-        setResult(GetPositionActivity.RESULT_OK, returnIntent);
-        finish();
-        */
+
+
 
         counter = 0;
 
@@ -137,6 +134,12 @@ public class CreateQuizActivity extends AppCompatActivity {
         readycheck = 1;
         counter = 0;
         new SendRequest().execute();
+
+
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("quiz", quiz);
+        setResult(GetPositionActivity.RESULT_OK, returnIntent);
+        finish();
 
     }
 
