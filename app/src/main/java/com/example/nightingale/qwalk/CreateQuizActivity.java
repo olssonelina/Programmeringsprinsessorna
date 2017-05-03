@@ -3,6 +3,7 @@ package com.example.nightingale.qwalk;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -20,6 +22,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -29,7 +32,11 @@ import javax.net.ssl.HttpsURLConnection;
  */
 
 public class CreateQuizActivity extends AppCompatActivity {
-
+    public String test;
+    ArrayList<Integer> QuestionIDArray = new ArrayList<Integer>();
+    String JSONarrayString;
+    private int counter = 0;
+    private int readycheck = 0;
     EditText quizTitle;
     EditText quizDescription;
 
@@ -52,14 +59,25 @@ public class CreateQuizActivity extends AppCompatActivity {
         if(!isQuizComplete()){
             sendErrorMsg();
         }
-        saveQuiz();
+        else {
+            try {
+                saveQuiz();
+            }catch (Exception e){
+
+            }
+        }
     }
 
     public boolean isQuizComplete() {
         if(quizTitle.getText().toString().equals("") || quizDescription.getText().toString().equals("")){
             return false;
         }
-        return true;
+        else if(Question.getQuestionsToSend().size() == 0){
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 
     public void sendErrorMsg() {
@@ -67,20 +85,47 @@ public class CreateQuizActivity extends AppCompatActivity {
         if(quizTitle.getText().toString().equals("")){
             msg = "Fyll i titel";
         }
-        else {
+
+        else if(quizDescription.getText().toString().equals("")){
             msg = "Fyll i beskrivning";
         }
+        else if(Question.getQuestionsToSend().size() == 0){
+            msg = "Lägg till minst en fråga";
+        }
+        else msg = "Error";
         Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 160);
         toast.show();
     }
 
-    public void saveQuiz() {
-        Quiz quiz = new Quiz(quizTitle.getText().toString(), quizDescription.getText().toString());
+    public synchronized void saveQuiz() throws InterruptedException {
+        counter=0;
+
+        ArrayList<Question> questionToSend = Question.getQuestionsToSend();
+        for (int i=0; i<Question.getQuestionsToSend().size(); i++) {
+            try {
+                test = new SendRequest().execute().get();
+            } catch (Exception e) {
+                //what to do when it throws the exception
+            }
+
+        }
+
+        Log.d("JSONindex", String.valueOf(QuestionIDArray.get(0)));
+        JSONArray jsArray = new JSONArray(QuestionIDArray);
+        JSONarrayString = jsArray.toString();
+        Log.d("JSON", JSONarrayString);
+        readycheck = 1;
+        counter = 0;
+        new SendRequest().execute();
+
+
     }
 
     public class SendRequest extends AsyncTask<String, Void, String> {
 
+        String title = quizTitle.getText().toString();
+        String description = quizDescription.getText().toString();
 
         protected void onPreExecute(){}
 
@@ -88,19 +133,51 @@ public class CreateQuizActivity extends AppCompatActivity {
 
             try{
 
-                URL url = new URL("https://programmeringsprinsessorna.000webhostapp.com/validera.php");
+
+
+                URL url = new URL("https://programmeringsprinsessorna.000webhostapp.com/insertquiz.php");
 
                 JSONObject postDataParams = new JSONObject();
 
-                /*
-                postDataParams.put("description", questionTitle);
-                postDataParams.put("option1", questionOption1);
-                postDataParams.put("option2", questionOption2);
-                postDataParams.put("option3", questionOption3);
-                postDataParams.put("option4", questionOption4);
-                //postDataParams.put("longitude", );
-                //postDataParams.put("latitude", );
-                */
+
+                ArrayList<Question> questionToSend = Question.getQuestionsToSend();
+
+
+                Log.d("VARIABLE", questionToSend.get(counter).getQuestionTitle());
+                postDataParams.put("description", questionToSend.get(counter).getQuestionTitle());
+
+                Log.d("VARIABLE", questionToSend.get(counter).getOption1());
+                postDataParams.put("option1", questionToSend.get(counter).getOption1());
+
+                Log.d("VARIABLE", questionToSend.get(counter).getOption2());
+                postDataParams.put("option2", questionToSend.get(counter).getOption2());
+
+                Log.d("VARIABLE", questionToSend.get(counter).getOption3());
+                postDataParams.put("option3", questionToSend.get(counter).getOption3());
+
+                Log.d("VARIABLE", questionToSend.get(counter).getOption4());
+                postDataParams.put("option4", questionToSend.get(counter).getOption4());
+
+                Log.d("VARIABLE", Integer.toString(questionToSend.get(counter).getCorrectAnswer()));
+                postDataParams.put("correctanswer", questionToSend.get(counter).getCorrectAnswer());
+
+                Log.d("VARIABLE", String.valueOf(questionToSend.get(counter).getLongitude()));
+                postDataParams.put("longitude", questionToSend.get(counter).getLongitude());
+
+                Log.d("VARIABLE", String.valueOf(questionToSend.get(counter).getLatitude()));
+                postDataParams.put("latitude", questionToSend.get(counter).getLatitude());
+
+                counter++;
+
+                Log.d("VARIABLE", Integer.toString(readycheck));
+                postDataParams.put("finish", readycheck);
+                postDataParams.put("questionidarray", JSONarrayString);
+
+                Log.d("VARIABLE", title);
+                postDataParams.put("title", title);
+                Log.d("VARIABLE", description);
+                postDataParams.put("quizdescription", description);
+
 
 
                 Log.e("params",postDataParams.toString());
@@ -151,25 +228,32 @@ public class CreateQuizActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            result= result.replaceAll("\\s+","");
-            if(result.equals("1")) {
-                Toast.makeText(getApplicationContext(), "Admin Success",
-                        Toast.LENGTH_LONG).show();
+            Log.d("PRINT", result);
+            result = result.replaceAll("\\s+","");
 
+              Log.d("PRINT", result);
+            String msg;
+            if(result.equals("0")){
+                msg = "Success";
+                Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 160);
+                toast.show();
             }
-            else if(result.equals("2")){
-                Toast.makeText(getApplicationContext(), "Success",
-                        Toast.LENGTH_LONG).show();
-
+            else if(result.equals("-1")){
+                msg = "Quiz Title Taken";
+                Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 160);
+                toast.show();
             }
-            else if(result.equals("3")){
-                Toast.makeText(getApplicationContext(), "Incorret Password/Username",
-                        Toast.LENGTH_LONG).show();
-
+            else{
+                QuestionIDArray.add(Integer.parseInt(result));
+                Log.d("VARIABLE", String.valueOf(QuestionIDArray.get(0)));
             }
 
         }
     }
+
+
 
     public String getPostDataString(JSONObject params) throws Exception {
 
