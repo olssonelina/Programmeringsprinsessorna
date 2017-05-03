@@ -122,6 +122,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMarker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
         }
         mMarkerLocation = question.getLocation();;
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(question.getLatitude(), question.getLongitude())));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
+
+
 
     }
 
