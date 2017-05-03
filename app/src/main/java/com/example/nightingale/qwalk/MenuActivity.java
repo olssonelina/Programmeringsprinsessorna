@@ -20,6 +20,8 @@ import java.util.List;
 
 public class MenuActivity extends AppCompatActivity {
 
+    public static final int CREATE_QUIZ_CODE = 37;
+
     private ListView listView;
 
     private List<Quiz> quizzes = new ArrayList<>();
@@ -71,6 +73,15 @@ public class MenuActivity extends AppCompatActivity {
 
     public void createButtonPressed(View view) {
         Intent intent = new Intent(this, CreateQuizActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, CREATE_QUIZ_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CREATE_QUIZ_CODE) {
+
+            quizzes.add((Quiz)data.getParcelableExtra("quiz"));
+            loadList();
+        }
     }
 }
