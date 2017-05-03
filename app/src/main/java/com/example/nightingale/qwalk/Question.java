@@ -7,11 +7,15 @@ import android.os.Parcelable;
 
 import java.io.Serializable;
 
+import java.util.ArrayList;
+
 /**
  * Created by Elina Olsson on 2017-04-24.
  */
 
 public class Question implements Parcelable {
+
+    public static ArrayList<Question> questionsToSend = new ArrayList<Question>();
 
     private String questionTitle;
     private String option1;
@@ -21,13 +25,16 @@ public class Question implements Parcelable {
     private int correctAnswer;
     private Location location;
 
-    public Question(String title, String option1, String option2, String option3, String option4, int correctAnswer/*Image image, Position position*/ ) {
+    public Question(String title, String option1, String option2, String option3, String option4, int correctAnswer, double latitude, double longitude/*Image image, Position position*/ ) {
         this.questionTitle = title;
         this.option1 = option1;
         this.option2 = option2;
         this.option3 = option3;
         this.option4 = option4;
         this.correctAnswer = correctAnswer;
+        location = new Location("");
+        location.setLatitude(latitude);
+        location.setLongitude(longitude);
     }
 
     public void setLocation(double latitude, double longitude) {
@@ -45,9 +52,8 @@ public class Question implements Parcelable {
     }
 
 
-    public String getQuestionTitle() {
-        return questionTitle;
-    }
+
+
 
     public String getOption1() {
         return option1;
@@ -72,6 +78,15 @@ public class Question implements Parcelable {
     public Location getLocation() {
         return location;
     }
+
+    public String getQuestionTitle() {
+        return questionTitle;
+    }
+
+    public static ArrayList<Question> getQuestionsToSend(){
+        return questionsToSend;
+    }
+
 
     protected Question(Parcel in) {
         questionTitle = in.readString();
