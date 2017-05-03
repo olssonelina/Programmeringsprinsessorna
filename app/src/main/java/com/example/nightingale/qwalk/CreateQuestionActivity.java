@@ -1,5 +1,6 @@
 package com.example.nightingale.qwalk;
 
+import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
@@ -7,7 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -84,6 +88,37 @@ public class CreateQuestionActivity extends AppCompatActivity {
 
         fillArrays();
 
+        for (int i = 0; i < options.length; i++) {
+            options[i].setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+                        addOption(v);
+                    }
+                }
+            });
+
+            final int count = i;
+
+            options[i].setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
+                        if (count < options.length - 1) {
+                            options[count + 1].requestFocus();
+                            //Toast.makeText(getApplicationContext(), "Request Focus", Toast.LENGTH_LONG).show();
+                        } else if (count == options.length - 1) {
+                            Toast.makeText(getApplicationContext(), "Close keyboard", Toast.LENGTH_LONG).show();
+                            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                            //inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+                            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                        }
+                    }
+                    return false;
+                }
+            });
+
+        }
     }
 
     public void fillArrays() {
@@ -108,12 +143,10 @@ public class CreateQuestionActivity extends AppCompatActivity {
      * showing a new text field, radio button and a "+" symbol. It also changes the symbol "+"
      * to "×" to show that an option is added and make it possible to delete it.
      *
-     * Problem: The TextChangeListener only works if the text field is clicked twice
-     *
      * @param view origin of clicked component
      */
 
-    public void testAddOption(final View view) {
+    public void addOption(final View view) {
 
         //Get index for current option in the option arrays by looking into the view's id
         String id = view.getResources().getResourceEntryName(view.getId());
@@ -131,13 +164,14 @@ public class CreateQuestionActivity extends AppCompatActivity {
                 if (index == 3) {
                     numbers[index].setText("×");
                     numbers[index].setVisibility(View.VISIBLE);
+                    radioButtons[index].setVisibility(View.VISIBLE);
                 } else if (!options[index + 1].isShown()) {
+                    radioButtons[index].setVisibility(View.VISIBLE);
                     numbers[index].setText("×");
                     numbers[index].setVisibility(View.VISIBLE);
                     numbers[index + 1].setText("+");
                     numbers[index + 1].setVisibility(View.VISIBLE);
                     options[index + 1].setVisibility(View.VISIBLE);
-                    radioButtons[index + 1].setVisibility(View.VISIBLE);
                 }
             }
 
@@ -147,42 +181,10 @@ public class CreateQuestionActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * Makes it possible for the user to add one more option when clicking the text field by
-     * showing a new text field, radio button and a "+" symbol. It also changes the symbol "+"
-     * to "×" to show that an option is added and make it possible to delete it.
-     *
-     * It only works if the text field is clicked twice
-     *
-     * Currently using the testAddOption method instead
-     *
-     * @param view origin of clicked component
-     */
-
-    public void addOption(View view) {
-
-        //Get index for current option in the option arrays by looking into the view's id
-        String id = view.getResources().getResourceEntryName(view.getId());
-        String stringIndex = id.substring(6, 7);
-        int index = Integer.parseInt(stringIndex) - 1;
-
-        if (index == 3) {
-            numbers[index].setText("×");
-            numbers[index].setVisibility(View.VISIBLE);
-        } else if (!options[index + 1].isShown()) {
-            numbers[index].setText("×");
-            numbers[index].setVisibility(View.VISIBLE);
-            numbers[index + 1].setText("+");
-            numbers[index + 1].setVisibility(View.VISIBLE);
-            options[index + 1].setVisibility(View.VISIBLE);
-            radioButtons[index + 1].setVisibility(View.VISIBLE);
-        }
-    }
-
 
     /**
      * Clears text field if the icon "×" is clicked
-    */
+     */
 
     public void removeOption(View view) {
         //Get index for current option in the option array by looking into the view's id
@@ -315,7 +317,6 @@ public class CreateQuestionActivity extends AppCompatActivity {
             numbers[i].setVisibility(View.INVISIBLE);
             radioButtons[i].setVisibility(View.INVISIBLE);
         }
-
     }
 
     private void saveQuestion() {

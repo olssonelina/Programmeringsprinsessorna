@@ -23,6 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="130dp"
                 android:layout_marginTop="400dp"
+                android:padding="10dp"
                 android:onClick="addPosition"
                 android:text="Lägg till position"
                 android:textColor="@color/wallet_holo_blue_light" />
@@ -126,8 +127,7 @@
             android:hint="Lägg till alternativ"
             android:inputType="textPersonName"
             android:maxLength="35"
-            android:onClick="testAddOption"
-            />
+            android:onClick="addOption" />
 
         <EditText
             android:id="@+id/option2Field"
@@ -140,7 +140,7 @@
             android:hint="Lägg till alternativ"
             android:inputType="textPersonName"
             android:maxLength="35"
-            android:onClick="testAddOption"
+            android:onClick="addOption"
             android:visibility="invisible" />
 
         <EditText
@@ -154,7 +154,7 @@
             android:hint="Lägg till alternativ"
             android:inputType="textPersonName"
             android:maxLength="35"
-            android:onClick="testAddOption"
+            android:onClick="addOption"
             android:visibility="invisible" />
 
         <EditText
@@ -168,7 +168,7 @@
             android:hint="Lägg till alternativ"
             android:inputType="textPersonName"
             android:maxLength="35"
-            android:onClick="testAddOption"
+            android:onClick="addOption"
             android:visibility="invisible" />
 
         <RadioGroup
@@ -187,7 +187,9 @@
                 android:layout_marginTop="0dp"
                 android:layout_weight="1"
                 android:checked="false"
-                android:visibility="visible" />
+                android:visibility="invisible"
+                android:focusable="false"
+                />
 
             <RadioButton
                 android:id="@+id/radioButton2"
@@ -197,7 +199,9 @@
                 android:layout_alignTop="@+id/radioButton1"
                 android:layout_marginTop="20dp"
                 android:layout_weight="1"
-                android:visibility="invisible" />
+                android:visibility="invisible"
+                android:focusable="false"
+                />
 
             <RadioButton
                 android:id="@+id/radioButton3"
@@ -207,7 +211,9 @@
                 android:layout_alignTop="@+id/radioButton2"
                 android:layout_marginTop="20dp"
                 android:layout_weight="1"
-                android:visibility="invisible" />
+                android:visibility="invisible"
+                android:focusable="false"
+                />
 
             <RadioButton
                 android:id="@+id/radioButton4"
@@ -217,7 +223,9 @@
                 android:layout_alignTop="@+id/radioButton3"
                 android:layout_marginTop="20dp"
                 android:layout_weight="1"
-                android:visibility="invisible" />
+                android:visibility="invisible"
+                android:focusable="false"
+                />
 
         </RadioGroup>
 
