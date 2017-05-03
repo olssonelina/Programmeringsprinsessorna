@@ -40,7 +40,8 @@ public class CreateQuestionActivity extends AppCompatActivity {
     public static final int GET_POSITION_CODE = 97;
 
     //Välj olika namn på variabler och "ikoner"
-    ArrayList<Question> questionsToSave = new ArrayList<Question>();
+
+
 
     TextView questionNumber;
     EditText question;
@@ -239,15 +240,15 @@ public class CreateQuestionActivity extends AppCompatActivity {
         questionOption4 = option4.getText().toString();
         correctAnswer = correctAnswer();
 
-        Question question = new Question(questionTitle, questionOption1, questionOption2, questionOption3, questionOption4, correctAnswer);
-        question.setLocation(latitude, longitude);
-        questionsToSave.add(question);
+        Question question = new Question(questionTitle, questionOption1, questionOption2, questionOption3, questionOption4, correctAnswer, latitude, longitude);
+        Question.questionsToSend.add(question);
     }
 
     public void addPosition(View view) {
         Intent intent = new Intent(this, GetPositionActivity.class);
         startActivityForResult(intent, GET_POSITION_CODE);
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
