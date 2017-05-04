@@ -130,7 +130,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void viewPinButtonClicked(View view) {
-        showQuestionOnMap(currentQuestion);
+        //mMap.moveCamera(CameraUpdateFactory.newLatLng(mMarker.getPosition()));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mMarker.getPosition(),17));
+       // mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
+
     }
 
     @Override
