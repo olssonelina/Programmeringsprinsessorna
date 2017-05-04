@@ -129,6 +129,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
+    public void viewPinButtonClicked(View view) {
+        showQuestionOnMap(currentQuestion);
+    }
+
     @Override
     public boolean onMarkerClick(Marker marker) {
         if (marker.equals(mMarker) && inQuestionRange) {

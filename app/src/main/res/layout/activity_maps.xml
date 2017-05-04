@@ -19,34 +19,6 @@
             android:id="@+id/linearLayout2">
 
 
-            <Button
-                android:id="@+id/button3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="Create quiz" />
-
-            <ToggleButton
-                android:id="@+id/toggleButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="Map" />
-
-            <ToggleButton
-                android:id="@+id/toggleButton2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="Questions" />
-
-            <Button
-                android:id="@+id/button7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="Help" />
-
         </LinearLayout>
 
         <fragment
@@ -56,6 +28,16 @@
             android:layout_height="match_parent"
             tools:context="com.example.nightingale.qwalk.MapsActivity"
             android:layout_above="@+id/linearLayout2" />
+
+        <Button
+            android:id="@+id/viewPinButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:onClick="viewPinButtonClicked"
+            android:text="Var är frågan?" />
     </RelativeLayout>
 
 </LinearLayout>
