@@ -108,7 +108,6 @@ public class CreateQuestionActivity extends AppCompatActivity {
                             options[count + 1].requestFocus();
                             //Toast.makeText(getApplicationContext(), "Request Focus", Toast.LENGTH_LONG).show();
                         } else if (count == options.length - 1) {
-                            Toast.makeText(getApplicationContext(), "Close keyboard", Toast.LENGTH_LONG).show();
                             InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                             //inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
                             inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
@@ -137,6 +136,8 @@ public class CreateQuestionActivity extends AppCompatActivity {
         options[2] = option3;
         options[3] = option4;
     }
+
+
 
     /**
      * Makes it possible for the user to add one more option by using a TextChangeListener by
@@ -210,13 +211,21 @@ public class CreateQuestionActivity extends AppCompatActivity {
             options[i].setText(options[i + 1].getText());
             options[i + 1].getText().clear();
             numbers[numbers.length - 1].setText("+");
+            if(radioButtons[i + 1].isChecked()) {
+                radioButtons[i].setChecked(true);
+                radioButtons[i + 1].setChecked(false);
+            }
+
         }
         for (int j = 0; j < options.length - 1; j++) {
             if (options[j].getText().toString().equals("")) {
                 numbers[j].setText("+");
+                radioButtons[j].setChecked(false);
+                radioButtons[j].setVisibility(View.INVISIBLE);
                 if (options[j].getText().toString().equals("") && options[j + 1].getText().toString().equals("")) {
                     numbers[j + 1].setVisibility(View.INVISIBLE);
                     options[j + 1].setVisibility(View.INVISIBLE);
+                    radioButtons[j + 1].setChecked(false);
                     radioButtons[j + 1].setVisibility(View.INVISIBLE);
                 }
             }
@@ -309,7 +318,7 @@ public class CreateQuestionActivity extends AppCompatActivity {
 
         for (int i = 0; i < options.length; i++) {
             options[i].getText().clear();
-            radioButtons[i].setChecked(false);
+            radioButtons[i].setChecked(true);
         }
 
         for (int i = 1; i < numbers.length; i++) {
