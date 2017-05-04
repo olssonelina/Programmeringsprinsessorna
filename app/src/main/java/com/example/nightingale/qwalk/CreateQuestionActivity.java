@@ -340,6 +340,7 @@ public class CreateQuestionActivity extends AppCompatActivity {
 
         Question question = new Question(questionTitle, questionOption1, questionOption2, questionOption3, questionOption4, correctAnswer, latitude, longitude);
         Question.questionsToSend.add(question);
+        questionsToSave.add(question); //TODO lite fult att skicka frågan till två ställen
     }
 
     /**

@@ -43,7 +43,6 @@ public class CreateQuizActivity extends AppCompatActivity {
     EditText quizTitle;
     EditText quizDescription;
     ArrayList<Question> questions = new ArrayList<>();
-    private ListView questionList;
 
     public final static int QUESTION_CODE = 7;
 
@@ -313,7 +312,7 @@ public class CreateQuizActivity extends AppCompatActivity {
     }
 
     private void loadList() {
-        questionList = (ListView) findViewById(R.id.questionList);
+        ListView questionList = (ListView) findViewById(R.id.questionList);
         String[] values = new String[questions.size()];
         for (int i = 0; i < values.length; i++) {
             values[i] = questions.get(i).getQuestionTitle();
