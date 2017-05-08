@@ -29,6 +29,7 @@ package com.example.nightingale.qwalk;
         import javax.net.ssl.HttpsURLConnection;
 
 public class LoginActivity extends AppCompatActivity {
+    String ID;
     EditText UsernameInput;
     EditText PasswordInput;
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
@@ -48,14 +49,48 @@ public class LoginActivity extends AppCompatActivity {
     public void RegisterButtonClicked(View view) {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
-    }    private ProgressDialog progress;
+    }
+    private ProgressDialog progress;
 
 
 
 
 
     public void LoginButtonClicked(View view) {
-            new SendRequest().execute();
+        try {
+            ID = new SendRequest().execute().get();
+            ID = ID.replaceAll("\\s+","");
+            if(Integer.parseInt(ID) == -1) {
+                Toast.makeText(getApplicationContext(), "Incorrect Password/Username",
+                        Toast.LENGTH_LONG).show();
+            }
+            else if(Integer.parseInt(ID) == -2){
+                User.getInstance().setUserID(Integer.parseInt(ID));
+                User.getInstance().setUsername(UsernameInput.getText().toString());
+                Toast.makeText(getApplicationContext(), "Admin Success",
+                        Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, MenuActivity.class);
+                startActivity(intent);
+            }
+            else{
+                User.getInstance().setUserID(Integer.parseInt(ID));
+                User.getInstance().setUsername(UsernameInput.getText().toString());
+                Toast.makeText(getApplicationContext(), "Success",
+                        Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, MenuActivity.class);
+                startActivity(intent);
+            }
+
+
+
+        } catch (Exception e) {
+
+        }
+
+
+
+
+
     }
 
     public class SendRequest extends AsyncTask<String, Void, String> {
@@ -125,23 +160,6 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            result= result.replaceAll("\\s+","");
-            if(result.equals("1")) {
-                Toast.makeText(getApplicationContext(), "Admin Success",
-                        Toast.LENGTH_LONG).show();
-
-            }
-            else if(result.equals("2")){
-                Toast.makeText(getApplicationContext(), "Success",
-                        Toast.LENGTH_LONG).show();
-
-            }
-            else if(result.equals("3")){
-                Toast.makeText(getApplicationContext(), "Incorret Password/Username",
-                        Toast.LENGTH_LONG).show();
-
-            }
-
         }
     }
 
