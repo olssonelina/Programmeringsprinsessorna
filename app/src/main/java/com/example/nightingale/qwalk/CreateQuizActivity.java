@@ -116,17 +116,24 @@ public class CreateQuizActivity extends AppCompatActivity {
         quiz.setQuestions(questions);
 
 
-
+        QuestionIDArray = new ArrayList<Integer>();
         counter = 0;
 
         ArrayList<OptionQuestion> questionToSend = OptionQuestion.getQuestionsToSend();
-        for (int i = 0; i < OptionQuestion.getQuestionsToSend().size(); i++) {
+        OptionQuestion.wipeQuestionsToSend();
+        for (int i = 0; i < questionToSend.size(); i++) {
             try {
-                test = new SendRequest().execute().get();
-            } catch (Exception e) {
-                //what to do when it throws the exception
-            }
 
+                test = new SendRequest().execute().get();
+                Log.d("Getcomplete", "True");
+                Log.d("Getcomplete", test);
+                test = test.replaceAll("\\s+","");
+                QuestionIDArray.add(Integer.parseInt(test));
+            } catch (Exception e) {
+                Log.d("Getcomplete", "False");
+                break;
+            }
+            Log.d("Getcomplete", "Test");
         }
 
         Log.d("JSONindex", String.valueOf(QuestionIDArray.get(0)));
@@ -138,10 +145,12 @@ public class CreateQuizActivity extends AppCompatActivity {
         new SendRequest().execute();
 
 
+
         Intent returnIntent = new Intent();
         returnIntent.putExtra("quiz", quiz);
         setResult(GetPositionActivity.RESULT_OK, returnIntent);
         finish();
+
 
     }
 
@@ -267,10 +276,6 @@ public class CreateQuizActivity extends AppCompatActivity {
                 Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 160);
                 toast.show();
-            }
-            else{
-                QuestionIDArray.add(Integer.parseInt(result));
-                Log.d("VARIABLE", String.valueOf(QuestionIDArray.get(0)));
             }
 
         }

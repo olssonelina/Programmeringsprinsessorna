@@ -54,6 +54,10 @@ public class OptionQuestion extends Question implements Parcelable  {
         return questionsToSend;
     }
 
+    public static void wipeQuestionsToSend(){
+        ArrayList<OptionQuestion> questionsToSend = new ArrayList<OptionQuestion>();
+    }
+
 
     protected OptionQuestion(Parcel in) {
         questionTitle = in.readString();
