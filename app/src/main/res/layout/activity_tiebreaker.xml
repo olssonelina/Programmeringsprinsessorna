@@ -23,8 +23,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="130dp"
                 android:layout_marginTop="400dp"
-                android:padding="10dp"
                 android:onClick="addPosition"
+                android:padding="10dp"
                 android:text="Lägg till position"
                 android:textColor="@color/wallet_holo_blue_light" />
         </ScrollView>
@@ -38,22 +38,30 @@
             android:text="Utslagsfråga"
             android:textSize="24dp" />
 
+        <TextView
+            android:id="@+id/chooseAnswer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="170dp"
+            android:text="Välj rätt svar"
+            android:textSize="18dp" />
+
         <SeekBar
             android:id="@+id/seekBar"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="210dp"
-            android:max="100"
-            />
+            android:layout_marginTop="220dp"
+            android:max="100" />
 
 
         <TextView
             android:id="@+id/value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_alignBottom="@+id/seekBar"
+            android:layout_marginLeft="50dp"
             android:layout_marginBottom="50dp"
             android:text="" />
 
@@ -61,22 +69,22 @@
             android:id="@+id/min"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="min"
             android:layout_alignLeft="@+id/seekBar"
             android:layout_alignTop="@+id/seekBar"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="50dp"
-            />
+            android:text="min:"
+            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/max"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="max"
             android:layout_alignRight="@+id/seekBar"
-            android:layout_marginRight="10dp"
             android:layout_alignTop="@+id/min"
-            />
+            android:layout_marginRight="50dp"
+            android:text="max:"
+            android:textSize="18dp" />
 
         <EditText
             android:id="@+id/questionField"
@@ -98,6 +106,31 @@
             android:ems="9"
             android:onClick=""
             android:text="Klar" />
+
+
+        <EditText
+            android:id="@+id/maxField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/max"
+            android:layout_alignLeft="@+id/max"
+            android:layout_marginBottom="-8dp"
+            android:layout_marginLeft="45dp"
+            android:ems="2"
+            android:inputType="number"
+            android:text="100" />
+
+        <EditText
+            android:id="@+id/minField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/min"
+            android:layout_alignLeft="@+id/min"
+            android:layout_marginBottom="-8dp"
+            android:layout_marginLeft="40dp"
+            android:ems="2"
+            android:inputType="number"
+            android:text="0" />
 
     </RelativeLayout>
 </LinearLayout>
