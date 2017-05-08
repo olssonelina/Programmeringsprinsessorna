@@ -3,7 +3,6 @@ package com.example.nightingale.qwalk;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,14 +14,14 @@ public class Quiz implements Parcelable {
     private String title;
     private String description;
 
-    private List<Question> questions = new ArrayList<>();
+    private List<OptionQuestion> questions = new ArrayList<>();
 
     public Quiz(String title, String description) {
         this.title = title;
         this.description = description;
     }
 
-    public void setQuestions(List<Question> questions) {
+    public void setQuestions(List<OptionQuestion> questions) {
         this.questions = questions;
     }
 
@@ -34,11 +33,11 @@ public class Quiz implements Parcelable {
         return description;
     }
 
-    public List<Question> getQuestions() {
+    public List<OptionQuestion> getQuestions() {
         return questions;
     }
 
-    public Question get(int index){
+    public OptionQuestion get(int index){
         return questions.get(index);
     }
 
@@ -50,8 +49,8 @@ public class Quiz implements Parcelable {
         title = in.readString();
         description = in.readString();
         if (in.readByte() == 0x01) {
-            questions = new ArrayList<Question>();
-            in.readList(questions, Question.class.getClassLoader());
+            questions = new ArrayList<OptionQuestion>();
+            in.readList(questions, OptionQuestion.class.getClassLoader());
         } else {
             questions = null;
         }

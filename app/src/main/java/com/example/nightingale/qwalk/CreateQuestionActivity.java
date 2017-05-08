@@ -27,7 +27,7 @@ public class CreateQuestionActivity extends AppCompatActivity {
 
     public static final int GET_POSITION_CODE = 97;
 
-    ArrayList<Question> questionsToSave = new ArrayList<Question>();
+    ArrayList<OptionQuestion> questionsToSave = new ArrayList<OptionQuestion>();
 
 
     TextView questionNumber;
@@ -330,7 +330,7 @@ public class CreateQuestionActivity extends AppCompatActivity {
 
     private void saveQuestion() {
         //Spara all input till strängar, bild och position
-        //Skapa ny fråga genom att anropa konstruktorn i Question och skicka med titel, alternativ, rätt svar, bild och position
+        //Skapa ny fråga genom att anropa konstruktorn i OptionQuestion och skicka med titel, alternativ, rätt svar, bild och position
         questionTitle = question.getText().toString();
         questionOption1 = option1.getText().toString();
         questionOption2 = option2.getText().toString();
@@ -338,8 +338,8 @@ public class CreateQuestionActivity extends AppCompatActivity {
         questionOption4 = option4.getText().toString();
         correctAnswer = correctAnswer();
 
-        Question question = new Question(questionTitle, questionOption1, questionOption2, questionOption3, questionOption4, correctAnswer, latitude, longitude);
-        Question.questionsToSend.add(question);
+        OptionQuestion question = new OptionQuestion(questionTitle, questionOption1, questionOption2, questionOption3, questionOption4, correctAnswer, latitude, longitude);
+        OptionQuestion.questionsToSend.add(question);
         questionsToSave.add(question); //TODO lite fult att skicka frågan till två ställen
     }
 

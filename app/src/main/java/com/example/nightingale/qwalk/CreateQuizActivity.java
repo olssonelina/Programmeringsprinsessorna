@@ -3,12 +3,10 @@ package com.example.nightingale.qwalk;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -42,7 +40,7 @@ public class CreateQuizActivity extends AppCompatActivity {
     private int readycheck = 0;
     EditText quizTitle;
     EditText quizDescription;
-    ArrayList<Question> questions = new ArrayList<>();
+    ArrayList<OptionQuestion> questions = new ArrayList<>();
 
     public final static int QUESTION_CODE = 7;
 
@@ -58,6 +56,11 @@ public class CreateQuizActivity extends AppCompatActivity {
 
     public void addQuestionButtonClicked(View view) {
         Intent intent = new Intent(this, CreateQuestionActivity.class);
+        startActivityForResult(intent, QUESTION_CODE);
+    }
+
+    public void addTiebreaker(View view) {
+        Intent intent = new Intent(this, TiebreakerActivity.class);
         startActivityForResult(intent, QUESTION_CODE);
     }
 
@@ -77,7 +80,7 @@ public class CreateQuizActivity extends AppCompatActivity {
         if(quizTitle.getText().toString().equals("") || quizDescription.getText().toString().equals("") || questions.size() == 0 ){
             return false;
         }
-        else if(Question.getQuestionsToSend().size() == 0){
+        else if(OptionQuestion.getQuestionsToSend().size() == 0){
             return false;
         }
         else {
@@ -93,7 +96,7 @@ public class CreateQuizActivity extends AppCompatActivity {
         else if(quizDescription.getText().toString().equals("")){
             msg = "Fyll i beskrivning";
         }
-        else if(Question.getQuestionsToSend().size() == 0){
+        else if(OptionQuestion.getQuestionsToSend().size() == 0){
             msg = "Lägg till minst en fråga";
         }
         else if (quizDescription.getText().toString().equals("")) {
@@ -116,8 +119,8 @@ public class CreateQuizActivity extends AppCompatActivity {
 
         counter = 0;
 
-        ArrayList<Question> questionToSend = Question.getQuestionsToSend();
-        for (int i = 0; i < Question.getQuestionsToSend().size(); i++) {
+        ArrayList<OptionQuestion> questionToSend = OptionQuestion.getQuestionsToSend();
+        for (int i = 0; i < OptionQuestion.getQuestionsToSend().size(); i++) {
             try {
                 test = new SendRequest().execute().get();
             } catch (Exception e) {
@@ -160,7 +163,7 @@ public class CreateQuizActivity extends AppCompatActivity {
                 JSONObject postDataParams = new JSONObject();
 
 
-                ArrayList<Question> questionToSend = Question.getQuestionsToSend();
+                ArrayList<OptionQuestion> questionToSend = OptionQuestion.getQuestionsToSend();
 
 
                 Log.d("VARIABLE", questionToSend.get(counter).getQuestionTitle());
@@ -305,7 +308,7 @@ public class CreateQuizActivity extends AppCompatActivity {
         if (requestCode == QUESTION_CODE) {
 
 
-            questions = (ArrayList<Question>) data.getSerializableExtra("questions");
+            questions = (ArrayList<OptionQuestion>) data.getSerializableExtra("questions");
             loadList();
 
         }

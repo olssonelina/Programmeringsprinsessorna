@@ -26,8 +26,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.List;
-
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -45,7 +43,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public final static int QUESTION_RANGE = 25;
     private boolean inQuestionRange = false;
     private Quiz currentQuiz;
-    private Question currentQuestion;
+    private OptionQuestion currentQuestion;
 
     public static final int ANSWER_CODE = 4331;
 
@@ -109,11 +107,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-    private void showQuestionOnMap(Question question){
+    private void showQuestionOnMap(OptionQuestion question){
         if (mMarker == null){
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(new LatLng(question.getLatitude(), question.getLongitude()));
-            markerOptions.title("Question");
+            markerOptions.title("OptionQuestion");
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
             mMarker = mMap.addMarker(markerOptions);
         }
