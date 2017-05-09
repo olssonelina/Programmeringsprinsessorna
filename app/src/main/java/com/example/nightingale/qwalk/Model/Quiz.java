@@ -1,4 +1,4 @@
-package com.example.nightingale.qwalk;
+package com.example.nightingale.qwalk.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
