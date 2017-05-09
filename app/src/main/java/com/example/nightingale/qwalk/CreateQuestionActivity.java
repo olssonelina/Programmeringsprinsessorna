@@ -355,6 +355,7 @@ public class CreateQuestionActivity extends AppCompatActivity {
     }
 
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == GET_POSITION_CODE) {

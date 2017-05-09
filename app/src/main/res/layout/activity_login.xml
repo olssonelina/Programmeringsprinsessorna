@@ -18,45 +18,30 @@
             android:layout_centerHorizontal="true"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/button8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:onClick="RegisterButtonClicked"
-                android:text="Register" />
-
-            <Button
-                android:id="@+id/button7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:onClick="guestButtonClicked"
-                android:text="Continue as Guest" />
-
         </LinearLayout>
 
         <EditText
             android:id="@+id/password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/username"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:ems="10"
-            android:inputType="textPassword"
-            android:layout_below="@+id/username"
-            android:layout_centerHorizontal="true" />
+            android:hint="Lösenord"
+            android:inputType="textPassword" />
 
         <EditText
             android:id="@+id/username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name"
-            android:layout_alignParentTop="true"
             android:layout_alignLeft="@+id/password"
+            android:layout_alignParentTop="true"
             android:layout_alignStart="@+id/password"
-            android:layout_marginTop="24dp" />
+            android:layout_marginTop="100dp"
+            android:ems="10"
+            android:hint="Användarnamn"
+            android:inputType="textPersonName" />
 
         <Button
             android:id="@+id/LoginButton"
@@ -64,9 +49,35 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/password"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="43dp"
+            android:layout_marginTop="40dp"
+            android:ems="10"
             android:onClick="LoginButtonClicked"
-            android:text="Button" />
+            android:text="Logga in"
+            android:background="@android:color/holo_green_light"/>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/LoginButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:onClick="RegisterButtonClicked"
+            android:padding="10dp"
+            android:text="Registrera?"
+            android:textColor="@color/wallet_holo_blue_light" />
+
+
+        <Button
+            android:id="@+id/button7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="440dp"
+            android:ems="10"
+            android:onClick="guestButtonClicked"
+            android:text="Spela som gäst" />
+
 
     </RelativeLayout>
 
