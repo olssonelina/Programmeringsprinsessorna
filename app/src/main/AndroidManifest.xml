@@ -73,7 +73,7 @@
                 android:value=".View.CreateQuizActivity" />
         </activity>
 
-        <activity android:name=".View.AnswerActivity"
+        <activity android:name=".View.AnswerOptionActivity"
             android:parentActivityName=".View.MapsActivity" >
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
