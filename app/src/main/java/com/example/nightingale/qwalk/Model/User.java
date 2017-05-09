@@ -1,4 +1,4 @@
-package com.example.nightingale.qwalk;
+package com.example.nightingale.qwalk.Model;
 
 /**
  * Created by Nightingale on 2017-05-08.

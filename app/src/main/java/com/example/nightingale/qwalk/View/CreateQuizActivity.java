@@ -1,4 +1,4 @@
-package com.example.nightingale.qwalk;
+package com.example.nightingale.qwalk.View;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -11,6 +11,11 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.example.nightingale.qwalk.Model.OptionQuestion;
+import com.example.nightingale.qwalk.Model.Quiz;
+import com.example.nightingale.qwalk.Model.User;
+import com.example.nightingale.qwalk.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

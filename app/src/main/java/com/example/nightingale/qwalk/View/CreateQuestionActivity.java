@@ -1,4 +1,4 @@
-package com.example.nightingale.qwalk;
+package com.example.nightingale.qwalk.View;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +16,9 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.nightingale.qwalk.Model.OptionQuestion;
+import com.example.nightingale.qwalk.R;
 
 import java.util.ArrayList;
 

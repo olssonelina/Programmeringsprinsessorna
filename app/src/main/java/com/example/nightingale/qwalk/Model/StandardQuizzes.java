@@ -1,4 +1,7 @@
-package com.example.nightingale.qwalk;
+package com.example.nightingale.qwalk.Model;
+
+import com.example.nightingale.qwalk.Model.OptionQuestion;
+import com.example.nightingale.qwalk.Model.Quiz;
 
 import java.util.ArrayList;
 import java.util.List;

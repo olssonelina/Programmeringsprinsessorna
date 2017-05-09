@@ -1,6 +1,5 @@
-package com.example.nightingale.qwalk;
+package com.example.nightingale.qwalk.View;
 
-        import android.app.Dialog;
         import android.app.ProgressDialog;
         import android.content.Intent;
         import android.os.AsyncTask;
@@ -11,7 +10,9 @@ package com.example.nightingale.qwalk;
         import android.widget.EditText;
         import android.widget.Toast;
 
-        import org.json.JSONArray;
+        import com.example.nightingale.qwalk.Model.User;
+        import com.example.nightingale.qwalk.R;
+
         import org.json.JSONObject;
 
         import java.io.BufferedReader;
@@ -22,9 +23,7 @@ package com.example.nightingale.qwalk;
         import java.net.HttpURLConnection;
         import java.net.URL;
         import java.net.URLEncoder;
-        import java.sql.Timestamp;
         import java.util.Iterator;
-        import java.util.UUID;
 
         import javax.net.ssl.HttpsURLConnection;
 
