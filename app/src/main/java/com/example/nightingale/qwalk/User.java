@@ -6,7 +6,7 @@ package com.example.nightingale.qwalk;
 
 public class User {
 
-    private int UserID;
+    private int UserID = -1;
     private String Username;
 
 

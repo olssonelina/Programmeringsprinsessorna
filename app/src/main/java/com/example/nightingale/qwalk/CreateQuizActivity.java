@@ -111,47 +111,54 @@ public class CreateQuizActivity extends AppCompatActivity {
     }
 
     public void saveQuiz() throws InterruptedException {
+        if(User.getInstance().getUserID() == -1){
+            Toast toast = Toast.makeText(getApplicationContext(), "Please Log In", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 160);
+            toast.show();
 
-       Quiz quiz = new Quiz(quizTitle.getText().toString(), quizDescription.getText().toString());
-        quiz.setQuestions(questions);
-
-
-        QuestionIDArray = new ArrayList<Integer>();
-        counter = 0;
-
-        ArrayList<OptionQuestion> questionToSend = OptionQuestion.getQuestionsToSend();
-        OptionQuestion.wipeQuestionsToSend();
-        for (int i = 0; i < questionToSend.size(); i++) {
-            try {
-
-                test = new SendRequest().execute().get();
-                Log.d("Getcomplete", "True");
-                Log.d("Getcomplete", test);
-                test = test.replaceAll("\\s+","");
-                QuestionIDArray.add(Integer.parseInt(test));
-            } catch (Exception e) {
-                Log.d("Getcomplete", "False");
-                break;
-            }
-            Log.d("Getcomplete", "Test");
         }
-
-        Log.d("JSONindex", String.valueOf(QuestionIDArray.get(0)));
-        JSONArray jsArray = new JSONArray(QuestionIDArray);
-        JSONarrayString = jsArray.toString();
-        Log.d("JSON", JSONarrayString);
-        readycheck = 1;
-        counter = 0;
-        new SendRequest().execute();
+        else{
+            Quiz quiz = new Quiz(quizTitle.getText().toString(), quizDescription.getText().toString());
+            quiz.setQuestions(questions);
 
 
+            QuestionIDArray = new ArrayList<Integer>();
+            counter = 0;
 
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra("quiz", quiz);
-        setResult(GetPositionActivity.RESULT_OK, returnIntent);
-        finish();
+            ArrayList<OptionQuestion> questionToSend = OptionQuestion.getQuestionsToSend();
+
+            for (int i = 0; i < questionToSend.size(); i++) {
+                try {
+
+                    test = new SendRequest().execute().get();
+                    Log.d("Getcomplete", "True");
+                    Log.d("Getcomplete", test);
+                    test = test.replaceAll("\\s+", "");
+                    QuestionIDArray.add(Integer.parseInt(test));
+                } catch (Exception e) {
+                    Log.d("Getcomplete", "False");
+                    break;
+                }
+                Log.d("Getcomplete", "Test");
+            }
+
+            Log.d("JSONindex", String.valueOf(QuestionIDArray.get(0)));
+            JSONArray jsArray = new JSONArray(QuestionIDArray);
+            JSONarrayString = jsArray.toString();
+            Log.d("JSON", JSONarrayString);
+            readycheck = 1;
+            counter = 0;
+            new SendRequest().execute();
 
 
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("quiz", quiz);
+            setResult(GetPositionActivity.RESULT_OK, returnIntent);
+            finish();
+
+            OptionQuestion.wipeQuestionsToSend();
+
+        }
     }
 
     public class SendRequest extends AsyncTask<String, Void, String> {
@@ -204,6 +211,8 @@ public class CreateQuizActivity extends AppCompatActivity {
                 Log.d("VARIABLE", Integer.toString(readycheck));
                 postDataParams.put("finish", readycheck);
                 postDataParams.put("questionidarray", JSONarrayString);
+
+                postDataParams.put("userid", User.getInstance().getUserID());
 
                 Log.d("VARIABLE", title);
                 postDataParams.put("title", title);

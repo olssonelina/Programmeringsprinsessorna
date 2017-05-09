@@ -37,6 +37,9 @@ public class MenuActivity extends AppCompatActivity {
 
     public static final int CREATE_QUIZ_CODE = 37;
 
+    protected int request;
+    int offset = 0;
+
     private ListView listView;
 
     private List<Quiz> quizzes = new ArrayList<>();
@@ -46,6 +49,9 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu); //ändra namnet till rätt xml-fil
         loadQuizzes();
+        if(!(User.getInstance().getUserID() == -1)){
+            loadOnlineQuizzes();
+        }
         loadList();
     }
 
@@ -53,6 +59,59 @@ public class MenuActivity extends AppCompatActivity {
         quizzes.add(StandardQuizzes.getChalmersQuiz());
         quizzes.add(StandardQuizzes.getAdressQuiz());
         //TODO Kevin, här kanske du kan lägga till från databasen ?. Eventuellt fler standardquizzes med
+    }
+
+    private void loadOnlineQuizzes() {
+        Log.d("JSON", "Method entered");
+        request = 0;
+        int quizAmount = 0;
+        try {
+            Log.d("JSON", "Trying");
+            int RequestAmount = Integer.parseInt( new SendRequest().execute().get());
+            Log.d("JSON", String.valueOf(RequestAmount));
+            quizAmount = RequestAmount;
+            Log.d("JSON", String.valueOf(quizAmount));
+        } catch (Exception e) {
+
+        }
+        Log.d("JSON", "Continuing");
+        if(!(quizAmount == 0)){
+            request = 1;
+            for(int i = 0; i < quizAmount; i++){
+                offset = i;
+                try {
+                    String JSONstring = new SendRequest().execute().get();
+
+                    Log.d("JSON", JSONstring);
+
+                } catch (Exception e) {
+
+                }
+            }
+
+
+
+        }
+
+
+        Quiz q = new Quiz("Gissa huset!","Besök skaparna av appen och gissa vem som bor var!");
+
+        List<OptionQuestion> questions = new ArrayList<>();
+
+        questions.add(new OptionQuestion("Vem bor så här nära Chalmers?", "Katten", "Pil", "Nightinggale", "Elit", 1,57.689280, 11.972306));
+        //questions.get(0).setLocation(57.689280, 11.972306);
+
+        questions.add(new OptionQuestion("Vem kan bo här?", "Pil", "Katten", "Nightinggale", "Elit", 2,57.742081, 11.969506));
+        //questions.get(1).setLocation(57.742081, 11.969506);
+
+        questions.add(new OptionQuestion("Vem bor inneboende här?", "Pil", "Nightinggale", "Elit", "Katten", 3,57.735626, 12.116774));
+        //questions.get(2).setLocation(57.735626, 12.116774);
+
+        questions.add(new OptionQuestion("Vem orkar pendla från Kungsbacka?", "Elit", "Pil", "Nightinggale", "Katten", 0,57.543822, 12.103735));
+        //questions.get(3).setLocation(57.543822, 12.103735);
+
+
+        q.setQuestions(questions);
     }
 
     private void loadList() {
@@ -121,7 +180,9 @@ public class MenuActivity extends AppCompatActivity {
                 JSONObject postDataParams = new JSONObject();
 
 
-                postDataParams.put("read", "1");
+                postDataParams.put("read", request);
+                postDataParams.put("offset", offset);
+                postDataParams.put("userid", User.getInstance().getUserID());
 
 
 
@@ -173,23 +234,6 @@ public class MenuActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            result= result.replaceAll("\\s+","");
-            if(result.equals("1")) {
-                Toast.makeText(getApplicationContext(), "Admin Success",
-                        Toast.LENGTH_LONG).show();
-
-            }
-            else if(result.equals("2")){
-                Toast.makeText(getApplicationContext(), "Success",
-                        Toast.LENGTH_LONG).show();
-
-            }
-            else if(result.equals("3")){
-                Toast.makeText(getApplicationContext(), "Incorret Password/Username",
-                        Toast.LENGTH_LONG).show();
-
-            }
-
         }
     }
 
