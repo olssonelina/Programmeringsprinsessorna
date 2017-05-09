@@ -17,18 +17,17 @@
             android:layout_height="match_parent">
 
 
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="130dp"
+                android:layout_marginTop="400dp"
+                android:padding="10dp"
+                android:onClick="addPosition"
+                android:text="Lägg till position"
+                android:textColor="@color/wallet_holo_blue_light" />
         </ScrollView>
-
-        <TextView
-            android:id="@+id/addPosition"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="130dp"
-            android:layout_marginTop="400dp"
-            android:onClick="addPosition"
-            android:padding="10dp"
-            android:text="Lägg till position"
-            android:textColor="@color/wallet_holo_blue_light" />
 
         <TextView
             android:id="@+id/questionX"

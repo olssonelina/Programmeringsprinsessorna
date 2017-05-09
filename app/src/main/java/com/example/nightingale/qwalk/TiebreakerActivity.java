@@ -3,12 +3,19 @@ package com.example.nightingale.qwalk;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import static com.example.nightingale.qwalk.CreateQuestionActivity.GET_POSITION_CODE;
+import static com.example.nightingale.qwalk.R.id.maxField;
+import static com.example.nightingale.qwalk.R.id.minField;
+import static com.example.nightingale.qwalk.R.id.textView;
 import static java.lang.Integer.parseInt;
 
 /**
