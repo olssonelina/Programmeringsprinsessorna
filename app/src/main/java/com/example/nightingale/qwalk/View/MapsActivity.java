@@ -1,4 +1,4 @@
-package com.example.nightingale.qwalk;
+package com.example.nightingale.qwalk.View;
 
 import android.Manifest;
 import android.content.Intent;
@@ -12,6 +12,9 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.nightingale.qwalk.Model.OptionQuestion;
+import com.example.nightingale.qwalk.Model.Quiz;
+import com.example.nightingale.qwalk.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;

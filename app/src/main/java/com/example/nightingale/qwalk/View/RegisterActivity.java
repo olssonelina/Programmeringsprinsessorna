@@ -1,4 +1,4 @@
-package com.example.nightingale.qwalk;
+package com.example.nightingale.qwalk.View;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.nightingale.qwalk.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
