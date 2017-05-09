@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    TextView
+        android:id="@+id/yourResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ditt resultat"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="24dp"/>
+
+    <TextView
+        android:id="@+id/rightAnswers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:text="X rätt"
+        android:textSize="50dp"/>
+
+    <TextView
+        android:id="@+id/total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignTop="@+id/rightAnswers"
+        android:layout_marginTop="70dp"
+        android:text="av Y möjliga"
+        android:textSize="24dp"/>
+</RelativeLayout>

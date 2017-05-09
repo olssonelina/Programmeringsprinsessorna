@@ -86,4 +86,9 @@ public class AnswerActivity extends AppCompatActivity {
         setResult(GetPositionActivity.RESULT_OK, returnIntent);
         finish();
     }
+
+    public void showResult(View view) {
+        Intent intent = new Intent(this, ShowResultActivity.class);
+        startActivity(intent);
+    }
 }
