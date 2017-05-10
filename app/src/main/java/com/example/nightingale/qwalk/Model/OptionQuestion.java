@@ -55,7 +55,7 @@ public class OptionQuestion extends Question implements Parcelable  {
     }
 
     public static void wipeQuestionsToSend(){
-        ArrayList<OptionQuestion> questionsToSend = new ArrayList<OptionQuestion>();
+        questionsToSend = new ArrayList<OptionQuestion>();
     }
 
 

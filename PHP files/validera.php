@@ -6,53 +6,56 @@
 
 * 
 
-* Validerar inloggning och håller koll på felaktiga inloggningar genom att försöka hitta poster i databasen som stämmer med inloggningsuppgifterna. Om de existerar kollas genom att utföra num_rows kommandot på de valda posterna och sedan se hur många poster som hittades, där 0 = ej hittat.
+* Validerar inloggning genom att hitta poster i databasen som stÃÂ¤mmer med inloggningsuppgifterna. Om de existerar kollas genom att utfÃÂ¶ra num_rows kommandot pÃÂ¥ de valda posterna och sedan se hur mÃÂ¥nga poster som hittades, dÃÂ¤r 0 = ej hittat.
 
-De felaktiga inloggningarna kollas istället genom att skapa en session och uppdatera denna för varje misslyckad inloggning.
 *
 
-* @param author kevin.solovjov@itggot.se
+* @param author kevin.solovjov@gmail.com
 
 */
 
 ?>
     <?php
 
-//begär att encrypt.php och connectDB.php existerar för att kyrptera lösenord respektivt skapa en databasanslutning.
+//begÃÂ¤r att encrypt.php och connectDB.php existerar fÃÂ¶r att kyrptera lÃÂ¶senord respektivt skapa en databasanslutning.
 require "encrypt.php";
 require "connectDB.php";
 $response = 0;
 $password = $_POST['password'];
-//Kallar på encrypt funktionen för att kryptera lösenordet innan det kan jämnföras med databasen.
+//Kallar pÃÂ¥ encrypt funktionen fÃÂ¶r att kryptera lÃÂ¶senordet innan det kan jÃÂ¤mnfÃÂ¶ras med databasen.
 $password = encrypt($password);
 
 $username = $_POST['username'];
 $con = connect(); //Anropar och ansluter till db.
 
-//Väljer alla poster där lösenorder och användarnamn matchar inloggningen samt att kontonivån är 1
+//VÃÂ¤ljer alla poster dÃÂ¤r lÃÂ¶senorder och anvÃÂ¤ndarnamn matchar inloggningen samt att kontonivÃÂ¥n ÃÂ¤r 1
 $selectadmin = mysqli_query($con, "SELECT * FROM account WHERE password = '$password' AND username = '$username' AND level = 1");
 
-//Väljer alla poster där lösenorder och email matchar inloggningen samt att konto nivån är 0
+//VÃÂ¤ljer alla poster dÃÂ¤r lÃÂ¶senorder och email matchar inloggningen samt att konto nivÃÂ¥n ÃÂ¤r 0
 $select = mysqli_query($con, "SELECT * FROM account WHERE password = '$password' AND username = '$username' AND level = 0");
 	
-//Ser hur många poster man hittat för båda nivåerna	
+//Ser hur mÃÂ¥nga poster man hittat fÃÂ¶r bÃÂ¥da nivÃÂ¥erna	
 $nradmin = mysqli_num_rows($selectadmin);
 $nr = mysqli_num_rows($select);
 
 
-//om man hittat en post med den inloggningsinformationen som är ett admin account loggas man in som administratör och skickas tillbaka.  Misslyckade lög-in försök resettas. 
+//om man hittat en post med den inloggningsinformationen som ÃÂ¤r ett admin account loggas man in som administratÃÂ¶r och skickas tillbaka. 
 if($nradmin == 1)
 {
-$response = 1;
+$response = -2;
 }
-//Om man istället hittat en post som ej är administratör loggas man in som vanlig användare. Namn och personid sparas i sessionen och misslyckade lög-in försök resettas.
+//Om man istÃÂ¤llet hittat en post som ej ÃÂ¤r administratÃÂ¶r loggas man in som vanlig anvÃÂ¤ndare.
 else if($nr == 1)
 {
-$response = 2;
+while($data = mysqli_fetch_array($select)){
+
+$response = $data['accountid'];
+
+}    
 }
-//Om ingen post hittas för vare sig admin eller vanlig användare skickas ett medellande om misslyckat försök och antalet försök ökar med ett.
+//Om ingen post hittas fÃÂ¶r vare sig admin eller vanlig anvÃÂ¤ndare skickas ett medellande om misslyckat inloggning.
 else{
-$response = 3;
+$response = -1;
 }
 echo $response;
 
