@@ -33,13 +33,14 @@ else if($finish == 1){
 $quizdescription = $_POST['quizdescription'];
 $quiztitle = $_POST['title'];
 $questionidarray = $_POST['questionidarray'];
+$userid = $_POST['userid'];
 
     
     
 $checktaken = mysqli_query($con, "SELECT  *  FROM quiz WHERE title = '$quiztitle'");
-$nr = mysqli_num_rows($select);
+$nr = mysqli_num_rows($checktaken);
     
-if($nr == 1){
+if($nr == 0){
     
     
 $sql = "INSERT INTO quiz (description, title) VALUES ('$quizdescription', '$quiztitle')";
@@ -63,7 +64,10 @@ $quizid = $data['quizid'];
 
         mysqli_query($con,$sql);
         
-} 
+}
+    $sql = "INSERT INTO accountrelation (quizid, accountid) VALUES ('$quizid', '$userid')";
+mysqli_query($con,$sql);
+    
     
 echo '0';
 }

@@ -6,7 +6,7 @@ import com.example.nightingale.qwalk.Model.Question;
  * Created by Kraft on 2017-05-09.
  */
 
-public interface IAnswerOptionActivity {
+public interface IAnswerOption {
     void setOptions(String[] options);
     void setOptionColour(int index, boolean isSelectedColour);
     void closeWithResult(int chosenIndex);

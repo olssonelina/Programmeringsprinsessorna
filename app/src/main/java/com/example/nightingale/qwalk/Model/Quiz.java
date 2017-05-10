@@ -14,14 +14,14 @@ public class Quiz implements Parcelable {
     private String title;
     private String description;
 
-    private List<OptionQuestion> questions = new ArrayList<>();
+    private List<Question> questions = new ArrayList<>();
 
     public Quiz(String title, String description) {
         this.title = title;
         this.description = description;
     }
 
-    public void setQuestions(List<OptionQuestion> questions) {
+    public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
 
@@ -33,11 +33,11 @@ public class Quiz implements Parcelable {
         return description;
     }
 
-    public List<OptionQuestion> getQuestions() {
+    public List<Question> getQuestions() {
         return questions;
     }
 
-    public OptionQuestion get(int index){
+    public Question get(int index){
         return questions.get(index);
     }
 
@@ -49,7 +49,7 @@ public class Quiz implements Parcelable {
         title = in.readString();
         description = in.readString();
         if (in.readByte() == 0x01) {
-            questions = new ArrayList<OptionQuestion>();
+            questions = new ArrayList<Question>();
             in.readList(questions, OptionQuestion.class.getClassLoader());
         } else {
             questions = null;

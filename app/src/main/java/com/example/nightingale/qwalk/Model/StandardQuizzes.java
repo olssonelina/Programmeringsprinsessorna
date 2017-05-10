@@ -19,7 +19,7 @@ public final class StandardQuizzes {
 
         Quiz q = new Quiz("Chalmersquiz","Trivia om Chalmers och dess campus!");
 
-        List<OptionQuestion> questions = new ArrayList<>();
+        List<Question> questions = new ArrayList<>();
 
         questions.add(new OptionQuestion("Vilken sektion har sin sektionslokal här?", "Data", "Informationsteknik", "Elektro", "Maskin", 1,57.688290, 11.979162));
         //questions.get(0).setLocation(57.688290, 11.979162);
@@ -39,7 +39,7 @@ public final class StandardQuizzes {
 
         Quiz q = new Quiz("Gissa huset!","Besök skaparna av appen och gissa vem som bor var!");
 
-        List<OptionQuestion> questions = new ArrayList<>();
+        List<Question> questions = new ArrayList<>();
 
         questions.add(new OptionQuestion("Vem bor så här nära Chalmers?", "Katten", "Pil", "Nightinggale", "Elit", 1,57.689280, 11.972306));
         //questions.get(0).setLocation(57.689280, 11.972306);
@@ -53,6 +53,18 @@ public final class StandardQuizzes {
         questions.add(new OptionQuestion("Vem orkar pendla från Kungsbacka?", "Elit", "Pil", "Nightinggale", "Katten", 0,57.543822, 12.103735));
         //questions.get(3).setLocation(57.543822, 12.103735);
 
+
+        q.setQuestions(questions);
+
+        return q;
+    }
+
+    public static Quiz getMachineStudyRoomsQuiz(){
+        Quiz q = new Quiz("M-grupprummen","Najs grupprum");
+
+        List<Question> questions = new ArrayList<>();
+
+        questions.add(new Tiebreaker("Hur gammal är byggnaden?", 45, 11.978703, 57.688447, 20, 60));
 
         q.setQuestions(questions);
 

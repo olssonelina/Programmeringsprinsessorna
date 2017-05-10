@@ -1,6 +1,6 @@
 package com.example.nightingale.qwalk.Presenter;
 
-import com.example.nightingale.qwalk.InterfaceView.IAnswerOptionActivity;
+import com.example.nightingale.qwalk.InterfaceView.IAnswerOption;
 import com.example.nightingale.qwalk.Model.OptionQuestion;
 
 /**
@@ -9,13 +9,11 @@ import com.example.nightingale.qwalk.Model.OptionQuestion;
 
 public class AnswerOptionPresenter {
 
-    private IAnswerOptionActivity view;
-    private OptionQuestion question;
+    private IAnswerOption view;
     private int chosenAnswer = 0;
 
-    public AnswerOptionPresenter(IAnswerOptionActivity view, OptionQuestion question) {
+    public AnswerOptionPresenter(IAnswerOption view, OptionQuestion question) {
         this.view = view;
-        this.question = question;
 
         view.setTitle(question.getQuestionTitle());
 

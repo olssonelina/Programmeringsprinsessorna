@@ -1,30 +1,57 @@
 package com.example.nightingale.qwalk.Model;
 
-import java.util.Timer;
-import java.util.TimerTask;
 /**
  * Created by PiaLocal on 2017-05-10.
  */
 
 public class GameTimer {
-    private GameTimer(){}
-    private static boolean TimerRunning=false;
-    private static long tStart;
-    private static long tStop;
 
-    static void StartTimer(){
-        if(TimerRunning){
-            //kasta exception? fler än en timer samtidigt?
-        }
+    private boolean TimerRunning=false;
+    private long tStart, tStop, tSaved;
+
+
+    /**
+     * Starts counting time from this moment.
+     */
+    void StartTimer(){
         tStart = System.currentTimeMillis();
+        TimerRunning=true;
+        tSaved=0;
     }
 
-    static double StopTimer(){
+
+    /**
+     * Stops counting time but saves current result for eventual "Resume".
+     */
+    void StopTimer(){
         if(TimerRunning){
             tStop = System.currentTimeMillis();
             TimerRunning=false;
-            return (tStop-tStart)/1000.0;
+            tSaved+=tStop-tStart;
         }
-        return 0;
+    }
+
+
+    /**
+     * Continue counting time from the last stop.
+     */
+    void ResumeTimer(){
+        if(!TimerRunning){
+            tStart = System.currentTimeMillis();
+            TimerRunning=true;
+        }
+    }
+
+
+    /**
+     *Returns time (in seconds) counted since latest Start.
+     *
+     *@return time (in seconds) counted since latest Start
+     */
+    double GetTime(){
+        if(TimerRunning){
+            tStop = System.currentTimeMillis();
+        }
+        return (tStop-tStart+tSaved)/1000.0;
     }
 }
