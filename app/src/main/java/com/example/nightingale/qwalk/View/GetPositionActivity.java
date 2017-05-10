@@ -12,6 +12,8 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.nightingale.qwalk.InterfaceView.IGetPosition;
+import com.example.nightingale.qwalk.Presenter.GetPositionPresenter;
 import com.example.nightingale.qwalk.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -35,29 +37,24 @@ public class GetPositionActivity extends FragmentActivity implements OnMapReadyC
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         GoogleMap.OnMapClickListener,
-        LocationListener{
+        LocationListener,
+        IGetPosition {
+
+    private GetPositionPresenter presenter;
 
     private GoogleMap mMap;
-    GoogleApiClient mGoogleApiClient;
-    Marker mCurrLocationMarker;
-    LocationRequest mLocationRequest;
+    private GoogleApiClient mGoogleApiClient;
+    private Marker newQuestionMarker;
 
-    public Location getLocation(){
-        Location a = new Location("");
-        a.setLatitude(mCurrLocationMarker.getPosition().latitude);
-        a.setLongitude(mCurrLocationMarker.getPosition().longitude);
-        return a;
-    }
-
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_getposition);
 
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            checkLocationPermission();
-        }
+        presenter = new GetPositionPresenter(this);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -91,7 +88,9 @@ public class GetPositionActivity extends FragmentActivity implements OnMapReadyC
             buildGoogleApiClient();
             mMap.setMyLocationEnabled(true);
         }
+
         mMap.setOnMapClickListener(this);
+        presenter.setMapReady();
 
     }
 
@@ -104,10 +103,20 @@ public class GetPositionActivity extends FragmentActivity implements OnMapReadyC
         mGoogleApiClient.connect();
     }
 
+
+    @Override
+    public double getMarkerLatitude() {
+        return newQuestionMarker.getPosition().latitude;
+    }
+
+    @Override
+    public double getMarkerLongitude() {
+        return newQuestionMarker.getPosition().longitude;
+    }
+
     @Override
     public void onConnected(Bundle bundle) {
-
-        mLocationRequest = new LocationRequest();
+        LocationRequest mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(1000);
         mLocationRequest.setFastestInterval(1000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
@@ -119,62 +128,64 @@ public class GetPositionActivity extends FragmentActivity implements OnMapReadyC
 
     }
 
-
-
     @Override
-    public void onConnectionSuspended(int i) {
-
+    public void onLocationChanged(Location location) {
+        presenter.setUserLocation(location.getLatitude(), location.getLongitude());
     }
 
     @Override
-    public void onLocationChanged(Location location)
-    {
-        /*mLastLocation = location;
-        if (mCurrLocationMarker != null) {
-            mCurrLocationMarker.remove();
-        }*/
+    public void moveMarker(double latitude, double longitude) {
+        if (newQuestionMarker == null) {
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.position(new LatLng(latitude, longitude));
+            markerOptions.title("Current Question");
+            markerOptions.draggable(true);
+            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
+            newQuestionMarker = mMap.addMarker(markerOptions);
+        } else {
+            newQuestionMarker.setPosition(new LatLng(latitude, longitude));
+        }
+    }
 
-        //Place current location marker
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(latLng);
-        markerOptions.title("Current OptionQuestion");
-        markerOptions.draggable(true);
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
-        mCurrLocationMarker = mMap.addMarker(markerOptions);
-
-        //move map camera
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+    @Override
+    public void focusOn(double latitude, double longitude) {
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(latitude, longitude)));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+    }
 
-        //stop location updates
+    @Override
+    public void stopLocationUpdates() {
         if (mGoogleApiClient != null) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
         }
     }
 
-    public void PlaceQuestionButtonClicked(View view){
+    public void PlaceQuestionButtonClicked(View view) {
+        presenter.closeButtonPressed();
+    }
+
+    @Override
+    public void closeWithResult(double latitude, double longitude){
+        Location location = new Location("");
+        location.setLatitude(latitude);
+        location.setLongitude(longitude);
+
         Intent returnIntent = new Intent();
-        returnIntent.putExtra("result", getLocation());
+        returnIntent.putExtra("result", location );
         setResult(GetPositionActivity.RESULT_OK, returnIntent);
         finish();
     }
 
     @Override
     public void onMapClick(LatLng latLng) {
-        mCurrLocationMarker.setPosition(latLng);
+        if (presenter.isMarkerPlaced()) {
+            presenter.mapClicked(latLng.latitude, latLng.longitude);
+        }
     }
-
 
     @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-
-    }
-
-    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
-
     public boolean checkLocationPermission() {
-        if (ContextCompat.checkSelfPermission(this,
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
 
@@ -193,7 +204,7 @@ public class GetPositionActivity extends FragmentActivity implements OnMapReadyC
 
 
             } else {
-                // No explanation needed, we can request the permission.
+                // We may request permission.
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         MY_PERMISSIONS_REQUEST_LOCATION);
@@ -204,9 +215,9 @@ public class GetPositionActivity extends FragmentActivity implements OnMapReadyC
         }
     }
 
+
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_LOCATION: {
                 // If request is cancelled, the result arrays are empty.
@@ -214,7 +225,6 @@ public class GetPositionActivity extends FragmentActivity implements OnMapReadyC
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                     // permission was granted. Do the
-                    // contacts-related task you need to do.
                     if (ContextCompat.checkSelfPermission(this,
                             Manifest.permission.ACCESS_FINE_LOCATION)
                             == PackageManager.PERMISSION_GRANTED) {
@@ -226,17 +236,20 @@ public class GetPositionActivity extends FragmentActivity implements OnMapReadyC
                     }
 
                 } else {
-
-                    // Permission denied, Disable the functionality that depends on this permission.
                     Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show();
+                    //TODO lägg till vad som händer när en inte tillåter att location används
                 }
                 return;
             }
 
-            // other 'case' lines to check for other permissions this app might request.
-            // You can add here other case statements according to your requirement.
         }
     }
+
+    @Override
+    public void onConnectionSuspended(int i) { }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) { }
 
 
 }
