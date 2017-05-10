@@ -33,7 +33,7 @@ public class AnswerOptionActivity extends AppCompatActivity implements IAnswerOp
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_answertiebreaker);
+        setContentView(R.layout.activity_answeroption);
 
         title = ((TextView)findViewById(R.id.question));
 
