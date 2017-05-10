@@ -1,8 +1,5 @@
 package com.example.nightingale.qwalk.Model;
 
-import java.sql.Time;
-import java.util.Timer;
-import java.util.TimerTask;
 /**
  * Created by PiaLocal on 2017-05-10.
  */
@@ -11,8 +8,11 @@ public class GameTimer {
 
     private boolean TimerRunning=false;
     private long tStart, tStop, tSaved;
-    
 
+
+    /**
+     * Starts counting time from this moment.
+     */
     void StartTimer(){
         tStart = System.currentTimeMillis();
         TimerRunning=true;
@@ -20,14 +20,10 @@ public class GameTimer {
     }
 
 
+    /**
+     * Stops counting time but saves current result for eventual "Resume".
+     */
     void StopTimer(){
-        if(TimerRunning){
-            tStop = System.currentTimeMillis();
-            TimerRunning=false;
-        }
-    }
-
-    void PauseTimer(){
         if(TimerRunning){
             tStop = System.currentTimeMillis();
             TimerRunning=false;
@@ -35,6 +31,10 @@ public class GameTimer {
         }
     }
 
+
+    /**
+     * Continue counting time from the last stop.
+     */
     void ResumeTimer(){
         if(!TimerRunning){
             tStart = System.currentTimeMillis();
@@ -42,10 +42,15 @@ public class GameTimer {
         }
     }
 
+
+    /**
+     *Returns time (in seconds) counted since latest Start.
+     *
+     *@return time (in seconds) counted since latest Start
+     */
     double GetTime(){
         if(TimerRunning){
             tStop = System.currentTimeMillis();
-            return (tStop-tStart+tSaved)/1000.0;
         }
         return (tStop-tStart+tSaved)/1000.0;
     }
