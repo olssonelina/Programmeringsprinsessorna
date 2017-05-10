@@ -70,12 +70,17 @@ public class MenuActivity extends AppCompatActivity {
         int quizAmount = 0;
         try {
             Log.d("JSON", "Trying");
-            int RequestAmount = Integer.parseInt( new SendRequest().execute().get());
-            Log.d("JSON", String.valueOf(RequestAmount));
+            String JSONstring = new SendRequest().execute().get();
+            Log.d("JSON", JSONstring);
+            JSONstring = JSONstring.replaceAll("\\s+","");
+            int RequestAmount = Integer.parseInt(JSONstring);
+                    Log.d("JSON", String.valueOf(RequestAmount));
             quizAmount = RequestAmount;
             Log.d("JSON", String.valueOf(quizAmount));
         } catch (Exception e) {
 
+            Log.d("JSON", "Crash");
+            Log.d("JSON", e.getMessage());
         }
         Log.d("JSON", "Continuing");
         if(!(quizAmount == 0)){
@@ -183,7 +188,7 @@ public class MenuActivity extends AppCompatActivity {
                 JSONObject postDataParams = new JSONObject();
 
 
-                postDataParams.put("read", request);
+                postDataParams.put("request", request);
                 postDataParams.put("offset", offset);
                 postDataParams.put("userid", User.getInstance().getUserID());
 
