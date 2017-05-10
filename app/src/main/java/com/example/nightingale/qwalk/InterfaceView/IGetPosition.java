@@ -5,4 +5,11 @@ package com.example.nightingale.qwalk.InterfaceView;
  */
 
 public interface IGetPosition {
+    boolean checkLocationPermission();
+    double getMarkerLatitude();
+    double getMarkerLongitude();
+    void moveMarker(double latitude, double longitude);
+    void focusOn(double latitude, double longitude);
+    void stopLocationUpdates();
+    void closeWithResult(double latitude, double longitude);
 }
