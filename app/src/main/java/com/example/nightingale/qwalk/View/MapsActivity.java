@@ -10,6 +10,8 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nightingale.qwalk.Model.OptionQuestion;
@@ -25,6 +27,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -33,7 +36,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener,
-        GoogleMap.OnMarkerClickListener {
+        GoogleMap.OnMarkerClickListener,
+        GoogleMap.OnCameraChangeListener {
 
     private GoogleMap mMap;
     GoogleApiClient mGoogleApiClient;
@@ -48,7 +52,58 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Quiz currentQuiz;
     private OptionQuestion currentQuestion;
 
+    //private TextView goHere;
+    ImageView goUpRight;
+    ImageView goRight;
+    ImageView goDownRight;
+    ImageView goDown;
+    ImageView goDownLeft;
+    ImageView goLeft;
+    ImageView goUpLeft;
+    ImageView goUp;
+
     public static final int ANSWER_CODE = 4331;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_maps);
+
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            checkLocationPermission();
+        }
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
+
+        goUpRight = (ImageView) findViewById(R.id.goUpRight);
+        goUpRight.setImageResource(R.drawable.upright);
+
+        goRight = (ImageView) findViewById(R.id.goRight);
+        goRight.setImageResource(R.drawable.right);
+
+        goDownRight = (ImageView) findViewById(R.id.goDownRight);
+        goDownRight.setImageResource(R.drawable.downright);
+
+        goDown = (ImageView) findViewById(R.id.goDown);
+        goDown.setImageResource(R.drawable.down);
+
+        goDownLeft = (ImageView) findViewById(R.id.goDownLeft);
+        goDownLeft.setImageResource(R.drawable.downleft);
+
+        goLeft = (ImageView) findViewById(R.id.goLeft);
+        goLeft.setImageResource(R.drawable.left);
+
+        goUpLeft = (ImageView) findViewById(R.id.goUpLeft);
+        goUpLeft.setImageResource(R.drawable.upleft);
+
+        goUp = (ImageView) findViewById(R.id.goUp);
+        goUp.setImageResource(R.drawable.up);
+    }
+
 
     /**
      * This method is called whenever the location of the device is updated.
@@ -84,24 +139,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng latitudeLongitude = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latitudeLongitude));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
-        currentQuiz =  getIntent().getParcelableExtra("quiz");
+        currentQuiz = getIntent().getParcelableExtra("quiz");
     }
 
-    private void nextQuestion(){
+    private void nextQuestion() {
         inQuestionRange = false; // Reset the inRange boolean
-        if (currentQuestion == null){ // Start quiz
+        if (currentQuestion == null) { // Start quiz
             currentQuestion = currentQuiz.get(0);
             showQuestionOnMap(currentQuestion);
             return;
-        }
-        else {
-            if(currentQuestion.getLatitude() == currentQuiz.get(currentQuiz.size()-1).getLatitude()){ // End quiz
+        } else {
+            if (currentQuestion.getLatitude() == currentQuiz.get(currentQuiz.size() - 1).getLatitude()) { // End quiz
                 //TODO det som ska hända när ett quiz är klart
                 finish();
-            }else { // Continue quiz by figuring out which the next question is
-                for (int i = 0; i < currentQuiz.size() - 1; i++){
-                    if (currentQuestion.getLatitude() == currentQuiz.get(i).getLatitude()){ //TODO det borde vara en korrekt equalsmetod
-                        currentQuestion = currentQuiz.get(i+1);
+            } else { // Continue quiz by figuring out which the next question is
+                for (int i = 0; i < currentQuiz.size() - 1; i++) {
+                    if (currentQuestion.getLatitude() == currentQuiz.get(i).getLatitude()) { //TODO det borde vara en korrekt equalsmetod
+                        currentQuestion = currentQuiz.get(i + 1);
                         showQuestionOnMap(currentQuestion);
                         return;
                     }
@@ -110,26 +164,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-    private void showQuestionOnMap(OptionQuestion question){
-        if (mMarker == null){
+    private void showQuestionOnMap(OptionQuestion question) {
+        if (mMarker == null) {
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(new LatLng(question.getLatitude(), question.getLongitude()));
             markerOptions.title("OptionQuestion");
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
             mMarker = mMap.addMarker(markerOptions);
-        }
-        else {
+        } else {
             mMarker.setPosition(new LatLng(question.getLatitude(), question.getLongitude()));
             mMarker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
         }
-        mMarkerLocation = question.getLocation();;
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mMarker.getPosition(),17));
+        mMarkerLocation = question.getLocation();
+        ;
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mMarker.getPosition(), 17));
 
 
     }
 
     public void viewPinButtonClicked(View view) {
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mMarker.getPosition(),17));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mMarker.getPosition(), 17));
     }
 
     @Override
@@ -164,20 +218,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
     //region Hidden code
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
-
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            checkLocationPermission();
-        }
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-
-    }
 
     /**
      * Manipulates the map once available.
@@ -208,6 +248,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mMap.setOnMarkerClickListener(this);
 
+        mMap.setOnCameraChangeListener(this);
+
     }
 
     protected synchronized void buildGoogleApiClient() {
@@ -234,10 +276,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     @Override
-    public void onConnectionSuspended(int i) {}
+    public void onConnectionSuspended(int i) {
+    }
 
     @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {}
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+    }
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
@@ -303,6 +347,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             // other 'case' lines to check for other permissions this app might request.
             // You can add here other case statements according to your requirement.
+        }
+    }
+
+    @Override
+    public void onCameraChange(CameraPosition cameraPosition) {
+        if (mMarkerLocation.getLatitude() > mLastLocation.getLatitude()) {
+            //goHere.setVisibility(View.VISIBLE);
+        }
+        if (mLastLocation.getLatitude() < mLastLocation.getLatitude()) {
+            //goHere.setVisibility(View.INVISIBLE);
         }
     }
 
