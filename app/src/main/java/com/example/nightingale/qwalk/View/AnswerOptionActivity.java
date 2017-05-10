@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.nightingale.qwalk.InterfaceView.IAnswerOptionActivity;
+import com.example.nightingale.qwalk.InterfaceView.IAnswerOption;
 import com.example.nightingale.qwalk.Model.OptionQuestion;
 import com.example.nightingale.qwalk.Presenter.AnswerOptionPresenter;
 import com.example.nightingale.qwalk.R;
@@ -17,7 +17,7 @@ import com.example.nightingale.qwalk.R;
  * Created by Kraft on 2017-04-26.
  */
 
-public class AnswerOptionActivity extends AppCompatActivity implements IAnswerOptionActivity {
+public class AnswerOptionActivity extends AppCompatActivity implements IAnswerOption {
 
 
     private AnswerOptionPresenter presenter;
@@ -33,7 +33,7 @@ public class AnswerOptionActivity extends AppCompatActivity implements IAnswerOp
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_answeroption);
+        setContentView(R.layout.activity_answertiebreaker);
 
         title = ((TextView)findViewById(R.id.question));
 

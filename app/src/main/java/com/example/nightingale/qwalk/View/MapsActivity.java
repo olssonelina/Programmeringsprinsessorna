@@ -13,7 +13,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.nightingale.qwalk.Model.OptionQuestion;
+import com.example.nightingale.qwalk.Model.Question;
 import com.example.nightingale.qwalk.Model.Quiz;
+import com.example.nightingale.qwalk.Model.Tiebreaker;
 import com.example.nightingale.qwalk.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -46,7 +48,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public final static int QUESTION_RANGE = 25;
     private boolean inQuestionRange = false;
     private Quiz currentQuiz;
-    private OptionQuestion currentQuestion;
+    private Question currentQuestion;
 
     public static final int ANSWER_CODE = 4331;
 
@@ -110,7 +112,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-    private void showQuestionOnMap(OptionQuestion question){
+    private void showQuestionOnMap(Question question){
         if (mMarker == null){
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(new LatLng(question.getLatitude(), question.getLongitude()));
@@ -138,7 +140,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             if (currentQuestion instanceof OptionQuestion){
                 Intent intent = new Intent(getBaseContext(), AnswerOptionActivity.class);
-                intent.putExtra("question", currentQuestion);
+                intent.putExtra("question", (OptionQuestion) currentQuestion);
+                startActivityForResult(intent, ANSWER_CODE);
+            }
+
+            if (currentQuestion instanceof Tiebreaker){
+                Intent intent = new Intent(getBaseContext(), AnswerTiebreakerActivity.class);
+                intent.putExtra("question", (Tiebreaker) currentQuestion);
                 startActivityForResult(intent, ANSWER_CODE);
             }
 

@@ -59,6 +59,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     private void loadQuizzes() {
+        quizzes.add(StandardQuizzes.getMachineStudyRoomsQuiz());
         quizzes.add(StandardQuizzes.getChalmersQuiz());
         quizzes.add(StandardQuizzes.getAdressQuiz());
         //TODO Kevin, här kanske du kan lägga till från databasen ?. Eventuellt fler standardquizzes med
@@ -101,6 +102,7 @@ public class MenuActivity extends AppCompatActivity {
 
         }
 
+        /*
 
         Quiz q = new Quiz("Gissa huset!","Besök skaparna av appen och gissa vem som bor var!");
 
@@ -120,6 +122,8 @@ public class MenuActivity extends AppCompatActivity {
 
 
         q.setQuestions(questions);
+
+        */
     }
 
     private void loadList() {
