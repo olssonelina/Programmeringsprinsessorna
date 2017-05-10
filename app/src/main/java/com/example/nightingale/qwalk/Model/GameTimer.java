@@ -1,5 +1,6 @@
 package com.example.nightingale.qwalk.Model;
 
+import java.sql.Time;
 import java.util.Timer;
 import java.util.TimerTask;
 /**
@@ -7,24 +8,45 @@ import java.util.TimerTask;
  */
 
 public class GameTimer {
-    private GameTimer(){}
-    private static boolean TimerRunning=false;
-    private static long tStart;
-    private static long tStop;
 
-    static void StartTimer(){
-        if(TimerRunning){
-            //kasta exception? fler än en timer samtidigt?
-        }
+    private boolean TimerRunning=false;
+    private long tStart, tStop, tSaved;
+    
+
+    void StartTimer(){
         tStart = System.currentTimeMillis();
+        TimerRunning=true;
+        tSaved=0;
     }
 
-    static double StopTimer(){
+
+    void StopTimer(){
         if(TimerRunning){
             tStop = System.currentTimeMillis();
             TimerRunning=false;
-            return (tStop-tStart)/1000.0;
         }
-        return 0;
+    }
+
+    void PauseTimer(){
+        if(TimerRunning){
+            tStop = System.currentTimeMillis();
+            TimerRunning=false;
+            tSaved+=tStop-tStart;
+        }
+    }
+
+    void ResumeTimer(){
+        if(!TimerRunning){
+            tStart = System.currentTimeMillis();
+            TimerRunning=true;
+        }
+    }
+
+    double GetTime(){
+        if(TimerRunning){
+            tStop = System.currentTimeMillis();
+            return (tStop-tStart+tSaved)/1000.0;
+        }
+        return (tStop-tStart+tSaved)/1000.0;
     }
 }
