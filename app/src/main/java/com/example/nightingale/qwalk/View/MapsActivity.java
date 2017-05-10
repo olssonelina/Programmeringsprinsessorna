@@ -3,6 +3,7 @@ package com.example.nightingale.qwalk.View;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Point;
 import android.location.Location;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
@@ -11,7 +12,6 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nightingale.qwalk.Model.OptionQuestion;
@@ -29,6 +29,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -52,15 +53,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Quiz currentQuiz;
     private OptionQuestion currentQuestion;
 
-    //private TextView goHere;
-    ImageView goUpRight;
-    ImageView goRight;
-    ImageView goDownRight;
-    ImageView goDown;
-    ImageView goDownLeft;
-    ImageView goLeft;
-    ImageView goUpLeft;
-    ImageView goUp;
+    ImageView goHere;
+
+    ImageView directions[] = new ImageView[8];
+
+    int angle = 90;
+    int pivotX = 30;
+    int pivotY = 10;
 
     public static final int ANSWER_CODE = 4331;
 
@@ -79,29 +78,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
 
-        goUpRight = (ImageView) findViewById(R.id.goUpRight);
-        goUpRight.setImageResource(R.drawable.upright);
+        goHere = (ImageView) findViewById(R.id.goHere);
+        goHere.setImageResource(R.drawable.up);
 
-        goRight = (ImageView) findViewById(R.id.goRight);
-        goRight.setImageResource(R.drawable.right);
-
-        goDownRight = (ImageView) findViewById(R.id.goDownRight);
-        goDownRight.setImageResource(R.drawable.downright);
-
-        goDown = (ImageView) findViewById(R.id.goDown);
-        goDown.setImageResource(R.drawable.down);
-
-        goDownLeft = (ImageView) findViewById(R.id.goDownLeft);
-        goDownLeft.setImageResource(R.drawable.downleft);
-
-        goLeft = (ImageView) findViewById(R.id.goLeft);
-        goLeft.setImageResource(R.drawable.left);
-
-        goUpLeft = (ImageView) findViewById(R.id.goUpLeft);
-        goUpLeft.setImageResource(R.drawable.upleft);
-
-        goUp = (ImageView) findViewById(R.id.goUp);
-        goUp.setImageResource(R.drawable.up);
     }
 
 
@@ -190,7 +169,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public boolean onMarkerClick(Marker marker) {
         if (marker.equals(mMarker) && inQuestionRange) {
 
-            if (currentQuestion instanceof OptionQuestion){
+            if (currentQuestion instanceof OptionQuestion) {
                 Intent intent = new Intent(getBaseContext(), AnswerOptionActivity.class);
                 intent.putExtra("question", currentQuestion);
                 startActivityForResult(intent, ANSWER_CODE);
@@ -347,14 +326,48 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+
     @Override
     public void onCameraChange(CameraPosition cameraPosition) {
-        if (mMarkerLocation.getLatitude() > mLastLocation.getLatitude()) {
-            //goHere.setVisibility(View.VISIBLE);
+        LatLngBounds bounds = this.mMap.getProjection().getVisibleRegion().latLngBounds;
+        LatLng screenCenter = mMap.getCameraPosition().target;
+
+        double screenCenterLng = screenCenter.longitude;
+        double screenCenterLat = screenCenter.latitude;
+
+        //If the question pin is offscreen, an arrow will show up and point in the direction of the question
+        if (!bounds.contains(new LatLng(mMarkerLocation.getLatitude(), mMarkerLocation.getLongitude()))) {
+            int angle = angleToQuestion(screenCenterLat, screenCenterLng, mMarkerLocation.getLatitude(), mMarkerLocation.getLongitude());
+            goHere.setRotation(angle);
+            goHere.setVisibility(View.VISIBLE);
+
+            goHere.setY(780);
+            goHere.setX(480);
+
+        } else {
+            goHere.setVisibility(View.INVISIBLE);
+
         }
-        if (mLastLocation.getLatitude() < mLastLocation.getLatitude()) {
-            //goHere.setVisibility(View.INVISIBLE);
-        }
+    }
+
+
+    private int angleToQuestion(double lat1, double long1, double lat2,
+                                double long2) {
+
+        double dLon = (long2 - long1);
+
+        double y = Math.sin(dLon) * Math.cos(lat2);
+        double x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1)
+                * Math.cos(lat2) * Math.cos(dLon);
+
+        double brng = Math.atan2(y, x);
+
+        brng = Math.toDegrees(brng);
+        brng = (brng + 360) % 360;
+
+        int angle = (int) brng;
+
+        return angle;
     }
 
 

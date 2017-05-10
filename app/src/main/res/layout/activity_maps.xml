@@ -39,69 +39,14 @@
             android:onClick="viewPinButtonClicked"
             android:text="Var är frågan?" />
 
-        <ImageView
-            android:id="@+id/goUpRight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/goUpLeft"
-            android:layout_marginLeft="300dp"
-            map:srcCompat="@drawable/upright" />
 
         <ImageView
-            android:id="@+id/goRight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/goUpRight"
-            android:layout_centerVertical="true"
-            map:srcCompat="@drawable/right" />
-
-        <ImageView
-            android:id="@+id/goDownRight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/goUpRight"
-            android:layout_marginTop="440dp"
-            map:srcCompat="@drawable/downright" />
-
-        <ImageView
-            android:id="@+id/goDown"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="470dp"
-            map:srcCompat="@drawable/down" />
-
-        <ImageView
-            android:id="@+id/goDownLeft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/goDownRight"
-            android:layout_marginLeft="30dp"
-            map:srcCompat="@drawable/downleft" />
-
-        <ImageView
-            android:id="@+id/goLeft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="30dp"
-            android:layout_alignBottom="@+id/goRight"
-            map:srcCompat="@drawable/left" />
-
-        <ImageView
-            android:id="@+id/goUpLeft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="70dp"
-            map:srcCompat="@drawable/upleft" />
-
-        <ImageView
-            android:id="@+id/goUp"
+            android:id="@+id/goHere"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
+            android:visibility="invisible"
             map:srcCompat="@drawable/up" />
 
 
