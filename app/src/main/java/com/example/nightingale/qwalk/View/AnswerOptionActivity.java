@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.example.nightingale.qwalk.InterfaceView.IAnswerOptionActivity;
 import com.example.nightingale.qwalk.Model.OptionQuestion;
-import com.example.nightingale.qwalk.Model.Question;
 import com.example.nightingale.qwalk.Presenter.AnswerOptionPresenter;
 import com.example.nightingale.qwalk.R;
 
@@ -34,9 +33,7 @@ public class AnswerOptionActivity extends AppCompatActivity implements IAnswerOp
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_answer);
-
-
+        setContentView(R.layout.activity_answeroption);
 
         title = ((TextView)findViewById(R.id.question));
 
@@ -51,45 +48,15 @@ public class AnswerOptionActivity extends AppCompatActivity implements IAnswerOp
         OptionQuestion question = i.getParcelableExtra("question");
         presenter = new AnswerOptionPresenter(this, question);
 
-        /*for(Button a: optionButtons){
-            a.setBackgroundColor(Color.LTGRAY);
-        }*/
-
-
-
-        /*((Button)findViewById(R.id.option1)).setText(b.getString("option1"));
-        ((Button)findViewById(R.id.option2)).setText(b.getString("option2"));
-        ((Button)findViewById(R.id.option3)).setText(b.getString("option3"));
-        ((Button)findViewById(R.id.option4)).setText(b.getString("option4"));*/
-
     }
 
     public void optionPressed(View view){
-
         for (int i = 0; i < optionButtons.length; i++) {
             if (optionButtons[i].equals(view)){
                 presenter.optionPressed(i);
                 break;
             }
         }
-
-        /*for(Button b: optionButtons){
-            b.setBackgroundColor(Color.LTGRAY);
-        }
-
-
-        Button b = (Button) view;
-        b.setBackgroundColor(Color.WHITE);
-
-        for (int i = 0; i < optionButtons.length; i++){
-            if (optionButtons[i].equals(b)){
-                answer = i;
-                submitButton.setEnabled(true);
-            }
-        }*/
-
-
-
     }
 
 
