@@ -16,6 +16,7 @@ import com.example.nightingale.qwalk.Model.User;
 import com.example.nightingale.qwalk.Model.StandardQuizzes;
 import com.example.nightingale.qwalk.R;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -91,9 +92,73 @@ public class MenuActivity extends AppCompatActivity {
                     String JSONstring = new SendRequest().execute().get();
 
                     Log.d("JSON", JSONstring);
+                    JSONArray jsonArray = new JSONArray(JSONstring);
+                    Quiz q = new Quiz("","");
+                    List<OptionQuestion> questions = new ArrayList<>();
+                    for (int j = 0; j < jsonArray.length(); ++j) {
+                        if(j == 0){
+                            JSONObject quiz = jsonArray.getJSONObject(j);
+                            String title = quiz.getString("title");
+                            Log.d("JSON", title);
+                            String description = quiz.getString("description");
+                            Log.d("JSON", description);
+                            q = new Quiz(title,description);
+                        }
+                        else{
 
+                            JSONObject question = jsonArray.getJSONObject(j);
+                            String description = question.getString("description");
+                            Log.d("JSON", description);
+                            String option1 = question.getString("option1");
+                            Log.d("JSON", option1);
+                            String option2 = question.getString("option2");
+                            Log.d("JSON", option2);
+                            String option3 = question.getString("option3");
+                            Log.d("JSON", option3);
+                            String option4 = question.getString("option4");
+                            Log.d("JSON", option4);
+                            int correctanswer = question.getInt("correctanswer");
+                            Log.d("JSON", String.valueOf(correctanswer));
+                            double latitude = question.getDouble("latitude");
+                            Log.d("JSON", String.valueOf(latitude));
+                            double longitude = question.getDouble("longitude");
+                            Log.d("JSON", String.valueOf(longitude));
+
+
+                            questions.add(new OptionQuestion(description, option1, option2, option3, option4, correctanswer, latitude, longitude));
+                            Log.d("JSON", "Question added");
+                        }
+
+
+                        // ...
+                    }
+                    Log.d("JSON", "Setting questions");
+                    q.setQuestions(questions);
+                    Log.d("JSON", "Questions Set");
+                    quizzes.add(q);
+/*
+                    Quiz q = new Quiz("Gissa huset!","Besök skaparna av appen och gissa vem som bor var!");
+
+                    List<OptionQuestion> questions = new ArrayList<>();
+
+                    questions.add(new OptionQuestion("Vem bor så här nära Chalmers?", "Katten", "Pil", "Nightinggale", "Elit", 1,57.689280, 11.972306));
+                    //questions.get(0).setLocation(57.689280, 11.972306);
+
+                    questions.add(new OptionQuestion("Vem kan bo här?", "Pil", "Katten", "Nightinggale", "Elit", 2,57.742081, 11.969506));
+                    //questions.get(1).setLocation(57.742081, 11.969506);
+
+                    questions.add(new OptionQuestion("Vem bor inneboende här?", "Pil", "Nightinggale", "Elit", "Katten", 3,57.735626, 12.116774));
+                    //questions.get(2).setLocation(57.735626, 12.116774);
+
+                    questions.add(new OptionQuestion("Vem orkar pendla från Kungsbacka?", "Elit", "Pil", "Nightinggale", "Katten", 0,57.543822, 12.103735));
+                    //questions.get(3).setLocation(57.543822, 12.103735);
+
+
+                    q.setQuestions(questions);
+
+*/
                 } catch (Exception e) {
-
+                    Log.d("JSON", "Crash2");
                 }
             }
 
@@ -102,24 +167,7 @@ public class MenuActivity extends AppCompatActivity {
         }
 
 
-        Quiz q = new Quiz("Gissa huset!","Besök skaparna av appen och gissa vem som bor var!");
 
-        List<OptionQuestion> questions = new ArrayList<>();
-
-        questions.add(new OptionQuestion("Vem bor så här nära Chalmers?", "Katten", "Pil", "Nightinggale", "Elit", 1,57.689280, 11.972306));
-        //questions.get(0).setLocation(57.689280, 11.972306);
-
-        questions.add(new OptionQuestion("Vem kan bo här?", "Pil", "Katten", "Nightinggale", "Elit", 2,57.742081, 11.969506));
-        //questions.get(1).setLocation(57.742081, 11.969506);
-
-        questions.add(new OptionQuestion("Vem bor inneboende här?", "Pil", "Nightinggale", "Elit", "Katten", 3,57.735626, 12.116774));
-        //questions.get(2).setLocation(57.735626, 12.116774);
-
-        questions.add(new OptionQuestion("Vem orkar pendla från Kungsbacka?", "Elit", "Pil", "Nightinggale", "Katten", 0,57.543822, 12.103735));
-        //questions.get(3).setLocation(57.543822, 12.103735);
-
-
-        q.setQuestions(questions);
     }
 
     private void loadList() {
