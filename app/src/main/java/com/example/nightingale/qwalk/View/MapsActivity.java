@@ -335,6 +335,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
+    /**
+     * Places an arrow on the screen which points in the direction of the
+     * next question if it is offscreen.
+     *
+     * @param cameraPosition position of the center of the screen
+     */
+
     @Override
     public void onCameraChange(CameraPosition cameraPosition) {
         LatLngBounds bounds = this.mMap.getProjection().getVisibleRegion().latLngBounds;
@@ -343,20 +350,47 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         double screenCenterLng = screenCenter.longitude;
         double screenCenterLat = screenCenter.latitude;
 
+
         //If the question pin is offscreen, an arrow will show up and point in the direction of the question
         if (!bounds.contains(new LatLng(mMarkerLocation.getLatitude(), mMarkerLocation.getLongitude()))) {
             int angle = angleToQuestion(screenCenterLat, screenCenterLng, mMarkerLocation.getLatitude(), mMarkerLocation.getLongitude());
             goHere.setRotation(angle);
             goHere.setVisibility(View.VISIBLE);
 
-            goHere.setY(780);
-            goHere.setX(480);
+            if ((angle >= 0 && angle <= 45) || (angle > 315 && angle < 360)) {
+                goHere.setY(100);
+                goHere.setX(480);
+            }
+            if (angle > 45 && angle <= 135) {
+                goHere.setY(16 * angle - 598);
+                goHere.setX(900);
+            }
+            if (angle > 135 && angle <= 180) {
+                goHere.setY(1500);
+                goHere.setX(480);
+            }
+            if (angle > 180 && angle <= 315) {
+                goHere.setY(500);
+                goHere.setX(100);
+            }
+
 
         } else {
             goHere.setVisibility(View.INVISIBLE);
 
         }
     }
+
+
+    /**
+     * Calculates the angle from cameraPosition to mMarkerLocation.
+     *
+     * @param lat1  Latitude of x1
+     * @param long1 Longitude of y1
+     * @param lat2  Latitude of x2
+     * @param long2 Longitude of y2
+     * @return angle between two locations on the map
+     */
 
 
     private int angleToQuestion(double lat1, double long1, double lat2,
