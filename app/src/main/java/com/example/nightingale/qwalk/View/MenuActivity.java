@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.nightingale.qwalk.Model.OptionQuestion;
+import com.example.nightingale.qwalk.Model.Question;
 import com.example.nightingale.qwalk.Model.Quiz;
 import com.example.nightingale.qwalk.Model.User;
 import com.example.nightingale.qwalk.Model.StandardQuizzes;
@@ -60,6 +61,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     private void loadQuizzes() {
+        quizzes.add(StandardQuizzes.getMachineStudyRoomsQuiz());
         quizzes.add(StandardQuizzes.getChalmersQuiz());
         quizzes.add(StandardQuizzes.getAdressQuiz());
         //TODO Kevin, här kanske du kan lägga till från databasen ?. Eventuellt fler standardquizzes med
@@ -94,7 +96,7 @@ public class MenuActivity extends AppCompatActivity {
                     Log.d("JSON", JSONstring);
                     JSONArray jsonArray = new JSONArray(JSONstring);
                     Quiz q = new Quiz("","");
-                    List<OptionQuestion> questions = new ArrayList<>();
+                    List<Question> questions = new ArrayList<>();
                     for (int j = 0; j < jsonArray.length(); ++j) {
                         if(j == 0){
                             JSONObject quiz = jsonArray.getJSONObject(j);
@@ -138,24 +140,16 @@ public class MenuActivity extends AppCompatActivity {
                     quizzes.add(q);
 /*
                     Quiz q = new Quiz("Gissa huset!","Besök skaparna av appen och gissa vem som bor var!");
-
                     List<OptionQuestion> questions = new ArrayList<>();
-
                     questions.add(new OptionQuestion("Vem bor så här nära Chalmers?", "Katten", "Pil", "Nightinggale", "Elit", 1,57.689280, 11.972306));
                     //questions.get(0).setLocation(57.689280, 11.972306);
-
                     questions.add(new OptionQuestion("Vem kan bo här?", "Pil", "Katten", "Nightinggale", "Elit", 2,57.742081, 11.969506));
                     //questions.get(1).setLocation(57.742081, 11.969506);
-
                     questions.add(new OptionQuestion("Vem bor inneboende här?", "Pil", "Nightinggale", "Elit", "Katten", 3,57.735626, 12.116774));
                     //questions.get(2).setLocation(57.735626, 12.116774);
-
                     questions.add(new OptionQuestion("Vem orkar pendla från Kungsbacka?", "Elit", "Pil", "Nightinggale", "Katten", 0,57.543822, 12.103735));
                     //questions.get(3).setLocation(57.543822, 12.103735);
-
-
                     q.setQuestions(questions);
-
 */
                 } catch (Exception e) {
                     Log.d("JSON", "Crash2");
@@ -165,9 +159,6 @@ public class MenuActivity extends AppCompatActivity {
 
 
         }
-
-
-
     }
 
     private void loadList() {

@@ -8,6 +8,8 @@ import android.location.Location;
 
 public abstract class Question {
 
+    //TODO gör fält privata, gör en gemensam konstruktor (ger dock parcel-problem, vi får lösa det)
+
     String questionTitle;
     int correctAnswer;
     Location location;

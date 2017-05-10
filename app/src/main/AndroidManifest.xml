@@ -110,7 +110,7 @@
 
         </activity>
 
-        <activity android:name=".View.TiebreakerActivity"
+        <activity android:name=".View.CreateTiebreakerActivity"
             android:parentActivityName=".View.CreateQuizActivity" >
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
@@ -126,6 +126,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".View.MapsActivity" />
 
+        </activity>
+
+        <activity android:name=".View.AnswerTiebreakerActivity"
+            android:parentActivityName=".View.MapsActivity" >
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".View.MapsActivity" />
         </activity>
 
     </application>

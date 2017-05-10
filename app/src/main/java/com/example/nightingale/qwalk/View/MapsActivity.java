@@ -15,7 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nightingale.qwalk.Model.OptionQuestion;
+import com.example.nightingale.qwalk.Model.Question;
 import com.example.nightingale.qwalk.Model.Quiz;
+import com.example.nightingale.qwalk.Model.Tiebreaker;
 import com.example.nightingale.qwalk.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -50,7 +52,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public final static int QUESTION_RANGE = 25;
     private boolean inQuestionRange = false;
     private Quiz currentQuiz;
-    private OptionQuestion currentQuestion;
+    private Question currentQuestion;
 
     //private TextView goHere;
     ImageView goUpRight;
@@ -77,31 +79,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-
-        goUpRight = (ImageView) findViewById(R.id.goUpRight);
-        goUpRight.setImageResource(R.drawable.upright);
-
-        goRight = (ImageView) findViewById(R.id.goRight);
-        goRight.setImageResource(R.drawable.right);
-
-        goDownRight = (ImageView) findViewById(R.id.goDownRight);
-        goDownRight.setImageResource(R.drawable.downright);
-
-        goDown = (ImageView) findViewById(R.id.goDown);
-        goDown.setImageResource(R.drawable.down);
-
-        goDownLeft = (ImageView) findViewById(R.id.goDownLeft);
-        goDownLeft.setImageResource(R.drawable.downleft);
-
-        goLeft = (ImageView) findViewById(R.id.goLeft);
-        goLeft.setImageResource(R.drawable.left);
-
-        goUpLeft = (ImageView) findViewById(R.id.goUpLeft);
-        goUpLeft.setImageResource(R.drawable.upleft);
-
-        goUp = (ImageView) findViewById(R.id.goUp);
-        goUp.setImageResource(R.drawable.up);
     }
 
 
@@ -164,8 +141,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-    private void showQuestionOnMap(OptionQuestion question) {
-        if (mMarker == null) {
+    private void showQuestionOnMap(Question question){
+        if (mMarker == null){
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(new LatLng(question.getLatitude(), question.getLongitude()));
             markerOptions.title("OptionQuestion");
@@ -192,7 +169,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             if (currentQuestion instanceof OptionQuestion){
                 Intent intent = new Intent(getBaseContext(), AnswerOptionActivity.class);
-                intent.putExtra("question", currentQuestion);
+                intent.putExtra("question", (OptionQuestion) currentQuestion);
+                startActivityForResult(intent, ANSWER_CODE);
+            }
+
+            if (currentQuestion instanceof Tiebreaker){
+                Intent intent = new Intent(getBaseContext(), AnswerTiebreakerActivity.class);
+                intent.putExtra("question", (Tiebreaker) currentQuestion);
                 startActivityForResult(intent, ANSWER_CODE);
             }
 

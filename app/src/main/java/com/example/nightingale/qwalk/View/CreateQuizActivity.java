@@ -13,7 +13,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.nightingale.qwalk.Model.OptionQuestion;
+import com.example.nightingale.qwalk.Model.Question;
 import com.example.nightingale.qwalk.Model.Quiz;
+import com.example.nightingale.qwalk.Model.Tiebreaker;
 import com.example.nightingale.qwalk.Model.User;
 import com.example.nightingale.qwalk.R;
 
@@ -48,9 +50,10 @@ public class CreateQuizActivity extends AppCompatActivity {
     private int readycheck = 0;
     EditText quizTitle;
     EditText quizDescription;
-    ArrayList<OptionQuestion> questions = new ArrayList<>();
+    ArrayList<Question> questions = new ArrayList<>();
 
-    public final static int QUESTION_CODE = 7;
+    public final static int OPTIONQUESTION_CODE = 7;
+    public final static int TIEBREAKER_CODE = 22;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,12 +67,12 @@ public class CreateQuizActivity extends AppCompatActivity {
 
     public void addQuestionButtonClicked(View view) {
         Intent intent = new Intent(this, CreateQuestionActivity.class);
-        startActivityForResult(intent, QUESTION_CODE);
+        startActivityForResult(intent, OPTIONQUESTION_CODE);
     }
 
     public void addTiebreaker(View view) {
-        Intent intent = new Intent(this, TiebreakerActivity.class);
-        startActivityForResult(intent, QUESTION_CODE);
+        Intent intent = new Intent(this, CreateTiebreakerActivity.class);
+        startActivityForResult(intent, TIEBREAKER_CODE);
     }
 
     public void createQuiz(View view) {
@@ -85,33 +88,27 @@ public class CreateQuizActivity extends AppCompatActivity {
     }
 
     public boolean isQuizComplete() {
-        if(quizTitle.getText().toString().equals("") || quizDescription.getText().toString().equals("") || questions.size() == 0 ){
+        if (quizTitle.getText().toString().equals("") || quizDescription.getText().toString().equals("") || questions.size() == 0) {
             return false;
-        }
-        else if(OptionQuestion.getQuestionsToSend().size() == 0){
+        } else if (OptionQuestion.getQuestionsToSend().size() == 0) {
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }
 
     public void sendErrorMsg() {
         String msg;
-        if(quizTitle.getText().toString().equals("")){
+        if (quizTitle.getText().toString().equals("")) {
             msg = "Fyll i titel";
-        }
-        else if(quizDescription.getText().toString().equals("")){
+        } else if (quizDescription.getText().toString().equals("")) {
             msg = "Fyll i beskrivning";
-        }
-        else if(OptionQuestion.getQuestionsToSend().size() == 0){
+        } else if (OptionQuestion.getQuestionsToSend().size() == 0) {
             msg = "Lägg till minst en fråga";
-        }
-        else if (quizDescription.getText().toString().equals("")) {
+        } else if (quizDescription.getText().toString().equals("")) {
             msg = "Fyll i beskrivning";
-        }
-        else{
-        msg = "Error";
+        } else {
+            msg = "Error";
         }
         Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 160);
@@ -119,21 +116,13 @@ public class CreateQuizActivity extends AppCompatActivity {
     }
 
     public void saveQuiz() throws InterruptedException {
-
-
-
-
         if(User.getInstance().getUserID() == -1){
             Toast toast = Toast.makeText(getApplicationContext(), "Please Log In", Toast.LENGTH_LONG);
             toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 160);
             toast.show();
-
-        }
-        else{
-
-
-
-
+        } else {
+            Quiz quiz = new Quiz(quizTitle.getText().toString(), quizDescription.getText().toString());
+            quiz.setQuestions(questions);
 
             QuestionIDArray = new ArrayList<Integer>();
             counter = 0;
@@ -180,12 +169,12 @@ public class CreateQuizActivity extends AppCompatActivity {
         String title = quizTitle.getText().toString();
         String description = quizDescription.getText().toString();
 
-        protected void onPreExecute(){}
+        protected void onPreExecute() {
+        }
 
         protected String doInBackground(String... arg0) {
 
-            try{
-
+            try {
 
 
                 URL url = new URL("https://programmeringsprinsessorna.000webhostapp.com/insertquiz.php");
@@ -234,8 +223,7 @@ public class CreateQuizActivity extends AppCompatActivity {
                 postDataParams.put("quizdescription", description);
 
 
-
-                Log.e("params",postDataParams.toString());
+                Log.e("params", postDataParams.toString());
 
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(15000 /* milliseconds */);
@@ -253,15 +241,15 @@ public class CreateQuizActivity extends AppCompatActivity {
                 writer.close();
                 os.close();
 
-                int responseCode=conn.getResponseCode();
+                int responseCode = conn.getResponseCode();
 
                 if (responseCode == HttpsURLConnection.HTTP_OK) {
 
-                    BufferedReader in=new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     StringBuffer sb = new StringBuffer("");
-                    String line="";
+                    String line = "";
 
-                    while((line = in.readLine()) != null) {
+                    while ((line = in.readLine()) != null) {
 
                         sb.append(line);
                         break;
@@ -270,12 +258,10 @@ public class CreateQuizActivity extends AppCompatActivity {
                     in.close();
                     return sb.toString();
 
+                } else {
+                    return new String("false : " + responseCode);
                 }
-                else {
-                    return new String("false : "+responseCode);
-                }
-            }
-            catch(Exception e){
+            } catch (Exception e) {
                 return new String("Exception: " + e.getMessage());
             }
         }
@@ -284,17 +270,16 @@ public class CreateQuizActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             Log.d("PRINT", result);
-            result = result.replaceAll("\\s+","");
+            result = result.replaceAll("\\s+", "");
 
-              Log.d("PRINT", result);
+            Log.d("PRINT", result);
             String msg;
-            if(result.equals("0")){
+            if (result.equals("0")) {
                 msg = "Success";
                 Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 160);
                 toast.show();
-            }
-            else if(result.equals("-1")){
+            } else if (result.equals("-1")) {
                 msg = "Quiz Title Taken";
                 Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 160);
@@ -305,7 +290,6 @@ public class CreateQuizActivity extends AppCompatActivity {
     }
 
 
-
     public String getPostDataString(JSONObject params) throws Exception {
 
         StringBuilder result = new StringBuilder();
@@ -313,9 +297,9 @@ public class CreateQuizActivity extends AppCompatActivity {
 
         Iterator<String> itr = params.keys();
 
-        while(itr.hasNext()){
+        while (itr.hasNext()) {
 
-            String key= itr.next();
+            String key = itr.next();
             Object value = params.get(key);
 
             if (first)
@@ -333,12 +317,14 @@ public class CreateQuizActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == QUESTION_CODE) {
-
-
-            questions = (ArrayList<OptionQuestion>) data.getSerializableExtra("questions");
+        if (requestCode == OPTIONQUESTION_CODE) {
+            questions.addAll((ArrayList<Question>) data.getSerializableExtra("questions"));
             loadList();
+        }
 
+        if (requestCode == TIEBREAKER_CODE) {
+            questions.add((Tiebreaker) data.getParcelableExtra("tiebreaker"));
+            loadList();
         }
     }
 

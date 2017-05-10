@@ -17,4 +17,14 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_showresult);
     }
+
+    @Override
+    public void showRightAnswers() {
+
+    }
+
+    @Override
+    public void showTotalAnswers() {
+
+    }
 }

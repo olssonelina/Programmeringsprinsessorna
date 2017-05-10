@@ -104,7 +104,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="450dp"
             android:ems="9"
-            android:onClick=""
+            android:onClick="doneButtonPressed"
             android:text="Klar" />
 
 
