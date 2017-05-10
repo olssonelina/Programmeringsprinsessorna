@@ -11,7 +11,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.nightingale.qwalk.InterfaceView.ICreateTiebreaker;
 import com.example.nightingale.qwalk.Model.Tiebreaker;
+import com.example.nightingale.qwalk.Presenter.CreateTiebreakerPresenter;
 import com.example.nightingale.qwalk.R;
 
 import static com.example.nightingale.qwalk.View.CreateQuestionActivity.GET_POSITION_CODE;
@@ -21,7 +23,9 @@ import static java.lang.Integer.parseInt;
  * Created by Elina Olsson on 2017-05-08.
  */
 
-public class CreateTiebreakerActivity extends AppCompatActivity {
+public class CreateTiebreakerActivity extends AppCompatActivity implements ICreateTiebreaker, SeekBar.OnSeekBarChangeListener {
+
+    private CreateTiebreakerPresenter presenter;
 
     private SeekBar seekBar;
     private TextView value;
@@ -43,31 +47,9 @@ public class CreateTiebreakerActivity extends AppCompatActivity {
 
 
         value.setText("0");
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        seekBar.setOnSeekBarChangeListener(this);
 
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                int val = (progress * (seekBar.getWidth() - 2 * seekBar.getThumbOffset())) / seekBar.getMax();
-                value.setText("" + (progress + parseInt(minField.getText().toString())));
-                value.setX(seekBar.getX() + val + seekBar.getThumbOffset() / 2);
-                int minValue = parseInt(minField.getText().toString());
-                seekBar.setMax(parseInt(maxField.getText().toString()) - minValue);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-    }
-
-    public int getCorrectAnswer() {
-        return seekBar.getProgress() + parseInt(minField.getText().toString());
+        presenter = new CreateTiebreakerPresenter(this);
     }
 
     public void addPosition(View view) {
@@ -84,34 +66,65 @@ public class CreateTiebreakerActivity extends AppCompatActivity {
         }
     }
 
-    public void doneButtonPressed(View view) {
-        if (isQuestionDone()) {
-            Tiebreaker question = buildQuestion();
-
-            Intent returnIntent = new Intent();
-            returnIntent.putExtra("tiebreaker", question);
-            setResult(GetPositionActivity.RESULT_OK, returnIntent);
-            finish();
-
-        } else {
-            sendErrorMessage();
-        }
+    public void doneButtonPressed(View view){
+        presenter.doneButtonPressed();
     }
 
-    private boolean isQuestionDone() {
-        int min = parseInt(minField.getText().toString());
-        int max = parseInt(maxField.getText().toString());
-        int ans = getCorrectAnswer();
-        return latitude != 0 && longitude != 0 && min < max && min <= ans && ans <= max && !questionTitle.getText().toString().equals("");
+    @Override
+    public int getLowerBounds() {
+        return parseInt(minField.getText().toString());
     }
 
-    private void sendErrorMessage() { //TODO
-        Toast.makeText(this, "EJ implementerat", Toast.LENGTH_LONG).show();
+    @Override
+    public int getHigherBounds() {
+        return parseInt(maxField.getText().toString());
     }
 
-    private Tiebreaker buildQuestion() {
-        return new Tiebreaker(questionTitle.getText().toString(), getCorrectAnswer(), longitude, latitude, parseInt(minField.getText().toString()), parseInt(maxField.getText().toString()));
+    @Override
+    public int getAnswer() {
+        return seekBar.getProgress() + parseInt(minField.getText().toString());
     }
 
+    @Override
+    public String getQuestionTitle() {
+        return questionTitle.getText().toString();
+    }
 
+    @Override
+    public void closeWithResult(Tiebreaker question) {
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("tiebreaker", question);
+        setResult(GetPositionActivity.RESULT_OK, returnIntent);
+        finish();
+    }
+
+    @Override
+    public double getLatitude() {
+        return latitude;
+    }
+
+    @Override
+    public double getLongitude() {
+        return longitude;
+    }
+
+    @Override
+    public void sendError(String error) {
+        Toast.makeText(this, error, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        int val = (progress * (seekBar.getWidth() - 2 * seekBar.getThumbOffset())) / seekBar.getMax();
+        value.setText("" + (progress + parseInt(minField.getText().toString())));
+        value.setX(seekBar.getX() + val + seekBar.getThumbOffset() / 2);
+        int minValue = parseInt(minField.getText().toString());
+        seekBar.setMax(parseInt(maxField.getText().toString()) - minValue);
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {}
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {}
 }
