@@ -189,16 +189,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public boolean onMarkerClick(Marker marker) {
         if (marker.equals(mMarker) && inQuestionRange) {
-            Intent intent = new Intent(getBaseContext(), AnswerActivity.class);
 
-            Bundle b = new Bundle();
-            b.putString("questionTitle", currentQuestion.getQuestionTitle());
-            b.putString("option1", currentQuestion.getOption1());
-            b.putString("option2", currentQuestion.getOption2());
-            b.putString("option3", currentQuestion.getOption3());
-            b.putString("option4", currentQuestion.getOption4());
-            intent.putExtras(b);
-            startActivityForResult(intent, ANSWER_CODE);
+            if (currentQuestion instanceof OptionQuestion){
+                Intent intent = new Intent(getBaseContext(), AnswerOptionActivity.class);
+                intent.putExtra("question", currentQuestion);
+                startActivityForResult(intent, ANSWER_CODE);
+            }
+
         }
         return false;
     }

@@ -73,7 +73,7 @@
                 android:value=".View.CreateQuizActivity" />
         </activity>
 
-        <activity android:name=".View.AnswerActivity"
+        <activity android:name=".View.AnswerOptionActivity"
             android:parentActivityName=".View.MapsActivity" >
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
@@ -120,11 +120,11 @@
         </activity>
 
         <activity android:name=".View.ShowResultActivity"
-            android:parentActivityName=".View.AnswerActivity" >
+            android:parentActivityName=".View.MapsActivity" >
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".View.AnswerActivity" />
+                android:value=".View.MapsActivity" />
 
         </activity>
 
