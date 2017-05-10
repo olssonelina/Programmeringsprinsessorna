@@ -206,12 +206,12 @@ public class MenuActivity extends AppCompatActivity {
         startActivityForResult(intent, CREATE_QUIZ_CODE);
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CREATE_QUIZ_CODE) {
 
-            Quiz newQuiz = (Quiz)data.getParcelableExtra("quiz");
-            quizzes.add(newQuiz);
+            loadOnlineQuizzes();
             loadList();
 
             //TODO ladda upp nya quizzen här!

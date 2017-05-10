@@ -38,6 +38,9 @@ import javax.net.ssl.HttpsURLConnection;
  */
 
 public class CreateQuizActivity extends AppCompatActivity {
+
+
+
     public String test;
     ArrayList<Integer> QuestionIDArray = new ArrayList<Integer>();
     String JSONarrayString;
@@ -116,6 +119,10 @@ public class CreateQuizActivity extends AppCompatActivity {
     }
 
     public void saveQuiz() throws InterruptedException {
+
+
+
+
         if(User.getInstance().getUserID() == -1){
             Toast toast = Toast.makeText(getApplicationContext(), "Please Log In", Toast.LENGTH_LONG);
             toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 160);
@@ -123,14 +130,16 @@ public class CreateQuizActivity extends AppCompatActivity {
 
         }
         else{
-            Quiz quiz = new Quiz(quizTitle.getText().toString(), quizDescription.getText().toString());
-            quiz.setQuestions(questions);
+
+
+
 
 
             QuestionIDArray = new ArrayList<Integer>();
             counter = 0;
 
             ArrayList<OptionQuestion> questionToSend = OptionQuestion.getQuestionsToSend();
+
 
             for (int i = 0; i < questionToSend.size(); i++) {
                 try {
@@ -157,11 +166,11 @@ public class CreateQuizActivity extends AppCompatActivity {
 
 
             Intent returnIntent = new Intent();
-            returnIntent.putExtra("quiz", quiz);
             setResult(GetPositionActivity.RESULT_OK, returnIntent);
             finish();
 
-            OptionQuestion.wipeQuestionsToSend();
+
+
 
         }
     }
