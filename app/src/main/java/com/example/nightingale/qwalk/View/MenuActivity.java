@@ -211,7 +211,6 @@ public class MenuActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CREATE_QUIZ_CODE) {
 
-            loadOnlineQuizzes();
             loadList();
 
             //TODO ladda upp nya quizzen här!
