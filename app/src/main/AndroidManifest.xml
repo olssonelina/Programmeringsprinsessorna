@@ -22,7 +22,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
@@ -64,7 +64,7 @@
                 android:value=".View.LoginActivity" />
         </activity>
 
-        <activity android:name=".View.CreateQuestionActivity"
+        <activity android:name=".View.CreateOptionQuestionActivity"
             android:parentActivityName=".View.CreateQuizActivity"
             android:windowSoftInputMode="adjustPan">
             <!-- The meta-data tag is required if you support API level 15 and lower -->
@@ -83,11 +83,11 @@
 
 
         <activity android:name=".View.GetPositionActivity"
-            android:parentActivityName=".View.CreateQuestionActivity" >
+            android:parentActivityName=".View.CreateOptionQuestionActivity" >
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".View.CreateQuestionActivity" />
+                android:value=".View.CreateOptionQuestionActivity" />
         </activity>
 
 

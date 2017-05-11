@@ -66,7 +66,7 @@ public class CreateQuizActivity extends AppCompatActivity {
     }
 
     public void addQuestionButtonClicked(View view) {
-        Intent intent = new Intent(this, CreateQuestionActivity.class);
+        Intent intent = new Intent(this, CreateOptionQuestionActivity.class);
         startActivityForResult(intent, OPTIONQUESTION_CODE);
     }
 
