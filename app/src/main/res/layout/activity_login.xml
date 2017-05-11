@@ -1,73 +1,115 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+    <FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/linearLayout2"
+        <ImageView
+            android:id="@+id/imageView"
             android:layout_width="match_parent"
-
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:orientation="horizontal">
+            android:scaleType="centerCrop"
+            android:src="@drawable/login"
+            map:srcCompat="@drawable/login" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible">
+
+            <Button
+                android:id="@+id/LoginButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/button8"
+                android:layout_alignEnd="@+id/password"
+                android:layout_alignLeft="@+id/password"
+                android:layout_alignRight="@+id/password"
+                android:layout_alignStart="@+id/password"
+                android:layout_marginBottom="115dp"
+                android:background="#FF09C856"
+                android:onClick="LoginButtonClicked"
+                android:text="Logga in" />
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/LoginButton"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="18dp"
+                android:ems="10"
+                android:hint="Lösenord"
+                android:inputType="textPassword" />
+
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/password"
+                android:layout_alignLeft="@+id/password"
+                android:layout_alignStart="@+id/password"
+                android:layout_marginBottom="60dp"
+
+                android:ems="10"
+                android:hint="Användarnamn"
+                android:inputType="textPersonName"></EditText>
+
 
             <Button
                 android:id="@+id/button8"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="19dp"
+                android:layout_marginStart="19dp"
+                android:background="#FF09C856"
                 android:onClick="RegisterButtonClicked"
-                android:text="Register" />
+                android:text="Registrera"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
             <Button
                 android:id="@+id/button7"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+
+                android:background="#FF303030"
                 android:onClick="guestButtonClicked"
-                android:text="Continue as Guest" />
+                android:text="Fortsätt som gäst"
+                android:layout_marginLeft="27dp"
+                android:layout_marginStart="27dp"
+                android:layout_below="@+id/LoginButton"
+                android:layout_toRightOf="@+id/button8"
+                android:layout_toEndOf="@+id/button8" />
 
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="115dp"
+                android:layout_height="101dp"
+                android:layout_marginTop="13dp"
+                map:srcCompat="@drawable/logo"
+                android:layout_alignParentTop="true"
+                android:layout_alignRight="@+id/imageView4"
+                android:layout_alignEnd="@+id/imageView4"
+                android:layout_marginRight="19dp"
+                android:layout_marginEnd="19dp" />
 
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:layout_below="@+id/username"
-            android:layout_centerHorizontal="true" />
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="178dp"
+                android:layout_height="61dp"
+                android:layout_below="@+id/imageView2"
+                android:layout_centerHorizontal="true"
+                map:srcCompat="@drawable/logo2" />
 
-        <EditText
-            android:id="@+id/username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name"
-            android:layout_alignParentTop="true"
-            android:layout_alignLeft="@+id/password"
-            android:layout_alignStart="@+id/password"
-            android:layout_marginTop="24dp" />
+        </RelativeLayout>
 
-        <Button
-            android:id="@+id/LoginButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/password"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="43dp"
-            android:onClick="LoginButtonClicked"
-            android:text="Button" />
+    </FrameLayout>
 
-    </RelativeLayout>
-
-</LinearLayout>
