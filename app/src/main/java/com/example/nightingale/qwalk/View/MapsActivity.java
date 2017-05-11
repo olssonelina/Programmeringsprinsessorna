@@ -10,6 +10,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -60,12 +62,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Question currentQuestion;
 
     ImageView goHere;
-
-    ImageView directions[] = new ImageView[8];
-
-    int angle = 90;
-    int pivotX = 30;
-    int pivotY = 10;
 
     public static final int ANSWER_CODE = 4331;
 
@@ -348,6 +344,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onCameraChange(CameraPosition cameraPosition) {
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+
         LatLngBounds bounds = this.mMap.getProjection().getVisibleRegion().latLngBounds;
         LatLng screenCenter = mMap.getCameraPosition().target;
 
@@ -356,37 +358,49 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         float distance = (float) Math.sqrt((screenCenterLat-mMarkerLocation.getLatitude())*(screenCenterLat-mMarkerLocation.getLatitude()) + (screenCenterLng-mMarkerLocation.getLongitude())*(screenCenterLng-mMarkerLocation.getLongitude()));
 
-
         //If the question pin is offscreen, an arrow will show up and point in the direction of the question
         if (!bounds.contains(new LatLng(mMarkerLocation.getLatitude(), mMarkerLocation.getLongitude()))) {
             int angle = angleToQuestion(screenCenterLat, screenCenterLng, mMarkerLocation.getLatitude(), mMarkerLocation.getLongitude());
             goHere.setRotation(angle);
             goHere.setVisibility(View.VISIBLE);
+            goHere.setX(width/2);
+            goHere.setY(height/2);
+
+
             float sinAng = abs((float) sin(angle));
+            float testY = 2 * (float) getInterception(mMarkerLocation.getLongitude(), mMarkerLocation.getLatitude(), screenCenterLng, screenCenterLat, (width - 150));
 
             if ((angle >= 0 && angle <= 45) || (angle > 315 && angle < 360)) {
                 goHere.setY(100);
-                goHere.setX(480);
+                goHere.setX(width/2);
             }
             if (angle > 45 && angle <= 135) {
                 //goHere.setY(16 * angle - 598);
-                Toast.makeText(getApplicationContext(), "" + distance * pow(10, 5) * sinAng, Toast.LENGTH_SHORT).show();
-                goHere.setY(distance * (float) pow(10, 5) * sinAng);
-                goHere.setX(900);
+                //goHere.setY(distance * (float) pow(10, 5) * sinAng);
+                //goHere.setY(height/2);
+                goHere.setY(testY);
+                goHere.setX(width - 150);
             }
             if (angle > 135 && angle <= 225) {
-                goHere.setY(1500);
-                goHere.setX(480);
+                goHere.setY(height - 200);
+                goHere.setX(width/2);
             }
             if (angle > 225 && angle <= 315) {
-                goHere.setY(500);
+                goHere.setY(height/2);
                 goHere.setX(100);
-            }
+            } 
 
         } else {
             goHere.setVisibility(View.INVISIBLE);
         }
     }
+
+
+    private double getInterception(double x1, double y1, double x2, double y2, double x) {
+        double k = (y1 - y2) / (x1 - x2);
+        return k * (x - x1) + y1;
+    }
+
 
 
     /**
