@@ -22,6 +22,7 @@
             android:layout_height="match_parent"
             android:visibility="visible">
 
+
             <Button
                 android:id="@+id/LoginButton"
                 android:layout_width="wrap_content"
@@ -110,6 +111,7 @@
                 map:srcCompat="@drawable/logo2" />
 
         </RelativeLayout>
+
 
     </FrameLayout>
 

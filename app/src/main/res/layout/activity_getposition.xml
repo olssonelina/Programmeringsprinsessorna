@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/linearLayout2"
-            tools:context="com.example.nightingale.qwalk.GetPositionActivity" />
+            tools:context="com.example.nightingale.qwalk.View.GetPositionActivity" />
 
         <Button
             android:id="@+id/button2"

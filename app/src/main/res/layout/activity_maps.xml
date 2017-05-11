@@ -10,13 +10,13 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
 
-            android:orientation="horizontal"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:id="@+id/linearLayout2">
+            android:orientation="horizontal">
 
 
         </LinearLayout>
@@ -26,8 +26,8 @@
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context="com.example.nightingale.qwalk.MapsActivity"
-            android:layout_above="@+id/linearLayout2" />
+            android:layout_above="@+id/linearLayout2"
+            tools:context="com.example.nightingale.qwalk.View.MapsActivity" />
 
         <Button
             android:id="@+id/viewPinButton"
@@ -38,6 +38,18 @@
             android:layout_alignParentTop="true"
             android:onClick="viewPinButtonClicked"
             android:text="Var är frågan?" />
+
+
+        <ImageView
+            android:id="@+id/goHere"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:visibility="invisible"
+            map:srcCompat="@drawable/up" />
+
+
     </RelativeLayout>
 
 </LinearLayout>
