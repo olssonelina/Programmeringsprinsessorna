@@ -35,6 +35,10 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import static java.lang.Math.abs;
+import static java.lang.Math.pow;
+import static java.lang.Math.sin;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -355,34 +359,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         double screenCenterLng = screenCenter.longitude;
         double screenCenterLat = screenCenter.latitude;
 
+        float distance = (float) Math.sqrt((screenCenterLat-mMarkerLocation.getLatitude())*(screenCenterLat-mMarkerLocation.getLatitude()) + (screenCenterLng-mMarkerLocation.getLongitude())*(screenCenterLng-mMarkerLocation.getLongitude()));
+
 
         //If the question pin is offscreen, an arrow will show up and point in the direction of the question
         if (!bounds.contains(new LatLng(mMarkerLocation.getLatitude(), mMarkerLocation.getLongitude()))) {
             int angle = angleToQuestion(screenCenterLat, screenCenterLng, mMarkerLocation.getLatitude(), mMarkerLocation.getLongitude());
             goHere.setRotation(angle);
             goHere.setVisibility(View.VISIBLE);
+            float sinAng = abs((float) sin(angle));
 
             if ((angle >= 0 && angle <= 45) || (angle > 315 && angle < 360)) {
                 goHere.setY(100);
                 goHere.setX(480);
             }
             if (angle > 45 && angle <= 135) {
-                goHere.setY(16 * angle - 598);
+                //goHere.setY(16 * angle - 598);
+                Toast.makeText(getApplicationContext(), "" + distance * pow(10, 5) * sinAng, Toast.LENGTH_SHORT).show();
+                goHere.setY(distance * (float) pow(10, 5) * sinAng);
                 goHere.setX(900);
             }
-            if (angle > 135 && angle <= 180) {
+            if (angle > 135 && angle <= 225) {
                 goHere.setY(1500);
                 goHere.setX(480);
             }
-            if (angle > 180 && angle <= 315) {
+            if (angle > 225 && angle <= 315) {
                 goHere.setY(500);
                 goHere.setX(100);
             }
 
-
         } else {
             goHere.setVisibility(View.INVISIBLE);
-
         }
     }
 
@@ -403,8 +410,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         double dLon = (long2 - long1);
 
-        double y = Math.sin(dLon) * Math.cos(lat2);
-        double x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1)
+        double y = sin(dLon) * Math.cos(lat2);
+        double x = Math.cos(lat1) * sin(lat2) - sin(lat1)
                 * Math.cos(lat2) * Math.cos(dLon);
 
         double brng = Math.atan2(y, x);

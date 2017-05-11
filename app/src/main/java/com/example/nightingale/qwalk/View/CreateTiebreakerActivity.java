@@ -5,7 +5,6 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -16,7 +15,7 @@ import com.example.nightingale.qwalk.Model.Tiebreaker;
 import com.example.nightingale.qwalk.Presenter.CreateTiebreakerPresenter;
 import com.example.nightingale.qwalk.R;
 
-import static com.example.nightingale.qwalk.View.CreateQuestionActivity.GET_POSITION_CODE;
+import static com.example.nightingale.qwalk.View.CreateOptionQuestionActivity.GET_POSITION_CODE;
 import static java.lang.Integer.parseInt;
 
 /**
