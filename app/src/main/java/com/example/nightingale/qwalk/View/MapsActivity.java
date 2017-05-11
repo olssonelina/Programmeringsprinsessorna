@@ -136,15 +136,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         } else {
             if (currentQuestion.getLatitude() == currentQuiz.get(currentQuiz.size() - 1).getLatitude()) { // End quiz
                 //TODO det som ska hända när ett quiz är klart
+                Intent intent = new Intent(getBaseContext(), ShowResultActivity.class);
+                int[] player={1,2,345678}; //testinput tas bort när det finns en Actor
+                intent.putExtra("player", player);
+                startActivity(intent);
                 finish();
             } else { // Continue quiz by figuring out which the next question is
                 for (int i = 0; i < currentQuiz.size() - 1; i++) {
                     if (currentQuestion.getLatitude() == currentQuiz.get(i).getLatitude()) { //TODO det borde vara en korrekt equalsmetod
                         currentQuestion = currentQuiz.get(i + 1);
                         showQuestionOnMap(currentQuestion);
-                        return;
+                        //return;
                     }
                 }
+
             }
         }
     }

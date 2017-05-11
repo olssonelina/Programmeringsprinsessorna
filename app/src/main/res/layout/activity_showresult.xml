@@ -30,4 +30,14 @@
         android:layout_marginTop="70dp"
         android:text="av Y möjliga"
         android:textSize="24dp"/>
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/total"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="21dp"
+        android:text="Det tog A minuter och B sekunder"
+        android:textSize="14sp" />
 </RelativeLayout>
