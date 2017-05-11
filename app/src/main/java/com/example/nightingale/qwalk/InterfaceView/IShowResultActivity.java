@@ -5,6 +5,7 @@ package com.example.nightingale.qwalk.InterfaceView;
  */
 
 public interface IShowResultActivity {
-    void showRightAnswers();
-    void showTotalAnswers();
+    void showRightAnswers(int right);
+    void showTotalAnswers(int total);
+    void showTime(int min, int sec);
 }
