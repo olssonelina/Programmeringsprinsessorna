@@ -1,6 +1,6 @@
 package com.example.nightingale.qwalk.Presenter;
 
-import com.example.nightingale.qwalk.InterfaceView.IShowResultActivity;
+import com.example.nightingale.qwalk.InterfaceView.IShowResult;
 
 /**
  * Created by PiaLocal on 2017-05-10.
@@ -8,10 +8,10 @@ import com.example.nightingale.qwalk.InterfaceView.IShowResultActivity;
 
 public class ShowResultPresenter {
 
-    private IShowResultActivity view;
+    private IShowResult view;
     private int[] results;//byt ut mot player
 
-    public ShowResultPresenter(IShowResultActivity view, int[] results){ //byt ut "results" mot en player som innehåller resultat
+    public ShowResultPresenter(IShowResult view, int[] results){ //byt ut "results" mot en player som innehåller resultat
         this.view=view;
         this.results=results;
         view.showRightAnswers(results[0]);
