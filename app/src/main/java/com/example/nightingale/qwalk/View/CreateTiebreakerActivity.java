@@ -31,6 +31,7 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
     private EditText minField;
     private EditText maxField;
     private EditText questionTitle;
+    private EditText unit;
     private double latitude = 0, longitude = 0;
 
     @Override
@@ -43,6 +44,7 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
         minField = (EditText) findViewById(R.id.minField);
         maxField = (EditText) findViewById(R.id.maxField);
         questionTitle = (EditText) findViewById(R.id.questionField);
+        unit = (EditText) findViewById(R.id.chooseUnit);
 
 
         value.setText("0");
@@ -67,6 +69,10 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
 
     public void doneButtonPressed(View view){
         presenter.doneButtonPressed();
+    }
+
+    public String getUnit() {
+        return unit.getText().toString(); //TODO skriv ut unit när man svarar på en tiebreaker
     }
 
     @Override
@@ -115,7 +121,7 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         int val = (progress * (seekBar.getWidth() - 2 * seekBar.getThumbOffset())) / seekBar.getMax();
-        value.setText("" + (progress + parseInt(minField.getText().toString())));
+        value.setText("" + (progress + parseInt(minField.getText().toString())) + " " + getUnit());
         value.setX(seekBar.getX() + val + seekBar.getThumbOffset() / 2);
         int minValue = parseInt(minField.getText().toString());
         seekBar.setMax(parseInt(maxField.getText().toString()) - minValue);

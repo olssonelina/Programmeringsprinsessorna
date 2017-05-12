@@ -42,17 +42,19 @@
             android:id="@+id/chooseAnswer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/questionField"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="170dp"
+            android:layout_marginTop="30dp"
             android:text="Välj rätt svar"
-            android:textSize="18dp" />
+            android:textSize="18dp"
+            />
 
         <SeekBar
             android:id="@+id/seekBar"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="220dp"
+            android:layout_marginTop="260dp"
             android:max="100" />
 
 
@@ -60,9 +62,9 @@
             android:id="@+id/value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/seekBar"
-            android:layout_marginLeft="50dp"
-            android:layout_marginBottom="50dp"
+            android:layout_alignTop="@+id/seekBar"
+            android:layout_marginLeft="58dp"
+            android:layout_marginTop="50dp"
             android:text="" />
 
         <TextView
@@ -70,9 +72,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/seekBar"
-            android:layout_alignTop="@+id/seekBar"
+            android:layout_alignBottom="@+id/seekBar"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginBottom="50dp"
             android:text="min:"
             android:textSize="18dp" />
 
@@ -131,6 +133,30 @@
             android:ems="2"
             android:inputType="number"
             android:text="0" />
+
+        <TextView
+            android:id="@+id/unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enhet: "
+            android:textSize="18dp"
+            android:layout_below="@+id/questionField"
+            android:layout_alignRight="@+id/chooseUnit"
+            android:layout_marginTop="70dp"
+            android:layout_marginRight="90dp"
+            />
+
+        <EditText
+            android:id="@+id/chooseUnit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/unit"
+            android:layout_marginBottom="-10dp"
+            android:layout_alignRight="@+id/seekBar"
+            android:layout_marginRight="80dp"
+            android:ems="4"
+            android:inputType="textPersonName"
+            android:text="" />
 
     </RelativeLayout>
 </LinearLayout>

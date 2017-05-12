@@ -9,21 +9,22 @@
 
         <Button
             android:id="@+id/tiebreakerAnswerClose"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="40dp"
-            android:ems="15"
+            android:ems="12"
             android:onClick="saveButtonPressed"
             android:text="Svara" />
 
         <TextView
             android:id="@+id/tiebreakerTitle"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="60dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="70dp"
             android:text="Aktuell fråga"
             android:textSize="24dp" />
 
@@ -38,12 +39,9 @@
 
         <SeekBar
             android:id="@+id/answerSlider"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentStart="true"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
             android:layout_centerVertical="true" />
     </RelativeLayout>
 
