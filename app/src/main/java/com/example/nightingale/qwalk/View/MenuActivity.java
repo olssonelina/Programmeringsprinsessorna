@@ -161,6 +161,16 @@ public class MenuActivity extends AppCompatActivity {
         }
     }
 
+    public void loadHelp(View view) {
+        Intent intent = new Intent(this, HelpActivity.class);
+        startActivity(intent);
+    }
+
+    public void loadSettings(View view) {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+    }
+
     private void loadList() {
         listView = (ListView) findViewById(R.id.list);
         String[] values = new String[quizzes.size()];
