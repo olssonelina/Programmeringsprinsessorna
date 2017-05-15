@@ -10,7 +10,7 @@ package com.example.nightingale.qwalk.View;
         import android.widget.EditText;
         import android.widget.Toast;
 
-        import com.example.nightingale.qwalk.Model.User;
+        import com.example.nightingale.qwalk.Model.Account;
         import com.example.nightingale.qwalk.R;
 
         import org.json.JSONObject;
@@ -64,16 +64,16 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
             else if(Integer.parseInt(ID) == -2){
-                User.getInstance().setUserID(Integer.parseInt(ID));
-                User.getInstance().setUsername(UsernameInput.getText().toString());
+                Account.getInstance().setUserID(Integer.parseInt(ID));
+                Account.getInstance().setUsername(UsernameInput.getText().toString());
                 Toast.makeText(getApplicationContext(), "Admin Success",
                         Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, MenuActivity.class);
                 startActivity(intent);
             }
             else{
-                User.getInstance().setUserID(Integer.parseInt(ID));
-                User.getInstance().setUsername(UsernameInput.getText().toString());
+                Account.getInstance().setUserID(Integer.parseInt(ID));
+                Account.getInstance().setUsername(UsernameInput.getText().toString());
                 Toast.makeText(getApplicationContext(), "Success",
                         Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, MenuActivity.class);
