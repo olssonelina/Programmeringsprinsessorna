@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class OptionQuestion extends Question implements Parcelable  {
 
-    public static ArrayList<OptionQuestion> questionsToSend = new ArrayList<OptionQuestion>();
+
 
     private String option1;
     private String option2;
@@ -49,14 +49,6 @@ public class OptionQuestion extends Question implements Parcelable  {
         return option4;
     }
 
-
-    public static ArrayList<OptionQuestion> getQuestionsToSend(){
-        return questionsToSend;
-    }
-
-    public static void wipeQuestionsToSend(){
-        questionsToSend = new ArrayList<OptionQuestion>();
-    }
 
 
     protected OptionQuestion(Parcel in) {

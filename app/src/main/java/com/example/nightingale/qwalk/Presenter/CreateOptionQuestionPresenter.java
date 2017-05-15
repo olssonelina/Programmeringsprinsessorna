@@ -23,7 +23,6 @@ public class CreateOptionQuestionPresenter {
     public boolean addQuestion() {
         if(validateQuestion()) {
             OptionQuestion q = buildQuestion();
-            OptionQuestion.questionsToSend.add(q);
             questions.add(q);
             view.reset();
             return true;
