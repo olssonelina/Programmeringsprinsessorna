@@ -13,7 +13,7 @@ import android.widget.ListView;
 import com.example.nightingale.qwalk.Model.OptionQuestion;
 import com.example.nightingale.qwalk.Model.Question;
 import com.example.nightingale.qwalk.Model.Quiz;
-import com.example.nightingale.qwalk.Model.User;
+import com.example.nightingale.qwalk.Model.Account;
 import com.example.nightingale.qwalk.Model.StandardQuizzes;
 import com.example.nightingale.qwalk.R;
 
@@ -54,7 +54,7 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu); //ändra namnet till rätt xml-fil
         loadQuizzes();
-        if(!(User.getInstance().getUserID() == -1)){
+        if(!(Account.getInstance().getUserID() == -1)){
             loadOnlineQuizzes();
         }
         loadList();
@@ -238,7 +238,7 @@ public class MenuActivity extends AppCompatActivity {
 
                 postDataParams.put("request", request);
                 postDataParams.put("offset", offset);
-                postDataParams.put("userid", User.getInstance().getUserID());
+                postDataParams.put("userid", Account.getInstance().getUserID());
 
 
 

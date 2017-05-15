@@ -16,7 +16,7 @@ import com.example.nightingale.qwalk.Model.OptionQuestion;
 import com.example.nightingale.qwalk.Model.Question;
 import com.example.nightingale.qwalk.Model.Quiz;
 import com.example.nightingale.qwalk.Model.Tiebreaker;
-import com.example.nightingale.qwalk.Model.User;
+import com.example.nightingale.qwalk.Model.Account;
 import com.example.nightingale.qwalk.R;
 
 import org.json.JSONArray;
@@ -116,7 +116,7 @@ public class CreateQuizActivity extends AppCompatActivity {
     }
 
     public void saveQuiz() throws InterruptedException {
-        if(User.getInstance().getUserID() == -1){
+        if(Account.getInstance().getUserID() == -1){
             Toast toast = Toast.makeText(getApplicationContext(), "Please Log In", Toast.LENGTH_LONG);
             toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 160);
             toast.show();
@@ -215,7 +215,7 @@ public class CreateQuizActivity extends AppCompatActivity {
                 postDataParams.put("finish", readycheck);
                 postDataParams.put("questionidarray", JSONarrayString);
 
-                postDataParams.put("userid", User.getInstance().getUserID());
+                postDataParams.put("userid", Account.getInstance().getUserID());
 
                 Log.d("VARIABLE", title);
                 postDataParams.put("title", title);

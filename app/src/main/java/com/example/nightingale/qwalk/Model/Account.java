@@ -4,19 +4,19 @@ package com.example.nightingale.qwalk.Model;
  * Created by Nightingale on 2017-05-08.
  */
 
-public class User {
+public class Account {
 
     private int UserID = -1;
     private String Username;
 
 
-    private static final User instance = new User();
+    private static final Account instance = new Account();
 
     //private constructor to avoid client applications to use constructor
-    private User() {
+    private Account() {
     }
 
-    public static User getInstance() {
+    public static Account getInstance() {
         return instance;
     }
 
