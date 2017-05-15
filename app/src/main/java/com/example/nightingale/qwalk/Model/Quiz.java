@@ -14,6 +14,44 @@ public class Quiz implements Parcelable {
     private String title;
     private String description;
 
+    private boolean questionTimer = false, quizTimer = false, hiddenQuestions = false, inOrder = true, withBot = false;
+
+    public void setSetting(QuizSetting setting, boolean enabled) {
+        switch (setting) {
+            case QUESTION_TIMER:
+                questionTimer = enabled;
+                break;
+            case WITH_BOT:
+                withBot = enabled;
+                break;
+            case IN_ORDER:
+                inOrder = enabled;
+                break;
+            case HIDDEN_QUESTIONS:
+                hiddenQuestions = enabled;
+                break;
+            case QUIZ_TIMER:
+                quizTimer = enabled;
+                break;
+        }
+    }
+
+    public boolean getSetting(QuizSetting setting) {
+        switch (setting) {
+            case QUESTION_TIMER:
+                return questionTimer;
+            case WITH_BOT:
+                return withBot;
+            case IN_ORDER:
+                return inOrder;
+            case HIDDEN_QUESTIONS:
+                return hiddenQuestions;
+            case QUIZ_TIMER:
+                return quizTimer;
+        }
+        return false;
+    }
+
     private List<Question> questions = new ArrayList<>();
 
     public Quiz(String title, String description) {
@@ -37,11 +75,11 @@ public class Quiz implements Parcelable {
         return questions;
     }
 
-    public Question get(int index){
+    public Question get(int index) {
         return questions.get(index);
     }
 
-    public int size(){
+    public int size() {
         return questions.size();
     }
 

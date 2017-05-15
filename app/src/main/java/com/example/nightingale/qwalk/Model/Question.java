@@ -41,4 +41,6 @@ public abstract class Question {
         return questionTitle;
     }
 
+    public QLocation getQLocation() {return new QLocation(location); };
+
 }
