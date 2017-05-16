@@ -44,58 +44,134 @@ import javax.net.ssl.HttpsURLConnection;
 public class FriendActivity extends AppCompatActivity{
 
     EditText UsernameInput;
+    private ListView listView;
+    private int request;
+
+    private List<Quiz> quizzes = new ArrayList<>();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend); //ändra namnet till rätt xml-fil
         UsernameInput  = (EditText)findViewById(R.id.friendusername);
-
+        loadFriends();
+        loadList();
 
         //loadQuizzes();
 
         //loadList();
     }
 
+    private void loadFriends() {
+        Log.d("JSON", "Method entered");
+            request = 1;
+
+                try {
+                    String JSONstring = new SendRequest().execute().get();
+
+                    Log.d("JSON", JSONstring);
+                    JSONArray jsonArray = new JSONArray(JSONstring);
+                    Quiz q = new Quiz("","");
+                    List<Question> questions = new ArrayList<>();
+                    for (int i = 0; i < jsonArray.length(); ++i) {
+
+                            JSONObject quiz = jsonArray.getJSONObject(i);
+                            String title = quiz.getString("title");
+                            Log.d("JSON", title);
+                            String description = quiz.getString("description");
+                            Log.d("JSON", description);
+                            q = new Quiz(title,description);
+
+
+
+                        // ...
+                    }
+                    Log.d("JSON", "Setting questions");
+                    q.setQuestions(questions);
+                    Log.d("JSON", "Questions Set");
+                    quizzes.add(q);
+/*
+                    Quiz q = new Quiz("Gissa huset!","Besök skaparna av appen och gissa vem som bor var!");
+                    List<OptionQuestion> questions = new ArrayList<>();
+                    questions.add(new OptionQuestion("Vem bor så här nära Chalmers?", "Katten", "Pil", "Nightinggale", "Elit", 1,57.689280, 11.972306));
+                    //questions.get(0).setLocation(57.689280, 11.972306);
+                    questions.add(new OptionQuestion("Vem kan bo här?", "Pil", "Katten", "Nightinggale", "Elit", 2,57.742081, 11.969506));
+                    //questions.get(1).setLocation(57.742081, 11.969506);
+                    questions.add(new OptionQuestion("Vem bor inneboende här?", "Pil", "Nightinggale", "Elit", "Katten", 3,57.735626, 12.116774));
+                    //questions.get(2).setLocation(57.735626, 12.116774);
+                    questions.add(new OptionQuestion("Vem orkar pendla från Kungsbacka?", "Elit", "Pil", "Nightinggale", "Katten", 0,57.543822, 12.103735));
+                    //questions.get(3).setLocation(57.543822, 12.103735);
+                    q.setQuestions(questions);
+*/
+                } catch (Exception e) {
+                    Log.d("JSON", "Crash2");
+                }
+            }
+
+
+
+
+
+
+    private void loadList() {
+        listView = (ListView) findViewById(R.id.list);
+        String[] values = new String[quizzes.size()];
+        for (int i = 0; i < values.length; i++) {
+            values[i] = quizzes.get(i).getTitle();
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, values);
+
+        listView.setAdapter(adapter);
+
+       /* listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                play(position);
+            }
+        });*/
+    }
+
     public void AddFriendButtonClicked(View view) {
-        if(UsernameInput.getText().toString().equals(Account.getInstance().getUsername())){
+        if (UsernameInput.getText().toString().equals(Account.getInstance().getUsername())) {
             Toast.makeText(getApplicationContext(), "Du kan inte lägga till dig själv som vän",
                     Toast.LENGTH_LONG).show();
         }
-        else{
+        else {
+
+            request = 0;
+            try {
+                String ID = new SendRequest().execute().get();
+                Log.e("response", ID);
+                ID = ID.replaceAll("\\s+", "");
+
+                String msg = "";
+
+                if (ID.equals("0")) {
+                    msg = "Error";
+                } else if (ID.equals("1")) {
+                    msg = "Användarnamnet finns inte";
+                } else if (ID.equals("2")) {
+                    msg = "Du är redan vän med den personen";
+                } else if (ID.equals("3")) {
+                    msg = "Vän tillagd";
+                }
 
 
-        try {
-            String ID = new SendRequest().execute().get();
-            Log.e("response",ID);
-            ID = ID.replaceAll("\\s+", "");
-
-            String msg = "";
-
-            if(ID.equals("0")){
-                msg = "Error";
-            }
-            else if(ID.equals("1")){
-                msg = "Användarnamnet finns inte";
-            }
-            else if(ID.equals("2")){
-                msg = "Du är redan vän med den personen";
-            }
-            else if(ID.equals("3")){
-                msg = "Vän tillagd";
-            }
-
-
-            Toast.makeText(getApplicationContext(), msg,
+                Toast.makeText(getApplicationContext(), msg,
                         Toast.LENGTH_LONG).show();
-        } catch (Exception e) {
+            } catch (Exception e) {
 
+            }
         }
-        }
-
-
-
 
     }
+
+
+
+
+
 
     public class SendRequest extends AsyncTask<String, Void, String> {
 
@@ -113,7 +189,7 @@ public class FriendActivity extends AppCompatActivity{
 
                 postDataParams.put("friendusername", Username);
                 postDataParams.put("userid", Account.getInstance().getUserID());
-                postDataParams.put("request", 0);
+                postDataParams.put("request", request);
 
 
 

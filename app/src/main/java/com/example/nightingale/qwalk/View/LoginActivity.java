@@ -72,6 +72,11 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, MenuActivity.class);
                 startActivity(intent);
             }
+            else if(ID == null){
+                Toast.makeText(getApplicationContext(), "Connection Failed",
+                        Toast.LENGTH_LONG).show();
+            }
+
             else{
                 Account.getInstance().setUserID(Integer.parseInt(ID));
                 Account.getInstance().setUsername(UsernameInput.getText().toString());
