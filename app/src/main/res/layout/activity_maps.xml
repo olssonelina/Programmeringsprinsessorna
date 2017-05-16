@@ -49,14 +49,14 @@
             android:visibility="invisible"
             map:srcCompat="@drawable/up" />
 
+
         <ImageView
             android:id="@+id/monkey"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:visibility="invisible"
-            map:srcCompat="@mipmap/Monkey" />
+            map:srcCompat="@drawable/monkey" />
 
 
     </RelativeLayout>

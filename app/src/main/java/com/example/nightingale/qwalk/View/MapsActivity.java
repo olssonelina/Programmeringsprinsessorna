@@ -88,6 +88,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Player player;
 
     ImageView goHere;
+    ImageView monkey;
 
     public static final int ANSWER_CODE = 4331;
 
@@ -108,6 +109,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         goHere = (ImageView) findViewById(R.id.goHere);
         goHere.setImageResource(R.drawable.up);
+
+        monkey = (ImageView) findViewById(R.id.monkey);
+        monkey.setImageResource(R.drawable.monkey);
 
     }
 
