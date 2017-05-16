@@ -47,7 +47,7 @@ public class FriendActivity extends AppCompatActivity{
     private ListView listView;
     private int request;
 
-    private List<Quiz> quizzes = new ArrayList<>();
+    private List<String> friends = new ArrayList<>();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,38 +70,16 @@ public class FriendActivity extends AppCompatActivity{
 
                     Log.d("JSON", JSONstring);
                     JSONArray jsonArray = new JSONArray(JSONstring);
-                    Quiz q = new Quiz("","");
+
                     List<Question> questions = new ArrayList<>();
-                    for (int i = 0; i < jsonArray.length(); ++i) {
 
-                            JSONObject quiz = jsonArray.getJSONObject(i);
-                            String title = quiz.getString("title");
-                            Log.d("JSON", title);
-                            String description = quiz.getString("description");
-                            Log.d("JSON", description);
-                            q = new Quiz(title,description);
-
-
-
-                        // ...
+                    if (jsonArray != null) {
+                        int len = jsonArray.length();
+                        for (int i=0;i<len;i++){
+                            friends.add(jsonArray.get(i).toString());
+                        }
                     }
-                    Log.d("JSON", "Setting questions");
-                    q.setQuestions(questions);
-                    Log.d("JSON", "Questions Set");
-                    quizzes.add(q);
-/*
-                    Quiz q = new Quiz("Gissa huset!","Besök skaparna av appen och gissa vem som bor var!");
-                    List<OptionQuestion> questions = new ArrayList<>();
-                    questions.add(new OptionQuestion("Vem bor så här nära Chalmers?", "Katten", "Pil", "Nightinggale", "Elit", 1,57.689280, 11.972306));
-                    //questions.get(0).setLocation(57.689280, 11.972306);
-                    questions.add(new OptionQuestion("Vem kan bo här?", "Pil", "Katten", "Nightinggale", "Elit", 2,57.742081, 11.969506));
-                    //questions.get(1).setLocation(57.742081, 11.969506);
-                    questions.add(new OptionQuestion("Vem bor inneboende här?", "Pil", "Nightinggale", "Elit", "Katten", 3,57.735626, 12.116774));
-                    //questions.get(2).setLocation(57.735626, 12.116774);
-                    questions.add(new OptionQuestion("Vem orkar pendla från Kungsbacka?", "Elit", "Pil", "Nightinggale", "Katten", 0,57.543822, 12.103735));
-                    //questions.get(3).setLocation(57.543822, 12.103735);
-                    q.setQuestions(questions);
-*/
+
                 } catch (Exception e) {
                     Log.d("JSON", "Crash2");
                 }
@@ -114,23 +92,15 @@ public class FriendActivity extends AppCompatActivity{
 
     private void loadList() {
         listView = (ListView) findViewById(R.id.list);
-        String[] values = new String[quizzes.size()];
+        String[] values = new String[friends.size()];
         for (int i = 0; i < values.length; i++) {
-            values[i] = quizzes.get(i).getTitle();
+            values[i] = friends.get(i);
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, values);
 
         listView.setAdapter(adapter);
-
-       /* listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                play(position);
-            }
-        });*/
     }
 
     public void AddFriendButtonClicked(View view) {
@@ -156,6 +126,9 @@ public class FriendActivity extends AppCompatActivity{
                     msg = "Du är redan vän med den personen";
                 } else if (ID.equals("3")) {
                     msg = "Vän tillagd";
+                }
+                else{
+                    msg = "Connection Failed, try again";
                 }
 
 
