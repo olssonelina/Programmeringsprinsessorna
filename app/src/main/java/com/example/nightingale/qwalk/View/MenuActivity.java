@@ -167,6 +167,11 @@ public class MenuActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void loadFriends(View view) {
+        Intent intent = new Intent(this, FriendActivity.class);
+        startActivity(intent);
+    }
+
     public void loadSettings(View view) {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);

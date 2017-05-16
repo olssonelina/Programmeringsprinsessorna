@@ -13,13 +13,13 @@
             android:id="@+id/createButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="createButtonPressed"
-            android:text="Skapa Eget Quiz"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
+            android:background="@android:color/holo_green_light"
             android:ems="10"
-            android:background="@android:color/holo_green_light"/>
+            android:onClick="createButtonPressed"
+            android:text="Skapa Eget Quiz" />
 
         <ListView
             android:id="@+id/list"
@@ -67,6 +67,19 @@
             android:padding="5dp"
             android:onClick="loadHelp"
             app:srcCompat="@android:drawable/ic_menu_help" />
+
+        <ImageView
+            android:id="@+id/friends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/list"
+            android:layout_alignLeft="@+id/help"
+            android:layout_alignStart="@+id/help"
+            android:layout_below="@+id/createButton"
+            android:layout_toLeftOf="@+id/editText"
+            android:layout_toStartOf="@+id/editText"
+            android:onClick="loadFriends"
+            app:srcCompat="@drawable/friends" />
 
     </RelativeLayout>
 </LinearLayout>
