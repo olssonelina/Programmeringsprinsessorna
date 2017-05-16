@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.nightingale.qwalk.Model.OptionQuestion;
+import com.example.nightingale.qwalk.Model.Player;
 import com.example.nightingale.qwalk.Model.Question;
 import com.example.nightingale.qwalk.Model.Quiz;
 import com.example.nightingale.qwalk.Model.Tiebreaker;
@@ -83,6 +84,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private boolean inQuestionRange = false;
     private Quiz currentQuiz;
     private Question currentQuestion;
+
+    Player player;
 
     ImageView goHere;
 
@@ -221,6 +224,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             int answer = (int) data.getExtras().get("answer");
 
             //TODO hantera resultatet
+            player.setAnswer(0, 0);
 
             Toast.makeText(this, "Chosen answer: " + answer, Toast.LENGTH_LONG).show();
             nextQuestion();
