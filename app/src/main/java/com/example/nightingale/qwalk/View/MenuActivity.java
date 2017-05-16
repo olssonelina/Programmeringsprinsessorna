@@ -45,6 +45,7 @@ public class MenuActivity extends AppCompatActivity {
 
     protected int request;
     int offset = 0;
+    int userid;
 
     private ListView listView;
 
@@ -56,7 +57,8 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu); //ändra namnet till rätt xml-fil
         loadQuizzes();
         if(!(Account.getInstance().getUserID() == -1)){
-            loadOnlineQuizzes();
+            loadOnlineQuizzes(Account.getInstance().getUserID());
+            loadFriendQuizzes();
         }
         loadList();
     }
@@ -65,10 +67,10 @@ public class MenuActivity extends AppCompatActivity {
         quizzes.add(StandardQuizzes.getMachineStudyRoomsQuiz());
         quizzes.add(StandardQuizzes.getChalmersQuiz());
         quizzes.add(StandardQuizzes.getAdressQuiz());
-        //TODO Kevin, här kanske du kan lägga till från databasen ?. Eventuellt fler standardquizzes med
     }
 
-    private void loadOnlineQuizzes() {
+    private void loadOnlineQuizzes(int UserID) {
+        userid = UserID;
         Log.d("JSON", "Method entered");
         request = 0;
         int quizAmount = 0;
@@ -162,6 +164,15 @@ public class MenuActivity extends AppCompatActivity {
         }
     }
 
+    private void loadFriendQuizzes(){
+        int len = Account.getInstance().getFriendIDs().size();
+        if(len > 0) {
+            for (int i = 1; i < len; i++) {
+                loadOnlineQuizzes(Account.getInstance().getFriendIDs().get(i));
+            }
+        }
+    }
+
     public void loadHelp(View view) {
         Intent intent = new Intent(this, HelpActivity.class);
         startActivity(intent);
@@ -244,7 +255,7 @@ public class MenuActivity extends AppCompatActivity {
 
                 postDataParams.put("request", request);
                 postDataParams.put("offset", offset);
-                postDataParams.put("userid", Account.getInstance().getUserID());
+                postDataParams.put("userid", userid);
 
 
 
