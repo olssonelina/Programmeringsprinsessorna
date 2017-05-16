@@ -42,8 +42,6 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class CreateQuizActivity extends AppCompatActivity {
 
-
-
     public String test;
     ArrayList<Integer> QuestionIDArray = new ArrayList<Integer>();
     String JSONarrayString;
