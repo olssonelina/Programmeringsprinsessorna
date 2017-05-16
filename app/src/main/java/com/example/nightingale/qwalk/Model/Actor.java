@@ -6,9 +6,17 @@ package com.example.nightingale.qwalk.Model;
 
 public abstract class Actor {
 
-    int score;
+    int[] answers;
+
+    public Actor(int quizLength) {
+        this.answers = new int[quizLength];
+    }
 
     public int getScore() {
-        return score;
+        return 0;
+    }
+
+    public int[] getAnswers() {
+       return answers;
     }
 }
