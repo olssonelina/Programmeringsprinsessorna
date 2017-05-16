@@ -47,7 +47,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:visibility="invisible"
-            map:srcCompat="@drawable/up" />
+            map:srcCompat="@drawable/direction" />
 
 
         <ImageView

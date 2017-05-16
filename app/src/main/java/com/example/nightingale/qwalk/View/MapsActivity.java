@@ -48,6 +48,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -108,7 +109,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         goHere = (ImageView) findViewById(R.id.goHere);
-        goHere.setImageResource(R.drawable.up);
+        goHere.setImageResource(R.drawable.direction);
 
         monkey = (ImageView) findViewById(R.id.monkey);
         monkey.setImageResource(R.drawable.monkey);
@@ -163,7 +164,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             if (currentQuestion.getLatitude() == currentQuiz.get(currentQuiz.size() - 1).getLatitude()) { // End quiz
                 //TODO det som ska hända när ett quiz är klart
                 Intent intent = new Intent(getBaseContext(), ShowResultActivity.class);
-                int[] player={1,2,345678}; //testinput tas bort när det finns en Actor
+                int[] player = {1, 2, 345678}; //testinput tas bort när det finns en Actor
                 intent.putExtra("player", player);
                 startActivity(intent);
                 finish();
@@ -285,8 +286,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnCameraChangeListener(this);
 
 
-
-
     }
 
     protected synchronized void buildGoogleApiClient() {
@@ -397,7 +396,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onCameraChange(CameraPosition cameraPosition) {
-        if (mMarkerLocation == null){
+        if (mMarkerLocation == null) {
             return;
         }
 
@@ -413,39 +412,39 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         double screenCenterLng = screenCenter.longitude;
         double screenCenterLat = screenCenter.latitude;
 
-        float distance = (float) Math.sqrt((screenCenterLat-mMarkerLocation.getLatitude())*(screenCenterLat-mMarkerLocation.getLatitude()) + (screenCenterLng-mMarkerLocation.getLongitude())*(screenCenterLng-mMarkerLocation.getLongitude()));
+        float distance = (float) Math.sqrt((screenCenterLat - mMarkerLocation.getLatitude()) * (screenCenterLat - mMarkerLocation.getLatitude()) + (screenCenterLng - mMarkerLocation.getLongitude()) * (screenCenterLng - mMarkerLocation.getLongitude()));
 
         //If the question pin is offscreen, an arrow will show up and point in the direction of the question
         if (!bounds.contains(new LatLng(mMarkerLocation.getLatitude(), mMarkerLocation.getLongitude()))) {
             int angle = angleToQuestion(screenCenterLat, screenCenterLng, mMarkerLocation.getLatitude(), mMarkerLocation.getLongitude());
             goHere.setRotation(angle);
             goHere.setVisibility(View.VISIBLE);
-            goHere.setX(width/2);
-            goHere.setY(height/2);
+            goHere.setX(width / 2);
+            goHere.setY(height / 2);
 
 
             float sinAng = abs((float) sin(angle));
             float testY = 2 * (float) getInterception(mMarkerLocation.getLongitude(), mMarkerLocation.getLatitude(), screenCenterLng, screenCenterLat, (width - 150));
 
             if ((angle >= 0 && angle <= 45) || (angle > 315 && angle < 360)) {
-                goHere.setY(100);
+                goHere.setY(60);
                 goHere.setX(width/2);
             }
             if (angle > 45 && angle <= 135) {
                 //goHere.setY(16 * angle - 598);
                 //goHere.setY(distance * (float) pow(10, 5) * sinAng);
-                //goHere.setY(height/2);
-                goHere.setY(testY);
-                goHere.setX(width - 150);
+                //goHere.setY(testY);
+                goHere.setY(height/2 - 100);
+                goHere.setX(width - 110);
             }
             if (angle > 135 && angle <= 225) {
-                goHere.setY(height - 200);
+                goHere.setY(height - 280);
                 goHere.setX(width/2);
             }
             if (angle > 225 && angle <= 315) {
-                goHere.setY(height/2);
-                goHere.setX(100);
-            } 
+                goHere.setY(height/2 - 100);
+                goHere.setX(60);
+            }
 
         } else {
             goHere.setVisibility(View.INVISIBLE);
@@ -457,7 +456,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         double k = (y1 - y2) / (x1 - x2);
         return k * (x - x1) + y1;
     }
-
 
 
     /**
