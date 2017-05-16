@@ -5,10 +5,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.nightingale.qwalk.Model.DatabaseHandler;
 import com.example.nightingale.qwalk.Model.OptionQuestion;
@@ -179,8 +181,16 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void loadFriends(View view) {
-        Intent intent = new Intent(this, FriendActivity.class);
-        startActivity(intent);
+        if(Account.getInstance().getUserID() == -1) {
+            Toast toast = Toast.makeText(getApplicationContext(), "Var vänlig Logga in", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 160);
+            toast.show();
+        }
+        else{
+            Intent intent = new Intent(this, FriendActivity.class);
+            startActivity(intent);
+        }
+
     }
 
     public void loadSettings(View view) {
