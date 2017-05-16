@@ -69,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                 Account.getInstance().setUsername(UsernameInput.getText().toString());
                 Toast.makeText(getApplicationContext(), "Admin Success",
                         Toast.LENGTH_LONG).show();
+                DatabaseHandler.loadFriends();
                 Intent intent = new Intent(this, MenuActivity.class);
                 startActivity(intent);
             }
@@ -82,6 +83,7 @@ public class LoginActivity extends AppCompatActivity {
                 Account.getInstance().setUsername(UsernameInput.getText().toString());
                 Toast.makeText(getApplicationContext(), "Success",
                         Toast.LENGTH_LONG).show();
+                DatabaseHandler.loadFriends();
                 Intent intent = new Intent(this, MenuActivity.class);
                 startActivity(intent);
             }

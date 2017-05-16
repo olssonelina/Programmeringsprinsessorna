@@ -1,5 +1,8 @@
 package com.example.nightingale.qwalk.Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Nightingale on 2017-05-08.
  */
@@ -8,7 +11,13 @@ public class Account {
 
     private int UserID = -1;
     private String Username;
+    private List<String> Friends = new ArrayList<>();
+    private List<Integer> FriendIDs = new ArrayList<>();
 
+    public void WipeLists(){
+        FriendIDs = new ArrayList<>();
+        Friends = new ArrayList<>();
+    }
 
     private static final Account instance = new Account();
 
@@ -28,7 +37,13 @@ public class Account {
         Username = username;
     }
 
+    public List<String> getFriends() {
+        return Friends;
+    }
 
+    public List<Integer> getFriendIDs() {
+        return FriendIDs;
+    }
 
     public int getUserID() {
         return UserID;
