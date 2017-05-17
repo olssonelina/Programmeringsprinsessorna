@@ -233,15 +233,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == ANSWER_CODE) {
-            int answer = (int) data.getExtras().get("answer");
+            try{
+                int answer = (int) data.getExtras().get("answer");
 
-            //TODO hantera resultatet
-            player.setAnswer(0, 0);
+                //TODO hantera resultatet
+                player.setAnswer(0, 0);
 
-            Toast.makeText(this, "Chosen answer: " + answer, Toast.LENGTH_LONG).show();
-            nextQuestion();
+                Toast.makeText(this, "Chosen answer: " + answer, Toast.LENGTH_LONG).show();
+                nextQuestion();
+            }
+            catch (NullPointerException e){
 
-
+            }
         }
     }
     //region Hidden code
