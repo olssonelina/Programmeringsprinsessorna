@@ -90,6 +90,18 @@
                 android:layout_toRightOf="@+id/button8"
                 android:layout_toEndOf="@+id/button8" />
 
+            <ProgressBar
+                android:id="@+id/progressBar1"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/password"
+                android:layout_alignEnd="@+id/username"
+                android:layout_alignLeft="@+id/password"
+                android:layout_alignRight="@+id/username"
+                android:layout_alignStart="@+id/password"
+                android:layout_below="@+id/imageView4" />
+
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="115dp"

@@ -7,8 +7,11 @@ package com.example.nightingale.qwalk.View;
         import android.os.Bundle;
         import android.util.Log;
         import android.view.View;
+        import android.widget.Button;
         import android.widget.EditText;
+        import android.widget.ProgressBar;
         import android.widget.Toast;
+
 
         import com.example.nightingale.qwalk.Model.Account;
         import com.example.nightingale.qwalk.Model.DatabaseHandler;
@@ -32,13 +35,21 @@ public class LoginActivity extends AppCompatActivity {
     String ID;
     EditText UsernameInput;
     EditText PasswordInput;
-    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+    private ProgressBar spinner;
+    Button Loginbutton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         UsernameInput   = (EditText)findViewById(R.id.username);
         PasswordInput   = (EditText)findViewById(R.id.password);
+        Loginbutton = (Button) findViewById(R.id.LoginButton);
+
+        spinner = (ProgressBar)findViewById(R.id.progressBar1);
+
+        spinner.setVisibility(View.GONE);
+        
     }
 
     /** Called when the user taps the Send button */
@@ -57,36 +68,13 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public void LoginButtonClicked(View view) {
-        try {
-            ID = new SendRequest().execute().get();
-            ID = ID.replaceAll("\\s+","");
-            if(Integer.parseInt(ID) == -1) {
-                Toast.makeText(getApplicationContext(), "Incorrect Password/Username",
-                        Toast.LENGTH_LONG).show();
-            }
-            else if(Integer.parseInt(ID) == -2){
-                Account.getInstance().setUserID(Integer.parseInt(ID));
-                Account.getInstance().setUsername(UsernameInput.getText().toString());
-                Toast.makeText(getApplicationContext(), "Admin Success",
-                        Toast.LENGTH_LONG).show();
-                DatabaseHandler.loadFriends();
-                Intent intent = new Intent(this, MenuActivity.class);
-                startActivity(intent);
-            }
-            else if(ID == null){
-                Toast.makeText(getApplicationContext(), "Connection Failed",
-                        Toast.LENGTH_LONG).show();
-            }
+        Loginbutton.setEnabled(false);
+        spinner.setVisibility(View.VISIBLE);
 
-            else{
-                Account.getInstance().setUserID(Integer.parseInt(ID));
-                Account.getInstance().setUsername(UsernameInput.getText().toString());
-                Toast.makeText(getApplicationContext(), "Success",
-                        Toast.LENGTH_LONG).show();
-                DatabaseHandler.loadFriends();
-                Intent intent = new Intent(this, MenuActivity.class);
-                startActivity(intent);
-            }
+
+
+        try {
+            new SendRequest().execute();
 
 
 
@@ -167,6 +155,42 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
+
+            ID = result;
+            ID = ID.replaceAll("\\s+","");
+            if(Integer.parseInt(ID) == -1) {
+
+                Toast.makeText(getApplicationContext(), "Incorrect Password/Username",
+                        Toast.LENGTH_LONG).show();
+            }
+            else if(Integer.parseInt(ID) == -2){
+                Account.getInstance().setUserID(Integer.parseInt(ID));
+                Account.getInstance().setUsername(UsernameInput.getText().toString());
+                Toast.makeText(getApplicationContext(), "Admin Success",
+                        Toast.LENGTH_LONG).show();
+                DatabaseHandler.loadFriends();
+
+                Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+                startActivity(intent);
+            }
+            else if(ID == null){
+
+                Toast.makeText(getApplicationContext(), "Connection Failed",
+                        Toast.LENGTH_LONG).show();
+            }
+
+            else{
+                Account.getInstance().setUserID(Integer.parseInt(ID));
+                Account.getInstance().setUsername(UsernameInput.getText().toString());
+                Toast.makeText(getApplicationContext(), "Success",
+                        Toast.LENGTH_LONG).show();
+                DatabaseHandler.loadFriends();
+                spinner.setVisibility(View.GONE);
+                Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+                startActivity(intent);
+            }
+            spinner.setVisibility(View.GONE);
+            Loginbutton.setEnabled(true);
         }
     }
 
