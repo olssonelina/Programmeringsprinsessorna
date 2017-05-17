@@ -1,5 +1,6 @@
 package com.example.nightingale.qwalk.Model;
 
+import android.graphics.Path;
 import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -47,7 +48,21 @@ public class OptionQuestion extends Question implements Parcelable  {
         return option4;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof OptionQuestion){
+            OptionQuestion other = (OptionQuestion) o;
 
+            return other.getOption1().equals(getOption1()) &&
+                    other.getOption2().equals(getOption2()) &&
+                    other.getOption3().equals(getOption3()) &&
+                    other.getOption4().equals(getOption4()) &&
+                    other.getCorrectAnswer() == getCorrectAnswer() &&
+                    other.getLocation().equals(getLocation()) &&
+                    other.getQuestionTitle().equals(getQuestionTitle());
+        }
+        return false;
+    }
 
     protected OptionQuestion(Parcel in) {
         questionTitle = in.readString();

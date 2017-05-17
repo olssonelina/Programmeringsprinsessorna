@@ -16,12 +16,16 @@ public class QwalkGame {
     //
     private MapsPresenter presenter;
     private Quiz quiz;
-    private QLocation user = new QLocation(0, 0); //TODO ha denna tills user har en egen klass
+    private QLocation userLocation = new QLocation(0, 0); //TODO ha denna tills user har en egen klass
     private List<Question> currentQuestions = new ArrayList<>();
     private int questionIndex;
-    private Actor player, bot;
+    private Player player;
+    private Monkey bot;
 
-    public final static int IN_RANGE = 25;
+    /**
+     * The distance in meters for a question to be considered in range.
+     */
+    public final static double IN_RANGE = 25;
 
     /**
      *
@@ -33,8 +37,6 @@ public class QwalkGame {
         this.quiz = quiz;
 
         questionIndex = -1;
-
-
     }
 
     /**
@@ -42,7 +44,7 @@ public class QwalkGame {
      */
     public void startQuiz(){
 
-        //TODO Initialize player
+        player = new Player(quiz.getQuestions().size());
 
         if (quiz.getSetting(IN_ORDER)){
             nextQuestion();
@@ -53,6 +55,21 @@ public class QwalkGame {
 
         if (quiz.getSetting(WITH_BOT)){
             //TODO initialize bot
+            int difficulty = 0;
+            switch (quiz.getDifficulty()){
+                case EASY:
+                    difficulty = 35;
+                    break;
+                case MEDIUM:
+                    difficulty = 50;
+                    break;
+                case HARD:
+                    difficulty = 75;
+                    break;
+            }
+
+            bot = new Monkey(quiz, difficulty);
+            //presenter.initializeBot(); //TODO
         }
 
         if (quiz.getSetting(QUIZ_TIMER)){
@@ -72,9 +89,10 @@ public class QwalkGame {
             end();
         }else {
             currentQuestions.add(quiz.get(questionIndex));
+            presenter.placeMarker(currentQuestions.get(0), !quiz.getSetting(IS_HIDDEN));
+            presenter.focusOn(currentQuestions.get(0).getLocation());
         }
 
-        presenter.placeMarker(currentQuestions.get(0), quiz.getSetting(IS_HIDDEN));
 
     }
 
@@ -85,6 +103,7 @@ public class QwalkGame {
         else {
             presenter.showResults(quiz, player);
         }
+        presenter.close();
     }
 
     private void placeAllQuestions(){
@@ -103,10 +122,12 @@ public class QwalkGame {
      * @param answer
      */
     public void setAnswer(Question question, int answer){
-        //TODO ge svaret till spelaren
+        player.setAnswer(quiz.getQuestionIndex(question), answer);
+
         currentQuestions.remove(question);
         presenter.removeMarker(question);
         if(quiz.getSetting(IN_ORDER)){ nextQuestion(); }
+        else if (currentQuestions.size() == 0){ end(); }
     }
 
     /**
@@ -114,7 +135,7 @@ public class QwalkGame {
      * @param userLocation
      */
     public void update(QLocation userLocation){
-        user = userLocation;
+        this.userLocation = userLocation;
 
         List<Question> questionsInRange = questionsInRange(currentQuestions);
         if (questionsInRange.size() > 0){
@@ -122,14 +143,13 @@ public class QwalkGame {
                 presenter.enableMarker(q);
             }
         }
-
-        updateArrow();
+        updateBot();
     }
 
     private List<Question> questionsInRange(List<Question> questions){
         List<Question> questionsInRange = new ArrayList<>();
         for (Question q: questions) {
-            if (q.getLocation().distanceTo(user) <= IN_RANGE){
+            if (q.getLocation().distanceTo(userLocation) <= IN_RANGE){
                 questionsInRange.add(q);
             }
         }
@@ -138,11 +158,11 @@ public class QwalkGame {
 
     private Question getClosestQuestion(){
         Question a = currentQuestions.get(0);
-        double distance = user.distanceTo(a.getLocation());
+        double distance = userLocation.distanceTo(a.getLocation());
 
         for (Question q: currentQuestions) {
-            if (q != a && q.getLocation().distanceTo(user) < distance){
-                distance = q.getLocation().distanceTo(user);
+            if (q != a && q.getLocation().distanceTo(userLocation) < distance){
+                distance = q.getLocation().distanceTo(userLocation);
                 a = q;
             }
         }
@@ -159,9 +179,19 @@ public class QwalkGame {
         throw new IllegalArgumentException("No question at this place");
     }*/
 
+    private void updateBot(){
+        //TODO
+    }
 
-    private void updateArrow(){
-        presenter.updateArrow(getClosestQuestion().getLocation());
+
+    public void updateArrow(){
+        Question closestQuestion = getClosestQuestion();
+        if (presenter.isOnScreen(closestQuestion.getLocation())){
+            presenter.updateArrow(getClosestQuestion().getLocation());
+        }
+        else{
+            presenter.hideArrow();
+        }
     }
 
 }

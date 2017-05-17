@@ -14,8 +14,17 @@ import java.util.List;
 public class Quiz implements Parcelable {
     private String title;
     private String description;
+    private QuizDifficulty difficulty = QuizDifficulty.MEDIUM;
 
     private boolean questionTimer = false, quizTimer = false, hiddenQuestions = false, inOrder = true, withBot = false;
+
+    public QuizDifficulty getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(QuizDifficulty difficulty) {
+        this.difficulty = difficulty;
+    }
 
     public void setSetting(QuizSetting setting, boolean enabled) {
         switch (setting) {
@@ -103,6 +112,15 @@ public class Quiz implements Parcelable {
         return answers;
     }
 
+    public int getQuestionIndex(Question q){
+        for (int i = 0; i < questions.size(); i++){
+            if (q.equals(questions.get(i))){
+                return i;
+            }
+        }
+        throw new IllegalArgumentException("No such question!");
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -132,4 +150,6 @@ public class Quiz implements Parcelable {
             return new Quiz[size];
         }
     };
+
+
 }

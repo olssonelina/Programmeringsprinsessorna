@@ -25,20 +25,15 @@ public class MapsViewTestClass implements IMaps {
     public QLocation bot;
 
     public void mapReady(){
-
+        presenter.mapIsReady();
     }
 
     public void userPositionUpdated(QLocation location){
         presenter.updateUserLocation(location);
     }
 
-    public Question markerPressed(QLocation location){
-        for (Question q: enabledMarkers) {
-            if (q.getLocation().equals(location)){
-                return q;
-            }
-        }
-        throw new RuntimeException();
+    public void questionPressed(Question question, int answer){
+        presenter.setAnswer(question, answer);
     }
 
     @Override
@@ -73,17 +68,23 @@ public class MapsViewTestClass implements IMaps {
 
     @Override
     public void placeMarker(Question question) {
-        placedMarkers.add(question);
+        if (!placedMarkers.contains(question)){
+            placedMarkers.add(question);
+        }
     }
 
     @Override
     public void placeHiddenMarker(Question question) {
-        placedHiddenMarkers.add(question);
+        if (!placedHiddenMarkers.contains(question)){
+            placedHiddenMarkers.add(question);
+        }
     }
 
     @Override
     public void enableMarker(Question question) {
-        enabledMarkers.add(question);
+        if (!enabledMarkers.contains(question)){
+            enabledMarkers.add(question);
+        }
     }
 
     @Override

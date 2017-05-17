@@ -33,14 +33,34 @@ public class MapsPresenterModelTest {
 
     @Test
     public void CreateMapsPresenter() {
-        view.presenter = new MapsPresenter(view, StandardQuizzes.getChalmersQuiz());
+        Quiz quiz = StandardQuizzes.getChalmersQuiz();
+        view.presenter = new MapsPresenter(view, quiz); // Similar to activity started
 
-        view.mapReady();
-
-        view.userPositionUpdated(new QLocation(50, 50));
+        view.mapReady(); // Similar to map ready, play quiz
 
 
-        assertTrue(view.placedMarkers.size() != 0);
+        //view.userPositionUpdated(new QLocation(20, 20)); // Move user somewhere
+
+        assertTrue(view.placedMarkers.size() != 0); //Check that there are questions on the map
+        assertTrue(view.enabledMarkers.size() == 0); // Check that no question is in range
+
+        view.userPositionUpdated(quiz.get(0).getLocation()); // Move player to question
+        view.userPositionUpdated(quiz.get(0).getLocation()); //
+
+        assertTrue(view.enabledMarkers.size() == 1); // Make sure that we are in range
+
+        view.questionPressed(quiz.get(0), 1); // Answer a question
+
+
+        assertTrue(view.enabledMarkers.size() == 0);  // Make sure that no question is in range, that the question was removed
+
+        view.userPositionUpdated(quiz.get(1).getLocation());
+        view.userPositionUpdated(quiz.get(1).getLocation());
+
+        assertTrue(view.enabledMarkers.size() == 1);
+
+
+
 
 
     }

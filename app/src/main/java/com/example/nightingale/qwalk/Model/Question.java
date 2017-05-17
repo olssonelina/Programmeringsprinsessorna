@@ -39,6 +39,8 @@ public abstract class Question {
         return questionTitle;
     }
 
+    @Override
+    public abstract boolean equals(Object o);
     //public QLocation getQLocation() {return new QLocation(location); };
 
 }

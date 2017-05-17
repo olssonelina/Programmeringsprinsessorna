@@ -29,6 +29,19 @@ public class Tiebreaker extends Question implements Parcelable {
         return upperBounds;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Tiebreaker){
+            Tiebreaker other = (Tiebreaker) o;
+            return other.getLowerBounds() == getLowerBounds() &&
+                    other.getUpperBounds() == getUpperBounds() &&
+                    other.getCorrectAnswer() == getCorrectAnswer() &&
+                    other.getLocation().equals(getLocation()) &&
+                    other.getQuestionTitle().equals(getQuestionTitle());
+        }
+        return false;
+    }
+
 
     protected Tiebreaker(Parcel in) {
         lowerBounds = in.readInt();

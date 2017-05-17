@@ -12,8 +12,12 @@ import com.example.nightingale.qwalk.Model.QwalkGame;
  */
 
 public class MapsPresenter {
+
     private IMaps view;
     private QwalkGame model;
+
+
+    // ------------ Methods used by the view ------------ \\
 
     /**
      *
@@ -26,6 +30,33 @@ public class MapsPresenter {
 
         view.checkLocationPermission();
     }
+
+    /**
+     *
+     * @param location
+     */
+    public void updateUserLocation(QLocation location){
+        model.update(location);
+    }
+
+    public void mapIsReady(){
+        model.startQuiz();
+    }
+
+    /**
+     *
+     */
+    public void setAnswer(Question question, int answer){
+        model.setAnswer(question, answer);
+    }
+
+    public void onCameraChanged(){
+        model.updateArrow();
+    }
+
+
+    // ------------ Methods used by the model ------------ \\
+    // All of them only sends the request to the view.
 
     /**
      *
@@ -45,18 +76,7 @@ public class MapsPresenter {
      *
      * @param question
      */
-    public void removeMarker(Question question){
-        view.removeMarker(question);
-    }
-
-    /**
-     *
-     * @param location
-     */
-    public void updateUserLocation(QLocation location){
-        model.update(location);
-    }
-
+    public void removeMarker(Question question){ view.removeMarker(question); }
 
     /**
      *
@@ -64,9 +84,7 @@ public class MapsPresenter {
      * @param player
      * @param bot
      */
-    public void showResults(Quiz quiz, Actor player, Actor bot){
-        view.showResults(quiz, player, bot);
-    }
+    public void showResults(Quiz quiz, Actor player, Actor bot){ view.showResults(quiz, player, bot); }
 
     /**
      *
@@ -94,10 +112,6 @@ public class MapsPresenter {
         return view.isOnScreen(location);
     }
 
-    public void mapIsReady(){
-        model.startQuiz();
-    }
-
     /**
      *
      * @param location
@@ -106,6 +120,31 @@ public class MapsPresenter {
         view.pointArrowTo(location);
     }
 
+    /**
+     *
+     */
+    public void hideArrow(){ view.hideArrow(); }
 
+    /**
+     *
+     * @param location
+     */
+    public void initializeBot(QLocation location){ view.initializeBot(location); }
+
+    /**
+     *
+     * @param location
+     */
+    public void moveBot(QLocation location){ view.moveBot(location); }
+
+    /**
+     *
+     */
+    public void close(){ view.close(); }
+
+    /**
+     *
+     */
+    public void focusOn(QLocation location){ view.focusOn(location);}
 
 }

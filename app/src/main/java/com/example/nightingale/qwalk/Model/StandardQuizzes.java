@@ -24,10 +24,10 @@ public final class StandardQuizzes {
         questions.add(new OptionQuestion("Vilken sektion har sin sektionslokal här?", "Data", "Informationsteknik", "Elektro", "Maskin", 1,57.688290, 11.979162));
         //questions.get(0).setLocation(57.688290, 11.979162);
 
-        //questions.add(new OptionQuestion("Vad var syftet med denna byggnaden från början?", "Att stänga in elever som fuskade", "Att klättra i", "Det är en så kallad Schrödingers Cage", "Att göra experiment i", 3, 57.687449, 11.980544));
+        questions.add(new OptionQuestion("Vad var syftet med denna byggnaden från början?", "Att stänga in elever som fuskade", "Att klättra i", "Det är en så kallad Schrödingers Cage", "Att göra experiment i", 3, 57.687449, 11.980544));
         //questions.get(1).setLocation(57.687449, 11.980544);
 
-        //questions.add(new OptionQuestion("Vad är denna pizzerian känd för?", "Att göra fyrkantiga pizzor", "Att vara Sveriges bästa två år i rad", "Att det är IT-studenternas favorit", "Det har varit ett kattcafé", 2,57.687837, 11.982194));
+        questions.add(new OptionQuestion("Vad är denna pizzerian känd för?", "Att göra fyrkantiga pizzor", "Att vara Sveriges bästa två år i rad", "Att det är IT-studenternas favorit", "Det har varit ett kattcafé", 2,57.687837, 11.982194));
         //questions.get(2).setLocation(57.687837, 11.982194);
 
         q.setQuestions(questions);
