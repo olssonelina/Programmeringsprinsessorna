@@ -32,7 +32,7 @@
             android:background="#FF09C856"
             android:ems="10"
             android:onClick="AddFriendButtonClicked"
-            android:text="Lägg till vän" />
+            android:text="@string/add_friend" />
 
         <EditText
             android:id="@+id/editText"
@@ -43,7 +43,7 @@
             android:layout_marginTop="25dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Dina Vänner" />
+            android:text="@string/your_friends" />
 
         <EditText
             android:id="@+id/friendusername"
@@ -56,7 +56,7 @@
             android:layout_toLeftOf="@+id/createButton"
             android:layout_toStartOf="@+id/createButton"
             android:ems="14"
-            android:hint="Användarnamn"
+            android:hint="@string/username"
             android:inputType="textPersonName"
             android:text="" />
 

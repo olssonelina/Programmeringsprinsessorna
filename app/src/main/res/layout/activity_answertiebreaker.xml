@@ -16,7 +16,7 @@
             android:layout_marginBottom="40dp"
             android:ems="12"
             android:onClick="saveButtonPressed"
-            android:text="Svara" />
+            android:text="@string/answer" />
 
         <TextView
             android:id="@+id/tiebreakerTitle"

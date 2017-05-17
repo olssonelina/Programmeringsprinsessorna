@@ -10,8 +10,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:ems="15"
-        android:inputType="textPersonName"
-        android:hint="Användarnamn"/>
+        android:hint="@string/username"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/passwordRegister"
@@ -20,7 +20,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
         android:ems="15"
-        android:hint="Lösenord"
+        android:hint="@string/password"
         android:inputType="textPassword" />
 
     <EditText
@@ -29,8 +29,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="150dp"
-        android:hint="Repetera lösenord"
         android:ems="15"
+        android:hint="@string/repeat_password"
         android:inputType="textPassword" />
 
     <Button
@@ -39,9 +39,9 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="220dp"
+        android:background="@android:color/holo_green_light"
         android:ems="10"
         android:onClick="SendButtonClicked"
-        android:text="Registrera"
-        android:background="@android:color/holo_green_light"/>
+        android:text="@string/register" />
 
 </RelativeLayout>

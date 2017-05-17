@@ -1,5 +1,39 @@
 <resources>
     <string name="app_name">Qwalk</string>
     <string name="title_activity_maps">Qwalk</string>
-
+    <string name="answer">Svara</string>
+    <string name="add_position">Lägg till position</string>
+    <string name="question_here">Skriv fråga här</string>
+    <string name="add_alternative">Lägg till alternativ</string>
+    <string name="add_question">Lägg till fråga</string>
+    <string name="done">Klar</string>
+    <string name="create_new_quiz">Skapa nytt quiz</string>
+    <string name="title">Titel</string>
+    <string name="description">Kort beskrivning</string>
+    <string name="questions">Frågor</string>
+    <string name="add_questions">+ Lägg till frågor</string>
+    <string name="add_tiebreaker">+ Lägg till utslagsfråga</string>
+    <string name="tiebreaker">Utslagsfråga</string>
+    <string name="choose_correct_answer">Välj rätt svar</string>
+    <string name="min">min:</string>
+    <string name="max">max:</string>
+    <string name="unit">Enhet: </string>
+    <string name="add_friend">Lägg till vän</string>
+    <string name="your_friends">Dina Vänner</string>
+    <string name="username">Användarnamn</string>
+    <string name="place_question">Placera fråga</string>
+    <string name="help">Hjälp</string>
+    <string name="login">Logga in</string>
+    <string name="password">Lösenord</string>
+    <string name="register">Registrera</string>
+    <string name="continue_as_guest">Fortsätt som gäst</string>
+    <string name="find_question">Var är frågan?</string>
+    <string name="create_your_own_quiz">Skapa Eget Quiz</string>
+    <string name="choose_a_qwalk">Välj en Qwalk att spela!</string>
+    <string name="repeat_password">Upprepa lösenord</string>
+    <string name="monkey_result">Apans resultat</string>
+    <string name="settings">Inställningar</string>
+    <string name="settings">Inställningar</string>
+    <string name="settings">Inställningar</string>
+    <string name="settings">Inställningar</string>
 </resources>

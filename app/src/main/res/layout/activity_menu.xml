@@ -19,7 +19,7 @@
             android:background="@android:color/holo_green_light"
             android:ems="10"
             android:onClick="createButtonPressed"
-            android:text="Skapa Eget Quiz" />
+            android:text="@string/create_your_own_quiz" />
 
         <ListView
             android:id="@+id/list"
@@ -36,13 +36,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/createButton"
+            android:layout_centerHorizontal="true"
             android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="30dp"
-            android:layout_centerHorizontal="true"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Välj en Qwalk att spela!" />
+            android:text="@string/choose_a_qwalk" />
 
         <ImageView
             android:id="@+id/settings"

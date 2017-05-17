@@ -35,7 +35,7 @@
                 android:layout_marginBottom="115dp"
                 android:background="#FF09C856"
                 android:onClick="LoginButtonClicked"
-                android:text="Logga in" />
+                android:text="@string/login" />
 
             <EditText
                 android:id="@+id/password"
@@ -45,7 +45,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="18dp"
                 android:ems="10"
-                android:hint="Lösenord"
+                android:hint="@string/password"
                 android:inputType="textPassword" />
 
             <EditText
@@ -58,7 +58,7 @@
                 android:layout_marginBottom="60dp"
 
                 android:ems="10"
-                android:hint="Användarnamn"
+                android:hint="@string/username"
                 android:inputType="textPersonName"></EditText>
 
 
@@ -66,29 +66,29 @@
                 android:id="@+id/button8"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_marginBottom="15dp"
                 android:layout_marginLeft="19dp"
                 android:layout_marginStart="19dp"
                 android:background="#FF09C856"
                 android:onClick="RegisterButtonClicked"
-                android:text="Registrera"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:text="@string/register" />
 
             <Button
                 android:id="@+id/button7"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
 
-                android:background="#FF303030"
-                android:onClick="guestButtonClicked"
-                android:text="Fortsätt som gäst"
+                android:layout_below="@+id/LoginButton"
                 android:layout_marginLeft="27dp"
                 android:layout_marginStart="27dp"
-                android:layout_below="@+id/LoginButton"
+                android:layout_toEndOf="@+id/button8"
                 android:layout_toRightOf="@+id/button8"
-                android:layout_toEndOf="@+id/button8" />
+                android:background="#FF303030"
+                android:onClick="guestButtonClicked"
+                android:text="@string/continue_as_guest" />
 
             <ProgressBar
                 android:id="@+id/progressBar1"
