@@ -19,12 +19,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.nightingale.qwalk.Model.GameTimer;
+import com.example.nightingale.qwalk.InterfaceView.IMaps;
+import com.example.nightingale.qwalk.Model.Actor;
+import com.example.nightingale.qwalk.Model.Android.QwalkMarkerList;
 import com.example.nightingale.qwalk.Model.OptionQuestion;
-import com.example.nightingale.qwalk.Model.Player;
+import com.example.nightingale.qwalk.Model.QLocation;
 import com.example.nightingale.qwalk.Model.Question;
 import com.example.nightingale.qwalk.Model.Quiz;
 import com.example.nightingale.qwalk.Model.Tiebreaker;
+import com.example.nightingale.qwalk.Presenter.MapsPresenter;
 import com.example.nightingale.qwalk.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -35,12 +38,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import com.google.android.gms.maps.model.MapStyleOptions;
 
@@ -53,29 +54,34 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener,
         GoogleMap.OnMarkerClickListener,
-        GoogleMap.OnCameraChangeListener {
+        GoogleMap.OnCameraChangeListener,
+        IMaps {
+
+    private static final String TAG = MapsActivity.class.getSimpleName();
+    public static final int ANSWER_CODE = 4331;
 
     private GoogleMap mMap;
-    GoogleApiClient mGoogleApiClient;
-    LocationRequest mLocationRequest;
+    private GoogleApiClient mGoogleApiClient;
+    private LocationRequest mLocationRequest;
 
+    private MapsPresenter presenter;
 
-    private Location mLastLocation;
-    private Location mMarkerLocation;
-    private Marker mMarker;
-    private static final String TAG = MapsActivity.class.getSimpleName();
-    public final static int QUESTION_RANGE = 25;
-    private boolean inQuestionRange = false;
-    private Quiz currentQuiz;
-    private Question currentQuestion;
-    private GameTimer quizTimer= new GameTimer();
+    private ImageView directionArrow;
+    private ImageView bot;
 
-    Player player;
+    //private List<Question> questions = new ArrayList<>();
+    //private List<Marker> markers = new ArrayList<>();
+    private QwalkMarkerList qml = new QwalkMarkerList();
 
-    ImageView directionArrow;
-    ImageView monkey;
-
-    public static final int ANSWER_CODE = 4331;
+    //private Location mLastLocation;
+    //private Location mMarkerLocation;
+    //private Marker mMarker;
+    //public final static int QUESTION_RANGE = 25;
+    //private boolean inQuestionRange = false;
+    //private Quiz currentQuiz;
+    //private Question currentQuestion;
+    //private GameTimer quizTimer= new GameTimer();
+    //Player player;
 
 
     @Override
@@ -95,138 +101,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         directionArrow = (ImageView) findViewById(R.id.arrow);
         directionArrow.setImageResource(R.drawable.direction);
 
-        monkey = (ImageView) findViewById(R.id.monkey);
-        monkey.setImageResource(R.drawable.monkey);
+        bot = (ImageView) findViewById(R.id.monkey);
+        bot.setImageResource(R.drawable.monkey);
 
-    }
-
-
-    /**
-     * This method is called whenever the location of the device is updated.
-     * Checks distances to the location of questions and resets the map if necessary.
-     * Also saves the current location.
-     *
-     * @param location The device's current location
-     */
-    @Override
-    public void onLocationChanged(Location location) {
-
-        if (mMarker == null) {
-            resetMap(location);
-            nextQuestion();
-        }
-
-        mLastLocation = location;
-
-        if (location.distanceTo(mMarkerLocation) < QUESTION_RANGE) {
-            mMarker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
-            inQuestionRange = true;
-        }
-
-        /*//stop location updates
-        if (mGoogleApiClient != null) {
-            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-        }*/
-
-    }
-
-    private void resetMap(Location currentLocation) {
-        inQuestionRange = false;
-        LatLng latitudeLongitude = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latitudeLongitude));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
-        currentQuiz = getIntent().getParcelableExtra("quiz");
-    }
-
-    private void nextQuestion() {
-        inQuestionRange = false; // Reset the inRange boolean
-        if (currentQuestion == null) { // Start quiz
-            currentQuestion = currentQuiz.get(0);
-            showQuestionOnMap(currentQuestion);
-            quizTimer.startTimer();
-            player= new Player(currentQuiz.size());
-            return;
-        } else {
-            if (currentQuestion.getLatitude() == currentQuiz.get(currentQuiz.size() - 1).getLatitude()) { // End quiz
-                //TODO det som ska hända när ett quiz är klart
-                //quizTimer.stopTimer();
-                Intent intent = new Intent(getBaseContext(), ShowResultActivity.class);
-                int[] exPlayer = {1, 2, 345678}; //testinput tas bort när det finns en Actor
-                intent.putExtra("player", exPlayer);
-                intent.putExtra("time", quizTimer.getTime());
-                startActivity(intent);
-                finish();
-            } else { // Continue quiz by figuring out which the next question is
-                for (int i = 0; i < currentQuiz.size() - 1; i++) {
-                    if (currentQuestion.getLatitude() == currentQuiz.get(i).getLatitude()) { //TODO det borde vara en korrekt equalsmetod
-                        currentQuestion = currentQuiz.get(i + 1);
-                        showQuestionOnMap(currentQuestion);
-                        //return;
-                    }
-                }
-
-            }
-        }
-    }
-
-    private void showQuestionOnMap(Question question) {
-        if (mMarker == null) {
-            MarkerOptions markerOptions = new MarkerOptions();
-            markerOptions.position(new LatLng(question.getLatitude(), question.getLongitude()));
-            markerOptions.title("OptionQuestion");
-            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-            mMarker = mMap.addMarker(markerOptions);
-        } else {
-            mMarker.setPosition(new LatLng(question.getLatitude(), question.getLongitude()));
-            mMarker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-        }
-        mMarkerLocation = question.getLocation();
-        ;
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mMarker.getPosition(), 17));
+        presenter = new MapsPresenter(this, (Quiz) getIntent().getParcelableExtra("quiz")); // TODO hantera felet kanske
 
 
     }
-
-    public void viewPinButtonClicked(View view) {
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mMarker.getPosition(), 17));
-    }
-
-    @Override
-    public boolean onMarkerClick(Marker marker) {
-        if (marker.equals(mMarker) && inQuestionRange) {
-
-            if (currentQuestion instanceof OptionQuestion) {
-                Intent intent = new Intent(getBaseContext(), AnswerOptionActivity.class);
-                intent.putExtra("question", (OptionQuestion) currentQuestion);
-                startActivityForResult(intent, ANSWER_CODE);
-            }
-
-            if (currentQuestion instanceof Tiebreaker) {
-                Intent intent = new Intent(getBaseContext(), AnswerTiebreakerActivity.class);
-                intent.putExtra("question", (Tiebreaker) currentQuestion);
-                startActivityForResult(intent, ANSWER_CODE);
-            }
-
-        }
-        return false;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == ANSWER_CODE) {
-            int answer = (int) data.getExtras().get("answer");
-
-            //TODO hantera resultatet
-            player.setAnswer(0, 0);
-
-            Toast.makeText(this, "Chosen answer: " + answer, Toast.LENGTH_LONG).show();
-            nextQuestion();
-
-
-        }
-    }
-    //region Hidden code
-
 
     /**
      * Manipulates the map once available.
@@ -269,12 +150,169 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.setMyLocationEnabled(true);
         }
 
+        initializeFunctionality();
+    }
+
+
+    /**
+     * This method is called whenever the location of the device is updated.
+     * Checks distances to the location of questions and resets the map if necessary.
+     * Also saves the current location.
+     *
+     * @param location The device's current location
+     */
+    @Override
+    public void onLocationChanged(Location location) {
+        presenter.updateUserLocation(new QLocation(location));
+    }
+
+    private void initializeFunctionality() {
         mMap.setOnMarkerClickListener(this);
-
         mMap.setOnCameraChangeListener(this);
+        presenter.mapIsReady();
+    }
 
+    @Override
+    public void focusOn(QLocation location) {
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location.toLatLng(), 17));
+    }
+
+    @Override
+    public void close() {
+        finish();
+    }
+
+    /**
+     * Checks if the marker for next question is on screen or not
+     *
+     * @param location Location of the next question
+     * @return true if question marker is on screen, false if not
+     */
+    @Override
+    public boolean isOnScreen(QLocation location) {
+        LatLngBounds bounds = this.mMap.getProjection().getVisibleRegion().latLngBounds;
+
+        if (!bounds.contains(new LatLng(location.getLatitude(), location.getLongitude()))) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Points the direction arrow to the next question depending on angle.
+     *
+     * @param location Location of the next question
+     */
+    public void pointArrowTo(QLocation location) {
+
+        //Latitude and longitude of screen center
+        LatLng screenCenter = mMap.getCameraPosition().target;
+        double screenCenterLat = screenCenter.latitude;
+        double screenCenterLng = screenCenter.longitude;
+
+        //Rotate direction arrow with the angle from the screen center to the next question
+        int angle = angleToQuestion(screenCenterLat, screenCenterLng, location.getLatitude(), location.getLongitude());
+        directionArrow.setRotation(angle);
+        directionArrow.setVisibility(View.VISIBLE);
+
+        //Place arrow in different positions on the screen depending on the angle to next question
+        if ((angle >= 0 && angle <= 45) || (angle > 315 && angle < 360)) {
+            directionArrow.setY(60);
+            directionArrow.setX(screenWidth() / 2);
+        }
+        if (angle > 45 && angle <= 135) {
+            directionArrow.setY(screenHeight() / 2 - 100);
+            directionArrow.setX(screenWidth() - 110);
+        }
+        if (angle > 135 && angle <= 225) {
+            directionArrow.setY(screenHeight() - 280);
+            directionArrow.setX(screenWidth() / 2);
+        }
+        if (angle > 225 && angle <= 315) {
+            directionArrow.setY(screenHeight() / 2 - 100);
+            directionArrow.setX(60);
+        }
+    }
+
+    @Override
+    public void placeMarker(Question question) {
+        if (qml.contains(question)) {
+            return;
+        }
+
+        qml.add(mMap, question);
+    }
+
+    @Override
+    public void enableMarker(Question question) {
+        qml.enable(question);
+    }
+
+    @Override
+    public void removeMarker(Question question) {
+        qml.remove(question);
+        return;
 
     }
+
+    @Override
+    public void showResults(Quiz quiz, Actor player, Actor bot, long quizTime) {
+        //TODO det som ska hända när ett quiz är klart
+        Intent intent = new Intent(getBaseContext(), ShowResultActivity.class);
+        int[] exPlayer = {1, 2, 345678};
+        intent.putExtra("player", exPlayer);
+        intent.putExtra("time", quizTime);
+        startActivity(intent);
+    }
+
+    @Override
+    public void initializeBot(QLocation location) {
+        //TODO
+    }
+
+    @Override
+    public void moveBot(QLocation location) {
+        //TODO
+    }
+
+    public void viewPinButtonClicked(View view) {
+        presenter.focusOnClosestQuestion();
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        if (qml.isEnabled(marker)){
+
+            Question currentQuestion = qml.getQuestion(marker);
+
+
+            if (currentQuestion instanceof OptionQuestion) {
+                Intent intent = new Intent(getBaseContext(), AnswerOptionActivity.class);
+                intent.putExtra("question", (OptionQuestion) currentQuestion);
+                startActivityForResult(intent, ANSWER_CODE);
+            }
+
+            if (currentQuestion instanceof Tiebreaker) {
+                Intent intent = new Intent(getBaseContext(), AnswerTiebreakerActivity.class);
+                intent.putExtra("question", (Tiebreaker) currentQuestion);
+                startActivityForResult(intent, ANSWER_CODE);
+            }
+        }
+
+        return false; //TODO vad händer om en sätter true?
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == ANSWER_CODE) {
+            try {
+                int answer = (int) data.getExtras().get("answer");
+                Question question = (Question) data.getExtras().get("question");
+                presenter.setAnswer(question, answer);
+            } catch (NullPointerException e) { }
+        }
+    }
+
 
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -384,155 +422,48 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onCameraChange(CameraPosition cameraPosition) {
-        if (mMarkerLocation == null) {
-            return;
-        }
-
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        int width = size.x;
-        int height = size.y;
-
-        LatLngBounds bounds = this.mMap.getProjection().getVisibleRegion().latLngBounds;
-        LatLng screenCenter = mMap.getCameraPosition().target;
-
-        double screenCenterLng = screenCenter.longitude;
-        double screenCenterLat = screenCenter.latitude;
-
-        float distance = (float) Math.sqrt((screenCenterLat - mMarkerLocation.getLatitude()) * (screenCenterLat - mMarkerLocation.getLatitude()) + (screenCenterLng - mMarkerLocation.getLongitude()) * (screenCenterLng - mMarkerLocation.getLongitude()));
-
-        //If the question pin is offscreen, an arrow will show up and point in the direction of the question
-        if (!bounds.contains(new LatLng(mMarkerLocation.getLatitude(), mMarkerLocation.getLongitude()))) {
-            int angle = angleToQuestion(screenCenterLat, screenCenterLng, mMarkerLocation.getLatitude(), mMarkerLocation.getLongitude());
-            directionArrow.setRotation(angle);
-            directionArrow.setVisibility(View.VISIBLE);
-            directionArrow.setX(width / 2);
-            directionArrow.setY(height / 2);
-
-
-            float sinAng = abs((float) sin(angle));
-            float testY = 2 * (float) getInterception(mMarkerLocation.getLongitude(), mMarkerLocation.getLatitude(), screenCenterLng, screenCenterLat, (width - 150));
-
-            if ((angle >= 0 && angle <= 45) || (angle > 315 && angle < 360)) {
-                directionArrow.setY(60);
-                directionArrow.setX(width/2);
-            }
-            if (angle > 45 && angle <= 135) {
-                //directionArrow.setY(16 * angle - 598);
-                //directionArrow.setY(distance * (float) pow(10, 5) * sinAng);
-                //directionArrow.setY(testY);
-                directionArrow.setY(height/2 - 100);
-                directionArrow.setX(width - 110);
-            }
-            if (angle > 135 && angle <= 225) {
-                directionArrow.setY(height - 280);
-                directionArrow.setX(width/2);
-            }
-            if (angle > 225 && angle <= 315) {
-                directionArrow.setY(height/2 - 100);
-                directionArrow.setX(60);
-            }
-
-        } else {
-            directionArrow.setVisibility(View.INVISIBLE);
-        }
+        presenter.onCameraChanged();
     }
 
 
-    /**
-     * Checks if the marker for next question is on screen or not
-     *
-     * @param location Location of the next question
-     * @return true if question marker is on screen, false if not
-     */
-
-    public boolean isOnScreen(Location location) {
-        LatLngBounds bounds = this.mMap.getProjection().getVisibleRegion().latLngBounds;
-
-        if (!bounds.contains(new LatLng(location.getLatitude(), location.getLongitude()))) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Points the direction arrow to the next question depending on angle.
-     *
-     * @param location Location of the next question
-     */
-
-    public void pointArrowTo(Location location) {
-
-        //Latitude and longitude of screen center
-        LatLng screenCenter = mMap.getCameraPosition().target;
-        double screenCenterLat = screenCenter.latitude;
-        double screenCenterLng = screenCenter.longitude;
-
-        //Rotate direction arrow with the angle from the screen center to the next question
-        int angle = angleToQuestion(screenCenterLat, screenCenterLng, location.getLatitude(), location.getLongitude());
-        directionArrow.setRotation(angle);
-        directionArrow.setVisibility(View.VISIBLE);
-
-        //Place arrow in different positions on the screen depending on the angle to next question
-        if ((angle >= 0 && angle <= 45) || (angle > 315 && angle < 360)) {
-            directionArrow.setY(60);
-            directionArrow.setX(screenWidth() / 2);
-        }
-        if (angle > 45 && angle <= 135) {
-            directionArrow.setY(screenHeight() / 2 - 100);
-            directionArrow.setX(screenWidth() - 110);
-        }
-        if (angle > 135 && angle <= 225) {
-            directionArrow.setY(screenHeight() - 280);
-            directionArrow.setX(screenWidth() / 2);
-        }
-        if (angle > 225 && angle <= 315) {
-            directionArrow.setY(screenHeight() / 2 - 100);
-            directionArrow.setX(60);
-        }
-    }
-
-    public int screenWidth() {
+    private int screenWidth() {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         return size.x;
     }
 
-    public int screenHeight() {
+    private int screenHeight() {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         return size.y;
     }
 
-
     /**
      * Hides direction arrow.
      */
-
     public void hideArrow() {
         directionArrow.setVisibility(View.INVISIBLE);
     }
 
     /**
-     * Places monkey in the center of the screen.
+     * Places bot in the center of the screen.
      */
     public void initializeBot() {
-        monkey.setX(screenWidth());
-        monkey.setY(screenHeight());
+        bot.setX(screenWidth());
+        bot.setY(screenHeight());
     }
 
     public void moveBot(Location location) {
     }
 
 
-    //Get interception of the line for the direction arrow and a screen line.
+    /*//Get interception of the line for the direction arrow and a screen line.
     private double getInterception(double x1, double y1, double x2, double y2, double x) {
         double k = (y1 - y2) / (x1 - x2);
         return k * (x - x1) + y1;
-    }
+    }*/
 
 
     /**
@@ -545,8 +476,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * @param long2 Longitude of y2
      * @return angle between two locations on the map
      */
-
-
     private int angleToQuestion(double lat1, double long1, double lat2,
                                 double long2) {
 
@@ -566,6 +495,4 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return angle;
     }
 
-
-//endregion
 }

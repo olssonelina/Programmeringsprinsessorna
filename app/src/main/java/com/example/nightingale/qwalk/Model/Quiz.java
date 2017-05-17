@@ -14,6 +14,53 @@ import java.util.List;
 public class Quiz implements Parcelable {
     private String title;
     private String description;
+    private QuizDifficulty difficulty = QuizDifficulty.MEDIUM;
+
+    private boolean questionTimer = false, quizTimer = true, hiddenQuestions = false, inOrder = true, withBot = false;
+
+    public QuizDifficulty getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(QuizDifficulty difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public void setSetting(QuizSetting setting, boolean enabled) {
+        switch (setting) {
+            case QUESTION_TIMER:
+                questionTimer = enabled;
+                break;
+            case WITH_BOT:
+                withBot = enabled;
+                break;
+            case IN_ORDER:
+                inOrder = enabled;
+                break;
+            case IS_HIDDEN:
+                hiddenQuestions = enabled;
+                break;
+            case QUIZ_TIMER:
+                quizTimer = enabled;
+                break;
+        }
+    }
+
+    public boolean getSetting(QuizSetting setting) {
+        switch (setting) {
+            case QUESTION_TIMER:
+                return questionTimer;
+            case WITH_BOT:
+                return withBot;
+            case IN_ORDER:
+                return inOrder;
+            case IS_HIDDEN:
+                return hiddenQuestions;
+            case QUIZ_TIMER:
+                return quizTimer;
+        }
+        return false;
+    }
 
     private List<Question> questions = new ArrayList<>();
     public ArrayList<Integer> answers = new ArrayList<>();
@@ -47,22 +94,44 @@ public class Quiz implements Parcelable {
         return questions.size();
     }
 
-    protected Quiz(Parcel in) {
-        title = in.readString();
-        description = in.readString();
-        if (in.readByte() == 0x01) {
-            questions = new ArrayList<Question>();
-            in.readList(questions, OptionQuestion.class.getClassLoader());
-        } else {
-            questions = null;
-        }
-    }
-
     public ArrayList<Integer> getCorrectAnswers() {
         for (Question question : questions) {
             answers.add(question.getCorrectAnswer());
         }
         return answers;
+    }
+
+
+    protected Quiz(Parcel in) {
+        title = in.readString();
+        description = in.readString();
+        difficulty = (QuizDifficulty) in.readValue(QuizDifficulty.class.getClassLoader());
+        questionTimer = in.readByte() != 0x00;
+        quizTimer = in.readByte() != 0x00;
+        hiddenQuestions = in.readByte() != 0x00;
+        inOrder = in.readByte() != 0x00;
+        withBot = in.readByte() != 0x00;
+        if (in.readByte() == 0x01) {
+            questions = new ArrayList<Question>();
+            in.readList(questions, Question.class.getClassLoader());
+        } else {
+            questions = null;
+        }
+        if (in.readByte() == 0x01) {
+            answers = new ArrayList<Integer>();
+            in.readList(answers, Integer.class.getClassLoader());
+        } else {
+            answers = null;
+        }
+    }
+
+    public int getQuestionIndex(Question q) {
+        for (int i = 0; i < questions.size(); i++) {
+            if (q.equals(questions.get(i))) {
+                return i;
+            }
+        }
+        throw new IllegalArgumentException("No such question in list!");
     }
 
     @Override
@@ -74,11 +143,23 @@ public class Quiz implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(title);
         dest.writeString(description);
+        dest.writeValue(difficulty);
+        dest.writeByte((byte) (questionTimer ? 0x01 : 0x00));
+        dest.writeByte((byte) (quizTimer ? 0x01 : 0x00));
+        dest.writeByte((byte) (hiddenQuestions ? 0x01 : 0x00));
+        dest.writeByte((byte) (inOrder ? 0x01 : 0x00));
+        dest.writeByte((byte) (withBot ? 0x01 : 0x00));
         if (questions == null) {
             dest.writeByte((byte) (0x00));
         } else {
             dest.writeByte((byte) (0x01));
             dest.writeList(questions);
+        }
+        if (answers == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeList(answers);
         }
     }
 

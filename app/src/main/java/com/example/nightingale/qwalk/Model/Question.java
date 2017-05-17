@@ -12,13 +12,11 @@ public abstract class Question {
 
     String questionTitle;
     int correctAnswer;
-    Location location;
+    QLocation location;
 
 
     public void setLocation(double latitude, double longitude) {
-        location = new Location("");
-        location.setLatitude(latitude);
-        location.setLongitude(longitude);
+        location = new QLocation(latitude, longitude);
     }
 
     public double getLatitude() {
@@ -33,12 +31,16 @@ public abstract class Question {
         return correctAnswer;
     }
 
-    public Location getLocation() {
+    public QLocation getLocation() {
         return location;
     }
 
     public String getQuestionTitle() {
         return questionTitle;
     }
+
+    @Override
+    public abstract boolean equals(Object o);
+    //public QLocation getQLocation() {return new QLocation(location); };
 
 }

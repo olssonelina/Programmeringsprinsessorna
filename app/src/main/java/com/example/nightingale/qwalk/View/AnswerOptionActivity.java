@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.nightingale.qwalk.InterfaceView.IAnswerOption;
 import com.example.nightingale.qwalk.Model.OptionQuestion;
+import com.example.nightingale.qwalk.Model.Question;
 import com.example.nightingale.qwalk.Presenter.AnswerOptionPresenter;
 import com.example.nightingale.qwalk.R;
 
@@ -82,9 +83,10 @@ public class AnswerOptionActivity extends AppCompatActivity implements IAnswerOp
     }
 
     @Override
-    public void closeWithResult(int chosenIndex) {
+    public void closeWithResult(int chosenIndex, OptionQuestion question) {
         Intent returnIntent = new Intent();
         returnIntent.putExtra("answer", chosenIndex);
+        returnIntent.putExtra("question", question);
         setResult(GetPositionActivity.RESULT_OK, returnIntent);
         finish();
     }

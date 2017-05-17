@@ -11,14 +11,16 @@ public class AnswerOptionPresenter {
 
     private IAnswerOption view;
     private int chosenAnswer = 0;
+    private OptionQuestion question;
 
     public AnswerOptionPresenter(IAnswerOption view, OptionQuestion question) {
         this.view = view;
+        this.question = question;
 
         view.setTitle(question.getQuestionTitle());
 
         //TODO det borde vara en array från början
-        String[] options = { question.getOption1(), question.getOption2(), question.getOption3(), question.getOption4()};
+        String[] options = {question.getOption1(), question.getOption2(), question.getOption3(), question.getOption4()};
         view.setOptions(options);
 
         for (int i = 0; i < options.length; i++) {
@@ -26,7 +28,7 @@ public class AnswerOptionPresenter {
         }
     }
 
-    public void optionPressed(int index){
+    public void optionPressed(int index) {
         view.setCloseButtonEnabled(true);
         for (int i = 0; i < 4; i++) { //TODO detta kan inte vara en 4, samma problem som innan
             view.setOptionColour(i, i == index);
@@ -34,7 +36,7 @@ public class AnswerOptionPresenter {
         chosenAnswer = index;
     }
 
-    public void closePressed(){
-        view.closeWithResult(chosenAnswer);
+    public void closePressed() {
+        view.closeWithResult(chosenAnswer, question);
     }
 }

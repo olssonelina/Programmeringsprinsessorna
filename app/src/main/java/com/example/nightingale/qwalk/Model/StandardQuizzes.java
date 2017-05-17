@@ -6,6 +6,8 @@ import com.example.nightingale.qwalk.Model.Quiz;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.nightingale.qwalk.Model.QuizSetting.*;
+
 /**
  * Created by Kraft on 2017-04-28.
  */
@@ -17,25 +19,69 @@ public final class StandardQuizzes {
 
     public static Quiz getChalmersQuiz(){
 
-        Quiz q = new Quiz("Chalmersquiz","Trivia om Chalmers och dess campus!");
+        Quiz q = new Quiz("Chalmersquiz - vanligt","Trivia om Chalmers och dess campus!");
 
         List<Question> questions = new ArrayList<>();
 
+        questions.add(new Tiebreaker("Hur gammal är byggnaden?", 45, 11.978703, 57.688447, 20, 60));
+
         questions.add(new OptionQuestion("Vilken sektion har sin sektionslokal här?", "Data", "Informationsteknik", "Elektro", "Maskin", 1,57.688290, 11.979162));
-        //questions.get(0).setLocation(57.688290, 11.979162);
 
-        //questions.add(new OptionQuestion("Vad var syftet med denna byggnaden från början?", "Att stänga in elever som fuskade", "Att klättra i", "Det är en så kallad Schrödingers Cage", "Att göra experiment i", 3, 57.687449, 11.980544));
-        //questions.get(1).setLocation(57.687449, 11.980544);
+        questions.add(new OptionQuestion("Vad var syftet med denna byggnaden från början?", "Att stänga in elever som fuskade", "Att klättra i", "Det är en så kallad Schrödingers Cage", "Att göra experiment i", 3, 57.687449, 11.980544));
 
-        //questions.add(new OptionQuestion("Vad är denna pizzerian känd för?", "Att göra fyrkantiga pizzor", "Att vara Sveriges bästa två år i rad", "Att det är IT-studenternas favorit", "Det har varit ett kattcafé", 2,57.687837, 11.982194));
-        //questions.get(2).setLocation(57.687837, 11.982194);
+        questions.add(new OptionQuestion("Vad är denna pizzerian känd för?", "Att göra fyrkantiga pizzor", "Att vara Sveriges bästa två år i rad", "Att det är IT-studenternas favorit", "Det har varit ett kattcafé", 2,57.687837, 11.982194));
 
         q.setQuestions(questions);
 
         return q;
     }
 
-    public static Quiz getAdressQuiz(){
+    public static Quiz getAllChalmersQuiz(){
+
+        Quiz q = new Quiz("Chalmersquiz - I vilken ordning du vill!","Trivia om Chalmers och dess campus!");
+
+        List<Question> questions = new ArrayList<>();
+
+        questions.add(new Tiebreaker("Hur gammal är byggnaden?", 45, 11.978703, 57.688447, 20, 60));
+
+        questions.add(new OptionQuestion("Vilken sektion har sin sektionslokal här?", "Data", "Informationsteknik", "Elektro", "Maskin", 1,57.688290, 11.979162));
+
+        questions.add(new OptionQuestion("Vad var syftet med denna byggnaden från början?", "Att stänga in elever som fuskade", "Att klättra i", "Det är en så kallad Schrödingers Cage", "Att göra experiment i", 3, 57.687449, 11.980544));
+
+        questions.add(new OptionQuestion("Vad är denna pizzerian känd för?", "Att göra fyrkantiga pizzor", "Att vara Sveriges bästa två år i rad", "Att det är IT-studenternas favorit", "Det har varit ett kattcafé", 2,57.687837, 11.982194));
+
+        q.setQuestions(questions);
+
+        q.setSetting(IN_ORDER, false);
+
+        return q;
+    }
+
+
+    public static Quiz getHiddenChalmersQuiz(){
+
+        Quiz q = new Quiz("Chalmersquiz - Med gömda frågor :O","Trivia om Chalmers och dess campus!");
+
+        List<Question> questions = new ArrayList<>();
+
+        questions.add(new Tiebreaker("Hur gammal är byggnaden?", 45, 11.978703, 57.688447, 20, 60));
+
+        questions.add(new OptionQuestion("Vilken sektion har sin sektionslokal här?", "Data", "Informationsteknik", "Elektro", "Maskin", 1,57.688290, 11.979162));
+
+        questions.add(new OptionQuestion("Vad var syftet med denna byggnaden från början?", "Att stänga in elever som fuskade", "Att klättra i", "Det är en så kallad Schrödingers Cage", "Att göra experiment i", 3, 57.687449, 11.980544));
+
+        questions.add(new OptionQuestion("Vad är denna pizzerian känd för?", "Att göra fyrkantiga pizzor", "Att vara Sveriges bästa två år i rad", "Att det är IT-studenternas favorit", "Det har varit ett kattcafé", 2,57.687837, 11.982194));
+
+        q.setQuestions(questions);
+
+        q.setSetting(IN_ORDER, false);
+        q.setSetting(IS_HIDDEN, true);
+
+        return q;
+    }
+
+
+    /*public static Quiz getAdressQuiz(){
 
         Quiz q = new Quiz("Gissa huset!","Besök skaparna av appen och gissa vem som bor var!");
 
@@ -69,5 +115,5 @@ public final class StandardQuizzes {
         q.setQuestions(questions);
 
         return q;
-    }
+    }*/
 }

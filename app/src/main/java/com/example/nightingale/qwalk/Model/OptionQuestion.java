@@ -1,5 +1,6 @@
 package com.example.nightingale.qwalk.Model;
 
+import android.graphics.Path;
 import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -16,7 +17,7 @@ public class OptionQuestion extends Question implements Parcelable  {
     private String option2;
     private String option3;
     private String option4;
-    private String[] options = {option1, option2, option3, option4};
+
 
     public OptionQuestion(String title, String option1, String option2, String option3, String option4, int correctAnswer, double latitude, double longitude/*Image image, Position position*/ ) {
         this.questionTitle = title;
@@ -25,9 +26,7 @@ public class OptionQuestion extends Question implements Parcelable  {
         this.option3 = option3;
         this.option4 = option4;
         this.correctAnswer = correctAnswer;
-        location = new Location("");
-        location.setLatitude(latitude);
-        location.setLongitude(longitude);
+        location = new QLocation(latitude, longitude);
     }
 
     public String getOption1() {
@@ -46,6 +45,22 @@ public class OptionQuestion extends Question implements Parcelable  {
         return option4;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof OptionQuestion){
+            OptionQuestion other = (OptionQuestion) o;
+
+            return other.getOption1().equals(getOption1()) &&
+                    other.getOption2().equals(getOption2()) &&
+                    other.getOption3().equals(getOption3()) &&
+                    other.getOption4().equals(getOption4()) &&
+                    other.getCorrectAnswer() == getCorrectAnswer() &&
+                    other.getLocation().equals(getLocation()) &&
+                    other.getQuestionTitle().equals(getQuestionTitle());
+        }
+        return false;
+    }
+
     protected OptionQuestion(Parcel in) {
         questionTitle = in.readString();
         option1 = in.readString();
@@ -53,11 +68,17 @@ public class OptionQuestion extends Question implements Parcelable  {
         option3 = in.readString();
         option4 = in.readString();
         correctAnswer = in.readInt();
-        location = (Location) in.readValue(Location.class.getClassLoader());
+        location = (QLocation) in.readValue(QLocation.class.getClassLoader());
     }
 
     public int getNumberOfOptions() {
         int numberOfOptions = 0;
+        String[] options = new String[4];
+        options[0] = option1;
+        options[1] = option2;
+        options[2] = option3;
+        options[3] = option4;
+
         for (int i = 0; i < options.length ; i++) {
             if (options[i] != "") {
                 numberOfOptions++;
