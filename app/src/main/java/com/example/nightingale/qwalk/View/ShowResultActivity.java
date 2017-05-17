@@ -31,8 +31,9 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
         timeView = (TextView)findViewById(R.id.time);
 
         Intent i = getIntent();
+        long time = i.getLongExtra("time", 0);
         int[] player = i.getIntArrayExtra("player"); //testrad byts ut när det finns en Actor som sparar resultat
-        presenter = new ShowResultPresenter(this, player);
+        presenter = new ShowResultPresenter(this, player, time);
     }
 
     @Override
@@ -42,5 +43,5 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
     public void showTotalAnswers(int total) { this.totalView.setText("av " + total + " möjliga."); }
 
     @Override
-    public void showTime(int min, int sec) { this.timeView.setText("Det tog " + min + " minuter och " + sec + " sekunder."); }
+    public void showTime(long min, long sec) { this.timeView.setText("Det tog " + min + " minuter och " + sec + " sekunder."); }
 }

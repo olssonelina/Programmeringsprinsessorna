@@ -11,12 +11,11 @@ public class ShowResultPresenter {
     private IShowResult view;
     private int[] results;//byt ut mot player
 
-    public ShowResultPresenter(IShowResult view, int[] results){ //byt ut "results" mot en player som innehåller resultat
+    public ShowResultPresenter(IShowResult view, int[] results, long time){ //byt ut "results" mot en player som innehåller resultat
         this.view=view;
         this.results=results;
         view.showRightAnswers(results[0]);
         view.showTotalAnswers(results[1]);
-        int totalsec=results[2]/1000;
-        view.showTime(totalsec/60,totalsec%60);
+        view.showTime(time/60,time%60);
     }
 }
