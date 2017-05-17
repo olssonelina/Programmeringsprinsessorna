@@ -8,29 +8,35 @@ import java.util.Random;
  * Created by Elina Olsson on 2017-05-15.
  */
 
-public class Monkey extends Actor {
+public class AI extends Actor {
 
     Quiz quiz;
     List<Question> questions = quiz.getQuestions();
     ArrayList<Integer> correctAnswers = quiz.getCorrectAnswers();
     ArrayList<Integer> monkeyAnswers = new ArrayList<>();
+    int score;
 
-    public Monkey(Quiz quiz, int level) {
+    public AI(Quiz quiz, int level) {
         super(0);
         this.quiz = quiz;
     }
 
 
-    public int getScore(ArrayList<Integer> correctAnswers, ArrayList<Integer> monkeyAnswers) {
+    public void setScore(ArrayList<Integer> correctAnswers, ArrayList<Integer> monkeyAnswers) {
         int score = 0;
-
         for (int i = 0; i < correctAnswers.size(); i++) {
             if (correctAnswers.get(i) == monkeyAnswers.get(i)) {
                 score++;
             }
         }
+    }
 
+    public int getScore() {
         return score;
+    }
+
+    public int getNumberOfQuestions() {
+        return monkeyAnswers.size();
     }
 
 
