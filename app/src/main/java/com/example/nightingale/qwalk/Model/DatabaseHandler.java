@@ -24,6 +24,9 @@ import javax.net.ssl.HttpsURLConnection;
  */
 
 public class DatabaseHandler {
+
+
+    final private static String host = "programmeringsprinsessorna.000webhostapp.com";
     final private static String insertQuizURL = "https://programmeringsprinsessorna.000webhostapp.com/insertquiz.php";
     final private static String insertAccountURL = "https://programmeringsprinsessorna.000webhostapp.com/insert.php";
 
@@ -32,6 +35,9 @@ public class DatabaseHandler {
     final private static String validateURL = "https://programmeringsprinsessorna.000webhostapp.com/validera.php";
     final private static String readQuizURL = "https://programmeringsprinsessorna.000webhostapp.com/readquiz.php";
 
+    public static String getHost() {
+        return host;
+    }
 
     public static String getInsertQuizURL() {
         return insertQuizURL;
