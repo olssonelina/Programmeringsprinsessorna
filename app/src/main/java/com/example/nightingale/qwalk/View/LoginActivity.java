@@ -158,7 +158,19 @@ public class LoginActivity extends AppCompatActivity {
 
             ID = result;
             ID = ID.replaceAll("\\s+","");
-            if(Integer.parseInt(ID) == -1) {
+            Log.e("CrashID",ID);
+            if(ID.equals("Exception:Unabletoresolvehost\""+ DatabaseHandler.getHost() + "\":Noaddressassociatedwithhostname")){
+
+                Toast.makeText(getApplicationContext(), "Ingen Internetuppkoppling",
+                        Toast.LENGTH_LONG).show();
+            }
+            else if(ID == null){
+
+                Toast.makeText(getApplicationContext(), "Connection Failed",
+                        Toast.LENGTH_LONG).show();
+            }
+
+            else if(Integer.parseInt(ID) == -1) {
 
                 Toast.makeText(getApplicationContext(), "Incorrect Password/Username",
                         Toast.LENGTH_LONG).show();
@@ -172,11 +184,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
                 startActivity(intent);
-            }
-            else if(ID == null){
-
-                Toast.makeText(getApplicationContext(), "Connection Failed",
-                        Toast.LENGTH_LONG).show();
             }
 
             else{
