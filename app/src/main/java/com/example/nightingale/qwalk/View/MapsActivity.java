@@ -42,6 +42,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
 import com.google.android.gms.maps.model.MapStyleOptions;
 
 
@@ -72,7 +73,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     Player player;
 
-    ImageView goHere;
+    ImageView directionArrow;
     ImageView monkey;
 
     public static final int ANSWER_CODE = 4331;
@@ -92,11 +93,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
 
-        //Set image resource for direction arrow
-        goHere = (ImageView) findViewById(R.id.goHere);
-        goHere.setImageResource(R.drawable.direction);
+        directionArrow = (ImageView) findViewById(R.id.arrow);
+        directionArrow.setImageResource(R.drawable.direction);
 
-        //Set image resource for monkey
         monkey = (ImageView) findViewById(R.id.monkey);
         monkey.setImageResource(R.drawable.monkey);
 
@@ -410,41 +409,130 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //If the question pin is offscreen, an arrow will show up and point in the direction of the question
         if (!bounds.contains(new LatLng(mMarkerLocation.getLatitude(), mMarkerLocation.getLongitude()))) {
             int angle = angleToQuestion(screenCenterLat, screenCenterLng, mMarkerLocation.getLatitude(), mMarkerLocation.getLongitude());
-            goHere.setRotation(angle);
-            goHere.setVisibility(View.VISIBLE);
-            goHere.setX(width / 2);
-            goHere.setY(height / 2);
+            directionArrow.setRotation(angle);
+            directionArrow.setVisibility(View.VISIBLE);
+            directionArrow.setX(width / 2);
+            directionArrow.setY(height / 2);
 
 
             float sinAng = abs((float) sin(angle));
             float testY = 2 * (float) getInterception(mMarkerLocation.getLongitude(), mMarkerLocation.getLatitude(), screenCenterLng, screenCenterLat, (width - 150));
 
             if ((angle >= 0 && angle <= 45) || (angle > 315 && angle < 360)) {
-                goHere.setY(60);
-                goHere.setX(width/2);
+                directionArrow.setY(60);
+                directionArrow.setX(width/2);
             }
             if (angle > 45 && angle <= 135) {
-                //goHere.setY(16 * angle - 598);
-                //goHere.setY(distance * (float) pow(10, 5) * sinAng);
-                //goHere.setY(testY);
-                goHere.setY(height/2 - 100);
-                goHere.setX(width - 110);
+                //directionArrow.setY(16 * angle - 598);
+                //directionArrow.setY(distance * (float) pow(10, 5) * sinAng);
+                //directionArrow.setY(testY);
+                directionArrow.setY(height/2 - 100);
+                directionArrow.setX(width - 110);
             }
             if (angle > 135 && angle <= 225) {
-                goHere.setY(height - 280);
-                goHere.setX(width/2);
+                directionArrow.setY(height - 280);
+                directionArrow.setX(width/2);
             }
             if (angle > 225 && angle <= 315) {
-                goHere.setY(height/2 - 100);
-                goHere.setX(60);
+                directionArrow.setY(height/2 - 100);
+                directionArrow.setX(60);
             }
 
         } else {
-            goHere.setVisibility(View.INVISIBLE);
+            directionArrow.setVisibility(View.INVISIBLE);
         }
     }
 
 
+    /**
+     * Checks if the marker for next question is on screen or not
+     *
+     * @param location Location of the next question
+     * @return true if question marker is on screen, false if not
+     */
+
+    public boolean isOnScreen(Location location) {
+        LatLngBounds bounds = this.mMap.getProjection().getVisibleRegion().latLngBounds;
+
+        if (!bounds.contains(new LatLng(location.getLatitude(), location.getLongitude()))) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Points the direction arrow to the next question depending on angle.
+     *
+     * @param location Location of the next question
+     */
+
+    public void pointArrowTo(Location location) {
+
+        //Latitude and longitude of screen center
+        LatLng screenCenter = mMap.getCameraPosition().target;
+        double screenCenterLat = screenCenter.latitude;
+        double screenCenterLng = screenCenter.longitude;
+
+        //Rotate direction arrow with the angle from the screen center to the next question
+        int angle = angleToQuestion(screenCenterLat, screenCenterLng, location.getLatitude(), location.getLongitude());
+        directionArrow.setRotation(angle);
+        directionArrow.setVisibility(View.VISIBLE);
+
+        //Place arrow in different positions on the screen depending on the angle to next question
+        if ((angle >= 0 && angle <= 45) || (angle > 315 && angle < 360)) {
+            directionArrow.setY(60);
+            directionArrow.setX(screenWidth() / 2);
+        }
+        if (angle > 45 && angle <= 135) {
+            directionArrow.setY(screenHeight() / 2 - 100);
+            directionArrow.setX(screenWidth() - 110);
+        }
+        if (angle > 135 && angle <= 225) {
+            directionArrow.setY(screenHeight() - 280);
+            directionArrow.setX(screenWidth() / 2);
+        }
+        if (angle > 225 && angle <= 315) {
+            directionArrow.setY(screenHeight() / 2 - 100);
+            directionArrow.setX(60);
+        }
+    }
+
+    public int screenWidth() {
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return size.x;
+    }
+
+    public int screenHeight() {
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return size.y;
+    }
+
+
+    /**
+     * Hides direction arrow.
+     */
+
+    public void hideArrow() {
+        directionArrow.setVisibility(View.INVISIBLE);
+    }
+
+    /**
+     * Places monkey in the center of the screen.
+     */
+    public void initializeBot() {
+        monkey.setX(screenWidth());
+        monkey.setY(screenHeight());
+    }
+
+    public void moveBot(Location location) {
+    }
+
+
+    //Get interception of the line for the direction arrow and a screen line.
     private double getInterception(double x1, double y1, double x2, double y2, double x) {
         double k = (y1 - y2) / (x1 - x2);
         return k * (x - x1) + y1;
