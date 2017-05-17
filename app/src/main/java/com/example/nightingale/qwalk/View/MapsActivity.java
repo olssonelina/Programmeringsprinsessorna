@@ -3,7 +3,6 @@ package com.example.nightingale.qwalk.View;
 import android.Manifest;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 
@@ -14,9 +13,7 @@ import android.location.Location;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
 import android.widget.ImageView;
@@ -44,26 +41,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 
 
 import static java.lang.Math.abs;
-import static java.lang.Math.pow;
 import static java.lang.Math.sin;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
@@ -110,9 +91,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
 
+        //Set image resource for direction arrow
         goHere = (ImageView) findViewById(R.id.goHere);
         goHere.setImageResource(R.drawable.direction);
 
+        //Set image resource for monkey
         monkey = (ImageView) findViewById(R.id.monkey);
         monkey.setImageResource(R.drawable.monkey);
 
@@ -465,7 +448,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     /**
-     * Calculates the angle from cameraPosition to mMarkerLocation.
+     * Calculates the angle from the center of the screen (cameraPosition)
+     * to the next question (mMarkerLocation).
      *
      * @param lat1  Latitude of x1
      * @param long1 Longitude of y1
