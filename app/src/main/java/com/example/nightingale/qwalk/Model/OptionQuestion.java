@@ -13,12 +13,11 @@ import java.util.ArrayList;
 
 public class OptionQuestion extends Question implements Parcelable  {
 
-
-
     private String option1;
     private String option2;
     private String option3;
     private String option4;
+
 
     public OptionQuestion(String title, String option1, String option2, String option3, String option4, int correctAnswer, double latitude, double longitude/*Image image, Position position*/ ) {
         this.questionTitle = title;
@@ -29,8 +28,6 @@ public class OptionQuestion extends Question implements Parcelable  {
         this.correctAnswer = correctAnswer;
         location = new QLocation(latitude, longitude);
     }
-
-
 
     public String getOption1() {
         return option1;
@@ -72,6 +69,22 @@ public class OptionQuestion extends Question implements Parcelable  {
         option4 = in.readString();
         correctAnswer = in.readInt();
         location = (QLocation) in.readValue(QLocation.class.getClassLoader());
+    }
+
+    public int getNumberOfOptions() {
+        int numberOfOptions = 0;
+        String[] options = new String[4];
+        options[0] = option1;
+        options[1] = option2;
+        options[2] = option3;
+        options[3] = option4;
+
+        for (int i = 0; i < options.length ; i++) {
+            if (options[i] != "") {
+                numberOfOptions++;
+            }
+        }
+        return numberOfOptions;
     }
 
     @Override
