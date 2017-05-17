@@ -20,11 +20,11 @@ public class CreateOptionQuestionPresenter {
         this.view = view;
     }
 
-    public boolean addQuestion() {
+    public boolean addQuestion(boolean reset) {
         if(validateQuestion()) {
             OptionQuestion q = buildQuestion();
             questions.add(q);
-            view.reset();
+            if (reset) { view.reset(); }
             return true;
         }
         return false;
@@ -36,7 +36,7 @@ public class CreateOptionQuestionPresenter {
     }
 
     public void finishQuestions() {
-        if(addQuestion()) {
+        if(addQuestion(false)) {
             view.closeWithResult(questions);
         }
     }
@@ -66,6 +66,10 @@ public class CreateOptionQuestionPresenter {
             }
         }
         return count >= 2;
+    }
+
+    public void backButtonPressed(){
+        view.closeWithResult(questions);
     }
 
 }

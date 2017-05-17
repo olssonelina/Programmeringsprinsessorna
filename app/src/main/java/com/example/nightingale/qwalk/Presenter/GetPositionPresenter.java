@@ -16,6 +16,7 @@ public class GetPositionPresenter {
     public GetPositionPresenter(IGetPosition view){
         this.view = view;
         view.checkLocationPermission();
+        view.setDoneButtonEnabled(false);
     }
 
     public boolean isMarkerPlaced() {
@@ -38,6 +39,7 @@ public class GetPositionPresenter {
             view.moveMarker(userLatitude, userLongitude);
             view.focusOn(userLatitude, userLongitude);
             view.stopLocationUpdates();
+            view.setDoneButtonEnabled(true);
         }
     }
 
