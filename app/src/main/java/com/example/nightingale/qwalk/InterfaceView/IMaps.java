@@ -1,6 +1,7 @@
 package com.example.nightingale.qwalk.InterfaceView;
 
 import com.example.nightingale.qwalk.Model.Actor;
+import com.example.nightingale.qwalk.Model.GameTimer;
 import com.example.nightingale.qwalk.Model.QLocation;
 import com.example.nightingale.qwalk.Model.Question;
 import com.example.nightingale.qwalk.Model.Quiz;
@@ -10,18 +11,15 @@ import com.example.nightingale.qwalk.Model.Quiz;
  */
 
 public interface IMaps {
-    boolean checkLocationPermission();
     void focusOn(QLocation location);
     void close();
     boolean isOnScreen(QLocation location);
     void pointArrowTo(QLocation location);
     void hideArrow();
     void placeMarker(Question question);
-    void placeHiddenMarker(Question question);
     void enableMarker(Question question);
     void removeMarker(Question question);
-    void showResults(Quiz quiz, Actor player, Actor bot);
-    void showResults(Quiz quiz, Actor player);
+    void showResults(Quiz quiz, Actor player, Actor bot, long quizTime);
     void initializeBot(QLocation location);
     void moveBot(QLocation location);
 

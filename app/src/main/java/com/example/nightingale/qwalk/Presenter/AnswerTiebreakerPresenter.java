@@ -21,7 +21,7 @@ public class AnswerTiebreakerPresenter {
     }
 
     public void closePressed(){
-        view.closeWithResult(chosenAnswer);
+        view.closeWithResult(chosenAnswer, question);
     }
 
 

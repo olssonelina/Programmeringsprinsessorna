@@ -6,6 +6,8 @@ import com.example.nightingale.qwalk.Model.Quiz;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.nightingale.qwalk.Model.QuizSetting.*;
+
 /**
  * Created by Kraft on 2017-04-28.
  */
@@ -31,6 +33,9 @@ public final class StandardQuizzes {
         //questions.get(2).setLocation(57.687837, 11.982194);
 
         q.setQuestions(questions);
+
+        q.setSetting(IN_ORDER, false);
+        q.setSetting(IS_HIDDEN, true);
 
         return q;
     }

@@ -48,9 +48,10 @@ public class AnswerTiebreakerActivity extends AppCompatActivity implements IAnsw
     }
 
     @Override
-    public void closeWithResult(int value) {
+    public void closeWithResult(int value, Tiebreaker question) {
         Intent returnIntent = new Intent();
         returnIntent.putExtra("answer", value);
+        returnIntent.putExtra("question", question);
         setResult(GetPositionActivity.RESULT_OK, returnIntent);
         finish();
     }

@@ -37,11 +37,6 @@ public class MapsViewTestClass implements IMaps {
     }
 
     @Override
-    public boolean checkLocationPermission() {
-        return true;
-    }
-
-    @Override
     public void focusOn(QLocation location) {
 
     }

@@ -20,7 +20,8 @@ public class QwalkGame {
     private List<Question> currentQuestions = new ArrayList<>();
     private int questionIndex;
     private Player player;
-    private Monkey bot;
+    private Bot bot;
+    private GameTimer quizTimer;
 
     /**
      * The distance in meters for a question to be considered in range.
@@ -28,7 +29,6 @@ public class QwalkGame {
     public final static double IN_RANGE = 25;
 
     /**
-     *
      * @param presenter
      * @param quiz
      */
@@ -42,21 +42,20 @@ public class QwalkGame {
     /**
      *
      */
-    public void startQuiz(){
+    public void startQuiz() {
 
         player = new Player(quiz.getQuestions().size());
 
-        if (quiz.getSetting(IN_ORDER)){
+        if (quiz.getSetting(IN_ORDER)) {
             nextQuestion();
-        }
-        else {
+        } else {
             placeAllQuestions();
         }
 
-        if (quiz.getSetting(WITH_BOT)){
+        if (quiz.getSetting(WITH_BOT)) {
             //TODO initialize bot
             int difficulty = 0;
-            switch (quiz.getDifficulty()){
+            switch (quiz.getDifficulty()) {
                 case EASY:
                     difficulty = 35;
                     break;
@@ -68,100 +67,111 @@ public class QwalkGame {
                     break;
             }
 
-            bot = new Monkey(quiz, difficulty);
+            bot = new Bot(quiz, difficulty);
             //presenter.initializeBot(); //TODO
         }
 
-        if (quiz.getSetting(QUIZ_TIMER)){
+        if (quiz.getSetting(QUIZ_TIMER)) {
             //TODO starta timer
+            quizTimer = new GameTimer();
+            quizTimer.startTimer();
         }
     }
 
     //
-    private void nextQuestion(){
-        if (!quiz.getSetting(IN_ORDER)){
+    private void nextQuestion() {
+        if (!quiz.getSetting(IN_ORDER)) {
             throw new RuntimeException("Illegal method with current settings, specifically IN_ORDER");
         }
 
         currentQuestions.clear();
         questionIndex++;
-        if (questionIndex >= quiz.getQuestions().size()){
-            end();
-        }else {
-            currentQuestions.add(quiz.get(questionIndex));
-            presenter.placeMarker(currentQuestions.get(0), !quiz.getSetting(IS_HIDDEN));
-            presenter.focusOn(currentQuestions.get(0).getLocation());
+
+        currentQuestions.add(quiz.get(questionIndex));
+        if (!quiz.getSetting(IS_HIDDEN)) {
+            presenter.placeMarker(currentQuestions.get(0));
         }
+        presenter.focusOn(currentQuestions.get(0).getLocation());
 
 
     }
 
-    private void end(){
-        if (quiz.getSetting(WITH_BOT)){
-            presenter.showResults(quiz, player, bot);
+    private void end() {
+        long time = -1;
+        if (quiz.getSetting(QUIZ_TIMER)){
+            quizTimer.stopTimer();
+            time = quizTimer.getTime();
         }
-        else {
-            presenter.showResults(quiz, player);
-        }
+        presenter.showResults(quiz, player, bot, time);
         presenter.close();
     }
 
-    private void placeAllQuestions(){
-        if (quiz.getSetting(IN_ORDER)){
+    private void placeAllQuestions() {
+        if (quiz.getSetting(IN_ORDER)) {
             throw new RuntimeException("Illegal method with current settings, specifically IN_ORDER");
         }
 
-        for (Question q: quiz.getQuestions()) {
+        for (Question q : quiz.getQuestions()) {
             currentQuestions.add(q);
-            presenter.placeMarker(q, !quiz.getSetting(IS_HIDDEN));
+            if (!quiz.getSetting(IS_HIDDEN)) {
+                presenter.placeMarker(q);
+            }
         }
     }
 
     /**
-     *
      * @param answer
      */
-    public void setAnswer(Question question, int answer){
+    public void setAnswer(Question question, int answer) {
         player.setAnswer(quiz.getQuestionIndex(question), answer);
 
         currentQuestions.remove(question);
         presenter.removeMarker(question);
-        if(quiz.getSetting(IN_ORDER)){ nextQuestion(); }
-        else if (currentQuestions.size() == 0){ end(); }
+        if (quiz.getSetting(IN_ORDER)) {
+            if (questionIndex + 1 >= quiz.getQuestions().size()) {
+                end();
+                return;
+            }
+            nextQuestion();
+        } else if (currentQuestions.size() == 0) {
+            end();
+        }
     }
 
     /**
-     *
      * @param userLocation
      */
-    public void update(QLocation userLocation){
+    public void update(QLocation userLocation) {
         this.userLocation = userLocation;
 
         List<Question> questionsInRange = questionsInRange(currentQuestions);
-        if (questionsInRange.size() > 0){
-            for (Question q: questionsInRange) {
+        if (questionsInRange.size() > 0) {
+            for (Question q : questionsInRange) {
+                if (quiz.getSetting(IS_HIDDEN)) {
+                    presenter.placeMarker(q);
+                }
                 presenter.enableMarker(q);
             }
         }
         updateBot();
     }
 
-    private List<Question> questionsInRange(List<Question> questions){
+    private List<Question> questionsInRange(List<Question> questions) {
         List<Question> questionsInRange = new ArrayList<>();
-        for (Question q: questions) {
-            if (q.getLocation().distanceTo(userLocation) <= IN_RANGE){
+        for (Question q : questions) {
+            if (q.getLocation().distanceTo(userLocation) <= IN_RANGE) {
                 questionsInRange.add(q);
             }
         }
         return questionsInRange;
     }
 
-    private Question getClosestQuestion(){
+    public Question getClosestQuestion() {
         Question a = currentQuestions.get(0);
         double distance = userLocation.distanceTo(a.getLocation());
 
-        for (Question q: currentQuestions) {
-            if (q != a && q.getLocation().distanceTo(userLocation) < distance){
+        for (Question q : currentQuestions) {
+            if (q != a && q.getLocation().distanceTo(userLocation) < distance) {
                 distance = q.getLocation().distanceTo(userLocation);
                 a = q;
             }
@@ -170,26 +180,16 @@ public class QwalkGame {
         return a;
     }
 
-    /*public Question getQuestion(QLocation l){
-        for (Question q: currentQuestions) {
-            if (l.equals(q.getQLocation())){
-                return q;
-            }
-        }
-        throw new IllegalArgumentException("No question at this place");
-    }*/
-
-    private void updateBot(){
+    private void updateBot() {
         //TODO
     }
 
 
-    public void updateArrow(){
+    public void updateArrow() {
         Question closestQuestion = getClosestQuestion();
-        if (presenter.isOnScreen(closestQuestion.getLocation())){
+        if (presenter.isOnScreen(closestQuestion.getLocation())) {
             presenter.updateArrow(getClosestQuestion().getLocation());
-        }
-        else{
+        } else {
             presenter.hideArrow();
         }
     }

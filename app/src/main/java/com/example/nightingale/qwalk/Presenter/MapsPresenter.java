@@ -2,6 +2,7 @@ package com.example.nightingale.qwalk.Presenter;
 
 import com.example.nightingale.qwalk.InterfaceView.IMaps;
 import com.example.nightingale.qwalk.Model.Actor;
+import com.example.nightingale.qwalk.Model.GameTimer;
 import com.example.nightingale.qwalk.Model.QLocation;
 import com.example.nightingale.qwalk.Model.Question;
 import com.example.nightingale.qwalk.Model.Quiz;
@@ -27,8 +28,6 @@ public class MapsPresenter {
     public MapsPresenter(IMaps view, Quiz quiz) {
         this.view = view;
         this.model = new QwalkGame(this, quiz);
-
-        view.checkLocationPermission();
     }
 
     /**
@@ -54,6 +53,10 @@ public class MapsPresenter {
         model.updateArrow();
     }
 
+    public void focusOnClosestQuestion(){
+        focusOn(model.getClosestQuestion().getLocation());
+    }
+
 
     // ------------ Methods used by the model ------------ \\
     // All of them only sends the request to the view.
@@ -61,16 +64,8 @@ public class MapsPresenter {
     /**
      *
      * @param question
-     * @param visible
      */
-    public void placeMarker(Question question, boolean visible){
-        if (visible){
-            view.placeMarker(question);
-        }
-        else {
-            view.placeHiddenMarker(question);
-        }
-    }
+    public void placeMarker(Question question){ view.placeMarker(question); }
 
     /**
      *
@@ -83,17 +78,9 @@ public class MapsPresenter {
      * @param quiz
      * @param player
      * @param bot
-     */
-    public void showResults(Quiz quiz, Actor player, Actor bot){ view.showResults(quiz, player, bot); }
-
-    /**
      *
-     * @param quiz
-     * @param player
      */
-    public void showResults(Quiz quiz, Actor player){
-        view.showResults(quiz, player);
-    }
+    public void showResults(Quiz quiz, Actor player, Actor bot, long quizTime){ view.showResults(quiz, player, bot, quizTime ); }
 
     /**
      *

@@ -8,14 +8,14 @@ import java.util.Random;
  * Created by Elina Olsson on 2017-05-15.
  */
 
-public class Monkey extends Actor {
+public class Bot extends Actor {
 
     Quiz quiz;
     List<Question> questions = quiz.getQuestions();
     ArrayList<Integer> correctAnswers = quiz.getCorrectAnswers();
     ArrayList<Integer> monkeyAnswers = new ArrayList<>();
 
-    public Monkey(Quiz quiz, int level) {
+    public Bot(Quiz quiz, int level) {
         super(0);
         this.quiz = quiz;
     }
