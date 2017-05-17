@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.nightingale.qwalk.Model.OptionQuestion;
 import com.example.nightingale.qwalk.Model.Player;
+import com.example.nightingale.qwalk.Model.QLocation;
 import com.example.nightingale.qwalk.Model.Question;
 import com.example.nightingale.qwalk.Model.Quiz;
 import com.example.nightingale.qwalk.Model.Tiebreaker;
@@ -192,7 +193,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMarker.setPosition(new LatLng(question.getLatitude(), question.getLongitude()));
             mMarker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
         }
-        mMarkerLocation = question.getLocation();
+        mMarkerLocation = question.getLocation().toAndroidLocation();
         ;
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mMarker.getPosition(), 17));
 

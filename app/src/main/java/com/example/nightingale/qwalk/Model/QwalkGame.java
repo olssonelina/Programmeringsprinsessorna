@@ -74,6 +74,8 @@ public class QwalkGame {
             currentQuestions.add(quiz.get(questionIndex));
         }
 
+        presenter.placeMarker(currentQuestions.get(0), quiz.getSetting(IS_HIDDEN));
+
     }
 
     private void end(){
@@ -91,6 +93,7 @@ public class QwalkGame {
         }
 
         for (Question q: quiz.getQuestions()) {
+            currentQuestions.add(q);
             presenter.placeMarker(q, !quiz.getSetting(IS_HIDDEN));
         }
     }
@@ -101,7 +104,7 @@ public class QwalkGame {
      */
     public void setAnswer(Question question, int answer){
         //TODO ge svaret till spelaren
-
+        currentQuestions.remove(question);
         presenter.removeMarker(question);
         if(quiz.getSetting(IN_ORDER)){ nextQuestion(); }
     }
@@ -126,7 +129,7 @@ public class QwalkGame {
     private List<Question> questionsInRange(List<Question> questions){
         List<Question> questionsInRange = new ArrayList<>();
         for (Question q: questions) {
-            if (q.getQLocation().distanceTo(user) <= IN_RANGE){
+            if (q.getLocation().distanceTo(user) <= IN_RANGE){
                 questionsInRange.add(q);
             }
         }
@@ -135,11 +138,11 @@ public class QwalkGame {
 
     private Question getClosestQuestion(){
         Question a = currentQuestions.get(0);
-        double distance = user.distanceTo(a.getQLocation());
+        double distance = user.distanceTo(a.getLocation());
 
         for (Question q: currentQuestions) {
-            if (q != a && q.getQLocation().distanceTo(user) < distance){
-                distance = q.getQLocation().distanceTo(user);
+            if (q != a && q.getLocation().distanceTo(user) < distance){
+                distance = q.getLocation().distanceTo(user);
                 a = q;
             }
         }
@@ -158,7 +161,7 @@ public class QwalkGame {
 
 
     private void updateArrow(){
-        presenter.updateArrow(getClosestQuestion().getQLocation());
+        presenter.updateArrow(getClosestQuestion().getLocation());
     }
 
 }

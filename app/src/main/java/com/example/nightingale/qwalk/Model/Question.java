@@ -12,13 +12,11 @@ public abstract class Question {
 
     String questionTitle;
     int correctAnswer;
-    Location location;
+    QLocation location;
 
 
     public void setLocation(double latitude, double longitude) {
-        location = new Location("");
-        location.setLatitude(latitude);
-        location.setLongitude(longitude);
+        location = new QLocation(latitude, longitude);
     }
 
     public double getLatitude() {
@@ -33,7 +31,7 @@ public abstract class Question {
         return correctAnswer;
     }
 
-    public Location getLocation() {
+    public QLocation getLocation() {
         return location;
     }
 
@@ -41,6 +39,6 @@ public abstract class Question {
         return questionTitle;
     }
 
-    public QLocation getQLocation() {return new QLocation(location); };
+    //public QLocation getQLocation() {return new QLocation(location); };
 
 }

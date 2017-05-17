@@ -26,9 +26,7 @@ public class OptionQuestion extends Question implements Parcelable  {
         this.option3 = option3;
         this.option4 = option4;
         this.correctAnswer = correctAnswer;
-        location = new Location("");
-        location.setLatitude(latitude);
-        location.setLongitude(longitude);
+        location = new QLocation(latitude, longitude);
     }
 
 
@@ -58,7 +56,7 @@ public class OptionQuestion extends Question implements Parcelable  {
         option3 = in.readString();
         option4 = in.readString();
         correctAnswer = in.readInt();
-        location = (Location) in.readValue(Location.class.getClassLoader());
+        location = (QLocation) in.readValue(QLocation.class.getClassLoader());
     }
 
     @Override

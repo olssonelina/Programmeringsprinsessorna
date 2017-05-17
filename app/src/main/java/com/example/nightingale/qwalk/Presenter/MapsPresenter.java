@@ -14,7 +14,6 @@ import com.example.nightingale.qwalk.Model.QwalkGame;
 public class MapsPresenter {
     private IMaps view;
     private QwalkGame model;
-    private QLocation user;
 
     /**
      *
@@ -24,6 +23,8 @@ public class MapsPresenter {
     public MapsPresenter(IMaps view, Quiz quiz) {
         this.view = view;
         this.model = new QwalkGame(this, quiz);
+
+        view.checkLocationPermission();
     }
 
     /**
@@ -84,8 +85,17 @@ public class MapsPresenter {
         view.enableMarker(question);
     }
 
+    /**
+     *
+     * @param location
+     * @return
+     */
     public boolean isOnScreen(QLocation location){
         return view.isOnScreen(location);
+    }
+
+    public void mapIsReady(){
+        model.startQuiz();
     }
 
     /**
@@ -95,8 +105,6 @@ public class MapsPresenter {
     public void updateArrow(QLocation location){
         view.pointArrowTo(location);
     }
-
-    public void
 
 
 

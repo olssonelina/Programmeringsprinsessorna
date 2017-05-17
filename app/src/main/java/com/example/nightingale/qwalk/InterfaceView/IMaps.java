@@ -14,7 +14,6 @@ public interface IMaps {
     void focusOn(QLocation location);
     void close();
     boolean isOnScreen(QLocation location);
-    void showOnMap(); // Minns inte vad detta innebär längre
     void pointArrowTo(QLocation location);
     void hideArrow();
     void placeMarker(Question question);
@@ -23,5 +22,7 @@ public interface IMaps {
     void removeMarker(Question question);
     void showResults(Quiz quiz, Actor player, Actor bot);
     void showResults(Quiz quiz, Actor player);
+    void initializeBot(QLocation location);
+    void moveBot(QLocation location);
 
 }

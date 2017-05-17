@@ -35,7 +35,7 @@ public class Tiebreaker extends Question implements Parcelable {
         upperBounds = in.readInt();
         questionTitle = in.readString();
         correctAnswer = in.readInt();
-        location = (Location) in.readValue(Location.class.getClassLoader());
+        location = (QLocation) in.readValue(QLocation.class.getClassLoader());
     }
 
     @Override
