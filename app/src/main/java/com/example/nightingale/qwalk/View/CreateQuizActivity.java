@@ -318,23 +318,28 @@ public class CreateQuizActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == OPTIONQUESTION_CODE) {
-            questions.addAll((ArrayList<Question>) data.getSerializableExtra("questions"));
-            loadList();
+            try{
+                questions.addAll((ArrayList<Question>) data.getSerializableExtra("questions"));
+                loadList();
+            }
+            catch (NullPointerException e){}
+
         }
 
         if (requestCode == TIEBREAKER_CODE) {
-            /*
-            questions.add((Tiebreaker) data.getParcelableExtra("tiebreaker"));
-            loadList();*/
-            tiebreaker = (Tiebreaker) data.getParcelableExtra("tiebreaker");
-            loadList();
+            try{
+                tiebreaker = (Tiebreaker) data.getParcelableExtra("tiebreaker");
+                loadList();
+            }
+            catch (NullPointerException e){ }
+
         }
     }
 
     private void loadList() {
         ListView questionList = (ListView) findViewById(R.id.questionList);
-        boolean hasTiebreaker = tiebreaker == null;
-        String[] values = hasTiebreaker ? new String[questions.size()] : new String[questions.size() + 1] ;
+        boolean hasTiebreaker = tiebreaker != null;
+        String[] values = hasTiebreaker ? new String[questions.size() + 1] : new String[questions.size()] ;
         for (int i = 0; i < values.length; i++) {
             values[i] = questions.get(i).getQuestionTitle();
         }

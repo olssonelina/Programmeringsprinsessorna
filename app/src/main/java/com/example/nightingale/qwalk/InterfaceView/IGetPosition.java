@@ -12,4 +12,5 @@ public interface IGetPosition {
     void focusOn(double latitude, double longitude);
     void stopLocationUpdates();
     void closeWithResult(double latitude, double longitude);
+    void setDoneButtonEnabled(boolean enabled);
 }

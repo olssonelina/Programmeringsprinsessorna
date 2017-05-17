@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.nightingale.qwalk.Model.GameTimer;
 import com.example.nightingale.qwalk.Model.OptionQuestion;
 import com.example.nightingale.qwalk.Model.Player;
 import com.example.nightingale.qwalk.Model.QLocation;
@@ -86,6 +87,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private boolean inQuestionRange = false;
     private Quiz currentQuiz;
     private Question currentQuestion;
+    private GameTimer quizTimer= new GameTimer();
 
     Player player;
 
@@ -160,13 +162,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (currentQuestion == null) { // Start quiz
             currentQuestion = currentQuiz.get(0);
             showQuestionOnMap(currentQuestion);
+            quizTimer.startTimer();
+            player= new Player(currentQuiz.size());
             return;
         } else {
             if (currentQuestion.getLatitude() == currentQuiz.get(currentQuiz.size() - 1).getLatitude()) { // End quiz
                 //TODO det som ska hända när ett quiz är klart
+                //quizTimer.stopTimer();
                 Intent intent = new Intent(getBaseContext(), ShowResultActivity.class);
-                int[] player = {1, 2, 345678}; //testinput tas bort när det finns en Actor
-                intent.putExtra("player", player);
+                int[] exPlayer = {1, 2, 345678}; //testinput tas bort när det finns en Actor
+                intent.putExtra("player", exPlayer);
+                intent.putExtra("time", quizTimer.getTime());
                 startActivity(intent);
                 finish();
             } else { // Continue quiz by figuring out which the next question is

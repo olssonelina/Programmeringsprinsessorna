@@ -208,7 +208,7 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
      */
 
     public void addQuestion(View view) {
-        presenter.addQuestion();
+        presenter.addQuestion(true);
     }
 
     @Override
@@ -277,9 +277,16 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == GET_POSITION_CODE) {
-            Location l = (Location) data.getExtras().get("result");
-            latitude = l.getLatitude();
-            longitude = l.getLongitude();
+            try {
+                Location l = (Location) data.getExtras().get("result");
+                latitude = l.getLatitude();
+                longitude = l.getLongitude();
+            }
+            catch (NullPointerException e){
+                latitude = 0;
+                longitude = 0;
+            }
+
         }
     }
 
@@ -333,6 +340,11 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
         }
 
         return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        presenter.backButtonPressed();
     }
 
     /*

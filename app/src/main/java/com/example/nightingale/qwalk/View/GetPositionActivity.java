@@ -10,6 +10,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.nightingale.qwalk.InterfaceView.IGetPosition;
@@ -45,6 +46,7 @@ public class GetPositionActivity extends FragmentActivity implements OnMapReadyC
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
     private Marker newQuestionMarker;
+    private Button doneButton;
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
@@ -53,6 +55,7 @@ public class GetPositionActivity extends FragmentActivity implements OnMapReadyC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_getposition);
 
+        doneButton = (Button) findViewById(R.id.GetPositionDoneButton);
         presenter = new GetPositionPresenter(this);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -251,6 +254,9 @@ public class GetPositionActivity extends FragmentActivity implements OnMapReadyC
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) { }
 
-
+    @Override
+    public void setDoneButtonEnabled(boolean enabled) {
+        doneButton.setEnabled(enabled);
+    }
 }
 

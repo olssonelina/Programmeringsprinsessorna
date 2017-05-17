@@ -61,9 +61,15 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == GET_POSITION_CODE) {
-            Location l = (Location) data.getExtras().get("result");
-            latitude = l.getLatitude();
-            longitude = l.getLongitude();
+            try {
+                Location l = (Location) data.getExtras().get("result");
+                latitude = l.getLatitude();
+                longitude = l.getLongitude();
+            }
+            catch (NullPointerException e){
+                latitude = 0;
+                longitude = 0;
+            }
         }
     }
 
