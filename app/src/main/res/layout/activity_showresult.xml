@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -40,4 +41,55 @@
         android:layout_marginTop="21dp"
         android:text="Det tog A minuter och B sekunder"
         android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/monkeysAnswer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24dp"
+        android:text="Apans resultat"
+        android:layout_marginTop="117dp"
+        android:layout_below="@+id/time"
+        android:layout_centerHorizontal="true"/>
+
+    <ImageView
+        android:id="@+id/monkey"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:srcCompat="@drawable/monkey"
+        android:layout_alignBottom="@+id/monkeysAnswer"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+         />
+
+    <TextView
+        android:id="@+id/rightAnswersMonkey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/monkeysAnswer"
+        android:layout_marginTop="20dp"
+        android:text="X rätt"
+        android:textSize="36dp"/>
+
+    <TextView
+        android:id="@+id/totalMonkey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/rightAnswersMonkey"
+        android:layout_marginTop="2dp"
+        android:text="av Y möjliga"
+        android:textSize="18dp"/>
+
+    <TextView
+        android:id="@+id/monkeyTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/totalMonkey"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="21dp"
+        android:text="Det tog A minuter och B sekunder"
+        android:textSize="14sp" />
+
 </RelativeLayout>

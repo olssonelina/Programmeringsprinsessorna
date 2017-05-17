@@ -20,7 +20,7 @@ public class QwalkGame {
     private List<Question> currentQuestions = new ArrayList<>();
     private int questionIndex;
     private Player player;
-    private Bot bot;
+    private AI ai;
     private GameTimer quizTimer;
 
     /**
@@ -53,7 +53,7 @@ public class QwalkGame {
         }
 
         if (quiz.getSetting(WITH_BOT)) {
-            //TODO initialize bot
+            //TODO initialize ai
             int difficulty = 0;
             switch (quiz.getDifficulty()) {
                 case EASY:
@@ -67,7 +67,7 @@ public class QwalkGame {
                     break;
             }
 
-            bot = new Bot(quiz, difficulty);
+            ai = new AI(quiz, difficulty);
             //presenter.initializeBot(); //TODO
         }
 
@@ -102,7 +102,7 @@ public class QwalkGame {
             quizTimer.stopTimer();
             time = quizTimer.getTime();
         }
-        presenter.showResults(quiz, player, bot, time);
+        presenter.showResults(quiz, player, ai, time);
         presenter.close();
     }
 
