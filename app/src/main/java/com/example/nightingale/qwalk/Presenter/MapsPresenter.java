@@ -1,15 +1,11 @@
 package com.example.nightingale.qwalk.Presenter;
 
-import android.location.Location;
-
 import com.example.nightingale.qwalk.InterfaceView.IMaps;
+import com.example.nightingale.qwalk.Model.Actor;
 import com.example.nightingale.qwalk.Model.QLocation;
 import com.example.nightingale.qwalk.Model.Question;
 import com.example.nightingale.qwalk.Model.Quiz;
 import com.example.nightingale.qwalk.Model.QwalkGame;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Kraft on 2017-05-12.
@@ -32,11 +28,24 @@ public class MapsPresenter {
 
     /**
      *
-     * @param l
+     * @param question
      * @param visible
      */
-    public void placeMarker(QLocation l, boolean visible){
+    public void placeMarker(Question question, boolean visible){
+        if (visible){
+            view.placeMarker(question);
+        }
+        else {
+            view.placeHiddenMarker(question);
+        }
+    }
 
+    /**
+     *
+     * @param question
+     */
+    public void removeMarker(Question question){
+        view.removeMarker(question);
     }
 
     /**
@@ -44,9 +53,50 @@ public class MapsPresenter {
      * @param location
      */
     public void updateUserLocation(QLocation location){
-        model.setUserLocation(location);
+        model.update(location);
     }
 
+
+    /**
+     *
+     * @param quiz
+     * @param player
+     * @param bot
+     */
+    public void showResults(Quiz quiz, Actor player, Actor bot){
+        view.showResults(quiz, player, bot);
+    }
+
+    /**
+     *
+     * @param quiz
+     * @param player
+     */
+    public void showResults(Quiz quiz, Actor player){
+        view.showResults(quiz, player);
+    }
+
+    /**
+     *
+     * @param question
+     */
+    public void enableMarker(Question question){
+        view.enableMarker(question);
+    }
+
+    public boolean isOnScreen(QLocation location){
+        return view.isOnScreen(location);
+    }
+
+    /**
+     *
+     * @param location
+     */
+    public void updateArrow(QLocation location){
+        view.pointArrowTo(location);
+    }
+
+    public void
 
 
 

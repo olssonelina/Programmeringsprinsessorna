@@ -13,31 +13,114 @@ import static com.example.nightingale.qwalk.Model.QuizSetting.*;
 
 public class QwalkGame {
 
+    //
     private MapsPresenter presenter;
     private Quiz quiz;
     private QLocation user = new QLocation(0, 0); //TODO ha denna tills user har en egen klass
-
     private List<Question> currentQuestions = new ArrayList<>();
     private int questionIndex;
+    private Actor player, bot;
 
     public final static int IN_RANGE = 25;
 
-
+    /**
+     *
+     * @param presenter
+     * @param quiz
+     */
     public QwalkGame(MapsPresenter presenter, Quiz quiz) {
         this.presenter = presenter;
         this.quiz = quiz;
 
-        questionIndex = quiz.getSetting(IN_ORDER) ? 0 : -1;
+        questionIndex = -1;
+
+
     }
 
+    /**
+     *
+     */
     public void startQuiz(){
-        if (quiz.getSetting(IN_ORDER) && !quiz.getSetting(HIDDEN_QUESTIONS)){
 
+        //TODO Initialize player
+
+        if (quiz.getSetting(IN_ORDER)){
+            nextQuestion();
+        }
+        else {
+            placeAllQuestions();
+        }
+
+        if (quiz.getSetting(WITH_BOT)){
+            //TODO initialize bot
+        }
+
+        if (quiz.getSetting(QUIZ_TIMER)){
+            //TODO starta timer
         }
     }
 
-    public void setUserLocation(QLocation location){
-        user = location;
+    //
+    private void nextQuestion(){
+        if (!quiz.getSetting(IN_ORDER)){
+            throw new RuntimeException("Illegal method with current settings, specifically IN_ORDER");
+        }
+
+        currentQuestions.clear();
+        questionIndex++;
+        if (questionIndex >= quiz.getQuestions().size()){
+            end();
+        }else {
+            currentQuestions.add(quiz.get(questionIndex));
+        }
+
+    }
+
+    private void end(){
+        if (quiz.getSetting(WITH_BOT)){
+            presenter.showResults(quiz, player, bot);
+        }
+        else {
+            presenter.showResults(quiz, player);
+        }
+    }
+
+    private void placeAllQuestions(){
+        if (quiz.getSetting(IN_ORDER)){
+            throw new RuntimeException("Illegal method with current settings, specifically IN_ORDER");
+        }
+
+        for (Question q: quiz.getQuestions()) {
+            presenter.placeMarker(q, !quiz.getSetting(IS_HIDDEN));
+        }
+    }
+
+    /**
+     *
+     * @param answer
+     */
+    public void setAnswer(Question question, int answer){
+        //TODO ge svaret till spelaren
+
+        presenter.removeMarker(question);
+        if(quiz.getSetting(IN_ORDER)){ nextQuestion(); }
+    }
+
+    /**
+     *
+     * @param userLocation
+     */
+    public void update(QLocation userLocation){
+        user = userLocation;
+
+        List<Question> questionsInRange = questionsInRange(currentQuestions);
+        if (questionsInRange.size() > 0){
+            for (Question q: questionsInRange) {
+                presenter.enableMarker(q);
+            }
+        }
+
+        updateArrow();
     }
 
     private List<Question> questionsInRange(List<Question> questions){
@@ -49,4 +132,33 @@ public class QwalkGame {
         }
         return questionsInRange;
     }
+
+    private Question getClosestQuestion(){
+        Question a = currentQuestions.get(0);
+        double distance = user.distanceTo(a.getQLocation());
+
+        for (Question q: currentQuestions) {
+            if (q != a && q.getQLocation().distanceTo(user) < distance){
+                distance = q.getQLocation().distanceTo(user);
+                a = q;
+            }
+        }
+
+        return a;
+    }
+
+    /*public Question getQuestion(QLocation l){
+        for (Question q: currentQuestions) {
+            if (l.equals(q.getQLocation())){
+                return q;
+            }
+        }
+        throw new IllegalArgumentException("No question at this place");
+    }*/
+
+
+    private void updateArrow(){
+        presenter.updateArrow(getClosestQuestion().getQLocation());
+    }
+
 }

@@ -105,6 +105,15 @@ public final class QLocation implements Parcelable{
         return (new QLocation(location)).toAndroidLocation();
     }
 
+    @Override
+    public boolean equals(Object o){
+        if (o instanceof QLocation){
+            QLocation a = (QLocation) o;
+            return a.getLongitude() == getLongitude() && a.getLatitude() == getLatitude();
+        }
+        return false;
+    }
+
     /**
      *
      * @param in

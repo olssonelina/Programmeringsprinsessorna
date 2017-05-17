@@ -27,7 +27,7 @@ public class Quiz implements Parcelable {
             case IN_ORDER:
                 inOrder = enabled;
                 break;
-            case HIDDEN_QUESTIONS:
+            case IS_HIDDEN:
                 hiddenQuestions = enabled;
                 break;
             case QUIZ_TIMER:
@@ -44,7 +44,7 @@ public class Quiz implements Parcelable {
                 return withBot;
             case IN_ORDER:
                 return inOrder;
-            case HIDDEN_QUESTIONS:
+            case IS_HIDDEN:
                 return hiddenQuestions;
             case QUIZ_TIMER:
                 return quizTimer;
