@@ -47,7 +47,16 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:visibility="invisible"
-            map:srcCompat="@drawable/up" />
+            map:srcCompat="@drawable/direction" />
+
+
+        <ImageView
+            android:id="@+id/monkey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            map:srcCompat="@drawable/monkey" />
 
 
     </RelativeLayout>

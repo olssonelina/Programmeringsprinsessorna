@@ -5,11 +5,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.example.nightingale.qwalk.Model.DatabaseHandler;
 import com.example.nightingale.qwalk.Model.OptionQuestion;
 import com.example.nightingale.qwalk.Model.Question;
 import com.example.nightingale.qwalk.Model.Quiz;
@@ -44,6 +47,7 @@ public class MenuActivity extends AppCompatActivity {
 
     protected int request;
     int offset = 0;
+    int userid;
 
     private ListView listView;
 
@@ -55,7 +59,8 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu); //ändra namnet till rätt xml-fil
         loadQuizzes();
         if(!(Account.getInstance().getUserID() == -1)){
-            loadOnlineQuizzes();
+            loadOnlineQuizzes(Account.getInstance().getUserID());
+            loadFriendQuizzes();
         }
         loadList();
     }
@@ -64,10 +69,10 @@ public class MenuActivity extends AppCompatActivity {
         quizzes.add(StandardQuizzes.getMachineStudyRoomsQuiz());
         quizzes.add(StandardQuizzes.getChalmersQuiz());
         quizzes.add(StandardQuizzes.getAdressQuiz());
-        //TODO Kevin, här kanske du kan lägga till från databasen ?. Eventuellt fler standardquizzes med
     }
 
-    private void loadOnlineQuizzes() {
+    private void loadOnlineQuizzes(int UserID) {
+        userid = UserID;
         Log.d("JSON", "Method entered");
         request = 0;
         int quizAmount = 0;
@@ -161,9 +166,31 @@ public class MenuActivity extends AppCompatActivity {
         }
     }
 
+    private void loadFriendQuizzes(){
+        int len = Account.getInstance().getFriendIDs().size();
+        if(len > 0) {
+            for (int i = 1; i < len; i++) {
+                loadOnlineQuizzes(Account.getInstance().getFriendIDs().get(i));
+            }
+        }
+    }
+
     public void loadHelp(View view) {
         Intent intent = new Intent(this, HelpActivity.class);
         startActivity(intent);
+    }
+
+    public void loadFriends(View view) {
+        if(Account.getInstance().getUserID() == -1) {
+            Toast toast = Toast.makeText(getApplicationContext(), "Var vänlig Logga in", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 160);
+            toast.show();
+        }
+        else{
+            Intent intent = new Intent(this, FriendActivity.class);
+            startActivity(intent);
+        }
+
     }
 
     public void loadSettings(View view) {
@@ -231,14 +258,14 @@ public class MenuActivity extends AppCompatActivity {
 
             try{
 
-                URL url = new URL("https://programmeringsprinsessorna.000webhostapp.com/readquiz.php");
+                URL url = new URL(DatabaseHandler.getReadQuizURL());
 
                 JSONObject postDataParams = new JSONObject();
 
 
                 postDataParams.put("request", request);
                 postDataParams.put("offset", offset);
-                postDataParams.put("userid", Account.getInstance().getUserID());
+                postDataParams.put("userid", userid);
 
 
 
@@ -254,7 +281,7 @@ public class MenuActivity extends AppCompatActivity {
                 OutputStream os = conn.getOutputStream();
                 BufferedWriter writer = new BufferedWriter(
                         new OutputStreamWriter(os, "UTF-8"));
-                writer.write(getPostDataString(postDataParams));
+                writer.write(DatabaseHandler.getPostDataString(postDataParams));
 
                 writer.flush();
                 writer.close();
@@ -293,29 +320,5 @@ public class MenuActivity extends AppCompatActivity {
         }
     }
 
-    public String getPostDataString(JSONObject params) throws Exception {
-
-        StringBuilder result = new StringBuilder();
-        boolean first = true;
-
-        Iterator<String> itr = params.keys();
-
-        while(itr.hasNext()){
-
-            String key= itr.next();
-            Object value = params.get(key);
-
-            if (first)
-                first = false;
-            else
-                result.append("&");
-
-            result.append(URLEncoder.encode(key, "UTF-8"));
-            result.append("=");
-            result.append(URLEncoder.encode(value.toString(), "UTF-8"));
-
-        }
-        return result.toString();
-    }
 
 }

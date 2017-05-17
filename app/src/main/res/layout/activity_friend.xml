@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/login"
+        map:srcCompat="@drawable/login" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/createButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/list"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/list"
+            android:layout_marginTop="30dp"
+
+            android:background="#FF09C856"
+            android:ems="10"
+            android:onClick="AddFriendButtonClicked"
+            android:text="Lägg till vän" />
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="105dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/createButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Dina Vänner" />
+
+        <EditText
+            android:id="@+id/friendusername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/editText"
+            android:layout_alignLeft="@+id/list"
+            android:layout_alignStart="@+id/list"
+            android:layout_alignTop="@+id/createButton"
+            android:layout_toLeftOf="@+id/createButton"
+            android:layout_toStartOf="@+id/createButton"
+            android:ems="14"
+            android:hint="Användarnamn"
+            android:inputType="textPersonName"
+            android:text="" />
+
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/editText"
+            android:layout_alignParentBottom="true" />
+
+    </RelativeLayout>
+
+
+
+
+
+
+
+
+</FrameLayout>
+

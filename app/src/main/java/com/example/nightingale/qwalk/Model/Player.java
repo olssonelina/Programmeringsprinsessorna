@@ -6,5 +6,13 @@ package com.example.nightingale.qwalk.Model;
 
 public class Player extends Actor {
 
+    public Player(int quizLength) {
+        super(quizLength);
+    }
+
+
+    public void setAnswer(int index, int answer) {
+        answers[index] = answer;
+    }
 
 }
