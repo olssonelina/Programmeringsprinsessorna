@@ -3,7 +3,6 @@ package com.example.nightingale.qwalk.Model.Android;
 import android.content.Context;
 
 import com.example.nightingale.qwalk.Model.Question;
-import com.example.nightingale.qwalk.R;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -21,7 +20,6 @@ public class QwalkMarkerList {
     private List<Marker> markers = new ArrayList<>();
     private List<Boolean> enabled = new ArrayList<>();
     private List<Question> questions = new ArrayList<>();
-    private static Context ctx;
 
     public void add(GoogleMap map, Question question){
         if (contains(question)){
@@ -30,7 +28,6 @@ public class QwalkMarkerList {
 
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(new LatLng(question.getLatitude(), question.getLongitude()));
-        markerOptions.title(ctx.getResources().getString(R.string.next_question));
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
         markers.add(map.addMarker(markerOptions));
         questions.add(question);
