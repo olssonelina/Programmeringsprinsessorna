@@ -37,6 +37,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText PasswordInput;
     private ProgressBar spinner;
     Button Loginbutton;
+    Button Registerbutton;
+    Button Guestbutton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,8 @@ public class LoginActivity extends AppCompatActivity {
         UsernameInput   = (EditText)findViewById(R.id.username);
         PasswordInput   = (EditText)findViewById(R.id.password);
         Loginbutton = (Button) findViewById(R.id.LoginButton);
+        Registerbutton = (Button) findViewById(R.id.Registerbutton);
+        Guestbutton = (Button) findViewById(R.id.Guestbutton);
 
         spinner = (ProgressBar)findViewById(R.id.progressBar1);
 
@@ -69,6 +73,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public void LoginButtonClicked(View view) {
         Loginbutton.setEnabled(false);
+        Registerbutton.setEnabled(false);
+        Guestbutton.setEnabled(false);
         spinner.setVisibility(View.VISIBLE);
 
 
@@ -198,6 +204,8 @@ public class LoginActivity extends AppCompatActivity {
             }
             spinner.setVisibility(View.GONE);
             Loginbutton.setEnabled(true);
+            Registerbutton.setEnabled(true);
+            Guestbutton.setEnabled(true);
         }
     }
 

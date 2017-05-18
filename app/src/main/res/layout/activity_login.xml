@@ -63,7 +63,7 @@
 
 
             <Button
-                android:id="@+id/button8"
+                android:id="@+id/Registerbutton"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -77,7 +77,7 @@
                 android:text="@string/register" />
 
             <Button
-                android:id="@+id/button7"
+                android:id="@+id/Guestbutton"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
 
