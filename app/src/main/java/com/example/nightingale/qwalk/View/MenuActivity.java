@@ -18,6 +18,7 @@ import com.example.nightingale.qwalk.Model.Question;
 import com.example.nightingale.qwalk.Model.Quiz;
 import com.example.nightingale.qwalk.Model.Account;
 import com.example.nightingale.qwalk.Model.StandardQuizzes;
+import com.example.nightingale.qwalk.Model.Tiebreaker;
 import com.example.nightingale.qwalk.R;
 
 import org.json.JSONArray;
@@ -48,6 +49,7 @@ public class MenuActivity extends AppCompatActivity {
     protected int request;
     int offset = 0;
     int userid;
+    private Tiebreaker tiebreaker;
 
     private ListView listView;
 
@@ -123,10 +125,6 @@ public class MenuActivity extends AppCompatActivity {
                             Log.d("JSON", option1);
                             String option2 = question.getString("option2");
                             Log.d("JSON", option2);
-                            String option3 = question.getString("option3");
-                            Log.d("JSON", option3);
-                            String option4 = question.getString("option4");
-                            Log.d("JSON", option4);
                             int correctanswer = question.getInt("correctanswer");
                             Log.d("JSON", String.valueOf(correctanswer));
                             double latitude = question.getDouble("latitude");
@@ -134,13 +132,29 @@ public class MenuActivity extends AppCompatActivity {
                             double longitude = question.getDouble("longitude");
                             Log.d("JSON", String.valueOf(longitude));
 
-
+                            int questiontype = question.getInt("questiontype");
+                            if(questiontype == 0){
+                            String option3 = question.getString("option3");
+                            Log.d("JSON", option3);
+                            String option4 = question.getString("option4");
+                            Log.d("JSON", option4);
                             questions.add(new OptionQuestion(description, option1, option2, option3, option4, correctanswer, latitude, longitude));
                             Log.d("JSON", "Question added");
+                            };
+else if(questiontype == 1){
+                                tiebreaker = new Tiebreaker(description, correctanswer, latitude, longitude, Integer.parseInt(option1), Integer.parseInt(option2));
+                                Log.d("JSON", "Tiebreaker Set");
+                            }
+
+
+
                         }
 
 
                         // ...
+                    }
+                    if (!(tiebreaker == null)){
+                        questions.add(tiebreaker);
                     }
                     Log.d("JSON", "Setting questions");
                     q.setQuestions(questions);
