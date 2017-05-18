@@ -302,7 +302,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         }
 
-        return false; //TODO vad händer om en sätter true?
+        return true;
     }
 
     @Override
