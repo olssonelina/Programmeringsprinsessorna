@@ -143,6 +143,9 @@ public class QwalkGame {
      * @param userLocation
      */
     public void update(QLocation userLocation) {
+        if (this.userLocation.equals(new QLocation(0,0))){
+            presenter.focusOn(userLocation);
+        }
         this.userLocation = userLocation;
 
         List<Question> questionsInRange = questionsInRange(currentQuestions);
