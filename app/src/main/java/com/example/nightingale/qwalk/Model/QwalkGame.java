@@ -11,7 +11,7 @@ import static com.example.nightingale.qwalk.Model.QuizSetting.*;
  * Created by Kraft on 2017-05-12.
  */
 
-public class QwalkGame {
+public class QwalkGame implements IOnAIMoveListener {
 
     //
     private MapsPresenter presenter;
@@ -68,6 +68,9 @@ public class QwalkGame {
             }
 
             ai = new AI(quiz, difficulty);
+            ai.setOnAImovedListener(this);
+            Thread botThread = new Thread(ai);
+            botThread.start();
             //presenter.initializeBot(); //TODO
         }
 
@@ -160,6 +163,9 @@ public class QwalkGame {
         updateBot();
     }
 
+    private void updateBot() {
+    }
+
     private List<Question> questionsInRange(List<Question> questions) {
         List<Question> questionsInRange = new ArrayList<>();
         for (Question q : questions) {
@@ -184,10 +190,6 @@ public class QwalkGame {
         return a;
     }
 
-    private void updateBot() {
-        //TODO
-    }
-
 
     public void updateArrow() {
         Question closestQuestion = getClosestQuestion();
@@ -198,4 +200,8 @@ public class QwalkGame {
         }
     }
 
+    @Override
+    public void AIMoved(QLocation location) {
+        presenter.moveBot(location);
+    }
 }

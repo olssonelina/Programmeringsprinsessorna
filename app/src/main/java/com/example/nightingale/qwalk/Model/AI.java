@@ -11,22 +11,27 @@ import java.util.Random;
  * Created by Elina Olsson on 2017-05-15.
  */
 
-public class AI extends Actor implements Parcelable {
+public class AI extends Actor implements Parcelable, Runnable {
 
     Quiz quiz;
     List<Question> questions = quiz.getQuestions();
     ArrayList<Integer> correctAnswers = quiz.getCorrectAnswers();
     ArrayList<Integer> monkeyAnswers = new ArrayList<>();
-    int score;
+
+    private int score;
+    GameTimer timer = new GameTimer();
+
+    List<IOnAIMoveListener> listeners = new ArrayList<>();
+
 
     public AI(Quiz quiz, int level) {
         super(0);
         this.quiz = quiz;
+        timer.startTimer();
     }
 
 
     public void setScore(ArrayList<Integer> correctAnswers, ArrayList<Integer> monkeyAnswers) {
-        int score = 0;
         for (int i = 0; i < correctAnswers.size(); i++) {
             if (correctAnswers.get(i) == monkeyAnswers.get(i)) {
                 score++;
@@ -46,7 +51,6 @@ public class AI extends Actor implements Parcelable {
     public int getNumberOfQuestions() {
         return monkeyAnswers.size();
     }
-
 
     public ArrayList<Integer> setAnswers(int level) {
         for (int i = 0; i < correctAnswers.size(); i++) {
@@ -137,4 +141,27 @@ public class AI extends Actor implements Parcelable {
             return new AI[size];
         }
     };
+
+    @Override
+    public void run() {
+            moveBot();
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+
+        }
+    }
+
+    public void moveBot() {
+    }
+
+    public void setOnAImovedListener(IOnAIMoveListener listener) {
+        listeners.add(listener);
+    }
+
+    private void notifyListeners(QLocation location) {
+        for (IOnAIMoveListener l:listeners) {
+            l.AIMoved(location);
+        }
+    }
 }
