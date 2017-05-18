@@ -1,8 +1,11 @@
 package com.example.nightingale.qwalk.Presenter;
 
+import android.content.Context;
+
 import com.example.nightingale.qwalk.InterfaceView.ICreateOptionQuestion;
 import com.example.nightingale.qwalk.Model.OptionQuestion;
 import com.example.nightingale.qwalk.Model.Question;
+import com.example.nightingale.qwalk.R;
 
 import java.util.ArrayList;
 
@@ -11,6 +14,8 @@ import java.util.ArrayList;
  */
 
 public class CreateOptionQuestionPresenter {
+
+    private static Context ctx;
 
     private ICreateOptionQuestion view;
 
@@ -43,13 +48,13 @@ public class CreateOptionQuestionPresenter {
 
     private boolean validateQuestion() {
         if (view.getQuestionTitle().equals("")) {
-            view.sendError("Skriv titel på frågan");
+            view.sendError(ctx.getResources().getString(R.string.please_set_title));
         } else if (!hasTwoOptions()) {
-            view.sendError(("Skriv minst 2 alternativ"));
+            view.sendError(ctx.getResources().getString(R.string.please_add_alternatives));
         } else if (!view.hasAnswer()) {
-            view.sendError("Välj rätt svar");
+            view.sendError(ctx.getResources().getString(R.string.choose_correct_answer));
         } else if (view.getLongitude() == 0 && view.getLatitude() == 0) {
-            view.sendError("Välj position");
+            view.sendError(ctx.getResources().getString(R.string.choose_position));
         } else {
             return true;
         }

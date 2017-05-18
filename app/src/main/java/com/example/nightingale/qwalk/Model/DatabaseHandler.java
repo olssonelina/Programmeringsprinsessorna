@@ -1,8 +1,11 @@
 package com.example.nightingale.qwalk.Model;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.example.nightingale.qwalk.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -25,7 +28,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class DatabaseHandler {
 
-
+    private static Context ctx;
     final private static String host = "programmeringsprinsessorna.000webhostapp.com";
     final private static String insertQuizURL = "https://programmeringsprinsessorna.000webhostapp.com/insertquiz.php";
     final private static String insertAccountURL = "https://programmeringsprinsessorna.000webhostapp.com/insert.php";
@@ -132,16 +135,16 @@ public static String addFriend(String Friend){
 
 
     if (ID.equals("0")) {
-        msg = "Error";
+        msg = ctx.getResources().getString(R.string.error);
     } else if (ID.equals("1")) {
-        msg = "Användarnamnet finns inte";
+        msg = ctx.getResources().getString(R.string.no_existing_username);
     } else if (ID.equals("2")) {
-        msg = "Du är redan vän med den personen";
+        msg = ctx.getResources().getString(R.string.already_friends);
     } else if (ID.equals("3")) {
-        msg = "Vän tillagd";
+        msg = ctx.getResources().getString(R.string.friend_added);
     }
     else{
-        msg = "Connection Failed, try again";
+        msg = ctx.getResources().getString(R.string.connection_failed_ex);
     }
 
 
