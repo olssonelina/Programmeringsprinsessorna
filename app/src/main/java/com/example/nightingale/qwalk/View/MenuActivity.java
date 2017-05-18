@@ -141,7 +141,7 @@ public class MenuActivity extends AppCompatActivity {
                             questions.add(new OptionQuestion(description, option1, option2, option3, option4, correctanswer, latitude, longitude));
                             Log.d("JSON", "Question added");
                             };
-else if(questiontype == 1){
+                            if(questiontype == 1){
                                 tiebreaker = new Tiebreaker(description, correctanswer, latitude, longitude, Integer.parseInt(option1), Integer.parseInt(option2));
                                 Log.d("JSON", "Tiebreaker Set");
                             }
