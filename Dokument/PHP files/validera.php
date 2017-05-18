@@ -26,6 +26,7 @@ $password = $_POST['password'];
 $password = encrypt($password);
 
 $username = $_POST['username'];
+$username = strtolower($username);
 $con = connect(); //Anropar och ansluter till db.
 
 //VÃÂ¤ljer alla poster dÃÂ¤r lÃÂ¶senorder och anvÃÂ¤ndarnamn matchar inloggningen samt att kontonivÃÂ¥n ÃÂ¤r 1
