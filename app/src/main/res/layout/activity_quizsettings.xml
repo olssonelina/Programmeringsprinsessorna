@@ -8,15 +8,113 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="150dp"
-            android:layout_marginStart="150dp"
-            android:layout_marginTop="58dp"
-            android:text="TextView" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"
+            android:textSize="30dp"
+            android:text="Spelinställningar" />
+
+        <CheckBox
+            android:id="@+id/hiddenQuestions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:layout_marginLeft="50dp"
+            android:textSize="18dp"
+            android:layout_marginTop="35dp"
+            android:text="Göm frågor" />
+
+        <CheckBox
+            android:id="@+id/customOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/hiddenQuestions"
+            android:layout_alignStart="@+id/hiddenQuestions"
+            android:layout_below="@+id/hiddenQuestions"
+            android:layout_marginTop="12dp"
+            android:textSize="18dp"
+            android:text="Egen ordning på frågor" />
+
+        <CheckBox
+            android:id="@+id/questionTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/customOrder"
+            android:layout_alignStart="@+id/customOrder"
+            android:layout_below="@+id/customOrder"
+            android:layout_marginTop="13dp"
+            android:textSize="18dp"
+            android:text="Tidtagning på frågor" />
+
+        <CheckBox
+            android:id="@+id/quizTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/questionTimer"
+            android:layout_alignStart="@+id/questionTimer"
+            android:layout_below="@+id/questionTimer"
+            android:layout_marginTop="15dp"
+            android:textSize="18dp"
+            android:text="Tidtagning på quiz" />
+
+        <CheckBox
+            android:id="@+id/bot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/quizTimer"
+            android:layout_alignStart="@+id/quizTimer"
+            android:layout_below="@+id/quizTimer"
+            android:layout_marginTop="13dp"
+            android:textSize="18dp"
+            android:text="Spela mot apa"
+            android:onClick="enableChoosingLevel"
+            />
+
+        <TextView
+            android:id="@+id/level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bot"
+            android:text="Svårighetsgrad"
+            android:textSize="18dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            />
+
+        <Button
+            android:id="@+id/easy"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_below="@+id/level"
+            android:layout_toLeftOf="@+id/medium"
+            android:layout_marginTop="5dp"
+            android:text=""
+            android:enabled="false"
+            android:background="@drawable/green"/>
+
+        <Button
+            android:id="@+id/medium"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignTop="@+id/easy"
+            android:layout_centerHorizontal="true"
+            android:text=""
+            android:enabled="false"
+            android:background="@drawable/yellow"/>
+
+        <Button
+            android:id="@+id/hard"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="0dp"
+            android:layout_alignTop="@+id/easy"
+            android:layout_toRightOf="@+id/medium"
+            android:text=""
+            android:enabled="false"
+            android:background="@drawable/red"/>
+
+
     </RelativeLayout>
 </LinearLayout>

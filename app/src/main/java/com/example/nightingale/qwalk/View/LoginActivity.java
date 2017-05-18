@@ -161,19 +161,19 @@ public class LoginActivity extends AppCompatActivity {
             Log.e("CrashID",ID);
             if(ID.equals("Exception:Unabletoresolvehost\""+ DatabaseHandler.getHost() + "\":Noaddressassociatedwithhostname")){
 
-                Toast.makeText(getApplicationContext(), "Ingen Internetuppkoppling",
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_internet_ex),
                         Toast.LENGTH_LONG).show();
             }
             else if(ID == null){
 
-                Toast.makeText(getApplicationContext(), "Connection Failed",
-                        Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_failed_ex),
+                        Toast.LENGTH_LONG).show(); //"Connection Failed" -> "Uppkoppnilng misslyckades"
             }
 
             else if(Integer.parseInt(ID) == -1) {
 
-                Toast.makeText(getApplicationContext(), "Incorrect Password/Username",
-                        Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.incorrect_un_pw_ex),
+                        Toast.LENGTH_LONG).show(); // "Incorrect Password/Username" översatt
             }
             else if(Integer.parseInt(ID) == -2){
                 Account.getInstance().setUserID(Integer.parseInt(ID));
@@ -189,8 +189,8 @@ public class LoginActivity extends AppCompatActivity {
             else{
                 Account.getInstance().setUserID(Integer.parseInt(ID));
                 Account.getInstance().setUsername(UsernameInput.getText().toString());
-                Toast.makeText(getApplicationContext(), "Success",
-                        Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.done),
+                        Toast.LENGTH_LONG).show(); // "Success" -> "Klar"
                 DatabaseHandler.loadFriends();
                 spinner.setVisibility(View.GONE);
                 Intent intent = new Intent(getApplicationContext(), MenuActivity.class);

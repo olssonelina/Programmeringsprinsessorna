@@ -50,7 +50,8 @@ public class GameTimer {
     public long getTime(){
         if(TimerRunning){
             tStop = System.currentTimeMillis();
+            return (tStop-tStart+tSaved)/1000;
         }
-        return (tStop-tStart+tSaved)/1000;
+        return (tSaved)/1000;
     }
 }

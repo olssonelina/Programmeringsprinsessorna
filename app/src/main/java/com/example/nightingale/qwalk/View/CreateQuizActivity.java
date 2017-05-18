@@ -100,15 +100,13 @@ public class CreateQuizActivity extends AppCompatActivity {
     public void sendErrorMsg() {
         String msg;
         if (quizTitle.getText().toString().equals("")) {
-            msg = "Fyll i titel";
+            msg = getResources().getString(R.string.set_title_ex);
         } else if (quizDescription.getText().toString().equals("")) {
-            msg = "Fyll i beskrivning";
+            msg = getResources().getString(R.string.set_description_ex);
         } else if (questions.size() == 0) {
-            msg = "Lägg till minst en fråga";
-        } else if (quizDescription.getText().toString().equals("")) {
-            msg = "Fyll i beskrivning";
+            msg = getResources().getString(R.string.add_questions_ex);
         } else {
-            msg = "Error";
+            msg = getResources().getString(R.string.error);
         }
         Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 160);
@@ -117,7 +115,7 @@ public class CreateQuizActivity extends AppCompatActivity {
 
     public void saveQuiz() throws InterruptedException {
         if(Account.getInstance().getUserID() == -1){
-            Toast toast = Toast.makeText(getApplicationContext(), "Please Log In", Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_ex), Toast.LENGTH_LONG); //Översatte "Please Log In" till svenska
             toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 160);
             toast.show();
         } else {
@@ -127,7 +125,7 @@ public class CreateQuizActivity extends AppCompatActivity {
             QuestionIDArray = new ArrayList<Integer>();
             counter = 0;
 
-
+            questions.add(tiebreaker);
 
 
             for (int i = 0; i < questions.size(); i++) {
@@ -298,12 +296,12 @@ public class CreateQuizActivity extends AppCompatActivity {
             Log.d("PRINT", result);
             String msg;
             if (result.equals("0")) {
-                msg = "Success";
+                msg = getResources().getString(R.string.done); // "Success" -> Klar
                 Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 160);
                 toast.show();
             } else if (result.equals("-1")) {
-                msg = "Quiz Title Taken";
+                msg = getResources().getString(R.string.quiz_title_taken); //"Quiz Title Taken" översatt
                 Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 160);
                 toast.show();
