@@ -18,7 +18,7 @@ public class QwalkGame {
     private Quiz quiz;
     private QLocation userLocation = new QLocation(0, 0); //TODO ha denna tills user har en egen klass
     private List<Question> currentQuestions = new ArrayList<>();
-    private int questionIndex;
+    private int answeredQuestions;
     private Player player;
     private AI ai;
     private GameTimer quizTimer;
@@ -36,7 +36,7 @@ public class QwalkGame {
         this.presenter = presenter;
         this.quiz = quiz;
 
-        questionIndex = -1;
+        answeredQuestions = 0;
     }
 
     /**
@@ -76,6 +76,8 @@ public class QwalkGame {
             quizTimer = new GameTimer();
             quizTimer.startTimer();
         }
+
+        presenter.setProgress(0, quiz.getQuestions().size());
     }
 
     //
@@ -85,15 +87,12 @@ public class QwalkGame {
         }
 
         currentQuestions.clear();
-        questionIndex++;
 
-        currentQuestions.add(quiz.get(questionIndex));
+        currentQuestions.add(quiz.get(answeredQuestions));
         if (!quiz.getSetting(IS_HIDDEN)) {
             presenter.placeMarker(currentQuestions.get(0));
         }
         presenter.focusOn(currentQuestions.get(0).getLocation());
-
-
     }
 
     private void end() {
@@ -124,11 +123,13 @@ public class QwalkGame {
      */
     public void setAnswer(Question question, int answer) {
         player.setAnswer(quiz.getQuestionIndex(question), answer);
+        answeredQuestions++;
+        presenter.setProgress(answeredQuestions, quiz.getQuestions().size());
 
         currentQuestions.remove(question);
         presenter.removeMarker(question);
         if (quiz.getSetting(IN_ORDER)) {
-            if (questionIndex + 1 >= quiz.getQuestions().size()) {
+            if (answeredQuestions >= quiz.getQuestions().size()) {
                 end();
                 return;
             }
