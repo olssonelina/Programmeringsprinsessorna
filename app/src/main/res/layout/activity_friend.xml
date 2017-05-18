@@ -21,7 +21,7 @@
         android:layout_height="match_parent">
 
         <Button
-            android:id="@+id/createButton"
+            android:id="@+id/addfriendbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignEnd="@+id/list"
@@ -38,7 +38,7 @@
             android:id="@+id/editText"
             android:layout_width="105dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/createButton"
+            android:layout_below="@+id/addfriendbutton"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="25dp"
             android:ems="10"
@@ -52,9 +52,9 @@
             android:layout_above="@+id/editText"
             android:layout_alignLeft="@+id/list"
             android:layout_alignStart="@+id/list"
-            android:layout_alignTop="@+id/createButton"
-            android:layout_toLeftOf="@+id/createButton"
-            android:layout_toStartOf="@+id/createButton"
+            android:layout_alignTop="@+id/addfriendbutton"
+            android:layout_toLeftOf="@+id/addfriendbutton"
+            android:layout_toStartOf="@+id/addfriendbutton"
             android:ems="14"
             android:hint="@string/username"
             android:inputType="textPersonName"
@@ -69,13 +69,16 @@
             android:layout_below="@+id/editText"
             android:layout_alignParentBottom="true" />
 
+        <ProgressBar
+            android:id="@+id/progressBar1"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="265dp"
+            android:layout_height="259dp"
+            android:layout_below="@+id/editText"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="34dp" />
+
     </RelativeLayout>
-
-
-
-
-
-
 
 
 </FrameLayout>

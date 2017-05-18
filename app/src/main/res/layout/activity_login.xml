@@ -27,15 +27,15 @@
                 android:id="@+id/LoginButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/button8"
-                android:layout_alignEnd="@+id/password"
-                android:layout_alignLeft="@+id/password"
-                android:layout_alignRight="@+id/password"
-                android:layout_alignStart="@+id/password"
                 android:layout_marginBottom="115dp"
                 android:background="#FF09C856"
                 android:onClick="LoginButtonClicked"
-                android:text="@string/login" />
+                android:text="@string/login"
+                android:layout_above="@+id/Registerbutton"
+                android:layout_alignLeft="@+id/password"
+                android:layout_alignStart="@+id/password"
+                android:layout_alignRight="@+id/password"
+                android:layout_alignEnd="@+id/password" />
 
             <EditText
                 android:id="@+id/password"
@@ -81,14 +81,15 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
 
-                android:layout_below="@+id/LoginButton"
-                android:layout_marginLeft="27dp"
-                android:layout_marginStart="27dp"
-                android:layout_toEndOf="@+id/button8"
-                android:layout_toRightOf="@+id/button8"
                 android:background="#FF303030"
                 android:onClick="guestButtonClicked"
-                android:text="@string/continue_as_guest" />
+                android:text="@string/continue_as_guest"
+                android:layout_alignBaseline="@+id/Registerbutton"
+                android:layout_alignBottom="@+id/Registerbutton"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="23dp"
+                android:layout_marginEnd="23dp" />
 
             <ProgressBar
                 android:id="@+id/progressBar1"
@@ -106,13 +107,13 @@
                 android:id="@+id/imageView2"
                 android:layout_width="115dp"
                 android:layout_height="101dp"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="11dp"
                 map:srcCompat="@drawable/logo"
+                android:layout_marginRight="19dp"
+                android:layout_marginEnd="19dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignRight="@+id/imageView4"
-                android:layout_alignEnd="@+id/imageView4"
-                android:layout_marginRight="19dp"
-                android:layout_marginEnd="19dp" />
+                android:layout_alignEnd="@+id/imageView4" />
 
             <ImageView
                 android:id="@+id/imageView4"

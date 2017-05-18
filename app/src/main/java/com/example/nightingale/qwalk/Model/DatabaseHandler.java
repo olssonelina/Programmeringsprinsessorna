@@ -3,6 +3,7 @@ package com.example.nightingale.qwalk.Model;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.nightingale.qwalk.R;
@@ -226,6 +227,7 @@ public static String addFriend(String Friend){
 
         @Override
         protected void onPostExecute(String result) {
+
         }
     }
 
