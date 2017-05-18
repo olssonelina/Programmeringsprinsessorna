@@ -185,7 +185,7 @@ public class MenuActivity extends AppCompatActivity {
 
     public void loadFriends(View view) {
         if(Account.getInstance().getUserID() == -1) {
-            Toast toast = Toast.makeText(getApplicationContext(), "Var vänlig Logga in", Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.please_login), Toast.LENGTH_LONG);
             toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 160);
             toast.show();
         }

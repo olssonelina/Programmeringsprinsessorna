@@ -75,7 +75,7 @@ public class FriendActivity extends AppCompatActivity{
 
     public void AddFriendButtonClicked(View view) {
         if (UsernameInput.getText().toString().equals(Account.getInstance().getUsername())) {
-            Toast.makeText(getApplicationContext(), "Du kan inte lägga till dig själv som vän",
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.self_friend_ex),
                     Toast.LENGTH_LONG).show();
         }
         else {

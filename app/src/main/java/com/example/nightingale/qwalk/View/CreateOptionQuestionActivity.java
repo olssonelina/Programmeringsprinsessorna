@@ -185,7 +185,7 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
                 return index;
             }
         }
-        throw new RuntimeException("No correct answer chosen");
+        throw new RuntimeException(getResources().getString(R.string.no_correct_answer_ex));// "No correct answer chosen" (skrev om meddelande till svenska)
     }
 
     @Override
@@ -237,7 +237,7 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
     @Override
     public void reset() {
         questionCounter++;
-        questionNumber.setText("Fråga " + questionCounter + ".");
+        questionNumber.setText(getResources().getString(R.string.question) + questionCounter + ".");
         questionText.getText().clear();
         numbers[0].setText("+");
 

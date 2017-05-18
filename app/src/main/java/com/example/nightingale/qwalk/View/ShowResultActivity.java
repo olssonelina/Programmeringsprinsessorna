@@ -68,8 +68,8 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
     }
 
     public void setMonkeyScore() {
-        monkeyResult.setText(AI.getScore() + " rätt");
-        monkeyTotal.setText("Av " + AI.getNumberOfQuestions() + " möjliga");
+        monkeyResult.setText(AI.getScore() + getResources().getString(R.string.rigth_answers));
+        monkeyTotal.setText(getResources().getString(R.string.of) + AI.getNumberOfQuestions() + getResources().getString(R.string.possible));
     }
 
     public boolean isPlayingAgainstBot() {
@@ -77,11 +77,11 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
     }
 
     @Override
-    public void showRightAnswers(int right) { this.rightView.setText(right + " rätt"); }
+    public void showRightAnswers(int right) { this.rightView.setText(right + getResources().getString(R.string.rigth_answers)); }
 
     @Override
-    public void showTotalAnswers(int total) { this.totalView.setText("av " + total + " möjliga."); }
+    public void showTotalAnswers(int total) { this.totalView.setText(getResources().getString(R.string.of) + total + getResources().getString(R.string.possible)); }
 
     @Override
-    public void showTime(long min, long sec) { this.timeView.setText("Det tog " + min + " minuter och " + sec + " sekunder."); }
+    public void showTime(long min, long sec) { this.timeView.setText(getResources().getString(R.string.it_took) + min + getResources().getString(R.string.minutes_and) + sec + getResources().getString(R.string.seconds)); }
 }

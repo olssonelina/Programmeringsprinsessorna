@@ -55,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
             new SendRequest().execute();
         }
         else{
-            Toast.makeText(getApplicationContext(), "Passwords don't match", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.password_no_match), Toast.LENGTH_SHORT).show(); // "Passwords don't match" ->
         }
     }
 
@@ -128,22 +128,22 @@ public class RegisterActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             result= result.replaceAll("\\s+","");
 if(result.equals("0")) {
-    Toast.makeText(getApplicationContext(), "Success",
-            Toast.LENGTH_LONG).show();
+    Toast.makeText(getApplicationContext(), getResources().getString(R.string.done),
+            Toast.LENGTH_LONG).show(); // "Success" -> "Klar"
 
 }
 else if(result.equals("1")){
-    Toast.makeText(getApplicationContext(), "Username Taken",
+    Toast.makeText(getApplicationContext(), getResources().getString(R.string.username_taken),
             Toast.LENGTH_LONG).show();
 
 }
 else if(result.equals("2")){
-    Toast.makeText(getApplicationContext(), "Username Empty",
+    Toast.makeText(getApplicationContext(), getResources().getString(R.string.username_empty),
             Toast.LENGTH_LONG).show();
 
 }
 else if(result.equals("3")){
-    Toast.makeText(getApplicationContext(), "Password Empty",
+    Toast.makeText(getApplicationContext(), getResources().getString(R.string.password_empty),
             Toast.LENGTH_LONG).show();
 
 }
