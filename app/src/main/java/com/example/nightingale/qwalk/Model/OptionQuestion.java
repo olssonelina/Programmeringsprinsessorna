@@ -71,6 +71,16 @@ public class OptionQuestion extends Question implements Parcelable  {
         location = (QLocation) in.readValue(QLocation.class.getClassLoader());
     }
 
+    public static boolean validateOptions(String[] options){
+        int count = 0;
+        for (int i = 0; i < options.length; i++) {
+            if (!options[i].equals("")) {
+                count++;
+            }
+        }
+        return count >= 2;
+    }
+
     public int getNumberOfOptions() {
         int numberOfOptions = 0;
         String[] options = new String[4];

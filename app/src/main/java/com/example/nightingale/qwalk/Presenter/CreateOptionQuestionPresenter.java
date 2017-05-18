@@ -1,5 +1,7 @@
 package com.example.nightingale.qwalk.Presenter;
 
+import android.graphics.Path;
+
 import com.example.nightingale.qwalk.InterfaceView.ICreateOptionQuestion;
 import com.example.nightingale.qwalk.Model.OptionQuestion;
 import com.example.nightingale.qwalk.Model.Question;
@@ -42,13 +44,13 @@ public class CreateOptionQuestionPresenter {
     }
 
     private boolean validateQuestion() {
-        if (view.getQuestionTitle().equals("")) {
+        if (!OptionQuestion.validateQuestion(view.getQuestionTitle())) {
             view.sendError("Skriv titel på frågan");
-        } else if (!hasTwoOptions()) {
+        } else if (!OptionQuestion.validateOptions(view.getOptions())) {
             view.sendError(("Skriv minst 2 alternativ"));
         } else if (!view.hasAnswer()) {
             view.sendError("Välj rätt svar");
-        } else if (view.getLongitude() == 0 && view.getLatitude() == 0) {
+        } else if (!OptionQuestion.validateLocation(view.getLatitude(), view.getLongitude())) {
             view.sendError("Välj position");
         } else {
             return true;
@@ -56,17 +58,6 @@ public class CreateOptionQuestionPresenter {
         return false;
     }
 
-
-    private boolean hasTwoOptions() {
-        String[] options = view.getOptions();
-        int count = 0;
-        for (int i = 0; i < options.length; i++) {
-            if (!options[i].equals("")) {
-                count++;
-            }
-        }
-        return count >= 2;
-    }
 
     public void backButtonPressed(){
         view.closeWithResult(questions);

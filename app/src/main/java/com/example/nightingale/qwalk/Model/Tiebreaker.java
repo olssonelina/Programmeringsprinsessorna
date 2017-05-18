@@ -29,6 +29,14 @@ public class Tiebreaker extends Question implements Parcelable {
         return upperBounds;
     }
 
+    public static boolean validateBounds(int lower, int upper){
+        return lower < upper;
+    }
+
+    public static boolean validateAnswer(int lower, int answer, int upper){
+        return lower <= answer && answer <= upper;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o instanceof Tiebreaker){
