@@ -13,4 +13,7 @@ public interface IAnswerOption {
     void closeWithResult(int chosenIndex, OptionQuestion question);
     void setCloseButtonEnabled(boolean enabled);
     void setTitle(String title);
+    void showBotAnswer(int index);
+    String getButtonText();
+    void setButtonText();
 }

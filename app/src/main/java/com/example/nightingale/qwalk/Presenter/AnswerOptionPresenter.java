@@ -1,7 +1,11 @@
 package com.example.nightingale.qwalk.Presenter;
 
+import android.view.View;
+
 import com.example.nightingale.qwalk.InterfaceView.IAnswerOption;
+import com.example.nightingale.qwalk.Model.AI;
 import com.example.nightingale.qwalk.Model.OptionQuestion;
+import com.example.nightingale.qwalk.R;
 
 /**
  * Created by Kraft on 2017-05-09.
@@ -12,10 +16,12 @@ public class AnswerOptionPresenter {
     private IAnswerOption view;
     private int chosenAnswer = 0;
     private OptionQuestion question;
+    private AI ai;
 
-    public AnswerOptionPresenter(IAnswerOption view, OptionQuestion question) {
+    public AnswerOptionPresenter(IAnswerOption view, OptionQuestion question, AI ai) {
         this.view = view;
         this.question = question;
+        this.ai = ai;
 
         view.setTitle(question.getQuestionTitle());
 
@@ -36,7 +42,15 @@ public class AnswerOptionPresenter {
         chosenAnswer = index;
     }
 
-    public void closePressed() {
-        view.closeWithResult(chosenAnswer, question);
+
+    public void submitClicked() {
+        if (view.getButtonText().equals("Svara")) {
+            view.setButtonText();
+            if (ai != null) {
+                view.showBotAnswer(ai.getAnswer(question));
+            }
+        } else {
+            view.closeWithResult(chosenAnswer, question);
+        }
     }
 }

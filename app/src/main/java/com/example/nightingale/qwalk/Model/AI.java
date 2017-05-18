@@ -34,6 +34,11 @@ public class AI extends Actor implements Parcelable {
         }
     }
 
+    public int getAnswer(Question question) {
+        int index = quiz.getQuestionIndex(question);
+        return monkeyAnswers.get(index);
+    }
+
     public int getScore() {
         return score;
     }
