@@ -21,9 +21,6 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
     private ShowResultPresenter presenter;
     private AI AI;
 
-    ShowResultActivity(AI AI) {
-        this.AI = AI;
-    }
 
     private TextView rightView;
     private TextView totalView;
