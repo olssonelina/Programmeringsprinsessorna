@@ -46,11 +46,11 @@
         android:id="@+id/monkeysAnswer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24dp"
-        android:text="Apans resultat"
-        android:layout_marginTop="117dp"
         android:layout_below="@+id/time"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="117dp"
+        android:text="@string/monkey_result"
+        android:textSize="24dp" />
 
     <ImageView
         android:id="@+id/monkey"

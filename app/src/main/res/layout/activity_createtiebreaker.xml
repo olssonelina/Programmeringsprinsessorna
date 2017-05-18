@@ -25,7 +25,7 @@
                 android:layout_marginTop="400dp"
                 android:onClick="addPosition"
                 android:padding="10dp"
-                android:text="Lägg till position"
+                android:text="@string/add_position"
                 android:textColor="@color/wallet_holo_blue_light" />
         </ScrollView>
 
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
-            android:text="Utslagsfråga"
+            android:text="@string/tiebreaker"
             android:textSize="24dp" />
 
         <TextView
@@ -45,9 +45,8 @@
             android:layout_below="@+id/questionField"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
-            android:text="Välj rätt svar"
-            android:textSize="18dp"
-            />
+            android:text="@string/choose_correct_answer"
+            android:textSize="18dp" />
 
         <SeekBar
             android:id="@+id/seekBar"
@@ -71,11 +70,11 @@
             android:id="@+id/min"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/seekBar"
             android:layout_alignBottom="@+id/seekBar"
-            android:layout_marginLeft="10dp"
+            android:layout_alignLeft="@+id/seekBar"
             android:layout_marginBottom="50dp"
-            android:text="min:"
+            android:layout_marginLeft="10dp"
+            android:text="@string/min"
             android:textSize="18dp" />
 
         <TextView
@@ -85,7 +84,7 @@
             android:layout_alignRight="@+id/seekBar"
             android:layout_alignTop="@+id/min"
             android:layout_marginRight="50dp"
-            android:text="max:"
+            android:text="@string/max"
             android:textSize="18dp" />
 
         <EditText
@@ -95,7 +94,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="80dp"
             android:ems="15"
-            android:hint="Skriv fråga här"
+            android:hint="@string/question_here"
             android:inputType="textMultiLine" />
 
 
@@ -107,7 +106,7 @@
             android:layout_marginTop="450dp"
             android:ems="9"
             android:onClick="doneButtonPressed"
-            android:text="Klar" />
+            android:text="@string/done" />
 
 
         <EditText
@@ -138,13 +137,12 @@
             android:id="@+id/unit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Enhet: "
-            android:textSize="18dp"
-            android:layout_below="@+id/questionField"
             android:layout_alignRight="@+id/chooseUnit"
-            android:layout_marginTop="70dp"
+            android:layout_below="@+id/questionField"
             android:layout_marginRight="90dp"
-            />
+            android:layout_marginTop="70dp"
+            android:text="@string/unit"
+            android:textSize="18dp" />
 
         <EditText
             android:id="@+id/chooseUnit"

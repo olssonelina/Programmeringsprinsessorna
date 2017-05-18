@@ -340,7 +340,7 @@ public class CreateQuizActivity extends AppCompatActivity {
         ListView questionList = (ListView) findViewById(R.id.questionList);
         boolean hasTiebreaker = tiebreaker != null;
         String[] values = hasTiebreaker ? new String[questions.size() + 1] : new String[questions.size()] ;
-        for (int i = 0; i < values.length; i++) {
+        for (int i = 0; i < questions.size(); i++) {
             values[i] = questions.get(i).getQuestionTitle();
         }
 

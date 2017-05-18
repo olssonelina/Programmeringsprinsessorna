@@ -15,7 +15,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"
-            android:text="Skapa nytt quiz"
+            android:text="@string/create_new_quiz"
             android:textSize="24dp" />
 
         <EditText
@@ -25,7 +25,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="100dp"
             android:ems="14"
-            android:hint="Titel"
+            android:hint="@string/title"
             android:inputType="textPersonName"
             android:text="" />
 
@@ -38,7 +38,7 @@
             android:layout_below="@+id/quizTitleField"
             android:layout_marginTop="32dp"
             android:ems="14"
-            android:hint="Kort beskrivning"
+            android:hint="@string/description"
             android:inputType="textMultiLine" />
 
 
@@ -58,7 +58,7 @@
             android:layout_alignLeft="@+id/descriptionField"
             android:layout_below="@+id/addQuestions"
             android:layout_marginTop="50dp"
-            android:text="Frågor"
+            android:text="@string/questions"
             android:textSize="18dp" />
 
         <TextView
@@ -70,10 +70,10 @@
             android:layout_below="@+id/descriptionField"
             android:layout_marginTop="19dp"
             android:onClick="addQuestionButtonClicked"
-            android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:paddingRight="20dp"
-            android:text="+ Lägg till frågor"
+            android:paddingTop="10dp"
+            android:text="@string/add_questions"
             android:textSize="18dp" />
 
         <TextView
@@ -87,21 +87,20 @@
             android:paddingBottom="10dp"
             android:paddingRight="20dp"
             android:paddingTop="10dp"
-            android:text="+ Lägg till utslagsfråga"
+            android:text="@string/add_tiebreaker"
             android:textSize="18dp" />
 
         <Button
             android:id="@+id/createQuizButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="450dp"
+            android:layout_alignParentTop="true"
             android:layout_marginRight="20dp"
+            android:layout_marginTop="450dp"
             android:ems="4"
             android:onClick="createQuiz"
-            android:text="Spara"
-            />
+            android:text="@string/save" />
 
     </RelativeLayout>
 </LinearLayout>

@@ -46,7 +46,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="80dp"
             android:ems="15"
-            android:hint="Skriv fråga här"
+            android:hint="@string/question_here"
             android:inputType="textMultiLine" />
 
         <TextView
@@ -56,14 +56,13 @@
             android:layout_alignTop="@+id/questionField"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="100dp"
+            android:onClick="removeOption"
             android:paddingBottom="5dp"
-            android:paddingTop="5dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
+            android:paddingTop="5dp"
             android:text="+"
-            android:textSize="24dp"
-            android:onClick="removeOption"
-            />
+            android:textSize="24dp" />
 
         <TextView
             android:id="@+id/number2"
@@ -125,7 +124,7 @@
             android:layout_marginLeft="50dp"
             android:layout_marginTop="100dp"
             android:ems="12"
-            android:hint="Lägg till alternativ"
+            android:hint="@string/add_alternative"
             android:inputType="textPersonName"
             android:maxLength="35"
             android:onClick="addOption" />
@@ -138,7 +137,7 @@
             android:layout_alignTop="@+id/option1Field"
             android:layout_marginTop="50dp"
             android:ems="12"
-            android:hint="Lägg till alternativ"
+            android:hint="@string/add_alternative"
             android:inputType="textPersonName"
             android:maxLength="35"
             android:onClick="addOption"
@@ -152,7 +151,7 @@
             android:layout_alignTop="@+id/option2Field"
             android:layout_marginTop="50dp"
             android:ems="12"
-            android:hint="Lägg till alternativ"
+            android:hint="@string/add_alternative"
             android:inputType="textPersonName"
             android:maxLength="35"
             android:onClick="addOption"
@@ -166,7 +165,7 @@
             android:layout_alignTop="@+id/option3Field"
             android:layout_marginTop="50dp"
             android:ems="12"
-            android:hint="Lägg till alternativ"
+            android:hint="@string/add_alternative"
             android:inputType="textPersonName"
             android:maxLength="35"
             android:onClick="addOption"
@@ -238,7 +237,7 @@
             android:layout_marginLeft="20dp"
             android:ems="9"
             android:onClick="addQuestion"
-            android:text="Lägg till fråga" />
+            android:text="@string/add_question" />
 
         <Button
             android:id="@+id/done"
@@ -248,7 +247,7 @@
             android:layout_marginTop="450dp"
             android:ems="9"
             android:onClick="questionsDone"
-            android:text="Klar" />
+            android:text="@string/done" />
 
     </RelativeLayout>
 </LinearLayout>
