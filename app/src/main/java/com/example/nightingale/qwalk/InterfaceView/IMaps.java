@@ -22,5 +22,6 @@ public interface IMaps {
     void showResults(Quiz quiz, Actor player, Actor bot, long quizTime);
     void initializeBot(QLocation location);
     void moveBot(QLocation location);
+    void setProgress(int current, int total);
 
 }

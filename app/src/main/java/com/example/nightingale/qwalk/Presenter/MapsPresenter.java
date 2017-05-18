@@ -134,4 +134,9 @@ public class MapsPresenter {
      */
     public void focusOn(QLocation location){ view.focusOn(location);}
 
+
+    public void setProgress(int current, int total) {
+        view.setProgress(current, total);
+    }
+
 }

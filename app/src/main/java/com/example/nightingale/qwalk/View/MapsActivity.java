@@ -17,6 +17,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.Display;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nightingale.qwalk.InterfaceView.IMaps;
@@ -66,6 +67,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private MapsPresenter presenter;
 
+    private TextView progress;
     private ImageView directionArrow;
     private ImageView bot;
 
@@ -97,6 +99,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        progress = (TextView) findViewById(R.id.progress);
 
         directionArrow = (ImageView) findViewById(R.id.arrow);
         directionArrow.setImageResource(R.drawable.direction);
@@ -221,15 +224,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             directionArrow.setX(screenWidth() / 2);
         }
         if (angle > 45 && angle <= 135) {
-            directionArrow.setY(screenHeight() / 2 - 100);
+            directionArrow.setY(screenHeight() / 2 - 80);
             directionArrow.setX(screenWidth() - 110);
         }
         if (angle > 135 && angle <= 225) {
-            directionArrow.setY(screenHeight() - 280);
+            directionArrow.setY(screenHeight() - 240);
             directionArrow.setX(screenWidth() / 2);
         }
         if (angle > 225 && angle <= 315) {
-            directionArrow.setY(screenHeight() / 2 - 100);
+            directionArrow.setY(screenHeight() / 2 - 80);
             directionArrow.setX(60);
         }
     }
@@ -438,6 +441,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Point size = new Point();
         display.getSize(size);
         return size.y;
+    }
+
+    /**
+     * Shows how many questions the player has answered of the total number of questions
+     *
+     * @param current Number of answered questions
+     * @param total Number of total questions in current quiz
+     */
+    public void setProgress(int current, int total) {
+        progress.setText(current + " av " + total);
     }
 
     /**

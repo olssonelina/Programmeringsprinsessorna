@@ -8,7 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.nightingale.qwalk.Model.DatabaseHandler;
@@ -38,6 +40,8 @@ public class RegisterActivity extends AppCompatActivity {
     EditText UsernameInput;
     EditText PasswordInput;
     EditText ConfirmPasswordInput;
+    Button registerbutton;
+    private ProgressBar spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +51,16 @@ public class RegisterActivity extends AppCompatActivity {
         PasswordInput   = (EditText)findViewById(R.id.passwordRegister);
         ConfirmPasswordInput   = (EditText)findViewById(R.id.confirmPasswordRegister);
 
+        registerbutton = (Button) findViewById(R.id.registerbutton);
+
+        spinner = (ProgressBar)findViewById(R.id.progressBar1);
+        spinner.setVisibility(View.GONE);
+
     }
 
-    public void SendButtonClicked(View view) {
-
+    public void RegisterButtonClicked(View view) {
+        registerbutton.setEnabled(false);
+        spinner.setVisibility(View.VISIBLE);
         if(PasswordInput.getText().toString().equals(ConfirmPasswordInput.getText().toString())) {
             new SendRequest().execute();
         }
@@ -126,8 +136,22 @@ public class RegisterActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
+            spinner.setVisibility(View.GONE);
+            registerbutton.setEnabled(true);
             result= result.replaceAll("\\s+","");
-if(result.equals("0")) {
+
+            if(result.equals("Exception:Unabletoresolvehost\""+ DatabaseHandler.getHost() + "\":Noaddressassociatedwithhostname")){
+
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_internet_ex),
+                        Toast.LENGTH_LONG).show();
+            }
+            else if(result == null){
+
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_failed_ex),
+                        Toast.LENGTH_LONG).show(); //"Connection Failed" -> "Uppkoppnilng misslyckades"
+            }
+
+            else if(result.equals("0")) {
     Toast.makeText(getApplicationContext(), getResources().getString(R.string.done),
             Toast.LENGTH_LONG).show(); // "Success" -> "Klar"
 
