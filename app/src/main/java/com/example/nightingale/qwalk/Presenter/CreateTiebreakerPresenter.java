@@ -28,19 +28,19 @@ public class CreateTiebreakerPresenter {
 
     private boolean validateQuestion(){
         int min = view.getLowerBounds(), max = view.getHigherBounds(), ans = view.getAnswer();
-        if (view.getLatitude() == 0 || view.getLongitude() == 0){
+        if (!Tiebreaker.validateLocation(view.getLatitude(), view.getLongitude())){
             view.sendError(ctx.getResources().getString(R.string.choose_position));
             return false;
         }
-        else if (min > max){
+        else if (!Tiebreaker.validateBounds(min, max)){
             view.sendError(ctx.getResources().getString(R.string.invalid_range));
             return false;
         }
-        else if (ans < min || max < ans){
+        else if (!Tiebreaker.validateAnswer(min, ans, max)){
             view.sendError(ctx.getResources().getString(R.string.out_of_range));
             return false;
         }
-        else if (view.getQuestionTitle().equals("")){
+        else if (!Tiebreaker.validateQuestion(view.getQuestionTitle())){
             view.sendError(ctx.getResources().getString(R.string.you_must_add_question));
             return false;
         }

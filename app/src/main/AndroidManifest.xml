@@ -49,11 +49,11 @@
         </activity>
 
         <activity android:name=".View.MapsActivity"
-            android:parentActivityName=".View.MenuActivity" >
+            android:parentActivityName=".View.QuizDetailsActivity" >
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".View.MenuActivity" />
+                android:value=".View.QuizDetailsActivity" />
         </activity>
 
         <activity android:name=".View.RegisterActivity"
@@ -161,19 +161,19 @@
         </activity>
 
         <activity android:name=".View.QuizDetailsActivity"
-            android:parentActivityName=".View.CreateQuizActivity" >
+            android:parentActivityName=".View.MenuActivity" >
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".View.CreateQuizActivity" />
+                android:value=".View.MenuActivity" />
         </activity>
 
         <activity android:name=".View.QuizSettingsActivity"
-            android:parentActivityName=".View.CreateQuizActivity" >
+            android:parentActivityName=".View.QuizDetailsActivity" >
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".View.CreateQuizActivity" />
+                android:value=".View.QuizDetailsActivity" />
         </activity>
 
     </application>

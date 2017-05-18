@@ -2,6 +2,12 @@ package com.example.nightingale.qwalk.Presenter;
 
 import android.content.Context;
 
+import com.example.nightingale.qwalk.Model.OptionQuestion;<<<<<<< HEAD
+import android.graphics.Path;
+=======
+import android.content.Context;
+>>>>>>> refs/remotes/origin/master
+
 import com.example.nightingale.qwalk.InterfaceView.ICreateOptionQuestion;
 import com.example.nightingale.qwalk.Model.OptionQuestion;
 import com.example.nightingale.qwalk.Model.Question;
@@ -47,13 +53,13 @@ public class CreateOptionQuestionPresenter {
     }
 
     private boolean validateQuestion() {
-        if (view.getQuestionTitle().equals("")) {
+        if (!OptionQuestion.validateQuestion(view.getQuestionTitle())) {
             view.sendError(ctx.getResources().getString(R.string.please_set_title));
-        } else if (!hasTwoOptions()) {
+        } else if (!OptionQuestion.validateOptions(view.getOptions())) {
             view.sendError(ctx.getResources().getString(R.string.please_add_alternatives));
         } else if (!view.hasAnswer()) {
             view.sendError(ctx.getResources().getString(R.string.choose_correct_answer));
-        } else if (view.getLongitude() == 0 && view.getLatitude() == 0) {
+        } else if (!OptionQuestion.validateLocation(view.getLatitude(), view.getLongitude())) {
             view.sendError(ctx.getResources().getString(R.string.choose_position));
         } else {
             return true;
@@ -61,17 +67,6 @@ public class CreateOptionQuestionPresenter {
         return false;
     }
 
-
-    private boolean hasTwoOptions() {
-        String[] options = view.getOptions();
-        int count = 0;
-        for (int i = 0; i < options.length; i++) {
-            if (!options[i].equals("")) {
-                count++;
-            }
-        }
-        return count >= 2;
-    }
 
     public void backButtonPressed(){
         view.closeWithResult(questions);

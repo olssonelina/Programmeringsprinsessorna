@@ -22,9 +22,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/title"
             android:layout_marginLeft="50dp"
-            android:textSize="18dp"
             android:layout_marginTop="35dp"
-            android:text="Göm frågor" />
+            android:onClick="checkBoxPressed"
+            android:text="Göm frågor"
+            android:textSize="18dp" />
 
         <CheckBox
             android:id="@+id/customOrder"
@@ -34,8 +35,9 @@
             android:layout_alignStart="@+id/hiddenQuestions"
             android:layout_below="@+id/hiddenQuestions"
             android:layout_marginTop="12dp"
-            android:textSize="18dp"
-            android:text="Egen ordning på frågor" />
+            android:onClick="checkBoxPressed"
+            android:text="Frågorna tas i ordning"
+            android:textSize="18dp" />
 
         <CheckBox
             android:id="@+id/questionTimer"
@@ -45,8 +47,9 @@
             android:layout_alignStart="@+id/customOrder"
             android:layout_below="@+id/customOrder"
             android:layout_marginTop="13dp"
-            android:textSize="18dp"
-            android:text="Tidtagning på frågor" />
+            android:onClick="checkBoxPressed"
+            android:text="Tidtagning på frågor"
+            android:textSize="18dp" />
 
         <CheckBox
             android:id="@+id/quizTimer"
@@ -56,8 +59,9 @@
             android:layout_alignStart="@+id/questionTimer"
             android:layout_below="@+id/questionTimer"
             android:layout_marginTop="15dp"
-            android:textSize="18dp"
-            android:text="Tidtagning på quiz" />
+            android:onClick="checkBoxPressed"
+            android:text="Tidtagning på quiz"
+            android:textSize="18dp" />
 
         <CheckBox
             android:id="@+id/bot"
@@ -67,10 +71,9 @@
             android:layout_alignStart="@+id/quizTimer"
             android:layout_below="@+id/quizTimer"
             android:layout_marginTop="13dp"
-            android:textSize="18dp"
+            android:onClick="checkBoxPressed"
             android:text="Spela mot apa"
-            android:onClick="enableChoosingLevel"
-            />
+            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/level"
@@ -88,11 +91,12 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_below="@+id/level"
-            android:layout_toLeftOf="@+id/medium"
             android:layout_marginTop="5dp"
-            android:text=""
+            android:layout_toLeftOf="@+id/medium"
+            android:background="@drawable/green"
             android:enabled="false"
-            android:background="@drawable/green"/>
+            android:onClick="difficultyPressed"
+            android:text="" />
 
         <Button
             android:id="@+id/medium"
@@ -100,20 +104,22 @@
             android:layout_height="80dp"
             android:layout_alignTop="@+id/easy"
             android:layout_centerHorizontal="true"
-            android:text=""
+            android:background="@drawable/yellow"
             android:enabled="false"
-            android:background="@drawable/yellow"/>
+            android:onClick="difficultyPressed"
+            android:text="" />
 
         <Button
             android:id="@+id/hard"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_marginLeft="0dp"
             android:layout_alignTop="@+id/easy"
+            android:layout_marginLeft="0dp"
             android:layout_toRightOf="@+id/medium"
-            android:text=""
+            android:background="@drawable/red"
             android:enabled="false"
-            android:background="@drawable/red"/>
+            android:onClick="difficultyPressed"
+            android:text="" />
 
 
     </RelativeLayout>

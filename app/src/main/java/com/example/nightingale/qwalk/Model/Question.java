@@ -39,6 +39,14 @@ public abstract class Question {
         return questionTitle;
     }
 
+    public static boolean validateQuestion(String question){
+        return !question.equals("");
+    }
+
+    public static boolean validateLocation(double latitude, double longitude){
+        return latitude != 0 && longitude != 0;
+    }
+
     @Override
     public abstract boolean equals(Object o);
     //public QLocation getQLocation() {return new QLocation(location); };

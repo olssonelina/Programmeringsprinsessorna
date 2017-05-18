@@ -6,7 +6,7 @@ package com.example.nightingale.qwalk.Model;
 
 public abstract class Actor {
 
-    int[] answers;
+    protected int[] answers;
 
     public Actor(){}
 
