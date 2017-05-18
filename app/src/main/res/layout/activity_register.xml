@@ -1,47 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/usernameRegister"
-        android:layout_width="wrap_content"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:ems="15"
-        android:hint="@string/username"
-        android:inputType="textPersonName" />
+        android:scaleType="centerCrop"
+        android:src="@drawable/login"
+        map:srcCompat="@drawable/login" />
 
-    <EditText
-        android:id="@+id/passwordRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:ems="15"
-        android:hint="@string/password"
-        android:inputType="textPassword" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/confirmPasswordRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp"
-        android:ems="15"
-        android:hint="@string/repeat_password"
-        android:inputType="textPassword" />
+        <EditText
+            android:id="@+id/usernameRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="23dp"
+            android:ems="15"
+            android:hint="@string/username"
+            android:inputType="textPersonName"
+            android:layout_above="@+id/passwordRegister"
+            android:layout_centerHorizontal="true" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="220dp"
-        android:background="@android:color/holo_green_light"
-        android:ems="10"
-        android:onClick="SendButtonClicked"
-        android:text="@string/register" />
+        <EditText
+            android:id="@+id/passwordRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="15"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:layout_marginBottom="21dp"
+            android:layout_above="@+id/confirmPasswordRegister"
+            android:layout_alignLeft="@+id/confirmPasswordRegister"
+            android:layout_alignStart="@+id/confirmPasswordRegister" />
 
-</RelativeLayout>
+        <EditText
+            android:id="@+id/confirmPasswordRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="15"
+            android:hint="@string/repeat_password"
+            android:inputType="textPassword"
+            android:layout_above="@+id/registerbutton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="40dp" />
+
+        <Button
+            android:id="@+id/registerbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:background="#FF09C856"
+            android:ems="10"
+            android:onClick="RegisterButtonClicked"
+            android:text="@string/register"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="187dp" />
+
+        <ProgressBar
+            android:id="@+id/progressBar1"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="271dp"
+            android:layout_height="213dp"
+            android:layout_marginBottom="20dp"
+            android:layout_above="@+id/registerbutton"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
+</FrameLayout>

@@ -37,7 +37,8 @@
             android:layout_marginLeft="180dp"
             android:ems="10"
             android:onClick="optionPressed"
-            android:text="Alternativ 2" />
+            android:text="Alternativ 2"
+            />
 
         <Button
             android:id="@+id/option3"
@@ -68,8 +69,10 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="40dp"
             android:ems="15"
+            android:enabled="false"
             android:onClick="submitAnswer"
-            android:text="@string/answer" />
+            android:text="@string/answer"
+            />
 
     </RelativeLayout>
 </LinearLayout>

@@ -57,4 +57,14 @@
     <string name="minutes_and"> minuter och </string>
     <string name="save">Spara</string>
     <string name="settings">Inställningar</string>
+    <string name="next_question">Nästa fråga!</string>
+    <string name="no_existing_username">Användarnamnet finns inte</string>
+    <string name="already_friends">Du är redan vän med den personen</string>
+    <string name="friend_added">Vän tillagd</string>
+    <string name="please_set_title">Skriv titel på frågan</string>
+    <string name="please_add_alternatives">Skriv minst 2 alternativ</string>
+    <string name="choose_position">Välj position!</string>
+    <string name="invalid_range">Ogiligt intervall</string>
+    <string name="out_of_range">Svaret ligger utanför intervallet!</string>
+    <string name="you_must_add_question">Du måste ange en fråga!</string>
 </resources>

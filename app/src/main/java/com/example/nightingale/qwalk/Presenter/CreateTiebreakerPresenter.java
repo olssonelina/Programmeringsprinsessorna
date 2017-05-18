@@ -1,7 +1,10 @@
 package com.example.nightingale.qwalk.Presenter;
 
+import android.content.Context;
+
 import com.example.nightingale.qwalk.InterfaceView.ICreateTiebreaker;
 import com.example.nightingale.qwalk.Model.Tiebreaker;
+import com.example.nightingale.qwalk.R;
 
 /**
  * Created by Kraft on 2017-05-10.
@@ -10,6 +13,8 @@ import com.example.nightingale.qwalk.Model.Tiebreaker;
 public class CreateTiebreakerPresenter {
 
     private ICreateTiebreaker view;
+
+    private static Context ctx;
 
     public CreateTiebreakerPresenter(ICreateTiebreaker view ){
         this.view = view;
@@ -24,19 +29,19 @@ public class CreateTiebreakerPresenter {
     private boolean validateQuestion(){
         int min = view.getLowerBounds(), max = view.getHigherBounds(), ans = view.getAnswer();
         if (!Tiebreaker.validateLocation(view.getLatitude(), view.getLongitude())){
-            view.sendError("Lägg till en position!");
+            view.sendError(ctx.getResources().getString(R.string.choose_position));
             return false;
         }
         else if (!Tiebreaker.validateBounds(min, max)){
-            view.sendError("Ogiligt intervall");
+            view.sendError(ctx.getResources().getString(R.string.invalid_range));
             return false;
         }
         else if (!Tiebreaker.validateAnswer(min, ans, max)){
-            view.sendError("Svaret ligger utanför intervallet!");
+            view.sendError(ctx.getResources().getString(R.string.out_of_range));
             return false;
         }
         else if (!Tiebreaker.validateQuestion(view.getQuestionTitle())){
-            view.sendError("Du måste ange en fråga!");
+            view.sendError(ctx.getResources().getString(R.string.you_must_add_question));
             return false;
         }
             return true;

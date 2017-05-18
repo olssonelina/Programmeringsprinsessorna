@@ -9,8 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.nightingale.qwalk.InterfaceView.IAnswerOption;
+import com.example.nightingale.qwalk.Model.AI;
 import com.example.nightingale.qwalk.Model.OptionQuestion;
-import com.example.nightingale.qwalk.Model.Question;
 import com.example.nightingale.qwalk.Presenter.AnswerOptionPresenter;
 import com.example.nightingale.qwalk.R;
 
@@ -24,7 +24,7 @@ public class AnswerOptionActivity extends AppCompatActivity implements IAnswerOp
     private AnswerOptionPresenter presenter;
 
     private Button[] optionButtons = new Button[4];
-    private Button submitButton;
+    private Button saveAnswer;
     private TextView title;
 
     private static final int selectedColour = Color.BLUE;
@@ -36,38 +36,54 @@ public class AnswerOptionActivity extends AppCompatActivity implements IAnswerOp
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answeroption);
 
-        title = ((TextView)findViewById(R.id.question));
+        title = ((TextView) findViewById(R.id.question));
 
-        optionButtons[0] = (Button)findViewById(R.id.option1);
-        optionButtons[1] = (Button)findViewById(R.id.option2);
-        optionButtons[2] = (Button)findViewById(R.id.option3);
-        optionButtons[3] = (Button)findViewById(R.id.option4);
+        optionButtons[0] = (Button) findViewById(R.id.option1);
+        optionButtons[1] = (Button) findViewById(R.id.option2);
+        optionButtons[2] = (Button) findViewById(R.id.option3);
+        optionButtons[3] = (Button) findViewById(R.id.option4);
 
-        submitButton = (Button)findViewById(R.id.saveAnswer);
+        saveAnswer = (Button) findViewById(R.id.saveAnswer);
 
         Intent i = getIntent();
         OptionQuestion question = i.getParcelableExtra("question");
-        presenter = new AnswerOptionPresenter(this, question);
 
+        try {
+            AI ai = i.getParcelableExtra("ai");
+            presenter = new AnswerOptionPresenter(this, question, ai);
+        } catch (NullPointerException e) {
+            presenter = new AnswerOptionPresenter(this, question, null);
+        }
     }
 
-    public void optionPressed(View view){
+    public void optionPressed(View view) {
         for (int i = 0; i < optionButtons.length; i++) {
-            if (optionButtons[i].equals(view)){
+            if (optionButtons[i].equals(view)) {
                 presenter.optionPressed(i);
                 break;
             }
         }
     }
 
-
     public void submitAnswer(View view) {
-        presenter.closePressed();
+        presenter.submitClicked();
+    }
+
+    public void showBotAnswer(int index) {
+        optionButtons[index].setBackgroundResource(R.drawable.monkeyanswer);
+    }
+
+    public String getButtonText() {
+        return saveAnswer.getText().toString();
+    }
+
+    public void setButtonText() {
+        saveAnswer.setText("Stäng");
     }
 
     @Override
     public void setOptions(String[] options) {
-        for (Button b : optionButtons){
+        for (Button b : optionButtons) {
             b.setEnabled(false);
         }
 
@@ -79,7 +95,7 @@ public class AnswerOptionActivity extends AppCompatActivity implements IAnswerOp
 
     @Override
     public void setOptionColour(int index, boolean isSelectedColour) {
-        optionButtons[index].setBackgroundColor( isSelectedColour ? selectedColour : deselectedColour);
+        optionButtons[index].setBackgroundColor(isSelectedColour ? selectedColour : deselectedColour);
     }
 
     @Override
@@ -93,7 +109,7 @@ public class AnswerOptionActivity extends AppCompatActivity implements IAnswerOp
 
     @Override
     public void setCloseButtonEnabled(boolean enabled) {
-        submitButton.setEnabled(enabled);
+        saveAnswer.setEnabled(enabled);
     }
 
     @Override
