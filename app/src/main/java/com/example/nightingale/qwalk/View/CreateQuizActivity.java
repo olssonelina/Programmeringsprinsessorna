@@ -125,7 +125,7 @@ public class CreateQuizActivity extends AppCompatActivity {
             QuestionIDArray = new ArrayList<Integer>();
             counter = 0;
 
-
+            questions.add(tiebreaker);
 
 
             for (int i = 0; i < questions.size(); i++) {
