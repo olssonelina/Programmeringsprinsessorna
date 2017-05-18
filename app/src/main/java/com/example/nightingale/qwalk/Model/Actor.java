@@ -8,6 +8,8 @@ public abstract class Actor {
 
     int[] answers;
 
+    public Actor(){}
+
     public Actor(int quizLength) {
         this.answers = new int[quizLength];
     }
