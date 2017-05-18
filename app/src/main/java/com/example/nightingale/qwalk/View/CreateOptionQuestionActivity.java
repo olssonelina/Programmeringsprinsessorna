@@ -306,7 +306,7 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
     public void closeWithResult(ArrayList<Question> questions) {
         Intent returnIntent = new Intent();
         returnIntent.putExtra("questions", questions);
-        setResult(GetPositionActivity.RESULT_OK, returnIntent);
+        setResult(RESULT_OK, returnIntent);
         finish();
     }
 

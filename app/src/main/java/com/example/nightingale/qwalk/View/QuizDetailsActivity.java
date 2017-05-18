@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.nightingale.qwalk.InterfaceView.IQuizDetails;
 import com.example.nightingale.qwalk.Model.Quiz;
+import com.example.nightingale.qwalk.Model.QuizDifficulty;
 import com.example.nightingale.qwalk.Model.QuizSetting;
 import com.example.nightingale.qwalk.Presenter.QuizDetailsPresenter;
 import com.example.nightingale.qwalk.R;
@@ -56,7 +57,13 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
     }
 
     public void onSettingsPressed(View view) {
+        presenter.settingsPressed();
+    }
+
+    @Override
+    public void openSettings(Quiz quiz) {
         Intent intent = new Intent(this, QuizSettingsActivity.class);
+        intent.putExtra("quiz", quiz);
         startActivityForResult(intent, QUIZ_SETTING_CODE);
     }
 
@@ -90,10 +97,24 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == QUIZ_SETTING_CODE) {
-            ArrayList<QuizSetting> trueSettings = (ArrayList<QuizSetting>) data.getExtras().get("trueSettings");
-            ArrayList<QuizSetting> falseSettings = (ArrayList<QuizSetting>) data.getExtras().get("falseSettings");
+            ArrayList<QuizSetting> trueSettings = (ArrayList<QuizSetting>) data.getExtras().get("setTrue");
+            ArrayList<QuizSetting> falseSettings = (ArrayList<QuizSetting>) data.getExtras().get("setFalse");
 
-            presenter.settingsChanged((QuizSetting[]) trueSettings.toArray(), (QuizSetting[]) falseSettings.toArray());
+            Object[] tso = trueSettings.toArray();
+            QuizSetting[] tsqs = new QuizSetting[tso.length];
+            for (int i = 0; i < tso.length; i++) {
+                tsqs[i] = (QuizSetting) tso[i];
+            }
+
+            Object[] fso = falseSettings.toArray();
+            QuizSetting[] fsqs = new QuizSetting[fso.length];
+            for (int i = 0; i < fso.length; i++) {
+                fsqs[i] = (QuizSetting) fso[i];
+            }
+
+            presenter.settingsChanged(tsqs, fsqs);
+
+            presenter.difficultyChanged((QuizDifficulty) data.getExtras().get("difficulty"));
         }
     }
 

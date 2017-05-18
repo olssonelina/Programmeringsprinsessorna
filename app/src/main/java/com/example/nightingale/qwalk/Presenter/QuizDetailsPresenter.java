@@ -2,6 +2,7 @@ package com.example.nightingale.qwalk.Presenter;
 
 import com.example.nightingale.qwalk.InterfaceView.IQuizDetails;
 import com.example.nightingale.qwalk.Model.Quiz;
+import com.example.nightingale.qwalk.Model.QuizDifficulty;
 import com.example.nightingale.qwalk.Model.QuizSetting;
 
 /**
@@ -31,12 +32,20 @@ public class QuizDetailsPresenter {
         }
     }
 
+    public void difficultyChanged(QuizDifficulty difficulty){
+        quiz.setDifficulty(difficulty);
+    }
+
     public void playPressed(){
         view.playQuiz(quiz);
     }
 
     public void editPressed(){
         view.editQuiz(quiz);
+    }
+
+    public void settingsPressed(){
+        view.openSettings(quiz);
     }
 
 }
