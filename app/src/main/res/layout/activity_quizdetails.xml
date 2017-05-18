@@ -32,28 +32,30 @@
             android:id="@+id/play"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:text=""
-            android:background="@drawable/play"
             android:layout_marginLeft="190dp"
-            android:layout_marginTop="250dp"/>
+            android:layout_marginTop="250dp"
+            android:background="@drawable/play"
+            android:onClick="onPlayPressed"
+            android:text="" />
 
         <Button
             android:id="@+id/edit"
             android:layout_width="110dp"
             android:layout_height="110dp"
-            android:text=""
-            android:background="@drawable/pen"
-            android:layout_marginLeft="-120dp"
             android:layout_alignBottom="@+id/play"
             android:layout_alignLeft="@+id/play"
-             />
+            android:layout_marginLeft="-120dp"
+            android:background="@drawable/pen"
+            android:onClick="onEditPressed"
+            android:text="" />
 
         <ImageView
             android:id="@+id/settings"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginTop="10dp"
             android:layout_marginLeft="310dp"
+            android:layout_marginTop="10dp"
+            android:onClick="onSettingsPressed"
             android:padding="5dp"
             app:srcCompat="@drawable/settings" />
     </RelativeLayout>

@@ -30,9 +30,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -217,19 +215,20 @@ public class MenuActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                play(position);
+                showDetails(position);
             }
         });
     }
 
-    private void play(Quiz quiz) {
-        Intent intent = new Intent(this, MapsActivity.class);
+    private void showDetails(Quiz quiz) {
+        Intent intent = new Intent(this, QuizDetailsActivity.class);
         intent.putExtra("quiz", quiz);
+        intent.putExtra("editable", true); //TODO ska inte alltid vara editable
         startActivity(intent);
     }
 
-    private void play(int index) {
-        play(quizzes.get(index));
+    private void showDetails(int index) {
+        showDetails(quizzes.get(index));
     }
 
     public void createButtonPressed(View view) {
