@@ -24,18 +24,17 @@
             android:id="@+id/addfriendbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/list"
+            android:layout_alignEnd="@+id/friendsList"
             android:layout_alignParentTop="true"
-            android:layout_alignRight="@+id/list"
+            android:layout_alignRight="@+id/friendsList"
             android:layout_marginTop="30dp"
-
             android:background="#FF09C856"
             android:ems="10"
             android:onClick="AddFriendButtonClicked"
             android:text="@string/add_friend" />
 
-        <EditText
-            android:id="@+id/editText"
+        <TextView
+            android:id="@+id/friendTitle"
             android:layout_width="105dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/addfriendbutton"
@@ -49,9 +48,9 @@
             android:id="@+id/friendusername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/editText"
-            android:layout_alignLeft="@+id/list"
-            android:layout_alignStart="@+id/list"
+            android:layout_above="@+id/friendTitle"
+            android:layout_alignLeft="@+id/friendsList"
+            android:layout_alignStart="@+id/friendsList"
             android:layout_alignTop="@+id/addfriendbutton"
             android:layout_toLeftOf="@+id/addfriendbutton"
             android:layout_toStartOf="@+id/addfriendbutton"
@@ -61,12 +60,12 @@
             android:text="" />
 
         <ListView
-            android:id="@+id/list"
+            android:id="@+id/friendsList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/editText"
+            android:layout_below="@+id/friendTitle"
             android:layout_alignParentBottom="true" />
 
         <ProgressBar
@@ -74,7 +73,7 @@
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="265dp"
             android:layout_height="259dp"
-            android:layout_below="@+id/editText"
+            android:layout_below="@+id/friendTitle"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="34dp" />
 

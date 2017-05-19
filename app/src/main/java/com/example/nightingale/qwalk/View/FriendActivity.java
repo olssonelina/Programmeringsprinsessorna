@@ -1,12 +1,8 @@
 package com.example.nightingale.qwalk.View;
 
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,29 +11,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.nightingale.qwalk.Model.DatabaseHandler;
-import com.example.nightingale.qwalk.Model.OptionQuestion;
-import com.example.nightingale.qwalk.Model.Question;
-import com.example.nightingale.qwalk.Model.Quiz;
 import com.example.nightingale.qwalk.Model.Account;
-import com.example.nightingale.qwalk.Model.StandardQuizzes;
 import com.example.nightingale.qwalk.R;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.net.ssl.HttpsURLConnection;
 
 /**
  * Created by Nightingale on 2017-05-16.
@@ -69,7 +44,7 @@ public class FriendActivity extends AppCompatActivity{
 
 
     private void loadList() {
-        listView = (ListView) findViewById(R.id.list);
+        listView = (ListView) findViewById(R.id.friendsList);
         String[] values = new String[Account.getInstance().getFriends().size()];
         for (int i = 0; i < values.length; i++) {
             values[i] = Account.getInstance().getFriends().get(i);

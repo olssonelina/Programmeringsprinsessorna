@@ -33,9 +33,6 @@ public class QuizSettingsPresenter {
 
     public void setSetting(QuizSetting setting, boolean value) {
         switch (setting) {
-            default:
-                throw new IllegalArgumentException("No such setting!");
-
             case IS_HIDDEN:
                 hiddenQuestions = value;
                 break;
@@ -56,6 +53,9 @@ public class QuizSettingsPresenter {
                 withBot = value;
                 view.setDifficultiesVisible(value);
                 break;
+
+            default:
+                throw new IllegalArgumentException("No such setting!");
         }
     }
 

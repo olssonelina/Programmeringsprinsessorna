@@ -5,81 +5,126 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/addfriendbutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:background="@android:color/holo_green_light"
-            android:ems="10"
-            android:onClick="createButtonPressed"
-            android:text="@string/create_your_own_quiz" />
-
-        <ListView
-            android:id="@+id/list"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_below="@+id/editText"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/addfriendbutton"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="30dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="@string/choose_a_qwalk" />
+            <Button
+                android:id="@+id/addfriendbutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="25dp"
+                android:background="@android:color/holo_green_light"
+                android:ems="10"
+                android:onClick="createButtonPressed"
+                android:text="@string/create_your_own_quiz" />
 
-        <ImageView
-            android:id="@+id/settings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/settings"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:padding="5dp"
-            android:onClick="loadSettings"/>
 
-        <ImageView
-            android:id="@+id/help"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:padding="5dp"
-            android:onClick="loadHelp"
-            app:srcCompat="@android:drawable/ic_menu_help" />
 
-        <ImageView
-            android:id="@+id/friends"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/list"
-            android:layout_alignLeft="@+id/help"
-            android:layout_alignStart="@+id/help"
-            android:layout_below="@+id/addfriendbutton"
-            android:layout_toLeftOf="@+id/editText"
-            android:layout_toStartOf="@+id/editText"
-            android:onClick="loadFriends"
-            app:srcCompat="@drawable/friends" />
+            <ImageView
+                android:id="@+id/help"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:onClick="loadHelp"
+                android:padding="15dp"
+                app:srcCompat="@android:drawable/ic_menu_help" />
 
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/friends"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:onClick="loadFriends"
+                app:srcCompat="@drawable/friends" />
+
+            <TextView
+                android:id="@+id/menuTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/addfriendbutton"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="30dp"
+                android:textSize="24dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="@string/choose_a_qwalk" />
+
+            <TextView
+                android:id="@+id/userListText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_below="@+id/menuTitle"
+                android:layout_alignTop="@+id/menuTitle"
+                android:layout_marginTop="50dp"
+                android:textSize="18dp"
+                android:text="Dina Qwalks" />
+
+            <ListView
+                android:id="@+id/userList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/userListText"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:scrollbars="none" />
+
+            <TextView
+                android:id="@+id/friendsListText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vänners Qwalks"
+                android:layout_marginLeft="30dp"
+                android:textSize="18dp"
+                android:layout_below="@+id/userList"
+                />
+
+            <ListView
+                android:id="@+id/otherList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignLeft="@+id/friendsListText"
+                android:layout_below="@+id/friendsListText"
+                android:layout_marginRight="20dp"
+                android:scrollbars="none" />
+
+            <TextView
+                android:id="@+id/standardListText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/otherList"
+                android:layout_marginLeft="30dp"
+                android:textSize="18dp"
+                android:text="Utvalda Qwalks" />
+
+
+            <ListView
+                android:id="@+id/standardList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignLeft="@+id/friendsListText"
+                android:layout_below="@+id/standardListText"
+                android:layout_marginRight="20dp"
+                android:scrollbars="none" />
+        </RelativeLayout>
+    </ScrollView>
+
 </LinearLayout>

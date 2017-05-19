@@ -90,7 +90,7 @@ public class OptionQuestion extends Question implements Parcelable  {
         options[3] = option4;
 
         for (int i = 0; i < options.length ; i++) {
-            if (options[i] != "") {
+            if (!options[i].equals("")) {
                 numberOfOptions++;
             }
         }
