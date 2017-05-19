@@ -19,11 +19,9 @@ public final class StandardQuizzes {
 
     public static Quiz getChalmersQuiz(){
 
-        Quiz q = new Quiz("Chalmersquiz - vanligt","Trivia om Chalmers och dess campus!");
+        Quiz q = new Quiz("Chalmersquiz","Trivia om Chalmers och dess campus!");
 
         List<Question> questions = new ArrayList<>();
-
-        questions.add(new Tiebreaker("Hur gammal är byggnaden?", 45, 11.978703, 57.688447, 20, 60));
 
         questions.add(new OptionQuestion("Vilken sektion har sin sektionslokal här?", "Data", "Informationsteknik", "Elektro", "Maskin", 1,57.688290, 11.979162));
 

@@ -16,13 +16,11 @@ public class AnswerOptionPresenter {
     private IAnswerOption view;
     private int chosenAnswer = 0;
     private OptionQuestion question;
-    private AI ai;
+    private int aiAnswer = -1;
 
-    public AnswerOptionPresenter(IAnswerOption view, OptionQuestion question, AI ai) {
+    public AnswerOptionPresenter(IAnswerOption view, OptionQuestion question) {
         this.view = view;
         this.question = question;
-        this.ai = ai;
-
         view.setTitle(question.getQuestionTitle());
 
         //TODO det borde vara en array från början
@@ -33,6 +31,13 @@ public class AnswerOptionPresenter {
             view.setOptionColour(i, false);
         }
     }
+
+    public AnswerOptionPresenter(IAnswerOption view, OptionQuestion question, int aiAnswer){
+        this(view, question);
+        this.aiAnswer = aiAnswer;
+    }
+
+
 
     public void optionPressed(int index) {
         view.setCloseButtonEnabled(true);
@@ -46,8 +51,8 @@ public class AnswerOptionPresenter {
     public void submitClicked() {
         if (view.getButtonText().equals("Svara")) {
             view.setButtonText();
-            if (ai != null) {
-                view.showBotAnswer(ai.getAnswer(question));
+            if (aiAnswer != -1) {
+                view.showBotAnswer(aiAnswer);
             }
         } else {
             view.closeWithResult(chosenAnswer, question);
