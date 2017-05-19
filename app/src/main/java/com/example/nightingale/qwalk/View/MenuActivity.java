@@ -87,12 +87,9 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     private void loadFeaturedQuizzes() {
-        //quizzes.add(StandardQuizzes.getMachineStudyRoomsQuiz());
+        featuredQuizzes.add(StandardQuizzes.getMachineStudyRoomsQuiz());
         featuredQuizzes.add(StandardQuizzes.getChalmersQuiz());
-        featuredQuizzes.add(StandardQuizzes.getHiddenChalmersQuiz());
-        featuredQuizzes.add(StandardQuizzes.getAllChalmersQuiz());
-
-        //quizzes.add(StandardQuizzes.getAdressQuiz());
+        featuredQuizzes.add(StandardQuizzes.getAdressQuiz());
     }
 
     private void loadOnlineQuizzes(int UserID, List<Quiz> currentQuizList) {

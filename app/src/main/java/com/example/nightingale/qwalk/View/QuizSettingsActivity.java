@@ -124,9 +124,6 @@ public class QuizSettingsActivity extends AppCompatActivity implements IQuizSett
     @Override
     public void setChecked(QuizSetting quizSetting, boolean value) {
         switch (quizSetting){
-            default:
-                throw new IllegalArgumentException("No such setting!");
-
             case IN_ORDER:
                 inOrder.setChecked(value);
                 break;
@@ -146,6 +143,9 @@ public class QuizSettingsActivity extends AppCompatActivity implements IQuizSett
             case WITH_BOT:
                 bot.setChecked(value);
                 break;
+
+            default:
+                throw new IllegalArgumentException("No such setting!");
         }
     }
 }
