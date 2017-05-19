@@ -83,7 +83,11 @@ public class MenuActivity extends AppCompatActivity {
 
         loadUserList();
         loadFeaturedList();
+        if(!(friendList == null)) {
+
+
         loadFriendsList();
+        }
     }
 
     private void loadFeaturedQuizzes() {
@@ -254,6 +258,7 @@ else if(questiontype == 1){
     }
 
     private void loadFriendsList() {
+
         friendListTitle.setVisibility(friendQuizzes.size() == 0 ? View.INVISIBLE : View.VISIBLE);
         if (friendQuizzes.size() == 0) {return;}
 
@@ -265,17 +270,18 @@ else if(questiontype == 1){
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, values);
 
-        friendList.setAdapter(adapter);
+    friendList.setAdapter(adapter);
 
-        friendList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    friendList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                showDetails(position, friendQuizzes);
-            }
-        });
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            showDetails(position, friendQuizzes);
+        }
+    });
 
-        setListViewHeightBasedOnItems(friendList);
+    setListViewHeightBasedOnItems(friendList);
+
 
     }
 

@@ -26,7 +26,6 @@
                 android:text="@string/create_your_own_quiz" />
 
 
-
             <ImageView
                 android:id="@+id/help"
                 android:layout_width="wrap_content"
@@ -47,8 +46,8 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
-                android:padding="5dp"
                 android:onClick="loadFriends"
+                android:padding="5dp"
                 app:srcCompat="@drawable/friends" />
 
             <TextView
@@ -60,21 +59,21 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="30dp"
-                android:textSize="24dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="@string/choose_a_qwalk" />
+                android:text="@string/choose_a_qwalk"
+                android:textSize="24dp" />
 
             <TextView
                 android:id="@+id/userListText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_below="@+id/menuTitle"
                 android:layout_alignTop="@+id/menuTitle"
+                android:layout_below="@+id/menuTitle"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="50dp"
-                android:textSize="18dp"
-                android:text="Dina Qwalks" />
+                android:text="Dina Qwalks"
+                android:textSize="18dp" />
 
             <ListView
                 android:id="@+id/userList"
@@ -91,11 +90,10 @@
                 android:id="@+id/friendsListText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Vänners Qwalks"
-                android:layout_marginLeft="30dp"
-                android:textSize="18dp"
                 android:layout_below="@+id/userList"
-                />
+                android:layout_marginLeft="30dp"
+                android:text="Vänners Qwalks"
+                android:textSize="18dp" />
 
             <ListView
                 android:id="@+id/otherList"
@@ -112,8 +110,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/otherList"
                 android:layout_marginLeft="30dp"
-                android:textSize="18dp"
-                android:text="Utvalda Qwalks" />
+                android:text="Utvalda Qwalks"
+                android:textSize="18dp" />
 
 
             <ListView
