@@ -16,7 +16,6 @@ public class QwalkGame implements IOnAIMoveListener {
     //
     private MapsPresenter presenter;
     private Quiz quiz;
-    private QLocation userLocation = new QLocation(0, 0); //TODO ha denna tills user har en egen klass
     private List<Question> currentQuestions = new ArrayList<>();
     private int answeredQuestions;
     private Player player;
@@ -146,10 +145,10 @@ public class QwalkGame implements IOnAIMoveListener {
      * @param userLocation
      */
     public void update(QLocation userLocation) {
-        if (this.userLocation.equals(new QLocation(0,0))){
+        if (player.getLocation().equals(new QLocation(0,0))){
             presenter.focusOn(userLocation);
         }
-        this.userLocation = userLocation;
+        player.updateLocation(userLocation);
 
         List<Question> questionsInRange = questionsInRange(currentQuestions);
         if (questionsInRange.size() > 0) {
@@ -169,7 +168,7 @@ public class QwalkGame implements IOnAIMoveListener {
     private List<Question> questionsInRange(List<Question> questions) {
         List<Question> questionsInRange = new ArrayList<>();
         for (Question q : questions) {
-            if (q.getLocation().distanceTo(userLocation) <= IN_RANGE) {
+            if (q.getLocation().distanceTo(player.getLocation()) <= IN_RANGE) {
                 questionsInRange.add(q);
             }
         }
@@ -178,11 +177,11 @@ public class QwalkGame implements IOnAIMoveListener {
 
     public Question getClosestQuestion() {
         Question a = currentQuestions.get(0);
-        double distance = userLocation.distanceTo(a.getLocation());
+        double distance = player.getLocation().distanceTo(a.getLocation());
 
         for (Question q : currentQuestions) {
-            if (q != a && q.getLocation().distanceTo(userLocation) < distance) {
-                distance = q.getLocation().distanceTo(userLocation);
+            if (q != a && q.getLocation().distanceTo(player.getLocation()) < distance) {
+                distance = q.getLocation().distanceTo(player.getLocation());
                 a = q;
             }
         }
