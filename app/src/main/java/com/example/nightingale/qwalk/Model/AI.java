@@ -13,10 +13,11 @@ import java.util.Random;
 
 public class AI extends Actor implements Parcelable, Runnable {
 
-    Quiz quiz;
-    List<Question> questions = quiz.getQuestions();
-    ArrayList<Integer> correctAnswers = quiz.getCorrectAnswers();
+    //Quiz quiz;
+    //List<Question> questions = quiz.getQuestions();
+    //ArrayList<Integer> correctAnswers = quiz.getCorrectAnswers();
     ArrayList<Integer> monkeyAnswers = new ArrayList<>();
+    int level;
 
     private int score;
     GameTimer timer = new GameTimer();
@@ -24,9 +25,11 @@ public class AI extends Actor implements Parcelable, Runnable {
     List<IOnAIMoveListener> listeners = new ArrayList<>();
 
 
-    public AI(Quiz quiz, int level) {
+    public AI(int[] correctAnswers, int[] low, int[] high, int level) {
         super(0);
-        this.quiz = quiz;
+        this.level=level;
+        setAnswers(correctAnswers, low, high);
+        //this.quiz = quiz;
         timer.startTimer();
     }
 
@@ -39,8 +42,8 @@ public class AI extends Actor implements Parcelable, Runnable {
         }
     }
 
-    public int getAnswer(Question question) {
-        int index = quiz.getQuestionIndex(question);
+    public int getAnswer(int index) {
+        //int index = quiz.getQuestionIndex(question);
         return monkeyAnswers.get(index);
     }
 
@@ -52,7 +55,7 @@ public class AI extends Actor implements Parcelable, Runnable {
         return monkeyAnswers.size();
     }
 
-    public ArrayList<Integer> setAnswers(int level) {
+    private ArrayList<Integer> setAnswers(int[] correctAnswers, int[] low, int[] high) {
         for (int i = 0; i < correctAnswers.size(); i++) {
             if (level > randomInt()) {
                 monkeyAnswers.add(correctAnswers.get(i));

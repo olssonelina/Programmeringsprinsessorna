@@ -139,4 +139,6 @@ public class MapsPresenter {
         view.setProgress(current, total);
     }
 
+    public int getQuestionIndex(Question question){ return model.getQuestionIndex(question);}
+
 }

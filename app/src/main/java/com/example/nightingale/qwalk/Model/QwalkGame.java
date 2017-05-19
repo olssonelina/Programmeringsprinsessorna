@@ -203,4 +203,8 @@ public class QwalkGame implements IOnAIMoveListener {
     public void AIMoved(QLocation location) {
         presenter.moveBot(location);
     }
+
+    public int getQuestionIndex(Question question){
+        return quiz.getQuestionIndex(question);
+    }
 }

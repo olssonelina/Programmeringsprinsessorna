@@ -16,12 +16,14 @@ public class AnswerOptionPresenter {
     private IAnswerOption view;
     private int chosenAnswer = 0;
     private OptionQuestion question;
+    private int questionIndex;
     private AI ai;
 
-    public AnswerOptionPresenter(IAnswerOption view, OptionQuestion question, AI ai) {
+    public AnswerOptionPresenter(IAnswerOption view, OptionQuestion question, int questionIndex, AI ai) {
         this.view = view;
         this.question = question;
         this.ai = ai;
+        this.questionIndex=questionIndex;
 
         view.setTitle(question.getQuestionTitle());
 
@@ -47,7 +49,7 @@ public class AnswerOptionPresenter {
         if (view.getButtonText().equals("Svara")) {
             view.setButtonText();
             if (ai != null) {
-                view.showBotAnswer(ai.getAnswer(question));
+                view.showBotAnswer(ai.getAnswer(questionIndex));
             }
         } else {
             view.closeWithResult(chosenAnswer, question);

@@ -292,6 +292,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             if (currentQuestion instanceof OptionQuestion) {
                 Intent intent = new Intent(getBaseContext(), AnswerOptionActivity.class);
                 intent.putExtra("question", (OptionQuestion) currentQuestion);
+                intent.putExtra("questionIndex", presenter.getQuestionIndex(currentQuestion));
                 startActivityForResult(intent, ANSWER_CODE);
             }
 
