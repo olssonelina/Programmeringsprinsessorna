@@ -1,5 +1,6 @@
 package com.example.nightingale.qwalk.View;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -7,9 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ActionMenuView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nightingale.qwalk.Model.DatabaseHandler;
@@ -49,32 +55,47 @@ public class MenuActivity extends AppCompatActivity {
     int userid;
     private Tiebreaker tiebreaker;
 
-    private ListView listView;
+    private ListView userList, friendList, featuredList;
+    private TextView userListTitle, friendListTitle;
 
-    private List<Quiz> quizzes = new ArrayList<>();
+    private List<Quiz> userQuizzes = new ArrayList<>();
+    private List<Quiz> friendQuizzes = new ArrayList<>();
+    private List<Quiz> featuredQuizzes = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu); //ändra namnet till rätt xml-fil
-        loadQuizzes();
+        setContentView(R.layout.activity_menu);
+
+        userList = (ListView) findViewById(R.id.userList);
+        friendList = (ListView) findViewById(R.id.friendsList);
+        featuredList = (ListView) findViewById(R.id.standardList);
+
+        userListTitle = (TextView) findViewById(R.id.userListText);
+        friendListTitle = (TextView) findViewById(R.id.friendsListText);
+
+        loadFeaturedQuizzes();
         if(!(Account.getInstance().getUserID() == -1)){
-            loadOnlineQuizzes(Account.getInstance().getUserID());
+            loadOnlineQuizzes(Account.getInstance().getUserID(), userQuizzes);
             loadFriendQuizzes();
         }
-        loadList();
+
+        loadUserList();
+        loadFeaturedList();
+        loadFriendsList();
     }
 
-    private void loadQuizzes() {
+    private void loadFeaturedQuizzes() {
         //quizzes.add(StandardQuizzes.getMachineStudyRoomsQuiz());
-        quizzes.add(StandardQuizzes.getChalmersQuiz());
-        quizzes.add(StandardQuizzes.getHiddenChalmersQuiz());
-        quizzes.add(StandardQuizzes.getAllChalmersQuiz());
+        featuredQuizzes.add(StandardQuizzes.getChalmersQuiz());
+        featuredQuizzes.add(StandardQuizzes.getHiddenChalmersQuiz());
+        featuredQuizzes.add(StandardQuizzes.getAllChalmersQuiz());
 
         //quizzes.add(StandardQuizzes.getAdressQuiz());
     }
 
-    private void loadOnlineQuizzes(int UserID) {
+    private void loadOnlineQuizzes(int UserID, List<Quiz> currentQuizList) {
         userid = UserID;
         Log.d("JSON", "Method entered");
         request = 0;
@@ -155,7 +176,7 @@ else if(questiontype == 1){
                     Log.d("JSON", "Setting questions");
                     q.setQuestions(questions);
                     Log.d("JSON", "Questions Set");
-                    quizzes.add(q);
+                    currentQuizList.add(q);
 /*
                     Quiz q = new Quiz("Gissa huset!","Besök skaparna av appen och gissa vem som bor var!");
                     List<OptionQuestion> questions = new ArrayList<>();
@@ -180,11 +201,14 @@ else if(questiontype == 1){
     }
 
     private void loadFriendQuizzes(){
-        int len = Account.getInstance().getFriendIDs().size();
+        int len = Account.getInstance().getFriendIDs().size(); // TODO len blir alltid 0. nä det var en lögn
         if(len > 0) {
             for (int i = 1; i < len; i++) {
-                loadOnlineQuizzes(Account.getInstance().getFriendIDs().get(i));
+                loadOnlineQuizzes(Account.getInstance().getFriendIDs().get(i), friendQuizzes);
             }
+        }
+        else{
+
         }
     }
 
@@ -206,31 +230,83 @@ else if(questiontype == 1){
 
     }
 
-    public void loadSettings(View view) {
-        Intent intent = new Intent(this, SettingsActivity.class);
-        startActivity(intent);
-    }
+    private void loadUserList() {
+        userListTitle.setVisibility(userQuizzes.size() == 0 ? View.INVISIBLE : View.VISIBLE);
+        if (userQuizzes.size() == 0) {return;}
 
-    private void loadList() {
-        listView = (ListView) findViewById(R.id.list);
-        String[] values = new String[quizzes.size()];
+        String[] values = new String[userQuizzes.size()];
         for (int i = 0; i < values.length; i++) {
-            values[i] = quizzes.get(i).getTitle();
+            values[i] = userQuizzes.get(i).getTitle();
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, values);
 
-        listView.setAdapter(adapter);
+        userList.setAdapter(adapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        userList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                showDetails(position);
+                showDetails(position, userQuizzes);
             }
         });
+
+        setListViewHeightBasedOnItems(userList);
+
     }
+
+    private void loadFriendsList() {
+        friendListTitle.setVisibility(friendQuizzes.size() == 0 ? View.INVISIBLE : View.VISIBLE);
+        if (friendQuizzes.size() == 0) {return;}
+
+        String[] values = new String[friendQuizzes.size()];
+        for (int i = 0; i < values.length; i++) {
+            values[i] = friendQuizzes.get(i).getTitle();
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, values);
+
+        friendList.setAdapter(adapter);
+
+        friendList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                showDetails(position, friendQuizzes);
+            }
+        });
+
+        setListViewHeightBasedOnItems(friendList);
+
+    }
+
+    private void loadFeaturedList() {
+        String[] values = new String[featuredQuizzes.size()];
+        for (int i = 0; i < values.length; i++) {
+            values[i] = featuredQuizzes.get(i).getTitle();
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, values);
+
+        featuredList.setAdapter(adapter);
+
+        featuredList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                showDetails(position, featuredQuizzes);
+            }
+        });
+
+        setListViewHeightBasedOnItems(featuredList);
+
+
+    }
+
+
 
     private void showDetails(Quiz quiz) {
         Intent intent = new Intent(this, QuizDetailsActivity.class);
@@ -239,8 +315,8 @@ else if(questiontype == 1){
         startActivity(intent);
     }
 
-    private void showDetails(int index) {
-        showDetails(quizzes.get(index));
+    private void showDetails(int index, List<Quiz> quiz) {
+        showDetails(quiz.get(index));
     }
 
     public void createButtonPressed(View view) {
@@ -253,7 +329,7 @@ else if(questiontype == 1){
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CREATE_QUIZ_CODE) {
 
-            loadList();
+            loadUserList();
 
             //TODO ladda upp nya quizzen här!
         }
@@ -332,6 +408,41 @@ else if(questiontype == 1){
         @Override
         protected void onPostExecute(String result) {
         }
+    }
+
+    public static boolean setListViewHeightBasedOnItems(ListView listView) {
+
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter != null) {
+
+            int numberOfItems = listAdapter.getCount();
+
+            // Get total height of all items.
+            int totalItemsHeight = 0;
+            for (int itemPos = 0; itemPos < numberOfItems; itemPos++) {
+                View item = listAdapter.getView(itemPos, null, listView);
+                float px = 500 * (listView.getResources().getDisplayMetrics().density);
+                item.measure(View.MeasureSpec.makeMeasureSpec((int)px, View.MeasureSpec.AT_MOST), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+                totalItemsHeight += item.getMeasuredHeight();
+            }
+
+            // Get total height of all item dividers.
+            int totalDividersHeight = listView.getDividerHeight() *
+                    (numberOfItems - 1);
+            // Get padding
+            int totalPadding = listView.getPaddingTop() + listView.getPaddingBottom();
+
+            // Set list height.
+            ViewGroup.LayoutParams params = listView.getLayoutParams();
+            params.height = totalItemsHeight + totalDividersHeight + totalPadding;
+            listView.setLayoutParams(params);
+            listView.requestLayout();
+            return true;
+
+        } else {
+            return false;
+        }
+
     }
 
 
