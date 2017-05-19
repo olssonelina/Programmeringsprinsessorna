@@ -96,7 +96,7 @@
                 android:textSize="18dp" />
 
             <ListView
-                android:id="@+id/otherList"
+                android:id="@+id/friendsList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignLeft="@+id/friendsListText"
@@ -108,7 +108,7 @@
                 android:id="@+id/standardListText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/otherList"
+                android:layout_below="@+id/friendsList"
                 android:layout_marginLeft="30dp"
                 android:text="Utvalda Qwalks"
                 android:textSize="18dp" />
