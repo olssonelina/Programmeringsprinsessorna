@@ -49,7 +49,12 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
 
         Intent i = getIntent();
         long time = i.getLongExtra("time", 0);
-        int[] player = i.getIntArrayExtra("player"); //testrad byts ut när det finns en Actor som sparar resultat
+        int[] player = i.getIntArrayExtra("player");
+        int[] bot = i.getIntArrayExtra("ai");
+        if (bot != null){
+            showMonkeyResult();
+            //TODO mer saker som behöver göras när en bot är på
+        }
         presenter = new ShowResultPresenter(this, player, time);
     }
 

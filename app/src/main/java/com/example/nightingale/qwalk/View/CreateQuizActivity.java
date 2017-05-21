@@ -48,7 +48,7 @@ public class CreateQuizActivity extends AppCompatActivity {
     private int counter = 0;
     private int readycheck = 0;
     private EditText quizTitle;
-    private  EditText quizDescription;
+    private EditText quizDescription;
     ArrayList<Question> questions = new ArrayList<>();
     private Tiebreaker tiebreaker;
 
@@ -114,53 +114,43 @@ public class CreateQuizActivity extends AppCompatActivity {
     }
 
     public void saveQuiz() throws InterruptedException {
-        if(Account.getInstance().getUserID() == -1){
-            Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_ex), Toast.LENGTH_LONG); //Översatte "Please Log In" till svenska
-            toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 160);
-            toast.show();
-        } else {
-            Quiz quiz = new Quiz(quizTitle.getText().toString(), quizDescription.getText().toString());
-            quiz.setQuestions(questions);
+        Quiz quiz = new Quiz(quizTitle.getText().toString(), quizDescription.getText().toString());
+        quiz.setQuestions(questions);
 
-            QuestionIDArray = new ArrayList<Integer>();
-            counter = 0;
+        QuestionIDArray = new ArrayList<Integer>();
+        counter = 0;
 
-            questions.add(tiebreaker);
+        questions.add(tiebreaker);
 
 
-            for (int i = 0; i < questions.size(); i++) {
-                try {
+        for (int i = 0; i < questions.size(); i++) {
+            try {
 
-                    test = new SendRequest().execute().get();
-                    Log.d("Getcomplete", "True");
-                    Log.d("Getcomplete", test);
-                    test = test.replaceAll("\\s+", "");
-                    QuestionIDArray.add(Integer.parseInt(test));
-                } catch (Exception e) {
-                    Log.d("Getcomplete", "False");
-                    break;
-                }
-                Log.d("Getcomplete", "Test");
+                test = new SendRequest().execute().get();
+                Log.d("Getcomplete", "True");
+                Log.d("Getcomplete", test);
+                test = test.replaceAll("\\s+", "");
+                QuestionIDArray.add(Integer.parseInt(test));
+            } catch (Exception e) {
+                Log.d("Getcomplete", "False");
+                break;
             }
-
-            Log.d("JSONindex", String.valueOf(QuestionIDArray.get(0)));
-            JSONArray jsArray = new JSONArray(QuestionIDArray);
-            JSONarrayString = jsArray.toString();
-            Log.d("JSON", JSONarrayString);
-            readycheck = 1;
-            counter = 0;
-            new SendRequest().execute();
-
-
-            Intent returnIntent = new Intent();
-            setResult(GetPositionActivity.RESULT_OK, returnIntent);
-            finish();
-
-
-
-
-
+            Log.d("Getcomplete", "Test");
         }
+
+        Log.d("JSONindex", String.valueOf(QuestionIDArray.get(0)));
+        JSONArray jsArray = new JSONArray(QuestionIDArray);
+        JSONarrayString = jsArray.toString();
+        Log.d("JSON", JSONarrayString);
+        readycheck = 1;
+        counter = 0;
+        new SendRequest().execute();
+
+
+        Intent returnIntent = new Intent();
+        setResult(GetPositionActivity.RESULT_OK, returnIntent);
+        finish();
+
     }
 
     public class SendRequest extends AsyncTask<String, Void, String> {
@@ -181,33 +171,30 @@ public class CreateQuizActivity extends AppCompatActivity {
                 JSONObject postDataParams = new JSONObject();
 
 
-
-
-                if(questions.get(counter) instanceof OptionQuestion){
+                if (questions.get(counter) instanceof OptionQuestion) {
                     Log.d("VARIABLE", "Type : 0");
                     postDataParams.put("questiontype", 0);
 
-                    Log.d("VARIABLE", ((OptionQuestion)questions.get(counter)).getOption1());
-                    postDataParams.put("option1", ((OptionQuestion)questions.get(counter)).getOption1());
+                    Log.d("VARIABLE", ((OptionQuestion) questions.get(counter)).getOption1());
+                    postDataParams.put("option1", ((OptionQuestion) questions.get(counter)).getOption1());
 
-                    Log.d("VARIABLE", ((OptionQuestion)questions.get(counter)).getOption2());
-                    postDataParams.put("option2", ((OptionQuestion)questions.get(counter)).getOption2());
+                    Log.d("VARIABLE", ((OptionQuestion) questions.get(counter)).getOption2());
+                    postDataParams.put("option2", ((OptionQuestion) questions.get(counter)).getOption2());
 
-                    Log.d("VARIABLE", ((OptionQuestion)questions.get(counter)).getOption3());
-                    postDataParams.put("option3", ((OptionQuestion)questions.get(counter)).getOption3());
+                    Log.d("VARIABLE", ((OptionQuestion) questions.get(counter)).getOption3());
+                    postDataParams.put("option3", ((OptionQuestion) questions.get(counter)).getOption3());
 
-                    Log.d("VARIABLE", ((OptionQuestion)questions.get(counter)).getOption4());
-                    postDataParams.put("option4", ((OptionQuestion)questions.get(counter)).getOption4());
-                }
-                else if(questions.get(counter) instanceof Tiebreaker){
+                    Log.d("VARIABLE", ((OptionQuestion) questions.get(counter)).getOption4());
+                    postDataParams.put("option4", ((OptionQuestion) questions.get(counter)).getOption4());
+                } else if (questions.get(counter) instanceof Tiebreaker) {
                     Log.d("VARIABLE", "Type : 1");
                     postDataParams.put("questiontype", 1);
 
-                    Log.d("VARIABLE", String.valueOf(((Tiebreaker)questions.get(counter)).getLowerBounds()));
-                    postDataParams.put("option1", ((Tiebreaker)questions.get(counter)).getLowerBounds());
+                    Log.d("VARIABLE", String.valueOf(((Tiebreaker) questions.get(counter)).getLowerBounds()));
+                    postDataParams.put("option1", ((Tiebreaker) questions.get(counter)).getLowerBounds());
 
-                    Log.d("VARIABLE", String.valueOf(((Tiebreaker)questions.get(counter)).getUpperBounds()));
-                    postDataParams.put("option2", ((Tiebreaker)questions.get(counter)).getUpperBounds());
+                    Log.d("VARIABLE", String.valueOf(((Tiebreaker) questions.get(counter)).getUpperBounds()));
+                    postDataParams.put("option2", ((Tiebreaker) questions.get(counter)).getUpperBounds());
 
 
                     postDataParams.put("option3", "");
@@ -215,10 +202,8 @@ public class CreateQuizActivity extends AppCompatActivity {
                 }
 
 
-
                 Log.d("VARIABLE", questions.get(counter).getQuestionTitle());
                 postDataParams.put("description", questions.get(counter).getQuestionTitle());
-
 
 
                 Log.d("VARIABLE", Integer.toString(questions.get(counter).getCorrectAnswer()));
@@ -311,25 +296,23 @@ public class CreateQuizActivity extends AppCompatActivity {
     }
 
 
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == OPTIONQUESTION_CODE) {
-            try{
+            try {
                 questions.addAll((ArrayList<Question>) data.getSerializableExtra("questions"));
                 loadList();
+            } catch (NullPointerException e) {
             }
-            catch (NullPointerException e){}
 
         }
 
         if (requestCode == TIEBREAKER_CODE) {
-            try{
+            try {
                 tiebreaker = (Tiebreaker) data.getParcelableExtra("tiebreaker");
                 loadList();
+            } catch (NullPointerException e) {
             }
-            catch (NullPointerException e){ }
 
         }
     }
@@ -337,7 +320,7 @@ public class CreateQuizActivity extends AppCompatActivity {
     private void loadList() {
         ListView questionList = (ListView) findViewById(R.id.questionList);
         boolean hasTiebreaker = tiebreaker != null;
-        String[] values = hasTiebreaker ? new String[questions.size() + 1] : new String[questions.size()] ;
+        String[] values = hasTiebreaker ? new String[questions.size() + 1] : new String[questions.size()];
         for (int i = 0; i < questions.size(); i++) {
             values[i] = questions.get(i).getQuestionTitle();
         }
