@@ -12,6 +12,7 @@ import com.example.nightingale.qwalk.Model.Question;
 import com.example.nightingale.qwalk.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by Elina Olsson on 2017-05-11.
@@ -41,7 +42,7 @@ public class CreateOptionQuestionPresenter {
 
     private OptionQuestion buildQuestion() {
         String[] opts = view.getOptions();
-        return new OptionQuestion(view.getQuestionTitle(), opts[0], opts[1], opts[2],opts[3], view.getAnswer(), view.getLatitude(), view.getLongitude());
+        return new OptionQuestion(view.getQuestionTitle(), new ArrayList<String>(Arrays.asList(opts)), view.getAnswer(), view.getLatitude(), view.getLongitude());
     }
 
     public void finishQuestions() {
