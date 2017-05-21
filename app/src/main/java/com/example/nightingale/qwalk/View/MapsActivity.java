@@ -48,6 +48,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MapStyleOptions;
 
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import static java.lang.Math.abs;
@@ -264,7 +265,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void showResults(Quiz quiz, int[] playerAnswers, int[] botAnswers, long quizTime) {
+    public void showResults(Quiz quiz, ArrayList<Integer> playerAnswers, ArrayList<Integer> botAnswers, long quizTime) {
         //TODO det som ska hända när ett quiz är klart
         Intent intent = new Intent(getBaseContext(), ShowResultActivity.class);
         intent.putExtra("player", playerAnswers);
