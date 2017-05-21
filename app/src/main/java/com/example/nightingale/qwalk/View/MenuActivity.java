@@ -74,16 +74,21 @@ public class MenuActivity extends AppCompatActivity {
 
         userListTitle = (TextView) findViewById(R.id.userListText);
         friendListTitle = (TextView) findViewById(R.id.friendsListText);
+        friendListTitle.setVisibility(friendQuizzes.size() == 0 ? View.INVISIBLE : View.VISIBLE);
 
         loadFeaturedQuizzes();
         if(!(Account.getInstance().getUserID() == -1)){
             loadOnlineQuizzes(Account.getInstance().getUserID(), userQuizzes);
+            loadUserList();
             loadFriendQuizzes();
+            loadFriendsList();
+
+
         }
 
-        loadUserList();
+
         loadFeaturedList();
-        loadFriendsList();
+
     }
 
     private void loadFeaturedQuizzes() {
@@ -93,6 +98,12 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     private void loadOnlineQuizzes(int UserID, List<Quiz> currentQuizList) {
+        if(currentQuizList == userQuizzes){
+            Log.d("List", "Using user list");
+        }
+        else if(currentQuizList == friendQuizzes){
+            Log.d("List", "Using friend list");
+        }
         userid = UserID;
         Log.d("JSON", "Method entered");
         request = 0;
@@ -198,14 +209,12 @@ else if(questiontype == 1){
     }
 
     private void loadFriendQuizzes(){
-        int len = Account.getInstance().getFriendIDs().size(); // TODO len blir alltid 0. nä det var en lögn
+        int len = Account.getInstance().getFriendIDs().size();
         if(len > 0) {
             for (int i = 1; i < len; i++) {
                 loadOnlineQuizzes(Account.getInstance().getFriendIDs().get(i), friendQuizzes);
+                offset = 0;
             }
-        }
-        else{
-
         }
     }
 
@@ -254,6 +263,7 @@ else if(questiontype == 1){
     }
 
     private void loadFriendsList() {
+
         friendListTitle.setVisibility(friendQuizzes.size() == 0 ? View.INVISIBLE : View.VISIBLE);
         if (friendQuizzes.size() == 0) {return;}
 
@@ -265,17 +275,18 @@ else if(questiontype == 1){
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, values);
 
-        friendList.setAdapter(adapter);
+    friendList.setAdapter(adapter);
 
-        friendList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    friendList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                showDetails(position, friendQuizzes);
-            }
-        });
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            showDetails(position, friendQuizzes);
+        }
+    });
 
-        setListViewHeightBasedOnItems(friendList);
+    setListViewHeightBasedOnItems(friendList);
+
 
     }
 
