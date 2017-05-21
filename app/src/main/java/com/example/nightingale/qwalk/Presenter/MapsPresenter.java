@@ -76,11 +76,11 @@ public class MapsPresenter {
     /**
      *
      * @param quiz
-     * @param player
-     * @param bot
+     * @param playerAnswers
+     * @param botAnswers
      *
      */
-    public void showResults(Quiz quiz, Actor player, Actor bot, long quizTime){ view.showResults(quiz, player, bot, quizTime ); }
+    public void showResults(Quiz quiz, int[] playerAnswers, int[] botAnswers, long quizTime){ view.showResults(quiz, playerAnswers, botAnswers, quizTime ); }
 
     /**
      *
@@ -140,5 +140,11 @@ public class MapsPresenter {
     }
 
     public int getQuestionIndex(Question question){ return model.getQuestionIndex(question);}
+
+    public void setShowClosestEnabled(boolean value) {
+        view.setShowClosestEnabled(value);
+    }
+
+
 
 }
