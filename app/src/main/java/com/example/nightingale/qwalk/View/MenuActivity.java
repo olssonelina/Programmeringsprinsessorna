@@ -143,13 +143,15 @@ public class MenuActivity extends AppCompatActivity {
                             q = new Quiz(title, description);
                         } else {
 
+                            ArrayList<String> options= new ArrayList<>();
+
                             JSONObject question = jsonArray.getJSONObject(j);
                             String description = question.getString("description");
                             Log.d("JSON", description);
-                            String option1 = question.getString("option1");
-                            Log.d("JSON", option1);
-                            String option2 = question.getString("option2");
-                            Log.d("JSON", option2);
+                            options.add(question.getString("option1"));
+                            Log.d("JSON", options.get(0));
+                            options.add(question.getString("option2"));
+                            Log.d("JSON", options.get(1));
                             int correctanswer = question.getInt("correctanswer");
                             Log.d("JSON", String.valueOf(correctanswer));
                             double latitude = question.getDouble("latitude");
@@ -159,14 +161,14 @@ public class MenuActivity extends AppCompatActivity {
 
                             int questiontype = question.getInt("questiontype");
                             if (questiontype == 0) {
-                                String option3 = question.getString("option3");
-                                Log.d("JSON", option3);
-                                String option4 = question.getString("option4");
-                                Log.d("JSON", option4);
-                                questions.add(new OptionQuestion(description, option1, option2, option3, option4, correctanswer, latitude, longitude));
+                                options.add(question.getString("option3"));
+                                Log.d("JSON", options.get(2));
+                                options.add(question.getString("option4"));
+                                Log.d("JSON", options.get(3));
+                                questions.add(new OptionQuestion(description, options, correctanswer, latitude, longitude));
                                 Log.d("JSON", "Question added");
                             } else if (questiontype == 1) {
-                                tiebreaker = new Tiebreaker(description, correctanswer, latitude, longitude, Integer.parseInt(option1), Integer.parseInt(option2));
+                                tiebreaker = new Tiebreaker(description, correctanswer, latitude, longitude, Integer.parseInt(options.get(0)), Integer.parseInt(options.get(1)));
                                 Log.d("JSON", "Tiebreaker Set");
                             }
 
