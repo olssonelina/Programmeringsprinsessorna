@@ -175,17 +175,17 @@ public class CreateQuizActivity extends AppCompatActivity {
                     Log.d("VARIABLE", "Type : 0");
                     postDataParams.put("questiontype", 0);
 
-                    Log.d("VARIABLE", ((OptionQuestion) questions.get(counter)).getOption1());
-                    postDataParams.put("option1", ((OptionQuestion) questions.get(counter)).getOption1());
+                    Log.d("VARIABLE", ((OptionQuestion) questions.get(counter)).getOption(0));
+                    postDataParams.put("option1", ((OptionQuestion) questions.get(counter)).getOption(0));
 
-                    Log.d("VARIABLE", ((OptionQuestion) questions.get(counter)).getOption2());
-                    postDataParams.put("option2", ((OptionQuestion) questions.get(counter)).getOption2());
+                    Log.d("VARIABLE", ((OptionQuestion) questions.get(counter)).getOption(1));
+                    postDataParams.put("option2", ((OptionQuestion) questions.get(counter)).getOption(1));
 
-                    Log.d("VARIABLE", ((OptionQuestion) questions.get(counter)).getOption3());
-                    postDataParams.put("option3", ((OptionQuestion) questions.get(counter)).getOption3());
+                    Log.d("VARIABLE", ((OptionQuestion) questions.get(counter)).getOption(2));
+                    postDataParams.put("option3", ((OptionQuestion) questions.get(counter)).getOption(2));
 
-                    Log.d("VARIABLE", ((OptionQuestion) questions.get(counter)).getOption4());
-                    postDataParams.put("option4", ((OptionQuestion) questions.get(counter)).getOption4());
+                    Log.d("VARIABLE", ((OptionQuestion) questions.get(counter)).getOption(3));
+                    postDataParams.put("option4", ((OptionQuestion) questions.get(counter)).getOption(3));
                 } else if (questions.get(counter) instanceof Tiebreaker) {
                     Log.d("VARIABLE", "Type : 1");
                     postDataParams.put("questiontype", 1);

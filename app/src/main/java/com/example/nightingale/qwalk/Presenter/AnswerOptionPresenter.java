@@ -27,7 +27,7 @@ public class AnswerOptionPresenter {
         view.setTitle(question.getQuestionTitle());
 
         //TODO det borde vara en array från början
-        String[] options = {question.getOption1(), question.getOption2(), question.getOption3(), question.getOption4()};
+        String[] options = {question.getOption(0), question.getOption(1), question.getOption(2), question.getOption(3)};
         view.setOptions(options);
 
         for (int i = 0; i < options.length; i++) {
