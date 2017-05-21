@@ -16,6 +16,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.view.Display;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -72,6 +73,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private TextView progress;
     private ImageView directionArrow;
     private ImageView bot;
+    private Button showClosest;
 
     //private List<Question> questions = new ArrayList<>();
     //private List<Marker> markers = new ArrayList<>();
@@ -105,6 +107,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         directionArrow = (ImageView) findViewById(R.id.arrow);
         directionArrow.setImageResource(R.drawable.direction);
+        showClosest = (Button) findViewById(R.id.viewPinButton);
 
         bot = (ImageView) findViewById(R.id.monkey);
         bot.setImageResource(R.drawable.monkey);
@@ -261,13 +264,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void showResults(Quiz quiz, Actor player, Actor bot, long quizTime) {
+    public void showResults(Quiz quiz, int[] playerAnswers, int[] botAnswers, long quizTime) {
         //TODO det som ska hända när ett quiz är klart
         Intent intent = new Intent(getBaseContext(), ShowResultActivity.class);
-        int[] exPlayer = {1, 2, 345678};
-        intent.putExtra("player", exPlayer);
-        intent.putExtra("time", quizTime);
+        intent.putExtra("player", playerAnswers);
+        if (botAnswers != null){
+            intent.putExtra("ai", botAnswers);
+        }
+
         startActivity(intent);
+    }
+
+    @Override
+    public void setShowClosestEnabled(boolean value) {
+        showClosest.setEnabled(value);
+        showClosest.setVisibility(value ? View.VISIBLE : View.INVISIBLE);
     }
 
     @Override

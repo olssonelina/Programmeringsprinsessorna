@@ -74,12 +74,16 @@ public class QwalkGame implements IOnAIMoveListener {
         }
 
         if (quiz.getSetting(QUIZ_TIMER)) {
-            //TODO starta timer
             quizTimer = new GameTimer();
             quizTimer.startTimer();
         }
 
+        if (quiz.getSetting(IS_HIDDEN)){
+            presenter.setShowClosestEnabled(false);
+        }
+
         presenter.setProgress(0, quiz.getQuestions().size());
+
     }
 
     //
@@ -93,8 +97,8 @@ public class QwalkGame implements IOnAIMoveListener {
         currentQuestions.add(quiz.get(answeredQuestions));
         if (!quiz.getSetting(IS_HIDDEN)) {
             presenter.placeMarker(currentQuestions.get(0));
+            presenter.focusOn(currentQuestions.get(0).getLocation());
         }
-        presenter.focusOn(currentQuestions.get(0).getLocation());
     }
 
     private void end() {
@@ -103,7 +107,14 @@ public class QwalkGame implements IOnAIMoveListener {
             quizTimer.stopTimer();
             time = quizTimer.getTime();
         }
-        presenter.showResults(quiz, player, ai, time);
+
+        if (quiz.getSetting(WITH_BOT)) {
+            presenter.showResults(quiz, player.getAnswers(), ai.getAnswers(), time);
+        }
+        else {
+            presenter.showResults(quiz, player.getAnswers(), null, time);
+
+        }
         presenter.close();
     }
 
@@ -159,7 +170,7 @@ public class QwalkGame implements IOnAIMoveListener {
                 presenter.enableMarker(q);
             }
         }
-        updateBot();
+        if (quiz.getSetting(WITH_BOT)){ updateBot(); }
     }
 
     private void updateBot() {
@@ -191,6 +202,10 @@ public class QwalkGame implements IOnAIMoveListener {
 
 
     public void updateArrow() {
+        if (quiz.getSetting(IS_HIDDEN)){
+            return;
+        }
+
         Question closestQuestion = getClosestQuestion();
         if (presenter.isOnScreen(closestQuestion.getLocation())) {
             presenter.updateArrow(getClosestQuestion().getLocation());

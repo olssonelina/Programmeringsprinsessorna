@@ -77,7 +77,7 @@ public class MenuActivity extends AppCompatActivity {
         friendListTitle.setVisibility(friendQuizzes.size() == 0 ? View.INVISIBLE : View.VISIBLE);
 
         loadFeaturedQuizzes();
-        if(!(Account.getInstance().getUserID() == -1)){
+        if (!(Account.getInstance().getUserID() == -1)) {
             loadOnlineQuizzes(Account.getInstance().getUserID(), userQuizzes);
             loadUserList();
             loadFriendQuizzes();
@@ -98,10 +98,9 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     private void loadOnlineQuizzes(int UserID, List<Quiz> currentQuizList) {
-        if(currentQuizList == userQuizzes){
+        if (currentQuizList == userQuizzes) {
             Log.d("List", "Using user list");
-        }
-        else if(currentQuizList == friendQuizzes){
+        } else if (currentQuizList == friendQuizzes) {
             Log.d("List", "Using friend list");
         }
         userid = UserID;
@@ -112,9 +111,9 @@ public class MenuActivity extends AppCompatActivity {
             Log.d("JSON", "Trying");
             String JSONstring = new SendRequest().execute().get();
             Log.d("JSON", JSONstring);
-            JSONstring = JSONstring.replaceAll("\\s+","");
+            JSONstring = JSONstring.replaceAll("\\s+", "");
             int RequestAmount = Integer.parseInt(JSONstring);
-                    Log.d("JSON", String.valueOf(RequestAmount));
+            Log.d("JSON", String.valueOf(RequestAmount));
             quizAmount = RequestAmount;
             Log.d("JSON", String.valueOf(quizAmount));
         } catch (Exception e) {
@@ -123,27 +122,26 @@ public class MenuActivity extends AppCompatActivity {
             Log.d("JSON", e.getMessage());
         }
         Log.d("JSON", "Continuing");
-        if(!(quizAmount == 0)){
+        if (!(quizAmount == 0)) {
             request = 1;
-            for(int i = 0; i < quizAmount; i++){
+            for (int i = 0; i < quizAmount; i++) {
                 offset = i;
                 try {
                     String JSONstring = new SendRequest().execute().get();
 
                     Log.d("JSON", JSONstring);
                     JSONArray jsonArray = new JSONArray(JSONstring);
-                    Quiz q = new Quiz("","");
+                    Quiz q = new Quiz("", "");
                     List<Question> questions = new ArrayList<>();
                     for (int j = 0; j < jsonArray.length(); ++j) {
-                        if(j == 0){
+                        if (j == 0) {
                             JSONObject quiz = jsonArray.getJSONObject(j);
                             String title = quiz.getString("title");
                             Log.d("JSON", title);
                             String description = quiz.getString("description");
                             Log.d("JSON", description);
-                            q = new Quiz(title,description);
-                        }
-                        else{
+                            q = new Quiz(title, description);
+                        } else {
 
                             JSONObject question = jsonArray.getJSONObject(j);
                             String description = question.getString("description");
@@ -160,15 +158,14 @@ public class MenuActivity extends AppCompatActivity {
                             Log.d("JSON", String.valueOf(longitude));
 
                             int questiontype = question.getInt("questiontype");
-                            if(questiontype == 0){
-                            String option3 = question.getString("option3");
-                            Log.d("JSON", option3);
-                            String option4 = question.getString("option4");
-                            Log.d("JSON", option4);
-                            questions.add(new OptionQuestion(description, option1, option2, option3, option4, correctanswer, latitude, longitude));
-                            Log.d("JSON", "Question added");
-                            }
-else if(questiontype == 1){
+                            if (questiontype == 0) {
+                                String option3 = question.getString("option3");
+                                Log.d("JSON", option3);
+                                String option4 = question.getString("option4");
+                                Log.d("JSON", option4);
+                                questions.add(new OptionQuestion(description, option1, option2, option3, option4, correctanswer, latitude, longitude));
+                                Log.d("JSON", "Question added");
+                            } else if (questiontype == 1) {
                                 tiebreaker = new Tiebreaker(description, correctanswer, latitude, longitude, Integer.parseInt(option1), Integer.parseInt(option2));
                                 Log.d("JSON", "Tiebreaker Set");
                             }
@@ -178,7 +175,7 @@ else if(questiontype == 1){
 
                         // ...
                     }
-                    if (!(tiebreaker == null)){
+                    if (!(tiebreaker == null)) {
                         questions.add(tiebreaker);
                     }
                     Log.d("JSON", "Setting questions");
@@ -204,13 +201,12 @@ else if(questiontype == 1){
             }
 
 
-
         }
     }
 
-    private void loadFriendQuizzes(){
+    private void loadFriendQuizzes() {
         int len = Account.getInstance().getFriendIDs().size();
-        if(len > 0) {
+        if (len > 0) {
             for (int i = 1; i < len; i++) {
                 loadOnlineQuizzes(Account.getInstance().getFriendIDs().get(i), friendQuizzes);
                 offset = 0;
@@ -224,12 +220,11 @@ else if(questiontype == 1){
     }
 
     public void loadFriends(View view) {
-        if(Account.getInstance().getUserID() == -1) {
+        if (Account.getInstance().getUserID() == -1) {
             Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.please_login), Toast.LENGTH_LONG);
             toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 160);
             toast.show();
-        }
-        else{
+        } else {
             Intent intent = new Intent(this, FriendActivity.class);
             startActivity(intent);
         }
@@ -238,7 +233,9 @@ else if(questiontype == 1){
 
     private void loadUserList() {
         userListTitle.setVisibility(userQuizzes.size() == 0 ? View.INVISIBLE : View.VISIBLE);
-        if (userQuizzes.size() == 0) {return;}
+        if (userQuizzes.size() == 0) {
+            return;
+        }
 
         String[] values = new String[userQuizzes.size()];
         for (int i = 0; i < values.length; i++) {
@@ -265,7 +262,9 @@ else if(questiontype == 1){
     private void loadFriendsList() {
 
         friendListTitle.setVisibility(friendQuizzes.size() == 0 ? View.INVISIBLE : View.VISIBLE);
-        if (friendQuizzes.size() == 0) {return;}
+        if (friendQuizzes.size() == 0) {
+            return;
+        }
 
         String[] values = new String[friendQuizzes.size()];
         for (int i = 0; i < values.length; i++) {
@@ -275,17 +274,17 @@ else if(questiontype == 1){
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, values);
 
-    friendList.setAdapter(adapter);
+        friendList.setAdapter(adapter);
 
-    friendList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        friendList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            showDetails(position, friendQuizzes);
-        }
-    });
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                showDetails(position, friendQuizzes);
+            }
+        });
 
-    setListViewHeightBasedOnItems(friendList);
+        setListViewHeightBasedOnItems(friendList);
 
 
     }
@@ -315,7 +314,6 @@ else if(questiontype == 1){
     }
 
 
-
     private void showDetails(Quiz quiz) {
         Intent intent = new Intent(this, QuizDetailsActivity.class);
         intent.putExtra("quiz", quiz);
@@ -328,8 +326,14 @@ else if(questiontype == 1){
     }
 
     public void createButtonPressed(View view) {
-        Intent intent = new Intent(this, CreateQuizActivity.class);
-        startActivityForResult(intent, CREATE_QUIZ_CODE);
+        if (Account.getInstance().getUserID() == -1) {
+            Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_ex), Toast.LENGTH_LONG); //Översatte "Please Log In" till svenska
+            toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 160);
+            toast.show();
+        } else {
+            Intent intent = new Intent(this, CreateQuizActivity.class);
+            startActivityForResult(intent, CREATE_QUIZ_CODE);
+        }
     }
 
 
@@ -344,17 +348,14 @@ else if(questiontype == 1){
     }
 
 
-
-
-
-
     public class SendRequest extends AsyncTask<String, Void, String> {
 
-        protected void onPreExecute(){}
+        protected void onPreExecute() {
+        }
 
         protected String doInBackground(String... arg0) {
 
-            try{
+            try {
 
                 URL url = new URL(DatabaseHandler.getReadQuizURL());
 
@@ -366,8 +367,7 @@ else if(questiontype == 1){
                 postDataParams.put("userid", userid);
 
 
-
-                Log.e("params",postDataParams.toString());
+                Log.e("params", postDataParams.toString());
 
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(15000 /* milliseconds */);
@@ -385,15 +385,15 @@ else if(questiontype == 1){
                 writer.close();
                 os.close();
 
-                int responseCode=conn.getResponseCode();
+                int responseCode = conn.getResponseCode();
 
                 if (responseCode == HttpsURLConnection.HTTP_OK) {
 
-                    BufferedReader in=new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     StringBuffer sb = new StringBuffer("");
-                    String line="";
+                    String line = "";
 
-                    while((line = in.readLine()) != null) {
+                    while ((line = in.readLine()) != null) {
 
                         sb.append(line);
                         break;
@@ -402,12 +402,10 @@ else if(questiontype == 1){
                     in.close();
                     return sb.toString();
 
+                } else {
+                    return new String("false : " + responseCode);
                 }
-                else {
-                    return new String("false : "+responseCode);
-                }
-            }
-            catch(Exception e){
+            } catch (Exception e) {
                 return new String("Exception: " + e.getMessage());
             }
         }
@@ -430,7 +428,7 @@ else if(questiontype == 1){
             for (int itemPos = 0; itemPos < numberOfItems; itemPos++) {
                 View item = listAdapter.getView(itemPos, null, listView);
                 float px = 500 * (listView.getResources().getDisplayMetrics().density);
-                item.measure(View.MeasureSpec.makeMeasureSpec((int)px, View.MeasureSpec.AT_MOST), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+                item.measure(View.MeasureSpec.makeMeasureSpec((int) px, View.MeasureSpec.AT_MOST), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
                 totalItemsHeight += item.getMeasuredHeight();
             }
 

@@ -19,7 +19,8 @@ public interface IMaps {
     void placeMarker(Question question);
     void enableMarker(Question question);
     void removeMarker(Question question);
-    void showResults(Quiz quiz, Actor player, Actor bot, long quizTime);
+    void showResults(Quiz quiz, int[] playerAnswers, int[] botAnswers, long quizTime);
+    void setShowClosestEnabled(boolean value);
     void initializeBot(QLocation location);
     void moveBot(QLocation location);
     void setProgress(int current, int total);
