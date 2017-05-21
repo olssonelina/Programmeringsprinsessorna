@@ -58,5 +58,28 @@
             android:onClick="onSettingsPressed"
             android:padding="5dp"
             app:srcCompat="@drawable/settings" />
+
+        <Button
+            android:id="@+id/goBackButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginRight="310dp"
+            android:layout_marginTop="10dp"
+            android:padding="5dp"
+            android:onClick="onBackPressed"
+            android:text="byt ut mig mot en pil" />
+
+        <Button
+            android:id="@+id/deleteQuizButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/settings"
+            android:layout_alignRight="@+id/settings"
+            android:layout_below="@+id/play"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="27dp"
+            android:onClick="onDeletePressed"
+            android:text="byt ut mig mot en soptunna elr liknande" />
     </RelativeLayout>
 </LinearLayout>

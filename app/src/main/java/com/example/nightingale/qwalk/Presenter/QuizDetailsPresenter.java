@@ -48,4 +48,6 @@ public class QuizDetailsPresenter {
         view.openSettings(quiz);
     }
 
+    public void deletePressed() { }  //TODO
+
 }

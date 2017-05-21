@@ -60,6 +60,10 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
         presenter.settingsPressed();
     }
 
+    public void onBackPressed(View view) {finish();}
+
+    public void onDeletePressed(View view) {presenter.deletePressed(); }
+
     @Override
     public void openSettings(Quiz quiz) {
         Intent intent = new Intent(this, QuizSettingsActivity.class);
@@ -88,6 +92,7 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
     public void editQuiz(Quiz quiz) {
         //TODO KEVIN här får du :)
     }
+
 
     @Override
     public void setEditButtonEnabled(boolean value) {
