@@ -13,9 +13,6 @@ import java.util.Random;
 
 public class AI extends Actor implements Runnable {
 
-    //Quiz quiz;
-    //List<Question> questions = quiz.getQuestions();
-    //ArrayList<Integer> correctAnswers = quiz.getCorrectAnswers();
     ArrayList<Integer> monkeyAnswers = new ArrayList<>();
     int level;
 
@@ -26,15 +23,14 @@ public class AI extends Actor implements Runnable {
 
 
     public AI(ArrayList<Integer> correctAnswers, boolean tieBreaker, ArrayList<Integer> low, ArrayList<Integer> high, int level) {
-        //super(0);
         this.level=level;
         setAnswers(correctAnswers, tieBreaker, low, high);
-        //this.quiz = quiz;
+        setScore(correctAnswers);
         timer.startTimer();
     }
 
 
-    public void setScore(ArrayList<Integer> correctAnswers, ArrayList<Integer> monkeyAnswers) {
+    private void setScore(ArrayList<Integer> correctAnswers) {
         for (int i = 0; i < correctAnswers.size(); i++) {
             if (correctAnswers.get(i) == monkeyAnswers.get(i)) {
                 score++;
@@ -60,16 +56,16 @@ public class AI extends Actor implements Runnable {
     }
 
     private void setAnswers(ArrayList<Integer> correctAnswers, boolean tiebreaker, ArrayList<Integer> low, ArrayList<Integer> high) {
-//        for (int i = 0; i < correctAnswers.length; i++) {
-//            if (level > randomInt()) {
-//                monkeyAnswers.add(correctAnswers.get(i));
-//            } else {
-//                if (questions.get(i) instanceof OptionQuestion) {
-//                    monkeyAnswers.add(randomAnswer(((OptionQuestion) questions.get(i)).getNumberOfOptions()));
-//                }
-//            }
-//        }
-//        return monkeyAnswers;
+        for (int i = 0; i < correctAnswers.size(); i++) {
+            if (level > randomInt()) {
+                monkeyAnswers.add(correctAnswers.get(i));
+            } else {
+                    monkeyAnswers.add(randomAnswer(((high.get(i)+1))));
+            }
+        }
+        if(tiebreaker){
+
+        }
     }
 
     private int randomInt() {
