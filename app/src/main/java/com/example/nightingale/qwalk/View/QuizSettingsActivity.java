@@ -104,7 +104,7 @@ public class QuizSettingsActivity extends AppCompatActivity implements IQuizSett
             presenter.setSetting(QUIZ_TIMER, quizTimer.isChecked());
         }
         else if (cb.equals(bot)){
-            presenter.setSetting(WITH_BOT, bot.isChecked());
+            presenter.setSetting(WITH_AI, bot.isChecked());
         }
         else {
             throw new IllegalArgumentException("No such checkBox!");
@@ -140,7 +140,7 @@ public class QuizSettingsActivity extends AppCompatActivity implements IQuizSett
                 questionTimer.setChecked(value);
                 break;
 
-            case WITH_BOT:
+            case WITH_AI:
                 bot.setChecked(value);
                 break;
 

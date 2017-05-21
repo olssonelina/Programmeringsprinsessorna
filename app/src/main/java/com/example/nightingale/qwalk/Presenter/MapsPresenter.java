@@ -1,8 +1,6 @@
 package com.example.nightingale.qwalk.Presenter;
 
 import com.example.nightingale.qwalk.InterfaceView.IMaps;
-import com.example.nightingale.qwalk.Model.Actor;
-import com.example.nightingale.qwalk.Model.GameTimer;
 import com.example.nightingale.qwalk.Model.QLocation;
 import com.example.nightingale.qwalk.Model.Question;
 import com.example.nightingale.qwalk.Model.Quiz;
@@ -59,6 +57,14 @@ public class MapsPresenter {
         focusOn(model.getClosestQuestion().getLocation());
     }
 
+    public int getAiAnswer(Question question){
+        return model.getAiAnswer(question);
+    }
+
+    public boolean hasAi(){
+        return model.hasAi();
+    }
+
 
     // ------------ Methods used by the model ------------ \\
     // All of them only sends the request to the view.
@@ -82,7 +88,7 @@ public class MapsPresenter {
      * @param botAnswers
      *
      */
-    public void showResults(Quiz quiz, ArrayList<Integer> playerAnswers, ArrayList<Integer> botAnswers, long quizTime){ view.showResults(quiz, playerAnswers, botAnswers, quizTime ); }
+    public void showResults(Quiz quiz, int[] playerAnswers, ArrayList<Integer> botAnswers, long quizTime){ view.showResults(quiz, playerAnswers, botAnswers, quizTime ); }
 
     /**
      *
@@ -118,13 +124,13 @@ public class MapsPresenter {
      *
      * @param location
      */
-    public void initializeBot(QLocation location){ view.initializeBot(location); }
+    public void initializeBot(QLocation location){ view.initializeAi(location); }
 
     /**
      *
      * @param location
      */
-    public void moveBot(QLocation location){ view.moveBot(location); }
+    public void moveBot(QLocation location){ view.moveAi(location); }
 
     /**
      *

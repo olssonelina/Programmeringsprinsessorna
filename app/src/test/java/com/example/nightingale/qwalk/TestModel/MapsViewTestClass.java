@@ -1,7 +1,6 @@
 package com.example.nightingale.qwalk.TestModel;
 
 import com.example.nightingale.qwalk.InterfaceView.IMaps;
-import com.example.nightingale.qwalk.Model.Actor;
 import com.example.nightingale.qwalk.Model.QLocation;
 import com.example.nightingale.qwalk.Model.Question;
 import com.example.nightingale.qwalk.Model.Quiz;
@@ -37,6 +36,11 @@ public class MapsViewTestClass implements IMaps {
     }
 
     @Override
+    public void showResults(Quiz quiz, int[] playerAnswers, ArrayList<Integer> aiAnswers, long quizTime) {
+
+    }
+
+    @Override
     public void focusOn(QLocation location) {
 
     }
@@ -69,13 +73,6 @@ public class MapsViewTestClass implements IMaps {
     }
 
     @Override
-    public void placeHiddenMarker(Question question) {
-        if (!placedHiddenMarkers.contains(question)){
-            placedHiddenMarkers.add(question);
-        }
-    }
-
-    @Override
     public void enableMarker(Question question) {
         if (!enabledMarkers.contains(question)){
             enabledMarkers.add(question);
@@ -90,22 +87,22 @@ public class MapsViewTestClass implements IMaps {
     }
 
     @Override
-    public void showResults(Quiz quiz, Actor player, Actor bot) {
+    public void setShowClosestEnabled(boolean value) {
 
     }
 
     @Override
-    public void showResults(Quiz quiz, Actor player) {
+    public void setProgress(int current, int total) {
 
     }
 
     @Override
-    public void initializeBot(QLocation location) {
+    public void initializeAi(QLocation location) {
         bot = location;
     }
 
     @Override
-    public void moveBot(QLocation location) {
+    public void moveAi(QLocation location) {
         bot = location;
     }
 }

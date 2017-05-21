@@ -3,7 +3,6 @@ package com.example.nightingale.qwalk.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +30,7 @@ public class Quiz implements Parcelable {
             case QUESTION_TIMER:
                 questionTimer = enabled;
                 break;
-            case WITH_BOT:
+            case WITH_AI:
                 withBot = enabled;
                 break;
             case IN_ORDER:
@@ -50,7 +49,7 @@ public class Quiz implements Parcelable {
         switch (setting) {
             case QUESTION_TIMER:
                 return questionTimer;
-            case WITH_BOT:
+            case WITH_AI:
                 return withBot;
             case IN_ORDER:
                 return inOrder;

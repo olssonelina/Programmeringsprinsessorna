@@ -22,7 +22,7 @@ public class QuizSettingsPresenter {
     public QuizSettingsPresenter(IQuizSettings view, Quiz quiz) {
         this.view = view;
 
-        QuizSetting[] settings = {QUESTION_TIMER, QUIZ_TIMER, WITH_BOT, IS_HIDDEN, IN_ORDER};
+        QuizSetting[] settings = {QUESTION_TIMER, QUIZ_TIMER, WITH_AI, IS_HIDDEN, IN_ORDER};
         for (QuizSetting qs: settings) {
             setSetting(qs, quiz.getSetting(qs));
             view.setChecked(qs, quiz.getSetting(qs));
@@ -49,7 +49,7 @@ public class QuizSettingsPresenter {
                 inOrder = value;
                 break;
 
-            case WITH_BOT:
+            case WITH_AI:
                 withBot = value;
                 view.setDifficultiesVisible(value);
                 break;
@@ -69,7 +69,7 @@ public class QuizSettingsPresenter {
         addToLists(setTrue, setFalse, IS_HIDDEN, hiddenQuestions);
         addToLists(setTrue, setFalse, QUESTION_TIMER, questionTimer);
         addToLists(setTrue, setFalse, QUIZ_TIMER, quizTimer);
-        addToLists(setTrue, setFalse, WITH_BOT, withBot);
+        addToLists(setTrue, setFalse, WITH_AI, withBot);
 
         view.closeWithResult(setTrue, setFalse, difficulty);
     }

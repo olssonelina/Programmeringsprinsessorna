@@ -1,8 +1,5 @@
 package com.example.nightingale.qwalk.Model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -11,16 +8,17 @@ import java.util.Random;
  * Created by Elina Olsson on 2017-05-15.
  */
 
-public class AI extends Actor implements Runnable {
+public class AI implements Runnable {
 
     ArrayList<Integer> monkeyAnswers = new ArrayList<>();
     int level;
+
+    public static final int NO_ANSWER = -1;
 
     private int score;
     GameTimer timer = new GameTimer();
 
     List<IOnAIMoveListener> listeners = new ArrayList<>();
-
 
     public AI(ArrayList<Integer> correctAnswers, boolean tieBreaker, ArrayList<Integer> low, ArrayList<Integer> high, int level) {
         this.level=level;
@@ -37,6 +35,7 @@ public class AI extends Actor implements Runnable {
             }
         }
     }
+
 
     public int getAnswer(int index) {
         //int index = quiz.getQuestionIndex(question);

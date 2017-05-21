@@ -5,5 +5,5 @@ package com.example.nightingale.qwalk.Model;
  */
 
 public enum QuizSetting {
-    QUESTION_TIMER, QUIZ_TIMER, IS_HIDDEN, IN_ORDER, WITH_BOT
+    QUESTION_TIMER, QUIZ_TIMER, IS_HIDDEN, IN_ORDER, WITH_AI
 }

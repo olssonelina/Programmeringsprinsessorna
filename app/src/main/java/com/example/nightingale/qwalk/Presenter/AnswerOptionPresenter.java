@@ -19,10 +19,11 @@ public class AnswerOptionPresenter {
     private int aiAnswer = -1;
     private int questionIndex;
 
-    public AnswerOptionPresenter(IAnswerOption view, OptionQuestion question, int questionIndex) {
+    public AnswerOptionPresenter(IAnswerOption view, OptionQuestion question, int questionIndex, int aiAnswer) {
         this.view = view;
         this.question = question;
-        this.questionIndex=questionIndex;
+        this.questionIndex = questionIndex;
+        this.aiAnswer = aiAnswer;
 
         view.setTitle(question.getQuestionTitle());
 
@@ -35,12 +36,6 @@ public class AnswerOptionPresenter {
         }
     }
 
-    public AnswerOptionPresenter(IAnswerOption view, OptionQuestion question, int questionIndex, int aiAnswer){
-        this(view, question, questionIndex);
-        this.aiAnswer = aiAnswer;
-    }
-
-
 
     public void optionPressed(int index) {
         view.setCloseButtonEnabled(true);
@@ -52,13 +47,11 @@ public class AnswerOptionPresenter {
 
 
     public void submitClicked() {
-        if (view.getButtonText().equals("Svara")) {
-            view.setButtonText();
-            if (aiAnswer != -1) {
-                view.showBotAnswer(aiAnswer);
-            }
-        } else {
+        if (aiAnswer == -1 || view.getButtonText().equals("Stäng")) {
             view.closeWithResult(chosenAnswer, question);
+        } else {
+            view.setButtonText("Stäng");
+            view.showBotAnswer(aiAnswer);
         }
     }
 }
