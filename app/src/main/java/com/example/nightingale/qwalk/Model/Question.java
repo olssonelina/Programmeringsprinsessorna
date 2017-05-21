@@ -1,12 +1,13 @@
 package com.example.nightingale.qwalk.Model;
 
 import android.location.Location;
+import android.os.Parcelable;
 
 /**
  * Created by Elina Olsson on 2017-05-08.
  */
 
-public abstract class Question {
+public abstract class Question implements Parcelable {
 
     //TODO gör fält privata, gör en gemensam konstruktor (ger dock parcel-problem, vi får lösa det)
 
@@ -54,8 +55,8 @@ public abstract class Question {
     public int getLowerBounds(){return lowerBounds;}
 
 
-    @Override
-    public abstract boolean equals(Object o);
+    //@Override
+    //public abstract boolean equals(Object o);
     //public QLocation getQLocation() {return new QLocation(location); };
 
 }

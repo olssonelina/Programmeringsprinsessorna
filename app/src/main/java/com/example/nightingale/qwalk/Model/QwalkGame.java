@@ -43,7 +43,7 @@ public class QwalkGame implements IOnAIMoveListener {
      */
     public void startQuiz() {
 
-        player = new Player();
+        player = new Player(quiz.size());
 
         if (quiz.getSetting(IN_ORDER)) {
             nextQuestion();

@@ -8,17 +8,17 @@ import java.util.ArrayList;
 
 public abstract class Actor {
 
-    protected ArrayList<Integer> answers;
+    protected ArrayList<Integer> answers = new ArrayList<>();
 
-    public Actor(){}
-
-    //public Actor(int quizLength) {
-    //    this.answers = new int[quizLength];
-    //}
-
-    public int getScore() {
-        return 0;
+    public Actor(int quizLength){
+        for(int i=0; i<quizLength;i++) {
+            answers.add(-1);
+        }
     }
+
+    //public int getScore() {
+    //    return 0;
+    //}
 
     public ArrayList<Integer> getAnswers() {
        return answers;

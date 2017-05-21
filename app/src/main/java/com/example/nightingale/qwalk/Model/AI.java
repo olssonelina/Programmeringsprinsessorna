@@ -13,16 +13,15 @@ import java.util.Random;
 
 public class AI extends Actor implements Runnable {
 
-    ArrayList<Integer> monkeyAnswers = new ArrayList<>();
-    int level;
-
+    private int level;
     private int score;
-    GameTimer timer = new GameTimer();
+    private GameTimer timer = new GameTimer();
 
-    List<IOnAIMoveListener> listeners = new ArrayList<>();
+    private List<IOnAIMoveListener> listeners = new ArrayList<>();
 
 
     public AI(ArrayList<Integer> correctAnswers, boolean tieBreaker, ArrayList<Integer> low, ArrayList<Integer> high, int level) {
+        super(correctAnswers.size());
         this.level=level;
         setAnswers(correctAnswers, tieBreaker, low, high);
         setScore(correctAnswers);
@@ -32,19 +31,14 @@ public class AI extends Actor implements Runnable {
 
     private void setScore(ArrayList<Integer> correctAnswers) {
         for (int i = 0; i < correctAnswers.size(); i++) {
-            if (correctAnswers.get(i) == monkeyAnswers.get(i)) {
+            if (correctAnswers.get(i) == answers.get(i)) {
                 score++;
             }
         }
     }
 
     public int getAnswer(int index) {
-        //int index = quiz.getQuestionIndex(question);
-        return monkeyAnswers.get(index);
-    }
-
-    public ArrayList<Integer> getAnswers(){
-        return monkeyAnswers;
+        return answers.get(index);
     }
 
     public int getScore() {
@@ -52,20 +46,20 @@ public class AI extends Actor implements Runnable {
     }
 
     public int getNumberOfQuestions() {
-        return monkeyAnswers.size();
+        return answers.size();
     }
 
     private void setAnswers(ArrayList<Integer> correctAnswers, boolean tiebreaker, ArrayList<Integer> low, ArrayList<Integer> high) {
         for (int i = 0; i < correctAnswers.size(); i++) {
             if (level > randomInt()) {
-                monkeyAnswers.add(correctAnswers.get(i));
+                answers.add(correctAnswers.get(i));
             } else {
-                monkeyAnswers.add(randomAnswer(((high.get(i)+1))));
+                answers.add(randomAnswer(((high.get(i)+1))));
             }
         }
         if(tiebreaker){
             int lastIndex=correctAnswers.size()-1;
-            monkeyAnswers.set(lastIndex,randomAnswer(high.get(lastIndex)-low.get(lastIndex))+low.get(lastIndex));
+            answers.set(lastIndex,randomAnswer(high.get(lastIndex)-low.get(lastIndex))+low.get(lastIndex));
         }
     }
 

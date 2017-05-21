@@ -8,8 +8,8 @@ public class Player extends Actor {
 
     private QLocation userLocation = new QLocation(0, 0);
 
-    public Player() {
-        //super(quizLength);
+    public Player(int quizLength) {
+        super(quizLength);
     }
 
     public QLocation getLocation(){return userLocation;}
