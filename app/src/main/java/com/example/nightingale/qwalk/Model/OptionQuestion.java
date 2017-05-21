@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class OptionQuestion extends Question implements Parcelable {
 
-    private ArrayList<String> options;
+    private ArrayList<String> options = new ArrayList<>();
 
 
     public OptionQuestion(String title, ArrayList<String> options, int correctAnswer, double latitude, double longitude/*Image image, Position position*/ ) {
