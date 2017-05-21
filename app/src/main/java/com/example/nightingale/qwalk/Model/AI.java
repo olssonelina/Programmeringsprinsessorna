@@ -60,11 +60,12 @@ public class AI extends Actor implements Runnable {
             if (level > randomInt()) {
                 monkeyAnswers.add(correctAnswers.get(i));
             } else {
-                    monkeyAnswers.add(randomAnswer(((high.get(i)+1))));
+                monkeyAnswers.add(randomAnswer(((high.get(i)+1))));
             }
         }
         if(tiebreaker){
-
+            int lastIndex=correctAnswers.size()-1;
+            monkeyAnswers.set(lastIndex,randomAnswer(high.get(lastIndex)-low.get(lastIndex))+low.get(lastIndex));
         }
     }
 

@@ -17,7 +17,7 @@ public class Player extends Actor {
     public void updateLocation(QLocation userLocation){this.userLocation = userLocation;}
 
     public void setAnswer(int index, int answer) {
-        answers.add(index, answer);
+        answers.set(index, answer);
     }
 
 }
