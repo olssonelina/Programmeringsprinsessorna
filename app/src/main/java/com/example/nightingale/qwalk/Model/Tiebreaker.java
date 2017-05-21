@@ -10,8 +10,6 @@ import android.os.Parcelable;
 
 public class Tiebreaker extends Question implements Parcelable {
 
-    private int lowerBounds;
-    private int upperBounds;
 
     public Tiebreaker(String questionTitle, int answer, double longitude, double latitude, int lowerBounds, int upperBounds){
         this.questionTitle = questionTitle;

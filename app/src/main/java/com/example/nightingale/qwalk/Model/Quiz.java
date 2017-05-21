@@ -101,6 +101,21 @@ public class Quiz implements Parcelable {
         return answers;
     }
 
+    public ArrayList<Integer> getLowerBounds(){
+        ArrayList<Integer> lowerBounds= new ArrayList<>();
+        for (Question question : questions){
+            lowerBounds.add(question.getLowerBounds());
+        }
+        return lowerBounds;
+    }
+
+    public ArrayList<Integer> getUpperBounds(){
+        ArrayList<Integer> upperBounds= new ArrayList<>();
+        for (Question question : questions){
+            upperBounds.add(question.getUpperBounds());
+        }
+        return upperBounds;
+    }
 
     protected Quiz(Parcel in) {
         title = in.readString();

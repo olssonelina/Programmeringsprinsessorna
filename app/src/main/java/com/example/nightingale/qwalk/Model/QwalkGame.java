@@ -43,7 +43,7 @@ public class QwalkGame implements IOnAIMoveListener {
      */
     public void startQuiz() {
 
-        player = new Player(quiz.getQuestions().size());
+        player = new Player();
 
         if (quiz.getSetting(IN_ORDER)) {
             nextQuestion();
@@ -66,7 +66,7 @@ public class QwalkGame implements IOnAIMoveListener {
                     break;
             }
 
-            ai = new AI(quiz, difficulty);
+            ai = new AI(quiz.getCorrectAnswers(), quiz.getQuestions().get(quiz.size()-1) instanceof Tiebreaker, quiz.getLowerBounds(), quiz.getUpperBounds(), difficulty);
             ai.setOnAImovedListener(this);
             Thread botThread = new Thread(ai);
             botThread.start();

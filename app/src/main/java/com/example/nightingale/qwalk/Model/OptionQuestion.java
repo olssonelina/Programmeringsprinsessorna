@@ -27,6 +27,8 @@ public class OptionQuestion extends Question implements Parcelable  {
         this.option4 = option4;
         this.correctAnswer = correctAnswer;
         location = new QLocation(latitude, longitude);
+        this.upperBounds=3;
+        this.lowerBounds=0;
     }
 
     public String getOption1() {

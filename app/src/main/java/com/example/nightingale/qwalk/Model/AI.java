@@ -25,10 +25,10 @@ public class AI extends Actor implements Runnable {
     List<IOnAIMoveListener> listeners = new ArrayList<>();
 
 
-    public AI(int[] correctAnswers, int tieBreakerIndex, int low, int high, int level) {
-        super(0);
+    public AI(ArrayList<Integer> correctAnswers, boolean tieBreaker, ArrayList<Integer> low, ArrayList<Integer> high, int level) {
+        //super(0);
         this.level=level;
-        setAnswers(correctAnswers, tieBreakerIndex, low, high);
+        setAnswers(correctAnswers, tieBreaker, low, high);
         //this.quiz = quiz;
         timer.startTimer();
     }
@@ -47,6 +47,10 @@ public class AI extends Actor implements Runnable {
         return monkeyAnswers.get(index);
     }
 
+    public ArrayList<Integer> getAnswers(){
+        return monkeyAnswers;
+    }
+
     public int getScore() {
         return score;
     }
@@ -55,16 +59,16 @@ public class AI extends Actor implements Runnable {
         return monkeyAnswers.size();
     }
 
-    private ArrayList<Integer> setAnswers(int[] correctAnswers, int tiebreakerIndex, int low, int high) {
-        for (int i = 0; i < correctAnswers.length; i++) {
-            if (level > randomInt()) {
-                monkeyAnswers.add(correctAnswers.get(i));
-            } else {
-                if (questions.get(i) instanceof OptionQuestion) {
-                    monkeyAnswers.add(randomAnswer(((OptionQuestion) questions.get(i)).getNumberOfOptions()));
-                }
-            }
-        }
+    private ArrayList<Integer> setAnswers(ArrayList<Integer> correctAnswers, boolean tiebreaker, ArrayList<Integer> low, ArrayList<Integer> high) {
+//        for (int i = 0; i < correctAnswers.length; i++) {
+//            if (level > randomInt()) {
+//                monkeyAnswers.add(correctAnswers.get(i));
+//            } else {
+//                if (questions.get(i) instanceof OptionQuestion) {
+//                    monkeyAnswers.add(randomAnswer(((OptionQuestion) questions.get(i)).getNumberOfOptions()));
+//                }
+//            }
+//        }
         return monkeyAnswers;
     }
 

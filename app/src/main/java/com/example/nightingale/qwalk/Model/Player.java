@@ -8,8 +8,8 @@ public class Player extends Actor {
 
     private QLocation userLocation = new QLocation(0, 0);
 
-    public Player(int quizLength) {
-        super(quizLength);
+    public Player() {
+        //super(quizLength);
     }
 
     public QLocation getLocation(){return userLocation;}
@@ -17,7 +17,7 @@ public class Player extends Actor {
     public void updateLocation(QLocation userLocation){this.userLocation = userLocation;}
 
     public void setAnswer(int index, int answer) {
-        answers[index] = answer;
+        answers.add(index, answer);
     }
 
 }
