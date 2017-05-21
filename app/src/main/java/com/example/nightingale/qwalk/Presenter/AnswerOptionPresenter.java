@@ -16,13 +16,12 @@ public class AnswerOptionPresenter {
     private IAnswerOption view;
     private int chosenAnswer = 0;
     private OptionQuestion question;
+    private int aiAnswer = -1;
     private int questionIndex;
-    private AI ai;
 
-    public AnswerOptionPresenter(IAnswerOption view, OptionQuestion question, int questionIndex, AI ai) {
+    public AnswerOptionPresenter(IAnswerOption view, OptionQuestion question, int questionIndex) {
         this.view = view;
         this.question = question;
-        this.ai = ai;
         this.questionIndex=questionIndex;
 
         view.setTitle(question.getQuestionTitle());
@@ -36,6 +35,13 @@ public class AnswerOptionPresenter {
         }
     }
 
+    public AnswerOptionPresenter(IAnswerOption view, OptionQuestion question, int questionIndex, int aiAnswer){
+        this(view, question, questionIndex);
+        this.aiAnswer = aiAnswer;
+    }
+
+
+
     public void optionPressed(int index) {
         view.setCloseButtonEnabled(true);
         for (int i = 0; i < 4; i++) { //TODO detta kan inte vara en 4, samma problem som innan
@@ -48,8 +54,8 @@ public class AnswerOptionPresenter {
     public void submitClicked() {
         if (view.getButtonText().equals("Svara")) {
             view.setButtonText();
-            if (ai != null) {
-                view.showBotAnswer(ai.getAnswer(questionIndex));
+            if (aiAnswer != -1) {
+                view.showBotAnswer(aiAnswer);
             }
         } else {
             view.closeWithResult(chosenAnswer, question);

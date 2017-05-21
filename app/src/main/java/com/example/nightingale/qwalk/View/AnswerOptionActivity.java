@@ -50,10 +50,10 @@ public class AnswerOptionActivity extends AppCompatActivity implements IAnswerOp
         int questionIndex = i.getIntExtra("questionIndex", 0);
 
         try {
-            AI ai = i.getParcelableExtra("ai");
+            int ai = i.getIntExtra("aiAnswer", -1);
             presenter = new AnswerOptionPresenter(this, question, questionIndex, ai);
         } catch (NullPointerException e) {
-            presenter = new AnswerOptionPresenter(this, question, questionIndex, null);
+            presenter = new AnswerOptionPresenter(this, question, questionIndex);
         }
     }
 

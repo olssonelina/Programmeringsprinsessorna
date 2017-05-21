@@ -47,6 +47,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MapStyleOptions;
 
 
+import java.util.Random;
+
 import static java.lang.Math.abs;
 import static java.lang.Math.sin;
 
@@ -293,6 +295,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Intent intent = new Intent(getBaseContext(), AnswerOptionActivity.class);
                 intent.putExtra("question", (OptionQuestion) currentQuestion);
                 intent.putExtra("questionIndex", presenter.getQuestionIndex(currentQuestion));
+
+                //TODO hämta apans svar här. Om inte spelar med apan, skicka inget
+                Random random = new Random();
+                intent.putExtra("aiAnswer", random.nextInt(((OptionQuestion) currentQuestion).getNumberOfOptions()));
+
                 startActivityForResult(intent, ANSWER_CODE);
             }
 
