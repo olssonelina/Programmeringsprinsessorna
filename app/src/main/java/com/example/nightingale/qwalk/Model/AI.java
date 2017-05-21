@@ -59,7 +59,7 @@ public class AI extends Actor implements Runnable {
         return monkeyAnswers.size();
     }
 
-    private ArrayList<Integer> setAnswers(ArrayList<Integer> correctAnswers, boolean tiebreaker, ArrayList<Integer> low, ArrayList<Integer> high) {
+    private void setAnswers(ArrayList<Integer> correctAnswers, boolean tiebreaker, ArrayList<Integer> low, ArrayList<Integer> high) {
 //        for (int i = 0; i < correctAnswers.length; i++) {
 //            if (level > randomInt()) {
 //                monkeyAnswers.add(correctAnswers.get(i));
@@ -69,7 +69,7 @@ public class AI extends Actor implements Runnable {
 //                }
 //            }
 //        }
-        return monkeyAnswers;
+//        return monkeyAnswers;
     }
 
     private int randomInt() {
