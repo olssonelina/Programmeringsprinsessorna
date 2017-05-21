@@ -66,7 +66,7 @@ public final class StandardQuizzes {
 
         List<Question> questions = new ArrayList<>();
 
-        questions.add(new Tiebreaker("Hur gammal är byggnaden?", 45, 11.978703, 57.688447, 20, 60));
+        questions.add(new Tiebreaker("Hur gammal är byggnaden?", 45, 57.688447, 11.978703, 20, 60));
 
         q.setQuestions(questions);
 

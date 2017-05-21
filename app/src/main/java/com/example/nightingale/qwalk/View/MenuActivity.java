@@ -49,6 +49,7 @@ import javax.net.ssl.HttpsURLConnection;
 public class MenuActivity extends AppCompatActivity {
 
     public static final int CREATE_QUIZ_CODE = 37;
+    public static final int ADD_FRIEND_CODE = 14;
 
     protected int request;
     int offset = 0;
@@ -228,7 +229,7 @@ public class MenuActivity extends AppCompatActivity {
             toast.show();
         } else {
             Intent intent = new Intent(this, FriendActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, ADD_FRIEND_CODE);
         }
 
     }
@@ -342,10 +343,14 @@ public class MenuActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CREATE_QUIZ_CODE) {
-
+            userQuizzes.clear();
+            loadOnlineQuizzes(Account.getInstance().getUserID(), userQuizzes);
             loadUserList();
-
-            //TODO ladda upp nya quizzen här!
+        }
+        else if (requestCode == ADD_FRIEND_CODE){
+            friendQuizzes.clear();
+            loadFriendQuizzes();
+            loadFriendsList();
         }
     }
 

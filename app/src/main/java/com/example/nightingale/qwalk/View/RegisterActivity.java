@@ -152,8 +152,9 @@ public class RegisterActivity extends AppCompatActivity {
             }
 
             else if(result.equals("0")) {
-    Toast.makeText(getApplicationContext(), getResources().getString(R.string.done),
-            Toast.LENGTH_LONG).show(); // "Success" -> "Klar"
+    //Toast.makeText(getApplicationContext(), getResources().getString(R.string.done),
+            //Toast.LENGTH_LONG).show(); // "Success" -> "Klar"
+                finish();
 
 }
 else if(result.equals("1")){

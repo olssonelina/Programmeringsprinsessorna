@@ -103,7 +103,7 @@ public class CreateQuizActivity extends AppCompatActivity {
             msg = getResources().getString(R.string.set_title_ex);
         } else if (quizDescription.getText().toString().equals("")) {
             msg = getResources().getString(R.string.set_description_ex);
-        } else if (questions.size() == 0) {
+        } else if (questions.size() == 0 && tiebreaker == null) {
             msg = getResources().getString(R.string.add_questions_ex);
         } else {
             msg = getResources().getString(R.string.error);
