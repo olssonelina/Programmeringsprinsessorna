@@ -195,8 +195,8 @@ public class LoginActivity extends AppCompatActivity {
             else{
                 Account.getInstance().setUserID(Integer.parseInt(ID));
                 Account.getInstance().setUsername(UsernameInput.getText().toString());
-                Toast.makeText(getApplicationContext(), getResources().getString(R.string.done),
-                        Toast.LENGTH_LONG).show(); // "Success" -> "Klar"
+                //Toast.makeText(getApplicationContext(), getResources().getString(R.string.done),
+                        //Toast.LENGTH_LONG).show(); // "Success" -> "Klar"
                 DatabaseHandler.loadFriends();
                 spinner.setVisibility(View.GONE);
                 Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
