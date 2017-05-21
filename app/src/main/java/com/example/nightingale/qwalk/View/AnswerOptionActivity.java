@@ -47,12 +47,13 @@ public class AnswerOptionActivity extends AppCompatActivity implements IAnswerOp
 
         Intent i = getIntent();
         OptionQuestion question = i.getParcelableExtra("question");
+        int questionIndex = i.getIntExtra("questionIndex", 0);
 
         try {
             int ai = i.getIntExtra("aiAnswer", -1);
-            presenter = new AnswerOptionPresenter(this, question, ai);
+            presenter = new AnswerOptionPresenter(this, question, questionIndex, ai);
         } catch (NullPointerException e) {
-            presenter = new AnswerOptionPresenter(this, question);
+            presenter = new AnswerOptionPresenter(this, question, questionIndex);
         }
     }
 

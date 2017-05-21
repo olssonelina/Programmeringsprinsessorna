@@ -1,24 +1,26 @@
 package com.example.nightingale.qwalk.Model;
 
+import java.util.ArrayList;
+
 /**
  * Created by Elina Olsson on 2017-05-12.
  */
 
 public abstract class Actor {
 
-    protected int[] answers;
+    protected ArrayList<Integer> answers;
 
     public Actor(){}
 
-    public Actor(int quizLength) {
-        this.answers = new int[quizLength];
-    }
+    //public Actor(int quizLength) {
+    //    this.answers = new int[quizLength];
+    //}
 
     public int getScore() {
         return 0;
     }
 
-    public int[] getAnswers() {
+    public ArrayList<Integer> getAnswers() {
        return answers;
     }
 }

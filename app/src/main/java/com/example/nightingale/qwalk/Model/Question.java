@@ -10,9 +10,11 @@ public abstract class Question {
 
     //TODO gör fält privata, gör en gemensam konstruktor (ger dock parcel-problem, vi får lösa det)
 
-    String questionTitle;
-    int correctAnswer;
-    QLocation location;
+    protected String questionTitle;
+    protected int correctAnswer;
+    protected QLocation location;
+    protected int upperBounds;
+    protected int lowerBounds;
 
 
     public void setLocation(double latitude, double longitude) {
@@ -46,6 +48,11 @@ public abstract class Question {
     public static boolean validateLocation(double latitude, double longitude){
         return latitude != 0 && longitude != 0;
     }
+
+    public int getUpperBounds(){return upperBounds;}
+
+    public int getLowerBounds(){return lowerBounds;}
+
 
     @Override
     public abstract boolean equals(Object o);

@@ -17,10 +17,13 @@ public class AnswerOptionPresenter {
     private int chosenAnswer = 0;
     private OptionQuestion question;
     private int aiAnswer = -1;
+    private int questionIndex;
 
-    public AnswerOptionPresenter(IAnswerOption view, OptionQuestion question) {
+    public AnswerOptionPresenter(IAnswerOption view, OptionQuestion question, int questionIndex) {
         this.view = view;
         this.question = question;
+        this.questionIndex=questionIndex;
+
         view.setTitle(question.getQuestionTitle());
 
         //TODO det borde vara en array från början
@@ -32,8 +35,8 @@ public class AnswerOptionPresenter {
         }
     }
 
-    public AnswerOptionPresenter(IAnswerOption view, OptionQuestion question, int aiAnswer){
-        this(view, question);
+    public AnswerOptionPresenter(IAnswerOption view, OptionQuestion question, int questionIndex, int aiAnswer){
+        this(view, question, questionIndex);
         this.aiAnswer = aiAnswer;
     }
 

@@ -8,6 +8,8 @@ import com.example.nightingale.qwalk.Model.Question;
 import com.example.nightingale.qwalk.Model.Quiz;
 import com.example.nightingale.qwalk.Model.QwalkGame;
 
+import java.util.ArrayList;
+
 /**
  * Created by Kraft on 2017-05-12.
  */
@@ -80,7 +82,7 @@ public class MapsPresenter {
      * @param botAnswers
      *
      */
-    public void showResults(Quiz quiz, int[] playerAnswers, int[] botAnswers, long quizTime){ view.showResults(quiz, playerAnswers, botAnswers, quizTime ); }
+    public void showResults(Quiz quiz, ArrayList<Integer> playerAnswers, ArrayList<Integer> botAnswers, long quizTime){ view.showResults(quiz, playerAnswers, botAnswers, quizTime ); }
 
     /**
      *
@@ -138,6 +140,8 @@ public class MapsPresenter {
     public void setProgress(int current, int total) {
         view.setProgress(current, total);
     }
+
+    public int getQuestionIndex(Question question){ return model.getQuestionIndex(question);}
 
     public void setShowClosestEnabled(boolean value) {
         view.setShowClosestEnabled(value);
