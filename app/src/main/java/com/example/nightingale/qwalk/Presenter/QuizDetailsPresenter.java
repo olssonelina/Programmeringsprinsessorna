@@ -19,7 +19,7 @@ public class QuizDetailsPresenter {
 
         view.setTitle(quiz.getTitle());
         view.setDescription(quiz.getDescription());
-        view.setEditButtonEnabled(editable);
+
     }
 
     public void settingsChanged(QuizSetting[] setTrue, QuizSetting[] setFalse){
@@ -48,6 +48,10 @@ public class QuizDetailsPresenter {
         view.openSettings(quiz);
     }
 
-    public void deletePressed() { }  //TODO
+    public void deletePressed() {
+
+
+
+    }  //TODO
 
 }

@@ -11,6 +11,5 @@ public interface IQuizDetails {
     void setTitle(String title);
     void setDescription(String description);
     void editQuiz(Quiz quiz);
-    void setEditButtonEnabled(boolean value);
     void openSettings(Quiz quiz);
 }

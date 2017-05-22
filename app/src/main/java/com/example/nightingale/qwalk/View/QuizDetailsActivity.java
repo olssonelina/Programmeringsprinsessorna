@@ -24,7 +24,7 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
 
     private QuizDetailsPresenter presenter;
 
-    private Button edit;
+
     private TextView title;
     private TextView description;
 
@@ -34,9 +34,6 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quizdetails);
-
-        edit = (Button) findViewById(R.id.edit);
-        edit.setBackgroundResource(R.drawable.pen);
 
         title = (TextView) findViewById(R.id.title);
         description = (TextView) findViewById(R.id.description);
@@ -94,10 +91,6 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
     }
 
 
-    @Override
-    public void setEditButtonEnabled(boolean value) {
-        edit.setEnabled(value);
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

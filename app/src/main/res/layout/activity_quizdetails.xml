@@ -18,89 +18,90 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="602dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true">
 
         <ImageView
-            android:id="@+id/settings"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/edit"
-            android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
-            android:onClick="onSettingsPressed"
-            android:padding="5dp"
-            android:srcCompat="@drawable/settings"
-            map:srcCompat="@drawable/settings2" />
-
-        <ImageView
             android:id="@+id/goBackButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignTop="@+id/deleteQuizButton"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginStart="18dp"
             android:onClick="onBackPressed"
-            map:srcCompat="@drawable/arrow2" />
+            map:srcCompat="@drawable/arrow2"
+            android:layout_alignTop="@+id/deleteQuizButton"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
-        <ImageView
-            android:id="@+id/deleteQuizButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="17dp"
-            android:onClick="onDeletePressed"
-            map:srcCompat="@drawable/delete" />
-
-        <ImageView
+        <Button
             android:id="@+id/edit"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_alignTop="@+id/deleteQuizButton"
-            android:layout_toEndOf="@+id/play"
-            android:layout_toRightOf="@+id/play"
+            android:background="@drawable/pen2"
             android:onClick="onEditPressed"
-            map:srcCompat="@drawable/pen2" />
+            android:text=""
+            android:layout_above="@+id/progressBar1"
+            android:layout_toRightOf="@+id/play"
+            android:layout_toEndOf="@+id/play" />
+
+
+        <Button
+            android:id="@+id/deleteQuizButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/delete"
+            android:onClick="onDeletePressed"
+            android:text=""
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:id="@+id/settings"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/settings2"
+            android:onClick="onSettingsPressed"
+            android:text=""
+            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_alignTop="@+id/deleteQuizButton"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/play"
+            android:layout_alignRight="@+id/play"
+            android:layout_below="@+id/play"
             android:text="Spela!"
             android:textColor="#09c856"
-            android:textSize="36dp"
-            android:layout_below="@+id/play"
-            android:layout_alignRight="@+id/play"
-            android:layout_alignEnd="@+id/play" />
+            android:textSize="36dp" />
 
         <Button
             android:id="@+id/play"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:layout_below="@+id/description"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="110dp"
             android:background="@drawable/play2"
             android:onClick="onPlayPressed"
-            android:text=""
-            android:layout_marginTop="62dp"
-            android:layout_below="@+id/description"
-            android:layout_centerHorizontal="true" />
+            android:text="" />
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/edit"
-            android:layout_alignRight="@+id/edit"
-            android:layout_below="@+id/deleteQuizButton"
-            android:layout_marginTop="42dp"
             android:text="Titel på Quiz"
-            android:textSize="36dp" />
+            android:textSize="36dp"
+            android:layout_below="@+id/deleteQuizButton"
+            android:layout_alignLeft="@+id/description"
+            android:layout_alignStart="@+id/description" />
 
         <TextView
             android:id="@+id/description"
@@ -111,6 +112,15 @@
             android:layout_marginTop="12dp"
             android:text="Kort beskrivning av quiz"
             android:textSize="18dp" />
+
+        <ProgressBar
+            android:id="@+id/progressBar1"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_alignLeft="@+id/description"
+            android:layout_alignStart="@+id/description"
+            android:layout_alignTop="@+id/title" />
 
     </RelativeLayout>
 
