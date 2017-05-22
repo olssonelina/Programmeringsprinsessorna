@@ -23,13 +23,82 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true">
 
+        <ImageView
+            android:id="@+id/settings"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/edit"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:onClick="onSettingsPressed"
+            android:padding="5dp"
+            android:srcCompat="@drawable/settings"
+            map:srcCompat="@drawable/settings2" />
+
+        <ImageView
+            android:id="@+id/goBackButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/deleteQuizButton"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:onClick="onBackPressed"
+            map:srcCompat="@drawable/arrow2" />
+
+        <ImageView
+            android:id="@+id/deleteQuizButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="17dp"
+            android:onClick="onDeletePressed"
+            map:srcCompat="@drawable/delete" />
+
+        <ImageView
+            android:id="@+id/edit"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignTop="@+id/deleteQuizButton"
+            android:layout_toEndOf="@+id/play"
+            android:layout_toRightOf="@+id/play"
+            android:onClick="onEditPressed"
+            map:srcCompat="@drawable/pen2" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Spela!"
+            android:textColor="#09c856"
+            android:textSize="36dp"
+            android:layout_below="@+id/play"
+            android:layout_alignRight="@+id/play"
+            android:layout_alignEnd="@+id/play" />
+
+        <Button
+            android:id="@+id/play"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/play2"
+            android:onClick="onPlayPressed"
+            android:text=""
+            android:layout_marginTop="62dp"
+            android:layout_below="@+id/description"
+            android:layout_centerHorizontal="true" />
+
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="80dp"
+            android:layout_alignEnd="@+id/edit"
+            android:layout_alignRight="@+id/edit"
+            android:layout_below="@+id/deleteQuizButton"
+            android:layout_marginTop="42dp"
             android:text="Titel på Quiz"
             android:textSize="36dp" />
 
@@ -39,76 +108,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/title"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="12dp"
             android:text="Kort beskrivning av quiz"
             android:textSize="18dp" />
 
-        <Button
-            android:id="@+id/play"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_marginTop="96dp"
-            android:background="@drawable/play2"
-            android:onClick="onPlayPressed"
-            android:text=""
-            android:layout_below="@+id/description"
-            android:layout_centerHorizontal="true" />
-
-        <Button
-            android:id="@+id/goBackButton"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginRight="310dp"
-            android:layout_marginTop="10dp"
-            android:onClick="onBackPressed"
-            android:padding="5dp"
-            android:text="byt ut mig mot en pil" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/description">
-
-            <ImageView
-                android:id="@+id/deleteQuizButton"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:onClick="onDeletePressed"
-                map:srcCompat="@drawable/delete"
-                android:layout_marginRight="95dp"
-                android:layout_marginEnd="95dp"
-                android:layout_marginTop="11dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
-
-            <ImageView
-                android:id="@+id/edit"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:onClick="onEditPressed"
-                map:srcCompat="@drawable/pen2"
-                android:layout_marginRight="21dp"
-                android:layout_marginEnd="21dp"
-                android:layout_alignTop="@+id/deleteQuizButton"
-                android:layout_toLeftOf="@+id/deleteQuizButton"
-                android:layout_toStartOf="@+id/deleteQuizButton" />
-
-        </RelativeLayout>
-
-        <ImageView
-            android:id="@+id/settings"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_marginEnd="13dp"
-            android:layout_marginRight="13dp"
-            android:onClick="onSettingsPressed"
-            android:padding="5dp"
-            android:srcCompat="@drawable/settings"
-            map:srcCompat="@drawable/settings2"
-            android:layout_alignTop="@+id/goBackButton"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-
     </RelativeLayout>
+
 </FrameLayout>
