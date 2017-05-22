@@ -15,5 +15,5 @@ public interface IAnswerOption {
     void setTitle(String title);
     void showBotAnswer(int index);
     String getButtonText();
-    void setButtonText();
+    void setButtonText(String text);
 }

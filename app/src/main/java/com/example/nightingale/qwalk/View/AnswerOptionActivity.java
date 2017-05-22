@@ -49,12 +49,8 @@ public class AnswerOptionActivity extends AppCompatActivity implements IAnswerOp
         OptionQuestion question = i.getParcelableExtra("question");
         int questionIndex = i.getIntExtra("questionIndex", 0);
 
-        try {
-            int ai = i.getIntExtra("aiAnswer", -1);
-            presenter = new AnswerOptionPresenter(this, question, questionIndex, ai);
-        } catch (NullPointerException e) {
-            presenter = new AnswerOptionPresenter(this, question, questionIndex);
-        }
+        int ai = i.getIntExtra("aiAnswer", -1);
+        presenter = new AnswerOptionPresenter(this, question, questionIndex, ai);
     }
 
     public void optionPressed(View view) {
@@ -78,8 +74,8 @@ public class AnswerOptionActivity extends AppCompatActivity implements IAnswerOp
         return saveAnswer.getText().toString();
     }
 
-    public void setButtonText() {
-        saveAnswer.setText("Stäng");
+    public void setButtonText(String text) {
+        saveAnswer.setText(text);
     }
 
     @Override

@@ -1,8 +1,5 @@
 package com.example.nightingale.qwalk.Model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -11,17 +8,19 @@ import java.util.Random;
  * Created by Elina Olsson on 2017-05-15.
  */
 
-public class AI extends Actor implements Runnable {
+public class AI implements Runnable {
 
-    private int level;
+    ArrayList<Integer> monkeyAnswers = new ArrayList<>();
+    int level;
+
+    public static final int NO_ANSWER = -1;
+
     private int score;
-    private GameTimer timer = new GameTimer();
+    GameTimer timer = new GameTimer();
 
-    private List<IOnAIMoveListener> listeners = new ArrayList<>();
-
+    List<IOnAIMoveListener> listeners = new ArrayList<>();
 
     public AI(ArrayList<Integer> correctAnswers, boolean tieBreaker, ArrayList<Integer> low, ArrayList<Integer> high, int level) {
-        super(correctAnswers.size());
         this.level=level;
         setAnswers(correctAnswers, tieBreaker, low, high);
         setScore(correctAnswers);
@@ -31,14 +30,25 @@ public class AI extends Actor implements Runnable {
 
     private void setScore(ArrayList<Integer> correctAnswers) {
         for (int i = 0; i < correctAnswers.size(); i++) {
-            if (correctAnswers.get(i) == answers.get(i)) {
+            if (correctAnswers.get(i) == monkeyAnswers.get(i)) {
                 score++;
             }
         }
     }
 
+
     public int getAnswer(int index) {
-        return answers.get(index);
+        //int index = quiz.getQuestionIndex(question);
+        return monkeyAnswers.get(index);
+    }
+
+    public int[] getAnswers(){
+        int[] a = new int[monkeyAnswers.size()];
+        for (int i = 0; i < a.length; i++) {
+            a[i] = monkeyAnswers.get(i);
+
+        }
+        return a;
     }
 
     public int getScore() {
@@ -46,20 +56,20 @@ public class AI extends Actor implements Runnable {
     }
 
     public int getNumberOfQuestions() {
-        return answers.size();
+        return monkeyAnswers.size();
     }
 
     private void setAnswers(ArrayList<Integer> correctAnswers, boolean tiebreaker, ArrayList<Integer> low, ArrayList<Integer> high) {
         for (int i = 0; i < correctAnswers.size(); i++) {
             if (level > randomInt()) {
-                answers.add(correctAnswers.get(i));
+                monkeyAnswers.add(correctAnswers.get(i));
             } else {
-                answers.add(randomAnswer(((high.get(i)+1))));
+                monkeyAnswers.add(randomAnswer(((high.get(i)+1))));
             }
         }
         if(tiebreaker){
             int lastIndex=correctAnswers.size()-1;
-            answers.set(lastIndex,randomAnswer(high.get(lastIndex)-low.get(lastIndex))+low.get(lastIndex));
+            monkeyAnswers.set(lastIndex,randomAnswer(high.get(lastIndex)-low.get(lastIndex))+low.get(lastIndex));
         }
     }
 

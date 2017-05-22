@@ -22,7 +22,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nightingale.qwalk.InterfaceView.IMaps;
-import com.example.nightingale.qwalk.Model.Actor;
 import com.example.nightingale.qwalk.Model.Android.QwalkMarkerList;
 import com.example.nightingale.qwalk.Model.OptionQuestion;
 import com.example.nightingale.qwalk.Model.QLocation;
@@ -265,12 +264,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void showResults(Quiz quiz, ArrayList<Integer> playerAnswers, ArrayList<Integer> botAnswers, long quizTime) {
+    public void showResults(Quiz quiz, int[] playerAnswers, int[] aiAnswers, long quizTime) {
         //TODO det som ska hända när ett quiz är klart
         Intent intent = new Intent(getBaseContext(), ShowResultActivity.class);
         intent.putExtra("player", playerAnswers);
-        if (botAnswers != null){
-            intent.putExtra("ai", botAnswers);
+        intent.putExtra("time", quizTime);
+        intent.putExtra("quiz", quiz);
+        if (aiAnswers != null){
+            intent.putExtra("ai", aiAnswers);
         }
 
         startActivity(intent);
@@ -283,12 +284,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void initializeBot(QLocation location) {
+    public void initializeAi(QLocation location) {
         //TODO
     }
 
     @Override
-    public void moveBot(QLocation location) {
+    public void moveAi(QLocation location) {
         //TODO
     }
 
@@ -308,9 +309,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 intent.putExtra("question", (OptionQuestion) currentQuestion);
                 intent.putExtra("questionIndex", presenter.getQuestionIndex(currentQuestion));
 
-                //TODO hämta apans svar här. Om inte spelar med apan, skicka inget
-                Random random = new Random();
-                intent.putExtra("aiAnswer", random.nextInt(((OptionQuestion) currentQuestion).getNumberOfOptions()));
+                if (presenter.hasAi()){
+                    intent.putExtra("aiAnswer", presenter.getAiAnswer(currentQuestion));
+                }
+                else{
+                    intent.putExtra("aiAnswer", -1);
+                }
 
                 startActivityForResult(intent, ANSWER_CODE);
             }

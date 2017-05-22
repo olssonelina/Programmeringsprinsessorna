@@ -79,6 +79,9 @@ public class OptionQuestion extends Question implements Parcelable {
 
 
     protected OptionQuestion(Parcel in) {
+        questionTitle = in.readString();
+        correctAnswer = in.readInt();
+        location = (QLocation) in.readValue(QLocation.class.getClassLoader());
         if (in.readByte() == 0x01) {
             options = new ArrayList<String>();
             in.readList(options, String.class.getClassLoader());
@@ -94,6 +97,9 @@ public class OptionQuestion extends Question implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(questionTitle);
+        dest.writeInt(correctAnswer);
+        dest.writeValue(location);
         if (options == null) {
             dest.writeByte((byte) (0x00));
         } else {

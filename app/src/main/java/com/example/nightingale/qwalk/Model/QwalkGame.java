@@ -51,7 +51,7 @@ public class QwalkGame implements IOnAIMoveListener {
             placeAllQuestions();
         }
 
-        if (quiz.getSetting(WITH_BOT)) {
+        if (quiz.getSetting(WITH_AI)) {
             //TODO initialize ai
             int difficulty = 0;
             switch (quiz.getDifficulty()) {
@@ -70,7 +70,7 @@ public class QwalkGame implements IOnAIMoveListener {
             ai.setOnAImovedListener(this);
             Thread botThread = new Thread(ai);
             botThread.start();
-            //presenter.initializeBot(); //TODO
+            //presenter.initializeAi(); //TODO
         }
 
         if (quiz.getSetting(QUIZ_TIMER)) {
@@ -108,7 +108,7 @@ public class QwalkGame implements IOnAIMoveListener {
             time = quizTimer.getTime();
         }
 
-        if (quiz.getSetting(WITH_BOT)) {
+        if (quiz.getSetting(WITH_AI)) {
             presenter.showResults(quiz, player.getAnswers(), ai.getAnswers(), time);
         }
         else {
@@ -170,7 +170,7 @@ public class QwalkGame implements IOnAIMoveListener {
                 presenter.enableMarker(q);
             }
         }
-        if (quiz.getSetting(WITH_BOT)){ updateBot(); }
+        if (quiz.getSetting(WITH_AI)){ updateBot(); }
     }
 
     private void updateBot() {
@@ -214,6 +214,10 @@ public class QwalkGame implements IOnAIMoveListener {
         }
     }
 
+    public boolean hasAi(){
+        return ai != null;
+    }
+
     @Override
     public void AIMoved(QLocation location) {
         presenter.moveBot(location);
@@ -221,5 +225,9 @@ public class QwalkGame implements IOnAIMoveListener {
 
     public int getQuestionIndex(Question question){
         return quiz.getQuestionIndex(question);
+    }
+
+    public int getAiAnswer(Question question){
+       return ai.getAnswer(quiz.getQuestionIndex(question));
     }
 }
