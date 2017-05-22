@@ -33,7 +33,6 @@ public class DatabaseHandler {
 
     static IFriendActivity view;
 
-    private static Context ctx;
     final private static String host = "programmeringsprinsessorna.000webhostapp.com";
     final private static String insertQuizURL = "https://programmeringsprinsessorna.000webhostapp.com/insertquiz.php";
     final private static String insertAccountURL = "https://programmeringsprinsessorna.000webhostapp.com/insert.php";
@@ -218,21 +217,20 @@ public static void addFriend(String Friend, FriendActivity view2){
 
 
                 if (result.equals("0")) {
-                    msg = ctx.getResources().getString(R.string.error);
+                    msg = "Error";
                     view.AddFriendComplete(msg);
                 } else if (result.equals("1")) {
-                    msg = ctx.getResources().getString(R.string.no_existing_username);
+                    msg = "Användarnamnet finns inte";
                     view.AddFriendComplete(msg);
                 } else if (result.equals("2")) {
-                    msg = ctx.getResources().getString(R.string.already_friends);
+                    msg = "Du är redan vän med den här personen";
                     view.AddFriendComplete(msg);
                 } else if (result.equals("3")) {
-                    //msg = ctx.getResources().getString(R.string.friend_added);
                     msg = "Vän tillagd";
                     view.AddFriendComplete(msg);
                 }
                 else if(result.equals("Exception:Unabletoresolvehost\""+ DatabaseHandler.getHost() + "\":Noaddressassociatedwithhostname")){
-                    msg = ctx.getResources().getString(R.string.connection_failed_ex);
+                    msg = "Uppkoppling misslyckades";
                     view.AddFriendComplete(msg);
                 }
 
