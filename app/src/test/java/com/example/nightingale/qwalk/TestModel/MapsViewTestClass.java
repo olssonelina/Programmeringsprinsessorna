@@ -69,13 +69,6 @@ public class MapsViewTestClass implements IMaps {
     }
 
     @Override
-    public void placeHiddenMarker(Question question) {
-        if (!placedHiddenMarkers.contains(question)){
-            placedHiddenMarkers.add(question);
-        }
-    }
-
-    @Override
     public void enableMarker(Question question) {
         if (!enabledMarkers.contains(question)){
             enabledMarkers.add(question);
@@ -90,12 +83,12 @@ public class MapsViewTestClass implements IMaps {
     }
 
     @Override
-    public void showResults(Quiz quiz, Actor player, Actor bot) {
+    public void showResults(Quiz quiz, ArrayList<Integer> playerAnswers, ArrayList<Integer> botAnswers, long quizTime) {
 
     }
 
     @Override
-    public void showResults(Quiz quiz, Actor player) {
+    public void setShowClosestEnabled(boolean value) {
 
     }
 
@@ -107,5 +100,10 @@ public class MapsViewTestClass implements IMaps {
     @Override
     public void moveBot(QLocation location) {
         bot = location;
+    }
+
+    @Override
+    public void setProgress(int current, int total) {
+
     }
 }
