@@ -116,15 +116,22 @@ public class Quiz implements Parcelable {
         return upperBounds;
     }
 
+
+    public int getQuestionIndex(Question q) {
+        for (int i = 0; i < questions.size(); i++) {
+            if (q.equals(questions.get(i))) {
+                return i;
+            }
+        }
+        throw new IllegalArgumentException("No such question in list!");
+    }
+
+
     protected Quiz(Parcel in) {
         title = in.readString();
         description = in.readString();
         difficulty = (QuizDifficulty) in.readValue(QuizDifficulty.class.getClassLoader());
         questionTimer = in.readByte() != 0x00;
-        quizTimer = in.readByte() != 0x00;
-        hiddenQuestions = in.readByte() != 0x00;
-        inOrder = in.readByte() != 0x00;
-        withBot = in.readByte() != 0x00;
         if (in.readByte() == 0x01) {
             questions = new ArrayList<Question>();
             in.readList(questions, Question.class.getClassLoader());
@@ -139,15 +146,6 @@ public class Quiz implements Parcelable {
         }
     }
 
-    public int getQuestionIndex(Question q) {
-        for (int i = 0; i < questions.size(); i++) {
-            if (q.equals(questions.get(i))) {
-                return i;
-            }
-        }
-        throw new IllegalArgumentException("No such question in list!");
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -159,10 +157,6 @@ public class Quiz implements Parcelable {
         dest.writeString(description);
         dest.writeValue(difficulty);
         dest.writeByte((byte) (questionTimer ? 0x01 : 0x00));
-        dest.writeByte((byte) (quizTimer ? 0x01 : 0x00));
-        dest.writeByte((byte) (hiddenQuestions ? 0x01 : 0x00));
-        dest.writeByte((byte) (inOrder ? 0x01 : 0x00));
-        dest.writeByte((byte) (withBot ? 0x01 : 0x00));
         if (questions == null) {
             dest.writeByte((byte) (0x00));
         } else {
