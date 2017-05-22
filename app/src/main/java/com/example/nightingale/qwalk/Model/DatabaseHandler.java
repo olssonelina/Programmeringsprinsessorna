@@ -62,7 +62,9 @@ public class DatabaseHandler {
         return readQuizURL;
     }
 
-    public static String getInsertFriendURL() {return insertFriendURL;}
+    public static String getInsertFriendURL() {
+        return insertFriendURL;
+    }
 
     private static int request;
 
@@ -72,6 +74,8 @@ public class DatabaseHandler {
 
     private static String FriendUsername;
 
+    private static String quizID;
+
     public static String getPostDataString(JSONObject params) throws Exception {
 
         StringBuilder result = new StringBuilder();
@@ -79,9 +83,9 @@ public class DatabaseHandler {
 
         Iterator<String> itr = params.keys();
 
-        while(itr.hasNext()){
+        while (itr.hasNext()) {
 
-            String key= itr.next();
+            String key = itr.next();
             Object value = params.get(key);
 
             if (first)
@@ -96,7 +100,6 @@ public class DatabaseHandler {
         }
         return result.toString();
     }
-
 
 
     public static void loadFriends() {
@@ -129,13 +132,63 @@ public class DatabaseHandler {
         request = 0;
     }
 
-public static void addFriend(String Friend, FriendActivity view2){
-    view = view2;
-    FriendUsername = Friend;
-    request = 0;
+    public static void addFriend(String Friend, FriendActivity view2) {
+        view = view2;
+        FriendUsername = Friend;
+        request = 0;
 
-    new DatabaseHandler.SendFriendRequest().execute();
+        new DatabaseHandler.SendFriendRequest().execute();
 
+
+    }
+
+    public static String sendParams(URL url, JSONObject postDataParams) {
+
+        try {
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setReadTimeout(15000 /* milliseconds */);
+            conn.setConnectTimeout(15000 /* milliseconds */);
+            conn.setRequestMethod("POST");
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+
+            OutputStream os = conn.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(
+                    new OutputStreamWriter(os, "UTF-8"));
+            writer.write(DatabaseHandler.getPostDataString(postDataParams));
+
+            writer.flush();
+            writer.close();
+            os.close();
+
+            int responseCode = conn.getResponseCode();
+
+            if (responseCode == HttpsURLConnection.HTTP_OK) {
+
+                BufferedReader in=new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                StringBuffer sb = new StringBuffer("");
+                String line="";
+
+                while((line = in.readLine()) != null) {
+
+                    sb.append(line);
+                    break;
+                }
+
+                in.close();
+                return sb.toString();
+
+            }
+            else {
+                return new String("false : "+responseCode);
+            }
+
+        }
+
+            catch(Exception e) {
+        return new String("Exception: " + e.getMessage());
+    }
 
 }
 
@@ -161,43 +214,9 @@ public static void addFriend(String Friend, FriendActivity view2){
 
                 Log.e("params",postDataParams.toString());
 
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setReadTimeout(15000 /* milliseconds */);
-                conn.setConnectTimeout(15000 /* milliseconds */);
-                conn.setRequestMethod("POST");
-                conn.setDoInput(true);
-                conn.setDoOutput(true);
+               return sendParams(url, postDataParams);
 
-                OutputStream os = conn.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(
-                        new OutputStreamWriter(os, "UTF-8"));
-                writer.write(DatabaseHandler.getPostDataString(postDataParams));
 
-                writer.flush();
-                writer.close();
-                os.close();
-
-                int responseCode=conn.getResponseCode();
-
-                if (responseCode == HttpsURLConnection.HTTP_OK) {
-
-                    BufferedReader in=new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                    StringBuffer sb = new StringBuffer("");
-                    String line="";
-
-                    while((line = in.readLine()) != null) {
-
-                        sb.append(line);
-                        break;
-                    }
-
-                    in.close();
-                    return sb.toString();
-
-                }
-                else {
-                    return new String("false : "+responseCode);
-                }
             }
             catch(Exception e){
                 return new String("Exception: " + e.getMessage());
@@ -244,4 +263,58 @@ public static void addFriend(String Friend, FriendActivity view2){
         }
     }
 
+    public static class SendDeleteQuizRequest extends AsyncTask<String, Void, String> {
+
+
+        protected void onPreExecute(){}
+
+        protected String doInBackground(String... arg0) {
+
+            try{
+
+                URL url = new URL(DatabaseHandler.getInsertFriendURL());
+
+                JSONObject postDataParams = new JSONObject();
+
+
+                postDataParams.put("quizid", quizID);
+
+                Log.e("params",postDataParams.toString());
+
+                return sendParams(url, postDataParams);
+            }
+            catch(Exception e){
+                return new String("Exception: " + e.getMessage());
+            }
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+
+            String msg = "";
+
+
+            Log.e("response", result);
+            result = result.replaceAll("\\s+", "");
+
+
+
+            if (result.equals("0")) {
+                msg = "Success";
+                view.AddFriendComplete(msg);
+            } else{
+                msg = "Error";
+                view.AddFriendComplete(msg);
+            }
+
+
+
+
+
+
+
+
+        }
+    }
 }
