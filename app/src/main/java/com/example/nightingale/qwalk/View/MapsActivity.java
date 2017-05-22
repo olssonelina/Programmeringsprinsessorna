@@ -264,12 +264,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void showResults(Quiz quiz, int[] playerAnswers, ArrayList<Integer> aiAnswers, long quizTime) {
+    public void showResults(Quiz quiz, int[] playerAnswers, int[] aiAnswers, long quizTime) {
         //TODO det som ska hända när ett quiz är klart
         Intent intent = new Intent(getBaseContext(), ShowResultActivity.class);
         intent.putExtra("player", playerAnswers);
+        intent.putExtra("time", quizTime);
+        intent.putExtra("quiz", quiz);
         if (aiAnswers != null){
-            intent.putExtra("ai", aiAnswers.toArray());
+            intent.putExtra("ai", aiAnswers);
         }
 
         startActivity(intent);

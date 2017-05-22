@@ -42,8 +42,13 @@ public class AI implements Runnable {
         return monkeyAnswers.get(index);
     }
 
-    public ArrayList<Integer> getAnswers(){
-        return monkeyAnswers;
+    public int[] getAnswers(){
+        int[] a = new int[monkeyAnswers.size()];
+        for (int i = 0; i < a.length; i++) {
+            a[i] = monkeyAnswers.get(i);
+
+        }
+        return a;
     }
 
     public int getScore() {

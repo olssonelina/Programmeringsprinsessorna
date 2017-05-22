@@ -85,10 +85,10 @@ public class MapsPresenter {
      *
      * @param quiz
      * @param playerAnswers
-     * @param botAnswers
+     * @param aiAnswers
      *
      */
-    public void showResults(Quiz quiz, int[] playerAnswers, ArrayList<Integer> botAnswers, long quizTime){ view.showResults(quiz, playerAnswers, botAnswers, quizTime ); }
+    public void showResults(Quiz quiz, int[] playerAnswers, int[] aiAnswers, long quizTime){ view.showResults(quiz, playerAnswers, aiAnswers, quizTime ); }
 
     /**
      *

@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.nightingale.qwalk.InterfaceView.IShowResult;
 import com.example.nightingale.qwalk.Model.AI;
+import com.example.nightingale.qwalk.Model.Quiz;
 import com.example.nightingale.qwalk.Presenter.ShowResultPresenter;
 import com.example.nightingale.qwalk.R;
 
@@ -49,13 +50,11 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
 
         Intent i = getIntent();
         long time = i.getLongExtra("time", 0);
-        int[] player = i.getIntArrayExtra("player");
-        int[] bot = i.getIntArrayExtra("ai");
-        if (bot != null){
-            showMonkeyResult();
-            //TODO mer saker som behöver göras när en bot är på
-        }
-        presenter = new ShowResultPresenter(this, player, time);
+        int[] playerAnswers = i.getIntArrayExtra("player");
+        int[] aiAnswers = i.getIntArrayExtra("ai");
+        Quiz quiz  = i.getParcelableExtra("quiz");
+
+        presenter = new ShowResultPresenter(this, playerAnswers, aiAnswers, quiz, time);
     }
 
     public void showMonkeyResult() {
