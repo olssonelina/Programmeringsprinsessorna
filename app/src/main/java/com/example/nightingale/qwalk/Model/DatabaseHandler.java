@@ -6,7 +6,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.nightingale.qwalk.InterfaceView.IFriendActivity;
 import com.example.nightingale.qwalk.R;
+import com.example.nightingale.qwalk.View.FriendActivity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -28,6 +30,8 @@ import javax.net.ssl.HttpsURLConnection;
  */
 
 public class DatabaseHandler {
+
+    static IFriendActivity view;
 
     private static Context ctx;
     final private static String host = "programmeringsprinsessorna.000webhostapp.com";
@@ -97,6 +101,7 @@ public class DatabaseHandler {
 
 
     public static void loadFriends() {
+
         Log.d("JSON", "Method entered");
         request = 1;
         FriendUsername = "";
@@ -122,40 +127,16 @@ public class DatabaseHandler {
         } catch (Exception e) {
             Log.d("JSON", "Crash2Handler");
         }
-    }
-
-public static String addFriend(String Friend){
-    FriendUsername = Friend;
         request = 0;
-    String msg = "";
-        try {
-    String ID = new DatabaseHandler.SendFriendRequest().execute().get();
-    Log.e("response", ID);
-    ID = ID.replaceAll("\\s+", "");
-
-
-
-    if (ID.equals("0")) {
-        msg = ctx.getResources().getString(R.string.error);
-    } else if (ID.equals("1")) {
-        msg = ctx.getResources().getString(R.string.no_existing_username);
-    } else if (ID.equals("2")) {
-        msg = ctx.getResources().getString(R.string.already_friends);
-    } else if (ID.equals("3")) {
-        msg = ctx.getResources().getString(R.string.friend_added);
-    }
-    else{
-        msg = ctx.getResources().getString(R.string.connection_failed_ex);
     }
 
+public static void addFriend(String Friend, FriendActivity view2){
+    view = view2;
+    FriendUsername = Friend;
+    request = 0;
 
+    new DatabaseHandler.SendFriendRequest().execute();
 
-} catch (Exception e) {
-
-    }
-
-
-    return msg;
 
 }
 
@@ -227,6 +208,40 @@ public static String addFriend(String Friend){
 
         @Override
         protected void onPostExecute(String result) {
+
+            String msg = "";
+
+
+                Log.e("response", result);
+            result = result.replaceAll("\\s+", "");
+
+
+
+                if (result.equals("0")) {
+                    msg = ctx.getResources().getString(R.string.error);
+                    view.AddFriendComplete(msg);
+                } else if (result.equals("1")) {
+                    msg = ctx.getResources().getString(R.string.no_existing_username);
+                    view.AddFriendComplete(msg);
+                } else if (result.equals("2")) {
+                    msg = ctx.getResources().getString(R.string.already_friends);
+                    view.AddFriendComplete(msg);
+                } else if (result.equals("3")) {
+                    //msg = ctx.getResources().getString(R.string.friend_added);
+                    msg = "Vän tillagd";
+                    view.AddFriendComplete(msg);
+                }
+                else if(result.equals("Exception:Unabletoresolvehost\""+ DatabaseHandler.getHost() + "\":Noaddressassociatedwithhostname")){
+                    msg = ctx.getResources().getString(R.string.connection_failed_ex);
+                    view.AddFriendComplete(msg);
+                }
+
+
+
+
+
+
+
 
         }
     }

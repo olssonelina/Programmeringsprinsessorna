@@ -10,6 +10,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.nightingale.qwalk.InterfaceView.IAnswerOption;
+import com.example.nightingale.qwalk.InterfaceView.IFriendActivity;
 import com.example.nightingale.qwalk.Model.DatabaseHandler;
 import com.example.nightingale.qwalk.Model.Account;
 import com.example.nightingale.qwalk.R;
@@ -18,7 +20,7 @@ import com.example.nightingale.qwalk.R;
  * Created by Nightingale on 2017-05-16.
  */
 
-public class FriendActivity extends AppCompatActivity{
+public class FriendActivity extends AppCompatActivity implements IFriendActivity {
 
     EditText UsernameInput;
     private ListView listView;
@@ -63,15 +65,26 @@ public class FriendActivity extends AppCompatActivity{
         }
         else {
 
-           // addfriendbutton.setEnabled(false);
-            //spinner.setVisibility(View.VISIBLE);
+           addfriendbutton.setEnabled(false);
+            spinner.setVisibility(View.VISIBLE);
+            DatabaseHandler.addFriend(UsernameInput.getText().toString(), this);
 
-            Toast.makeText(getApplicationContext(), DatabaseHandler.addFriend(UsernameInput.getText().toString()),
-                    Toast.LENGTH_LONG).show();
-            DatabaseHandler.loadFriends();
-            loadList();
+
         }
 
+
+
+    }
+
+    public void AddFriendComplete(String msg){
+
+        Toast.makeText(getApplicationContext(), msg,
+                Toast.LENGTH_LONG).show();
+
+        addfriendbutton.setEnabled(true);
+        spinner.setVisibility(View.GONE);
+        DatabaseHandler.loadFriends();
+        loadList();
     }
 
 
