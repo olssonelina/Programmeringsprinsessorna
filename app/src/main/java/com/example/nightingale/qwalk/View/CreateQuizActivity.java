@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.nightingale.qwalk.InterfaceView.ICreateQuiz;
 import com.example.nightingale.qwalk.Model.DatabaseHandler;
 import com.example.nightingale.qwalk.Model.OptionQuestion;
 import com.example.nightingale.qwalk.Model.Question;
@@ -40,7 +41,7 @@ import javax.net.ssl.HttpsURLConnection;
  * Created by Kraft on 2017-04-27.
  */
 
-public class CreateQuizActivity extends AppCompatActivity {
+public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz {
 
     public String test;
     ArrayList<Integer> QuestionIDArray = new ArrayList<Integer>();
