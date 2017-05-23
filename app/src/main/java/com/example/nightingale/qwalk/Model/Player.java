@@ -4,25 +4,63 @@ package com.example.nightingale.qwalk.Model;
  * Created by Elina Olsson on 2017-05-12.
  */
 
-public class Player  {
+public class Player  implements IActor{
 
-    private QLocation userLocation = new QLocation(0, 0);
+    private QLocation location = new QLocation(0, 0);
     private int[] answers;
 
+    /**
+     * Creates a Qwalkplayer containing the players location and answers to questions
+     * @param quizLength
+     */
     public Player(int quizLength) {
         answers = new int[quizLength];
+        for (int a : answers) {
+            a = NO_ANSWER;
+        }
     }
 
-    public QLocation getLocation(){return userLocation;}
+    /**
+     * {@inheritDoc}
+     */
+    public QLocation getLocation(){return location;}
 
-    public void updateLocation(QLocation userLocation){this.userLocation = userLocation;}
+    /**
+     * {@inheritDoc}
+     */
+    public void setLocation(QLocation location){this.location = location;}
 
+    /**
+     * {@inheritDoc}
+     */
     public void setAnswer(int index, int answer) {
         answers[index] = answer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public int[] getAnswers(){
         return answers;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getAnswer(int index) {return answers[index]; }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getScore(int[] correctAnswers) {
+        int correctCount = 0;
+        for (int i = 0; i < correctAnswers.length; i++) {
+            if (correctAnswers[i] == answers[i]){
+                correctCount++;
+            }
+        }
+        return correctCount;
+    }
 }

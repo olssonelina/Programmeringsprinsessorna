@@ -123,6 +123,10 @@ public class MenuActivity extends AppCompatActivity {
             Log.d("JSON", e.getMessage());
         }
         Log.d("JSON", "Continuing");
+
+        String title  = "", description  = "";
+        int quizID = 0;
+
         if (!(quizAmount == 0)) {
             request = 1;
             for (int i = 0; i < quizAmount; i++) {
@@ -132,25 +136,24 @@ public class MenuActivity extends AppCompatActivity {
 
                     Log.d("JSON", JSONstring);
                     JSONArray jsonArray = new JSONArray(JSONstring);
-                    Quiz q = new Quiz("", "", 0);
+
                     List<Question> questions = new ArrayList<>();
                     for (int j = 0; j < jsonArray.length(); ++j) {
                         if (j == 0) {
                             JSONObject quiz = jsonArray.getJSONObject(j);
-                            String title = quiz.getString("title");
+                            title = quiz.getString("title");
                             Log.d("JSON", title);
-                            String description = quiz.getString("description");
+                            description = quiz.getString("description");
                             Log.d("JSON", description);
-                            int quizID = quiz.getInt("quizid");
+                            quizID = quiz.getInt("quizid");
                             Log.d("JSON", String.valueOf(quizID));
-                            q = new Quiz(title, description, quizID);
                         } else {
 
                             ArrayList<String> options= new ArrayList<>();
 
                             JSONObject question = jsonArray.getJSONObject(j);
-                            String description = question.getString("description");
-                            Log.d("JSON", description);
+                            String questionDescription = question.getString("description");
+                            Log.d("JSON", questionDescription);
                             options.add(question.getString("option1"));
                             Log.d("JSON", options.get(0));
                             options.add(question.getString("option2"));
@@ -168,10 +171,10 @@ public class MenuActivity extends AppCompatActivity {
                                 Log.d("JSON", options.get(2));
                                 options.add(question.getString("option4"));
                                 Log.d("JSON", options.get(3));
-                                questions.add(new OptionQuestion(description, options, correctanswer, latitude, longitude));
+                                questions.add(new OptionQuestion(questionDescription, options, correctanswer, latitude, longitude));
                                 Log.d("JSON", "Question added");
                             } else if (questiontype == 1) {
-                                tiebreaker = new Tiebreaker(description, correctanswer, latitude, longitude, Integer.parseInt(options.get(0)), Integer.parseInt(options.get(1)));
+                                tiebreaker = new Tiebreaker(questionDescription, correctanswer, latitude, longitude, Integer.parseInt(options.get(0)), Integer.parseInt(options.get(1)));
                                 Log.d("JSON", "Tiebreaker Set");
                             }
 
@@ -184,7 +187,7 @@ public class MenuActivity extends AppCompatActivity {
                         questions.add(tiebreaker);
                     }
                     Log.d("JSON", "Setting questions");
-                    q.setQuestions(questions);
+                    Quiz q = new Quiz(title, description, quizID, questions);
                     Log.d("JSON", "Questions Set");
                     currentQuizList.add(q);
 /*

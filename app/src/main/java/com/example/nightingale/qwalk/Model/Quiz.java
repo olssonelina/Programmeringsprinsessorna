@@ -13,26 +13,52 @@ import java.util.List;
 public class Quiz implements Parcelable {
     private String title;
     private String description;
-
-
-
     private int quizID;
     private QuizDifficulty difficulty = QuizDifficulty.MEDIUM;
-
+    private List<Question> questions = new ArrayList<>();
     private boolean questionTimer = false, quizTimer = true, hiddenQuestions = false, inOrder = true, withBot = false;
 
+    /**
+     * Creates a new Qwalk quiz
+     * @param title the title pf the quiz
+     * @param description the decription if this quiz
+     * @param quizID the ID used to identify this quiz
+     */
+    public Quiz(String title, String description, int quizID, List<Question> questions) {
+        this.title = title;
+        this.description = description;
+        this.quizID = quizID;
+        this.questions = questions;
+    }
+
+    /**
+     * Returns the difficulty of the quiz
+     * @return returns easy, medium or hard
+     */
     public QuizDifficulty getDifficulty() {
         return difficulty;
     }
 
+    /**
+     * @return returns the quiz id used in a database
+     */
     public int getQuizID() {
         return quizID;
     }
 
+    /**
+     * Sets the difficulty of a quiz
+     * @param difficulty easy, medium or hard
+     */
     public void setDifficulty(QuizDifficulty difficulty) {
         this.difficulty = difficulty;
     }
 
+    /**
+     * Changes the settings of the quiz
+     * @param setting Which setting to change
+     * @param enabled Set to true to enable, false to disable
+     */
     public void setSetting(QuizSetting setting, boolean enabled) {
         switch (setting) {
             case QUESTION_TIMER:
@@ -53,6 +79,10 @@ public class Quiz implements Parcelable {
         }
     }
 
+    /**
+     * @param setting Setting to check enabled status of
+     * @return Returns true if given setting is enabled
+     */
     public boolean getSetting(QuizSetting setting) {
         switch (setting) {
             case QUESTION_TIMER:
@@ -69,63 +99,94 @@ public class Quiz implements Parcelable {
         return false;
     }
 
-    private List<Question> questions = new ArrayList<>();
-    public ArrayList<Integer> answers = new ArrayList<>();
-
-    public Quiz(String title, String description, int quizID) {
-        this.title = title;
-        this.description = description;
-        this.quizID = quizID;
-    }
-
-    public void setQuestions(List<Question> questions) {
-        this.questions = questions;
-    }
-
+    /**
+     * @return Returns the title of the quiz
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * @return Returns the description of the quiz
+     */
     public String getDescription() {
         return description;
     }
 
-    public List<Question> getQuestions() {
-        return questions;
+    /**
+     * @return Returns the questions of this quiz
+     */
+    public Question[] getQuestions() {
+        Question[] qArr = new Question[questions.size()];
+        for (int i = 0; i < qArr.length; i++) {
+            qArr[i] = questions.get(i);
+        }
+        return qArr;
     }
 
+    /**
+     * Returns a specific question
+     * @param index index of the specif question
+     * @return returns the question at the given index
+     */
     public Question get(int index) {
         return questions.get(index);
     }
 
+    /**
+     * @return Returns the number of questions in this quiz
+     */
     public int size() {
         return questions.size();
     }
 
-    public ArrayList<Integer> getCorrectAnswers() {
-        for (Question question : questions) {
-            answers.add(question.getCorrectAnswer());
+    /**
+     * @return Returns an array of all the correct answers
+     */
+    public int[] getCorrectAnswers() {
+        int[] correctAnswers = new int[questions.size()];
+        for (int i = 0; i < questions.size(); i++) {
+            correctAnswers[i] = questions.get(i).getCorrectAnswer();
         }
-        return answers;
+        return correctAnswers;
     }
 
-    public ArrayList<Integer> getLowerBounds(){
-        ArrayList<Integer> lowerBounds= new ArrayList<>();
-        for (Question question : questions){
-            lowerBounds.add(question.getLowerBounds());
+    /**
+     * @return returns an array of the lowest index or answer option available to each question
+     */
+    public int[] getLowerBounds(){
+        int[] lowerBounds = new int[questions.size()];
+        for (int i = 0; i < questions.size(); i++) {
+            lowerBounds[i] = questions.get(i).getLowerBounds();
         }
         return lowerBounds;
     }
 
-    public ArrayList<Integer> getUpperBounds(){
-        ArrayList<Integer> upperBounds= new ArrayList<>();
-        for (Question question : questions){
-            upperBounds.add(question.getUpperBounds());
+    /**
+     * @return returns an array of the highest index or answer option available to each question
+     */
+    public int[] getUpperBounds(){
+        int[] upperBounds = new int[questions.size()];
+        for (int i = 0; i < questions.size(); i++) {
+            upperBounds[i] = questions.get(i).getUpperBounds();
         }
         return upperBounds;
     }
 
+    public QLocation[] getLocations(){
+        QLocation[] locations = new QLocation[questions.size()];
+        for (int i = 0; i < locations.length; i++) {
+            locations[i] = questions.get(i).getLocation();
+        }
+        return locations;
+    }
 
+
+    /**
+     * Figures ut the index of a given question
+     * @param q the given question to figure out index of
+     * @return Returns the index of the question in the question list
+     */
     public int getQuestionIndex(Question q) {
         for (int i = 0; i < questions.size(); i++) {
             if (q.equals(questions.get(i))) {
@@ -147,19 +208,19 @@ public class Quiz implements Parcelable {
         } else {
             questions = null;
         }
-        if (in.readByte() == 0x01) {
-            answers = new ArrayList<Integer>();
-            in.readList(answers, Integer.class.getClassLoader());
-        } else {
-            answers = null;
-        }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int describeContents() {
         return 0;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(title);
@@ -172,14 +233,11 @@ public class Quiz implements Parcelable {
             dest.writeByte((byte) (0x01));
             dest.writeList(questions);
         }
-        if (answers == null) {
-            dest.writeByte((byte) (0x00));
-        } else {
-            dest.writeByte((byte) (0x01));
-            dest.writeList(answers);
-        }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @SuppressWarnings("unused")
     public static final Parcelable.Creator<Quiz> CREATOR = new Parcelable.Creator<Quiz>() {
         @Override

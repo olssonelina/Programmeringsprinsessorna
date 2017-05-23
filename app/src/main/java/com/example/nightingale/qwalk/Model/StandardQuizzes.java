@@ -20,7 +20,6 @@ public final class StandardQuizzes {
 
     public static Quiz getChalmersQuiz(){
 
-        Quiz q = new Quiz("Chalmersquiz","Trivia om Chalmers och dess campus!", -1);
 
         List<Question> questions = new ArrayList<>();
 
@@ -30,15 +29,12 @@ public final class StandardQuizzes {
 
         questions.add(new OptionQuestion("Vad är denna pizzerian känd för?", new ArrayList<String>(Arrays.asList(new String[]{"Att göra fyrkantiga pizzor", "Att vara Sveriges bästa två år i rad", "Att det är IT-studenternas favorit", "Det har varit ett kattcafé"})), 2,57.687837, 11.982194));
 
-        q.setQuestions(questions);
+        Quiz q = new Quiz("Chalmersquiz","Trivia om Chalmers och dess campus!", -1, questions);
 
         return q;
     }
 
     public static Quiz getAdressQuiz(){
-
-        Quiz q = new Quiz("Gissa huset!","Besök skaparna av appen och gissa vem som bor var!", -2);
-
         List<Question> questions = new ArrayList<>();
 
         questions.add(new OptionQuestion("Vem bor så här nära Chalmers?", new ArrayList<String>(Arrays.asList(new String[]{"Katten", "Pil", "Nightinggale", "Elit"})), 1,57.689280, 11.972306));
@@ -54,7 +50,7 @@ public final class StandardQuizzes {
         //questions.get(3).setLocation(57.543822, 12.103735);
 
 
-        q.setQuestions(questions);
+        Quiz q = new Quiz("Gissa huset!","Besök skaparna av appen och gissa vem som bor var!", -2, questions);
 
         q.setSetting(IN_ORDER, false);
 
@@ -62,13 +58,13 @@ public final class StandardQuizzes {
     }
 
     public static Quiz getMachineStudyRoomsQuiz(){
-        Quiz q = new Quiz("M-grupprummen","Najs grupprum", -3);
 
         List<Question> questions = new ArrayList<>();
 
         questions.add(new Tiebreaker("Hur gammal är byggnaden?", 45, 57.688447, 11.978703, 20, 60));
 
-        q.setQuestions(questions);
+        Quiz q = new Quiz("M-grupprummen","Najs grupprum", -3, questions);
+
 
         return q;
     }

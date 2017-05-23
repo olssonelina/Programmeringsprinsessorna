@@ -68,8 +68,9 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
     }
 
     public void setMonkeyScore() {
-        monkeyResult.setText(AI.getScore() + getResources().getString(R.string.rigth_answers));
-        monkeyTotal.setText(getResources().getString(R.string.of) + AI.getNumberOfQuestions() + getResources().getString(R.string.possible));
+        //monkeyResult.setText("" + AI.getScore(correctAnswers) + getResources().getString(R.string.rigth_answers));
+
+        //monkeyTotal.setText(getResources().getString(R.string.of) +  + getResources().getString(R.string.possible));
     }
 
     public boolean isPlayingAgainstBot() {

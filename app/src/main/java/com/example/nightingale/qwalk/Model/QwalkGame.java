@@ -18,8 +18,8 @@ public class QwalkGame implements IOnAIMoveListener {
     private Quiz quiz;
     private List<Question> currentQuestions = new ArrayList<>();
     private int answeredQuestions;
-    private Player player;
-    private AI ai;
+    private IActor player;
+    private IActor ai;
     private GameTimer quizTimer;
 
     /**
@@ -66,10 +66,11 @@ public class QwalkGame implements IOnAIMoveListener {
                     break;
             }
 
-            ai = new AI(quiz.getCorrectAnswers(), quiz.getQuestions().get(quiz.size()-1) instanceof Tiebreaker, quiz.getLowerBounds(), quiz.getUpperBounds(), difficulty);
+            AI ai = new AI(quiz.getCorrectAnswers(), quiz.get(quiz.size()-1) instanceof Tiebreaker, quiz.getLowerBounds(), quiz.getUpperBounds(), difficulty, quiz.getLocations());
             ai.setOnAImovedListener(this);
             Thread botThread = new Thread(ai);
             botThread.start();
+            this.ai = ai;
             //presenter.initializeAi(); //TODO
         }
 
@@ -82,7 +83,7 @@ public class QwalkGame implements IOnAIMoveListener {
             presenter.setShowClosestEnabled(false);
         }
 
-        presenter.setProgress(0, quiz.getQuestions().size());
+        presenter.setProgress(0, quiz.size());
 
     }
 
@@ -137,12 +138,12 @@ public class QwalkGame implements IOnAIMoveListener {
     public void setAnswer(Question question, int answer) {
         player.setAnswer(quiz.getQuestionIndex(question), answer);
         answeredQuestions++;
-        presenter.setProgress(answeredQuestions, quiz.getQuestions().size());
+        presenter.setProgress(answeredQuestions, quiz.size());
 
         currentQuestions.remove(question);
         presenter.removeMarker(question);
         if (quiz.getSetting(IN_ORDER)) {
-            if (answeredQuestions >= quiz.getQuestions().size()) {
+            if (answeredQuestions >= quiz.size()) {
                 end();
                 return;
             }
@@ -159,7 +160,7 @@ public class QwalkGame implements IOnAIMoveListener {
         if (player.getLocation().equals(new QLocation(0,0))){
             presenter.focusOn(userLocation);
         }
-        player.updateLocation(userLocation);
+        player.setLocation(userLocation);
 
         List<Question> questionsInRange = questionsInRange(currentQuestions);
         if (questionsInRange.size() > 0) {
