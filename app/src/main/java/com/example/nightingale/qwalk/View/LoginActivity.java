@@ -58,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
 
     /** Called when the user taps the Send button */
     public void guestButtonClicked(View view) {
+        Account.getInstance().logOut();
         Intent intent = new Intent(this, MenuActivity.class);
         startActivity(intent);
     }
@@ -65,7 +66,6 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
-    private ProgressDialog progress;
 
 
 

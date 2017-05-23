@@ -10,7 +10,7 @@ import java.util.List;
 public class Account {
 
     private int UserID = -1;
-    private String Username;
+    private String Username = "Gäst";
     private List<String> Friends = new ArrayList<>();
     private List<Integer> FriendIDs = new ArrayList<>();
 
@@ -51,6 +51,14 @@ public class Account {
 
     public void setUserID(int userID) {
         UserID = userID;
+    }
+
+    public void logOut()
+    {
+        UserID = -1;
+        Username = "Gäst";
+        WipeLists();
+
     }
 }
 
