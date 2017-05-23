@@ -9,7 +9,6 @@ import com.example.nightingale.qwalk.Model.Question;
 
 public interface IAnswerOption {
     void setOptions(String[] options);
-    void setOptionColour(int index, boolean isSelectedColour);
     void closeWithResult(int chosenIndex, OptionQuestion question);
     void setCloseButtonEnabled(boolean enabled);
     void setTitle(String title);

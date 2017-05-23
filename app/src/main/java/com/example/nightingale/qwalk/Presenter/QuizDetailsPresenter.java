@@ -54,6 +54,7 @@ public class QuizDetailsPresenter {
     }
 
     public void deletePressed(QuizDetailsActivity view) {
+
         Log.d("QuizID", String.valueOf(quiz.getQuizID()));
         DatabaseHandler.deleteQuiz(quiz.getQuizID(), view);
 

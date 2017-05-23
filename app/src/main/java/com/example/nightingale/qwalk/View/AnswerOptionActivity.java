@@ -18,7 +18,7 @@ import com.example.nightingale.qwalk.R;
  * Created by Kraft on 2017-04-26.
  */
 
-public class AnswerOptionActivity extends AppCompatActivity implements IAnswerOption {
+public class AnswerOptionActivity extends AppCompatActivity implements IAnswerOption{
 
 
     private AnswerOptionPresenter presenter;
@@ -26,9 +26,6 @@ public class AnswerOptionActivity extends AppCompatActivity implements IAnswerOp
     private Button[] optionButtons = new Button[4];
     private Button saveAnswer;
     private TextView title;
-
-    private static final int selectedColour = Color.BLUE;
-    private static final int deselectedColour = Color.WHITE;
 
 
     @Override
@@ -90,10 +87,6 @@ public class AnswerOptionActivity extends AppCompatActivity implements IAnswerOp
         }
     }
 
-    @Override
-    public void setOptionColour(int index, boolean isSelectedColour) {
-        optionButtons[index].setBackgroundColor(isSelectedColour ? selectedColour : deselectedColour);
-    }
 
     @Override
     public void closeWithResult(int chosenIndex, OptionQuestion question) {
