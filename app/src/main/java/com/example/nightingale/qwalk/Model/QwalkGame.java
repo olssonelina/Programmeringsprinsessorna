@@ -174,6 +174,7 @@ public class QwalkGame {
         ai.setLocation(userLocation);
         botThread.start();
 
+        presenter.initializeAi(userLocation);
         this.ai = ai;
     }
 
