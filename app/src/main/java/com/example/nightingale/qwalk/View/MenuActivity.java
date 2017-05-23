@@ -241,7 +241,9 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     private void loadUserList() {
-        userListTitle.setVisibility(userQuizzes.size() == 0 ? View.INVISIBLE : View.VISIBLE);
+        Log.d("Loadingsize", String.valueOf(userQuizzes.size()));
+        userListTitle.setVisibility(userQuizzes.size() == 0 ? View.GONE : View.VISIBLE);
+        userList.setVisibility(userQuizzes.size() == 0 ? View.GONE : View.VISIBLE);
         String userTitleText = Account.getInstance().getUsername();
         if (userTitleText.charAt(userTitleText.length()-1) != 's'){
             userTitleText += "s";
@@ -355,12 +357,12 @@ public class MenuActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CREATE_QUIZ_CODE || requestCode == DELETE_QUIZ_CODE) {
-            userQuizzes.clear();
+            userQuizzes = new ArrayList<>();
             loadOnlineQuizzes(Account.getInstance().getUserID(), userQuizzes);
             loadUserList();
         }
         else if (requestCode == ADD_FRIEND_CODE){
-            friendQuizzes.clear();
+            friendQuizzes = new ArrayList<>();
             loadFriendQuizzes();
             loadFriendsList();
         }

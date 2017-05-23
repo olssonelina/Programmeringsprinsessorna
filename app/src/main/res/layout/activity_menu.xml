@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/login"
+        map:srcCompat="@drawable/background" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -20,35 +31,34 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="25dp"
-                android:background="@android:color/holo_green_light"
+                android:background="#FF09C856"
                 android:ems="10"
                 android:onClick="createButtonPressed"
+
                 android:text="@string/create_your_own_quiz" />
 
 
-            <ImageView
+            <Button
                 android:id="@+id/help"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:onClick="loadHelp"
-                android:padding="15dp"
-                app:srcCompat="@android:drawable/ic_menu_help" />
+                android:layout_width="75dp"
+                android:layout_height="75dp"
 
-            <ImageView
+                android:background="@android:drawable/ic_menu_help"
+                android:onClick="loadHelp"
+                android:layout_alignTop="@+id/addfriendbutton"
+                android:layout_alignLeft="@+id/userList"
+                android:layout_alignStart="@+id/userList" />
+
+            <Button
                 android:id="@+id/friends"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
+                android:background="@drawable/friends"
                 android:onClick="loadFriends"
-                android:padding="5dp"
-                app:srcCompat="@drawable/friends" />
+                android:layout_alignBaseline="@+id/addfriendbutton"
+                android:layout_alignBottom="@+id/addfriendbutton"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
             <TextView
                 android:id="@+id/menuTitle"
@@ -125,5 +135,4 @@
                 android:scrollbars="none" />
         </RelativeLayout>
     </ScrollView>
-
-</LinearLayout>
+</FrameLayout>

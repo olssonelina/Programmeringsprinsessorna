@@ -153,7 +153,7 @@ public class GetPositionActivity extends FragmentActivity implements OnMapReadyC
     @Override
     public void focusOn(double latitude, double longitude) {
         mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(latitude, longitude)));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
     }
 
     @Override

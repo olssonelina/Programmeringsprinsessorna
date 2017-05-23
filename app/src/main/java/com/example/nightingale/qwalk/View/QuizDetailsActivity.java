@@ -119,8 +119,10 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
 
     @Override
     public void editQuiz(Quiz quiz) {
-
-        //TODO KEVIN här får du :)
+        Intent intent = new Intent(this, CreateQuizActivity.class);
+        intent.putExtra("quiz", quiz);
+        startActivity(intent);
+        finish();
     }
 
 

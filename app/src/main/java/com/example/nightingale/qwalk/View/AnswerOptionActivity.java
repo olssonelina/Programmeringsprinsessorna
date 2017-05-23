@@ -81,11 +81,13 @@ public class AnswerOptionActivity extends AppCompatActivity implements IAnswerOp
     public void setOptions(String[] options) {
         for (Button b : optionButtons) {
             b.setEnabled(false);
+            b.setVisibility(View.INVISIBLE);
         }
 
         for (int i = 0; i < options.length && !options[i].equals(""); i++) {
             optionButtons[i].setEnabled(true);
             optionButtons[i].setText(options[i]);
+            optionButtons[i].setVisibility(View.VISIBLE);
         }
     }
 

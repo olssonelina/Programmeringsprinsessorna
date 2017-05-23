@@ -27,49 +27,13 @@
             android:id="@+id/goBackButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_marginLeft="18dp"
             android:layout_marginStart="18dp"
             android:onClick="onBackPressed"
-            map:srcCompat="@drawable/arrow2"
-            android:layout_alignTop="@+id/deleteQuizButton"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            map:srcCompat="@drawable/arrow2" />
 
-        <Button
-            android:id="@+id/edit"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/pen2"
-            android:onClick="onEditPressed"
-            android:text=""
-            android:layout_above="@+id/progressBar1"
-            android:layout_toRightOf="@+id/play"
-            android:layout_toEndOf="@+id/play" />
-
-
-        <Button
-            android:id="@+id/deleteQuizButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="18dp"
-            android:background="@drawable/delete"
-            android:onClick="onDeletePressed"
-            android:text=""
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
-
-        <Button
-            android:id="@+id/settings"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/settings2"
-            android:onClick="onSettingsPressed"
-            android:text=""
-            android:layout_marginRight="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_alignTop="@+id/deleteQuizButton"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
 
         <TextView
             android:id="@+id/textView"
@@ -86,22 +50,23 @@
             android:id="@+id/play"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_below="@+id/description"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="110dp"
             android:background="@drawable/play2"
             android:onClick="onPlayPressed"
-            android:text="" />
+            android:text=""
+            android:layout_marginTop="92dp"
+            android:layout_below="@+id/description"
+            android:layout_centerHorizontal="true" />
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/description"
+            android:layout_alignStart="@+id/description"
+            android:layout_below="@+id/deleteQuizButton"
+            android:layout_marginTop="36dp"
             android:text="Titel på Quiz"
-            android:textSize="36dp"
-            android:layout_below="@+id/edit"
-            android:layout_alignLeft="@+id/progressBar1"
-            android:layout_alignStart="@+id/progressBar1" />
+            android:textSize="36dp" />
 
         <TextView
             android:id="@+id/description"
@@ -109,19 +74,57 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/title"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="15dp"
             android:text="Kort beskrivning av quiz"
             android:textSize="18dp" />
 
-        <ProgressBar
-            android:id="@+id/progressBar1"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_below="@+id/deleteQuizButton"
-            android:layout_alignRight="@+id/edit"
-            android:layout_alignEnd="@+id/edit" />
+        <Button
+            android:id="@+id/settings"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="9dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="13dp"
+            android:layout_marginRight="13dp"
+            android:background="@drawable/settings2"
+            android:onClick="onSettingsPressed"
+            android:text="" />
+
+        <Button
+            android:id="@+id/deleteQuizButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/delete"
+            android:layout_marginTop="10dp"
+            android:onClick="onDeletePressed"
+            android:text=""
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:id="@+id/edit"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/pen2"
+            android:onClick="onEditPressed"
+            android:layout_marginLeft="225dp"
+            android:layout_marginTop="10dp"
+            android:text="" />
 
     </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="235dp"
+        android:layout_centerVertical="true"
+        android:layout_height="200dp"
+        android:layout_marginLeft="70dp"
+        android:layout_alignEnd="@+id/title"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/title"
+        android:layout_marginTop="29dp" />
 
 </FrameLayout>

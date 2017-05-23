@@ -80,6 +80,11 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
         }
 
         presenter = new CreateOptionQuestionPresenter(this);
+
+        try {
+            presenter.setAllFields((OptionQuestion) getIntent().getParcelableExtra("question"));
+        }
+        catch (NullPointerException e) {}
     }
 
 
@@ -354,39 +359,35 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
         presenter.backButtonPressed();
     }
 
-    /*
     @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        int index = -1;
+    public void setOptions(String[] options) {
         for (int i = 0; i < options.length; i++) {
-            if (s.equals(options[i].getText())){
-                index = i;
-                break;
+            if (!options[i].equals("")) {
+                addOption(this.options[i]);
+                this.options[i].setText(options[i]);
+                this.options[i].setEnabled(true);
+
             }
         }
-
-        if (index == 3) {
-            numbers[index].setText("×");
-            numbers[index].setVisibility(View.VISIBLE);
-            radioButtons[index].setVisibility(View.VISIBLE);
-        } else if (!options[index + 1].isShown()) {
-            radioButtons[index].setVisibility(View.VISIBLE);
-            numbers[index].setText("×");
-            numbers[index].setVisibility(View.VISIBLE);
-            numbers[index + 1].setText("+");
-            numbers[index + 1].setVisibility(View.VISIBLE);
-            options[index + 1].setVisibility(View.VISIBLE);
-        }
     }
 
     @Override
-    public void afterTextChanged(Editable s) {
+    public void setQuestionTitle(String questionTitle) {
+        questionText.setText(questionTitle);
+    }
 
-    }*/
+    @Override
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    @Override
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    @Override
+    public void setAnswer(int answer) {
+        radioButtons[answer].setChecked(true);
+    }
 }

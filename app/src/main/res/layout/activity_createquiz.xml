@@ -4,103 +4,109 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/headline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
-            android:text="@string/create_new_quiz"
-            android:textSize="24dp" />
-
-        <EditText
-            android:id="@+id/quizTitleField"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="100dp"
-            android:ems="14"
-            android:hint="@string/title"
-            android:inputType="textPersonName"
-            android:text="" />
-
-        <EditText
-            android:id="@+id/descriptionField"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/quizTitleField"
-            android:layout_alignStart="@+id/quizTitleField"
-            android:layout_below="@+id/quizTitleField"
-            android:layout_marginTop="32dp"
-            android:ems="14"
-            android:hint="@string/description"
-            android:inputType="textMultiLine" />
-
-
-        <ListView
-            android:id="@+id/questionList"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignLeft="@+id/questions"
-            android:layout_below="@+id/questions"
-            android:layout_marginLeft="-15dp"
-            android:layout_marginTop="0dp" />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/questions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/descriptionField"
-            android:layout_below="@+id/addQuestions"
-            android:layout_marginTop="50dp"
-            android:text="@string/questions"
-            android:textSize="18dp" />
+            <TextView
+                android:id="@+id/headline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="40dp"
+                android:text="@string/create_new_quiz"
+                android:textSize="24dp" />
 
-        <TextView
-            android:id="@+id/addQuestions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/descriptionField"
-            android:layout_alignStart="@+id/descriptionField"
-            android:layout_below="@+id/descriptionField"
-            android:layout_marginTop="19dp"
-            android:onClick="addQuestionButtonClicked"
-            android:paddingBottom="10dp"
-            android:paddingRight="20dp"
-            android:paddingTop="10dp"
-            android:text="@string/add_questions"
-            android:textSize="18dp" />
+            <EditText
+                android:id="@+id/quizTitleField"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="100dp"
+                android:ems="14"
+                android:hint="@string/title"
+                android:inputType="textPersonName"
+                android:text="" />
 
-        <TextView
-            android:id="@+id/addTiebreaker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/descriptionField"
-            android:layout_alignTop="@id/addQuestions"
-            android:layout_marginTop="40dp"
-            android:onClick="addTiebreaker"
-            android:paddingBottom="10dp"
-            android:paddingRight="20dp"
-            android:paddingTop="10dp"
-            android:text="@string/add_tiebreaker"
-            android:textSize="18dp" />
+            <EditText
+                android:id="@+id/descriptionField"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/quizTitleField"
+                android:layout_alignStart="@+id/quizTitleField"
+                android:layout_below="@+id/quizTitleField"
+                android:layout_marginTop="32dp"
+                android:ems="14"
+                android:hint="@string/description"
+                android:inputType="textMultiLine" />
 
-        <Button
-            android:id="@+id/createQuizButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="450dp"
-            android:ems="4"
-            android:onClick="createQuiz"
-            android:text="@string/save" />
 
-    </RelativeLayout>
+            <ListView
+                android:id="@+id/questionList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignLeft="@+id/questions"
+                android:layout_below="@+id/questions"
+                android:layout_marginLeft="-15dp"
+                android:scrollbars="none"
+                android:layout_marginTop="0dp" />
+
+            <TextView
+                android:id="@+id/questions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/descriptionField"
+                android:layout_below="@id/descriptionField"
+                android:layout_marginTop="50dp"
+                android:text="@string/questions"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/addQuestions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/descriptionField"
+                android:layout_alignStart="@+id/descriptionField"
+                android:layout_below="@id/questionList"
+                android:layout_marginTop="19dp"
+                android:onClick="addQuestionButtonClicked"
+                android:paddingBottom="10dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp"
+                android:text="@string/add_questions"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/addTiebreaker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/descriptionField"
+                android:layout_alignTop="@id/addQuestions"
+                android:layout_marginTop="40dp"
+                android:onClick="addTiebreaker"
+                android:paddingBottom="10dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp"
+                android:text="@string/add_tiebreaker"
+                android:textSize="18dp" />
+
+            <Button
+                android:id="@+id/createQuizButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:layout_below="@id/addTiebreaker"
+                android:ems="4"
+                android:onClick="createQuiz"
+                android:background="#FF09C856"
+                android:text="@string/save" />
+
+        </RelativeLayout>
+    </ScrollView>
 </LinearLayout>

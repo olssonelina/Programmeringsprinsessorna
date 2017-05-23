@@ -15,5 +15,11 @@ public interface ICreateTiebreaker {
     double getLatitude();
     double getLongitude();
     void sendError(String error);
+    void setLatitude(double latitude);
+    void setLongitude(double longitude);
+    void setLowerBounds(int lowerBounds);
+    void setUpperBounds(int upperBounds);
+    void setAnswer(int answer);
+    void setQuestionTitle(String questionTitle);
 
 }

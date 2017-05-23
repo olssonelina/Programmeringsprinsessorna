@@ -49,6 +49,11 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
         seekBar.setOnSeekBarChangeListener(this);
 
         presenter = new CreateTiebreakerPresenter(this);
+
+        try {
+            presenter.setAllFields((Tiebreaker) getIntent().getParcelableExtra("question"));
+        }
+        catch (NullPointerException e) {}
     }
 
     public void addPosition(View view) {
@@ -132,4 +137,35 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {}
+
+    @Override
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    @Override
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    @Override
+    public void setLowerBounds(int lowerBounds) {
+        minField.setText(""+lowerBounds);
+    }
+
+    @Override
+    public void setUpperBounds(int upperBounds) {
+        maxField.setText(""+upperBounds);
+    }
+
+    @Override
+    public void setAnswer(int answer) {
+        seekBar.setProgress(answer + Integer.parseInt(minField.getText().toString()));
+        onProgressChanged(seekBar, answer + Integer.parseInt(minField.getText().toString()), false);
+    }
+
+    @Override
+    public void setQuestionTitle(String questionTitle) {
+        this.questionTitle.setText(questionTitle);
+    }
 }
