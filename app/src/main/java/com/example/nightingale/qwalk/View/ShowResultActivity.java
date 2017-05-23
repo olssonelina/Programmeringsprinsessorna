@@ -36,11 +36,11 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_showresult);
 
-        rightView = (TextView)findViewById(R.id.rightAnswers);
-        totalView = (TextView)findViewById(R.id.total);
-        timeView = (TextView)findViewById(R.id.time);
+        rightView = (TextView) findViewById(R.id.rightAnswers);
+        totalView = (TextView) findViewById(R.id.total);
+        timeView = (TextView) findViewById(R.id.time);
 
-        monkey = (ImageView)findViewById(R.id.monkey);
+        monkey = (ImageView) findViewById(R.id.monkey);
         monkey.setImageResource(R.drawable.monkey);
 
         monkeyTitle = (TextView) findViewById(R.id.monkeysAnswer);
@@ -52,13 +52,13 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
         long time = i.getLongExtra("time", 0);
         int[] playerAnswers = i.getIntArrayExtra("player");
         int[] aiAnswers = i.getIntArrayExtra("ai");
-        Quiz quiz  = i.getParcelableExtra("quiz");
+        Quiz quiz = i.getParcelableExtra("quiz");
 
         presenter = new ShowResultPresenter(this, playerAnswers, aiAnswers, quiz, time);
     }
 
     public void showMonkeyResult() {
-        if(isPlayingAgainstBot()) {
+        if (isPlayingAgainstBot()) {
             monkey.setVisibility(View.VISIBLE);
             monkeyTitle.setVisibility(View.VISIBLE);
             monkeyResult.setVisibility(View.VISIBLE);
@@ -78,11 +78,17 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
     }
 
     @Override
-    public void showRightAnswers(int right) { this.rightView.setText(right + getResources().getString(R.string.rigth_answers)); }
+    public void showRightAnswers(int right) {
+        this.rightView.setText(right + getResources().getString(R.string.rigth_answers));
+    }
 
     @Override
-    public void showTotalAnswers(int total) { this.totalView.setText(getResources().getString(R.string.of) + total + getResources().getString(R.string.possible)); }
+    public void showTotalAnswers(int total) {
+        this.totalView.setText(getResources().getString(R.string.of) + total + getResources().getString(R.string.possible));
+    }
 
     @Override
-    public void showTime(long min, long sec) { this.timeView.setText(getResources().getString(R.string.it_took) + min + getResources().getString(R.string.minutes_and) + sec + getResources().getString(R.string.seconds)); }
+    public void showTime(long min, long sec) {
+        this.timeView.setText(getResources().getString(R.string.it_took) + min + getResources().getString(R.string.minutes_and) + sec + getResources().getString(R.string.seconds));
+    }
 }

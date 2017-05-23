@@ -1,11 +1,8 @@
 package com.example.nightingale.qwalk.Presenter;
 
-import android.view.View;
 
 import com.example.nightingale.qwalk.InterfaceView.IAnswerOption;
-import com.example.nightingale.qwalk.Model.AI;
 import com.example.nightingale.qwalk.Model.OptionQuestion;
-import com.example.nightingale.qwalk.R;
 
 /**
  * Created by Kraft on 2017-05-09.

@@ -5,7 +5,6 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 
-
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
@@ -51,10 +50,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import static com.example.nightingale.qwalk.Model.IActor.NO_ANSWER;
-import static java.lang.Math.abs;
 import static java.lang.Math.sin;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
@@ -237,8 +234,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void placeMarker(Question question) {
-        for (QwalkMarker qm: markers) {
-            if (qm.getQuestion().equals(question)){
+        for (QwalkMarker qm : markers) {
+            if (qm.getQuestion().equals(question)) {
                 return;
             }
         }
@@ -264,7 +261,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         intent.putExtra("player", playerAnswers);
         intent.putExtra("time", quizTime);
         intent.putExtra("quiz", quiz);
-        if (aiAnswers != null){
+        if (aiAnswers != null) {
             intent.putExtra("ai", aiAnswers);
         }
 
@@ -296,7 +293,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        if (!marker.equals(botMarker) && markers.get(getQwalkMarkerIndex(marker)).isEnabled()){
+        if (!marker.equals(botMarker) && markers.get(getQwalkMarkerIndex(marker)).isEnabled()) {
 
             Question currentQuestion = markers.get(getQwalkMarkerIndex(marker)).getQuestion();
 
@@ -306,10 +303,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 intent.putExtra("question", (OptionQuestion) currentQuestion);
                 intent.putExtra("questionIndex", presenter.getQuestionIndex(currentQuestion));
 
-                if (presenter.hasAi()){
+                if (presenter.hasAi()) {
                     intent.putExtra("aiAnswer", presenter.getAiAnswer(currentQuestion));
-                }
-                else{
+                } else {
                     intent.putExtra("aiAnswer", NO_ANSWER);
                 }
 
@@ -333,7 +329,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 int answer = (int) data.getExtras().get("answer");
                 Question question = (Question) data.getExtras().get("question");
                 presenter.setAnswer(question, answer);
-            } catch (NullPointerException e) { }
+            } catch (NullPointerException e) {
+            }
         }
     }
 
@@ -468,7 +465,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * Shows how many questions the player has answered of the total number of questions
      *
      * @param current Number of answered questions
-     * @param total Number of total questions in current quiz
+     * @param total   Number of total questions in current quiz
      */
     public void setProgress(int current, int total) {
         progress.setText(current + " av " + total);
@@ -511,18 +508,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return angle;
     }
 
-    private int getQwalkMarkerIndex(Question question){
+    private int getQwalkMarkerIndex(Question question) {
         for (int i = 0; i < markers.size(); i++) {
-            if (markers.get(i).getQuestion().equals(question)){
+            if (markers.get(i).getQuestion().equals(question)) {
                 return i;
             }
         }
         throw new IllegalArgumentException("No such marker in list!");
     }
 
-    private int getQwalkMarkerIndex(Marker marker){
+    private int getQwalkMarkerIndex(Marker marker) {
         for (int i = 0; i < markers.size(); i++) {
-            if (markers.get(i).getMarker().equals(marker)){
+            if (markers.get(i).getMarker().equals(marker)) {
                 return i;
             }
         }

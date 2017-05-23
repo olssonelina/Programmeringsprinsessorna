@@ -1,6 +1,5 @@
 package com.example.nightingale.qwalk.Model;
 
-import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
 

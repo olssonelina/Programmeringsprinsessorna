@@ -4,9 +4,7 @@ import com.example.nightingale.qwalk.InterfaceView.IQuizSettings;
 import com.example.nightingale.qwalk.Model.Quiz;
 import com.example.nightingale.qwalk.Model.QuizDifficulty;
 import com.example.nightingale.qwalk.Model.QuizSetting;
-
 import java.util.ArrayList;
-
 import static com.example.nightingale.qwalk.Model.QuizDifficulty.*;
 import static com.example.nightingale.qwalk.Model.QuizSetting.*;
 

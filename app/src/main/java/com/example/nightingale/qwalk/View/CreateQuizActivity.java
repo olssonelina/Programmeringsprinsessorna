@@ -1,10 +1,8 @@
 package com.example.nightingale.qwalk.View;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,30 +14,13 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.nightingale.qwalk.InterfaceView.ICreateQuiz;
-import com.example.nightingale.qwalk.Model.DatabaseHandler;
-import com.example.nightingale.qwalk.Model.OptionQuestion;
+import com.example.nightingale.qwalk.Model.Database.DatabaseHandler;
 import com.example.nightingale.qwalk.Model.Question;
 import com.example.nightingale.qwalk.Model.Quiz;
 import com.example.nightingale.qwalk.Model.Tiebreaker;
-import com.example.nightingale.qwalk.Model.Account;
-import com.example.nightingale.qwalk.Presenter.CreateTiebreakerPresenter;
 import com.example.nightingale.qwalk.R;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Iterator;
-
-import javax.net.ssl.HttpsURLConnection;
 
 /**
  * Created by Kraft on 2017-04-27.
@@ -72,8 +53,8 @@ public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz
             mode = IS_EDITING;
             setAllFields(quiz);
             loadList();
+        } catch (NullPointerException e) {
         }
-        catch (NullPointerException e){}
 
     }
 
@@ -131,24 +112,21 @@ public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz
         questions.add(tiebreaker);
 
 
-
-DatabaseHandler.saveQuiz(quizTitle.getText().toString(), quizDescription.getText().toString(), questions, this);
-
+        DatabaseHandler.saveQuiz(quizTitle.getText().toString(), quizDescription.getText().toString(), questions);
 
 
     }
 
-    public void saveQuizComplete(String msg){
+    public void saveQuizComplete(String msg) {
 
         Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 160);
-                toast.show();
+        toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 160);
+        toast.show();
 
         Intent returnIntent = new Intent();
         setResult(GetPositionActivity.RESULT_OK, returnIntent);
         finish();
     }
-
 
 
     @Override
@@ -243,31 +221,29 @@ DatabaseHandler.saveQuiz(quizTitle.getText().toString(), quizDescription.getText
      */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        try{
+        try {
             Question q = questions.get(position); //Question pressed is an optionquestion
             questions.remove(q);
             Intent intent = new Intent(this, CreateOptionQuestionActivity.class);
             intent.putExtra("question", q);
             startActivityForResult(intent, OPTIONQUESTION_CODE);
-        }
-        catch (IndexOutOfBoundsException e){ //Question pressed is the tiebreaker
+        } catch (IndexOutOfBoundsException e) { //Question pressed is the tiebreaker
             Intent intent = new Intent(this, CreateTiebreakerActivity.class);
             intent.putExtra("question", tiebreaker);
             startActivityForResult(intent, TIEBREAKER_CODE);
         }
     }
 
-    private void setAllFields(Quiz quiz){
+    private void setAllFields(Quiz quiz) {
         quizTitle.setText(quiz.getTitle());
         quizDescription.setText(quiz.getDescription());
         for (int i = 0; i < quiz.size() - 1; i++) {
             questions.add(quiz.get(i));
         }
-        Question lastQuestion = quiz.get(quiz.size()-1);
-        if (lastQuestion instanceof Tiebreaker){
+        Question lastQuestion = quiz.get(quiz.size() - 1);
+        if (lastQuestion instanceof Tiebreaker) {
             tiebreaker = (Tiebreaker) lastQuestion;
-        }
-        else {
+        } else {
             questions.add(lastQuestion);
         }
     }

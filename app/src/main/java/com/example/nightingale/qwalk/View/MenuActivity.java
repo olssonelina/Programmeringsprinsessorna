@@ -1,6 +1,5 @@
 package com.example.nightingale.qwalk.View;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,20 +8,18 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ActionMenuView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.nightingale.qwalk.Model.DatabaseHandler;
+import com.example.nightingale.qwalk.Model.Database.DatabaseHandler;
 import com.example.nightingale.qwalk.Model.OptionQuestion;
 import com.example.nightingale.qwalk.Model.Question;
 import com.example.nightingale.qwalk.Model.Quiz;
-import com.example.nightingale.qwalk.Model.Account;
+import com.example.nightingale.qwalk.Model.Database.Account;
 import com.example.nightingale.qwalk.Model.StandardQuizzes;
 import com.example.nightingale.qwalk.Model.Tiebreaker;
 import com.example.nightingale.qwalk.R;
@@ -125,7 +122,7 @@ public class MenuActivity extends AppCompatActivity {
         }
         Log.d("JSON", "Continuing");
 
-        String title  = "", description  = "";
+        String title = "", description = "";
         int quizID = 0;
 
         if (!(quizAmount == 0)) {
@@ -150,7 +147,7 @@ public class MenuActivity extends AppCompatActivity {
                             Log.d("JSON", String.valueOf(quizID));
                         } else {
 
-                            ArrayList<String> options= new ArrayList<>();
+                            ArrayList<String> options = new ArrayList<>();
 
                             JSONObject question = jsonArray.getJSONObject(j);
                             String questionDescription = question.getString("description");
@@ -233,7 +230,7 @@ public class MenuActivity extends AppCompatActivity {
         userListTitle.setVisibility(userQuizzes.size() == 0 ? View.GONE : View.VISIBLE);
         userList.setVisibility(userQuizzes.size() == 0 ? View.GONE : View.VISIBLE);
         String userTitleText = Account.getInstance().getUsername();
-        if (userTitleText.charAt(userTitleText.length()-1) != 's'){
+        if (userTitleText.charAt(userTitleText.length() - 1) != 's') {
             userTitleText += "s";
         }
         userTitleText += " Qwalks";
@@ -348,8 +345,7 @@ public class MenuActivity extends AppCompatActivity {
             userQuizzes = new ArrayList<>();
             loadOnlineQuizzes(Account.getInstance().getUserID(), userQuizzes);
             loadUserList();
-        }
-        else if (requestCode == ADD_FRIEND_CODE){
+        } else if (requestCode == ADD_FRIEND_CODE) {
             friendQuizzes = new ArrayList<>();
             loadFriendQuizzes();
             loadFriendsList();
@@ -366,7 +362,7 @@ public class MenuActivity extends AppCompatActivity {
 
             try {
 
-                URL url = new URL(DatabaseHandler.getReadQuizURL());
+                URL url = new URL(DatabaseHandler.READ_QUIZ_URL);
 
                 JSONObject postDataParams = new JSONObject();
 

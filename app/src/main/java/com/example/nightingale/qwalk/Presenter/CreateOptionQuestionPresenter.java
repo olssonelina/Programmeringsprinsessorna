@@ -1,20 +1,11 @@
 package com.example.nightingale.qwalk.Presenter;
 
-import android.content.Context;
-
 import com.example.nightingale.qwalk.Model.OptionQuestion;
-import android.graphics.Path;
-import android.content.Context;
-
 import com.example.nightingale.qwalk.InterfaceView.ICreateOptionQuestion;
-import com.example.nightingale.qwalk.Model.OptionQuestion;
 import com.example.nightingale.qwalk.Model.Question;
-import com.example.nightingale.qwalk.R;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static com.example.nightingale.qwalk.R.id.question;
 
 /**
  * Created by Elina Olsson on 2017-05-11.

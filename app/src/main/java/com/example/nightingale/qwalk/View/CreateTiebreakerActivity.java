@@ -16,7 +16,6 @@ import com.example.nightingale.qwalk.Presenter.CreateTiebreakerPresenter;
 import com.example.nightingale.qwalk.R;
 
 import static com.example.nightingale.qwalk.View.CreateOptionQuestionActivity.GET_POSITION_CODE;
-import static java.lang.Integer.min;
 import static java.lang.Integer.parseInt;
 
 /**
@@ -54,8 +53,8 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
         try {
             presenter.setAllFields((Tiebreaker) getIntent().getParcelableExtra("question"));
             presenter.updateLocationText();
+        } catch (NullPointerException e) {
         }
-        catch (NullPointerException e) {}
     }
 
     public void addPosition(View view) {
@@ -70,8 +69,7 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
                 Location l = (Location) data.getExtras().get("result");
                 latitude = l.getLatitude();
                 longitude = l.getLongitude();
-            }
-            catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 latitude = 0;
                 longitude = 0;
             }
@@ -79,7 +77,7 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
         }
     }
 
-    public void doneButtonPressed(View view){
+    public void doneButtonPressed(View view) {
         presenter.doneButtonPressed();
     }
 
@@ -136,10 +134,12 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
     }
 
     @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {}
+    public void onStartTrackingTouch(SeekBar seekBar) {
+    }
 
     @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {}
+    public void onStopTrackingTouch(SeekBar seekBar) {
+    }
 
     @Override
     public void setLatitude(double latitude) {
@@ -153,12 +153,12 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
 
     @Override
     public void setLowerBounds(int lowerBounds) {
-        minField.setText(""+lowerBounds);
+        minField.setText("" + lowerBounds);
     }
 
     @Override
     public void setUpperBounds(int upperBounds) {
-        maxField.setText(""+upperBounds);
+        maxField.setText("" + upperBounds);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.example.nightingale.qwalk.Model;
+package com.example.nightingale.qwalk.Model.Database;
 
 import java.util.ArrayList;
 import java.util.List;

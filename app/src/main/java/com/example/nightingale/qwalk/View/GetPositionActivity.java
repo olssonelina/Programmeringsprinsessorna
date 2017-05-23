@@ -168,13 +168,13 @@ public class GetPositionActivity extends FragmentActivity implements OnMapReadyC
     }
 
     @Override
-    public void closeWithResult(double latitude, double longitude){
+    public void closeWithResult(double latitude, double longitude) {
         Location location = new Location("");
         location.setLatitude(latitude);
         location.setLongitude(longitude);
 
         Intent returnIntent = new Intent();
-        returnIntent.putExtra("result", location );
+        returnIntent.putExtra("result", location);
         setResult(GetPositionActivity.RESULT_OK, returnIntent);
         finish();
     }
@@ -249,10 +249,12 @@ public class GetPositionActivity extends FragmentActivity implements OnMapReadyC
     }
 
     @Override
-    public void onConnectionSuspended(int i) { }
+    public void onConnectionSuspended(int i) {
+    }
 
     @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) { }
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+    }
 
     @Override
     public void setDoneButtonEnabled(boolean enabled) {

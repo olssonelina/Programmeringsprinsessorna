@@ -1,14 +1,13 @@
-package com.example.nightingale.qwalk.Model;
+package com.example.nightingale.qwalk.Model.Database;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.nightingale.qwalk.InterfaceView.ICreateQuiz;
-import com.example.nightingale.qwalk.InterfaceView.IFriendActivity;
-import com.example.nightingale.qwalk.InterfaceView.IQuizDetails;
-import com.example.nightingale.qwalk.View.CreateQuizActivity;
-import com.example.nightingale.qwalk.View.FriendActivity;
-import com.example.nightingale.qwalk.View.QuizDetailsActivity;
+import com.example.nightingale.qwalk.Model.MessageMediator.IOnMessageRecievedListener;
+import com.example.nightingale.qwalk.Model.MessageMediator.MessageMediator;
+import com.example.nightingale.qwalk.Model.OptionQuestion;
+import com.example.nightingale.qwalk.Model.Question;
+import com.example.nightingale.qwalk.Model.Tiebreaker;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -28,18 +27,16 @@ import javax.net.ssl.HttpsURLConnection;
 
 /**
  * Created by Nightingale on 2017-05-15.
+ *
+ * This class is responsible for all communication with the database online
  */
 
 public class DatabaseHandler {
-
     private static String quizDescription;
     private static String quizTitle;
 
     private static String JSONarrayString;
     private static String response;
-    static IFriendActivity FriendActivity;
-    static IQuizDetails QuizDetailsActivity;
-    static ICreateQuiz CreateQuizActivity;
     private static int readycheck = 0;
     private static int request;
     private static String FriendUsername;
@@ -48,53 +45,26 @@ public class DatabaseHandler {
     private static int counter = 0;
     private static ArrayList<Question> quizQuestions = new ArrayList<>();
 
-    final private static String host = "programmeringsprinsessorna.000webhostapp.com";
-    final private static String insertQuizURL = "https://programmeringsprinsessorna.000webhostapp.com/insertquiz.php";
-    final private static String insertAccountURL = "https://programmeringsprinsessorna.000webhostapp.com/insert.php";
+    final public static String HOST = "programmeringsprinsessorna.000webhostapp.com";
+    final public static String INSERT_QUIZ_URL = "https://programmeringsprinsessorna.000webhostapp.com/insertquiz.php";
+    final public static String INSERT_ACCOUNT_URL = "https://programmeringsprinsessorna.000webhostapp.com/insert.php";
+    final public static String DELETE_QUIZ_URL = "https://programmeringsprinsessorna.000webhostapp.com/deletequiz.php";
+    final public static String INSERT_FRIEND_URL = "https://programmeringsprinsessorna.000webhostapp.com/insertfriend.php";
+    final public static String VALIDATE_URL = "https://programmeringsprinsessorna.000webhostapp.com/validera.php";
+    final public static String READ_QUIZ_URL = "https://programmeringsprinsessorna.000webhostapp.com/readquiz.php";
 
+    private static MessageMediator mediator = new MessageMediator();
 
-
-    final private static String deleteQuizURL = "https://programmeringsprinsessorna.000webhostapp.com/deletequiz.php";
-
-
-    final private static String insertFriendURL = "https://programmeringsprinsessorna.000webhostapp.com/insertfriend.php";
-    final private static String validateURL = "https://programmeringsprinsessorna.000webhostapp.com/validera.php";
-    final private static String readQuizURL = "https://programmeringsprinsessorna.000webhostapp.com/readquiz.php";
-
-    public static String getHost() {
-        return host;
+    public static void setOnMessageRecievedListener(IOnMessageRecievedListener listener) {
+        mediator.addListener(listener);
     }
 
-    public static String getDeleteQuizURL() {
-        return deleteQuizURL;
+    private DatabaseHandler() {
     }
-
-    public static String getInsertQuizURL() {
-        return insertQuizURL;
-    }
-
-    public static String getInsertAccountURL() {
-        return insertAccountURL;
-    }
-
-    public static String getValidateURL() {
-        return validateURL;
-    }
-
-    public static String getReadQuizURL() {
-        return readQuizURL;
-    }
-
-    public static String getInsertFriendURL() {
-        return insertFriendURL;
-    }
-
-
 
     public static void setFriendUsername(String friendUsername) {
         FriendUsername = friendUsername;
     }
-
 
 
     public static String getPostDataString(JSONObject params) throws Exception {
@@ -153,9 +123,8 @@ public class DatabaseHandler {
         request = 0;
     }
 
-    public static void addFriend(String Friend, FriendActivity Activity) {
+    public static void addFriend(String Friend) {
 
-        FriendActivity = Activity;
         FriendUsername = Friend;
         request = 0;
 
@@ -164,9 +133,7 @@ public class DatabaseHandler {
 
     }
 
-    public static void deleteQuiz(int quiz, QuizDetailsActivity Activity) {
-
-        QuizDetailsActivity = Activity;
+    public static void deleteQuiz(int quiz) {
 
         quizID = quiz;
 
@@ -199,11 +166,11 @@ public class DatabaseHandler {
 
             if (responseCode == HttpsURLConnection.HTTP_OK) {
 
-                BufferedReader in=new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 StringBuffer sb = new StringBuffer("");
-                String line="";
+                String line = "";
 
-                while((line = in.readLine()) != null) {
+                while ((line = in.readLine()) != null) {
 
                     sb.append(line);
                     break;
@@ -212,54 +179,50 @@ public class DatabaseHandler {
                 in.close();
                 return sb.toString();
 
+            } else {
+                return new String("false : " + responseCode);
             }
-            else {
-                return new String("false : "+responseCode);
-            }
 
-        }
-
-            catch(Exception e) {
-        return new String("Exception: " + e.getMessage());
-    }
-
-}
-
-
-public static void saveQuiz(String Title, String Description,  ArrayList<Question> questions, CreateQuizActivity Activity ){
-    CreateQuizActivity = Activity;
-    quizDescription = Description;
-    quizTitle = Title;
-    quizQuestions = questions;
-
-    QuestionIDArray = new ArrayList<Integer>();
-    counter = 0;
-    readycheck = 0;
-
-    for (int i = 0; i < quizQuestions.size(); i++) {
-        try {
-
-            response = new SendInsertQuizRequest().execute().get();
-            Log.d("Getcomplete", "True");
-            Log.d("Getcomplete", response);
-            response = response.replaceAll("\\s+", "");
-            QuestionIDArray.add(Integer.parseInt(response));
         } catch (Exception e) {
-            Log.d("Getcomplete", "False");
-            break;
+            return new String("Exception: " + e.getMessage());
         }
-        Log.d("Getcomplete", "Test");
+
     }
 
-    Log.d("JSONindex", String.valueOf(QuestionIDArray.get(0)));
-    JSONArray jsArray = new JSONArray(QuestionIDArray);
-    JSONarrayString = jsArray.toString();
-    Log.d("JSON", JSONarrayString);
-    readycheck = 1;
-    counter = 0;
-    new SendInsertQuizRequest().execute();
 
-}
+    public static void saveQuiz(String Title, String Description, ArrayList<Question> questions) {
+        quizDescription = Description;
+        quizTitle = Title;
+        quizQuestions = questions;
+
+        QuestionIDArray = new ArrayList<Integer>();
+        counter = 0;
+        readycheck = 0;
+
+        for (int i = 0; i < quizQuestions.size(); i++) {
+            try {
+
+                response = new SendInsertQuizRequest().execute().get();
+                Log.d("Getcomplete", "True");
+                Log.d("Getcomplete", response);
+                response = response.replaceAll("\\s+", "");
+                QuestionIDArray.add(Integer.parseInt(response));
+            } catch (Exception e) {
+                Log.d("Getcomplete", "False");
+                break;
+            }
+            Log.d("Getcomplete", "Test");
+        }
+
+        Log.d("JSONindex", String.valueOf(QuestionIDArray.get(0)));
+        JSONArray jsArray = new JSONArray(QuestionIDArray);
+        JSONarrayString = jsArray.toString();
+        Log.d("JSON", JSONarrayString);
+        readycheck = 1;
+        counter = 0;
+        new SendInsertQuizRequest().execute();
+
+    }
 
 
     public static class SendInsertQuizRequest extends AsyncTask<String, Void, String> {
@@ -273,7 +236,7 @@ public static void saveQuiz(String Title, String Description,  ArrayList<Questio
             try {
 
 
-                URL url = new URL(DatabaseHandler.getInsertQuizURL());
+                URL url = new URL(INSERT_QUIZ_URL);
 
                 JSONObject postDataParams = new JSONObject();
 
@@ -361,23 +324,24 @@ public static void saveQuiz(String Title, String Description,  ArrayList<Questio
                 msg = "Quiz titel upptagen"; //"Quiz Title Taken" översatt
             }
 
-            CreateQuizActivity.saveQuizComplete(msg);
+            mediator.onMessageRecieved(msg);
 
         }
     }
 
 
-
     public static class SendFriendRequest extends AsyncTask<String, Void, String> {
 
         String Username = FriendUsername;
-        protected void onPreExecute(){}
+
+        protected void onPreExecute() {
+        }
 
         protected String doInBackground(String... arg0) {
 
-            try{
+            try {
 
-                URL url = new URL(DatabaseHandler.getInsertFriendURL());
+                URL url = new URL(INSERT_FRIEND_URL);
 
                 JSONObject postDataParams = new JSONObject();
 
@@ -387,79 +351,12 @@ public static void saveQuiz(String Title, String Description,  ArrayList<Questio
                 postDataParams.put("request", request);
 
 
-
-                Log.e("params",postDataParams.toString());
-
-               return sendParams(url, postDataParams);
-
-
-            }
-            catch(Exception e){
-                return new String("Exception: " + e.getMessage());
-            }
-        }
-
-
-        @Override
-        protected void onPostExecute(String result) {
-
-            String msg = "";
-
-
-                Log.e("response", result);
-            result = result.replaceAll("\\s+", "");
-
-
-
-                if (result.equals("0")) {
-                    msg = "Error";
-                    FriendActivity.AddFriendComplete(msg);
-                } else if (result.equals("1")) {
-                    msg = "Användarnamnet finns inte";
-                    FriendActivity.AddFriendComplete(msg);
-                } else if (result.equals("2")) {
-                    msg = "Du är redan vän med den här personen";
-                    FriendActivity.AddFriendComplete(msg);
-                } else if (result.equals("3")) {
-                    msg = "Vän tillagd";
-                    FriendActivity.AddFriendComplete(msg);
-                }
-                else if(result.equals("Exception:Unabletoresolvehost\""+ DatabaseHandler.getHost() + "\":Noaddressassociatedwithhostname")){
-                    msg = "Uppkoppling misslyckades";
-                    FriendActivity.AddFriendComplete(msg);
-                }
-
-
-
-
-
-
-
-
-        }
-    }
-
-    public static class SendDeleteQuizRequest extends AsyncTask<String, Void, String> {
-
-
-        protected void onPreExecute(){}
-
-        protected String doInBackground(String... arg0) {
-
-            try{
-
-                URL url = new URL(DatabaseHandler.getDeleteQuizURL());
-
-                JSONObject postDataParams = new JSONObject();
-
-
-                postDataParams.put("quizid", quizID);
-
-                Log.e("params",postDataParams.toString());
+                Log.e("params", postDataParams.toString());
 
                 return sendParams(url, postDataParams);
-            }
-            catch(Exception e){
+
+
+            } catch (Exception e) {
                 return new String("Exception: " + e.getMessage());
             }
         }
@@ -475,20 +372,66 @@ public static void saveQuiz(String Title, String Description,  ArrayList<Questio
             result = result.replaceAll("\\s+", "");
 
 
+            if (result.equals("0")) {
+                msg = "Error";
+            } else if (result.equals("1")) {
+                msg = "Användarnamnet finns inte";
+            } else if (result.equals("2")) {
+                msg = "Du är redan vän med den här personen";
+            } else if (result.equals("3")) {
+                msg = "Vän tillagd";
+            } else if (result.equals("Exception:Unabletoresolvehost\"" + HOST + "\":Noaddressassociatedwithhostname")) {
+                msg = "Uppkoppling misslyckades";
+            }
+
+            mediator.onMessageRecieved(msg);
+
+
+        }
+    }
+
+    public static class SendDeleteQuizRequest extends AsyncTask<String, Void, String> {
+
+
+        protected void onPreExecute() {
+        }
+
+        protected String doInBackground(String... arg0) {
+
+            try {
+
+                URL url = new URL(DELETE_QUIZ_URL);
+
+                JSONObject postDataParams = new JSONObject();
+
+
+                postDataParams.put("quizid", quizID);
+
+                Log.e("params", postDataParams.toString());
+
+                return sendParams(url, postDataParams);
+            } catch (Exception e) {
+                return new String("Exception: " + e.getMessage());
+            }
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+
+            String msg = "";
+
+
+            Log.e("response", result);
+            result = result.replaceAll("\\s+", "");
+
 
             if (result.equals("0")) {
                 msg = "Success";
-                QuizDetailsActivity.deleteComplete(msg);
-            } else{
+            } else {
                 msg = "Error";
-                QuizDetailsActivity.deleteComplete(msg);
             }
-
-
-
-
-
-
+            mediator.onMessageRecieved(msg);
 
 
         }

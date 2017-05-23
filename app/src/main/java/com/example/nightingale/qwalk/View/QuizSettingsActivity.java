@@ -91,39 +91,34 @@ public class QuizSettingsActivity extends AppCompatActivity implements IQuizSett
     public void checkBoxPressed(View view) {
         CheckBox cb = (CheckBox) view;
 
-        if (cb.equals(hideQuestions)){
+        if (cb.equals(hideQuestions)) {
             presenter.setSetting(QUESTIONS_ARE_HIDDEN, hideQuestions.isChecked());
-        }
-        else if (cb.equals(inOrder)){
+        } else if (cb.equals(inOrder)) {
             presenter.setSetting(QUESTIONS_IN_ORDER, inOrder.isChecked());
-        }
-        else if (cb.equals(questionTimer)){
+        } else if (cb.equals(questionTimer)) {
             presenter.setSetting(HAS_QUESTION_TIMER, questionTimer.isChecked());
-        }
-        else if (cb.equals(quizTimer)){
+        } else if (cb.equals(quizTimer)) {
             presenter.setSetting(HAS_QUIZ_TIMER, quizTimer.isChecked());
-        }
-        else if (cb.equals(bot)){
+        } else if (cb.equals(bot)) {
             presenter.setSetting(WITH_AI, bot.isChecked());
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("No such checkBox!");
         }
     }
 
-    public void difficultyPressed(View view){
-        if (view.equals(easy)){
+    public void difficultyPressed(View view) {
+        if (view.equals(easy)) {
             presenter.setDifficulty(EASY);
-        }else if (view.equals(medium)){
+        } else if (view.equals(medium)) {
             presenter.setDifficulty(MEDIUM);
-        }else if (view.equals(hard)){
+        } else if (view.equals(hard)) {
             presenter.setDifficulty(HARD);
         }
     }
 
     @Override
     public void setChecked(QuizSetting quizSetting, boolean value) {
-        switch (quizSetting){
+        switch (quizSetting) {
             case QUESTIONS_IN_ORDER:
                 inOrder.setChecked(value);
                 break;

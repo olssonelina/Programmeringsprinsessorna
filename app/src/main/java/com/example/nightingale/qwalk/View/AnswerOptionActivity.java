@@ -20,7 +20,7 @@ import static com.example.nightingale.qwalk.Model.IActor.NO_ANSWER;
  * Created by Kraft on 2017-04-26.
  */
 
-public class AnswerOptionActivity extends AppCompatActivity implements IAnswerOption{
+public class AnswerOptionActivity extends AppCompatActivity implements IAnswerOption {
 
 
     private AnswerOptionPresenter presenter;

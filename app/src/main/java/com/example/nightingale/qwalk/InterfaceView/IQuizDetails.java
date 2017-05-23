@@ -19,5 +19,4 @@ public interface IQuizDetails {
 
     void setEditable(boolean value);
 
-    void deleteComplete(String msg);
 }

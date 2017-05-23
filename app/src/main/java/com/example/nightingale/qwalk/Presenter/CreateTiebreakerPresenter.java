@@ -1,10 +1,7 @@
 package com.example.nightingale.qwalk.Presenter;
 
-import android.content.Context;
-
 import com.example.nightingale.qwalk.InterfaceView.ICreateTiebreaker;
 import com.example.nightingale.qwalk.Model.Tiebreaker;
-import com.example.nightingale.qwalk.R;
 
 /**
  * Created by Kraft on 2017-05-10.
