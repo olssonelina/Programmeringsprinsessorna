@@ -11,7 +11,7 @@ import static com.example.nightingale.qwalk.Model.QuizSetting.*;
  * Created by Kraft on 2017-05-12.
  */
 
-public class QwalkGame implements IOnAIMoveListener {
+public class QwalkGame {
 
     //
     private MapsPresenter presenter;
@@ -148,6 +148,10 @@ public class QwalkGame implements IOnAIMoveListener {
                 presenter.enableMarker(q);
             }
         }
+
+        if (hasAi()){
+            presenter.moveBot(ai.getLocation());
+        }
     }
 
     private void initializeAi(QLocation userLocation) {
@@ -165,12 +169,9 @@ public class QwalkGame implements IOnAIMoveListener {
                 break;
         }
 
-
-
         AI ai = new AI(quiz.getCorrectAnswers(), quiz.get(quiz.size() - 1) instanceof Tiebreaker, quiz.getLowerBounds(), quiz.getUpperBounds(), difficulty, quiz.getLocations(), userLocation);
-        ai.setOnAImovedListener(this);
-        presenter.initializeAi(ai.getLocation());
         Thread botThread = new Thread(ai);
+        ai.setLocation(userLocation);
         botThread.start();
 
         this.ai = ai;
@@ -216,11 +217,6 @@ public class QwalkGame implements IOnAIMoveListener {
 
     public boolean hasAi() {
         return ai != null;
-    }
-
-    @Override
-    public void AIMoved(QLocation location) {
-        presenter.moveBot(location);
     }
 
     public int getQuestionIndex(Question question) {
