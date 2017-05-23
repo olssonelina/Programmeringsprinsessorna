@@ -17,4 +17,5 @@ public interface ICreateOptionQuestion {
     boolean hasAnswer();
     String[] getOptions();
     void reset();
+    void setLocationText(String text);
 }

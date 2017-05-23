@@ -12,9 +12,6 @@
         android:layout_height="match_parent"
         android:visibility="visible">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
 
             <TextView
@@ -24,10 +21,20 @@
                 android:layout_marginLeft="130dp"
                 android:layout_marginTop="400dp"
                 android:onClick="addPosition"
-                android:padding="10dp"
-                android:text="@string/add_position"
-                android:textColor="@color/wallet_holo_blue_light" />
-        </ScrollView>
+                android:padding="15dp"
+                android:text="Lägg till position"
+                android:textColor="#ffffff"
+                android:textSize="18dp" />
+
+            <ImageButton
+                android:id="@+id/positionMarker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="90dp"
+                android:layout_marginTop="400dp"
+                android:background="@drawable/minimarkerwhite"
+                android:onClick="addPosition"
+                android:visibility="visible" />
 
         <TextView
             android:id="@+id/questionX"
@@ -38,22 +45,12 @@
             android:text="@string/tiebreaker"
             android:textSize="24dp" />
 
-        <TextView
-            android:id="@+id/chooseAnswer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/questionField"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:text="@string/choose_correct_answer"
-            android:textSize="18dp" />
-
         <SeekBar
             android:id="@+id/seekBar"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="260dp"
+            android:layout_marginTop="200dp"
             android:max="100" />
 
 
@@ -64,7 +61,8 @@
             android:layout_alignTop="@+id/seekBar"
             android:layout_marginLeft="58dp"
             android:layout_marginTop="50dp"
-            android:text="" />
+            android:textSize="18dp"
+            android:text="Rätt" />
 
         <TextView
             android:id="@+id/min"
@@ -101,10 +99,10 @@
         <Button
             android:id="@+id/done"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="450dp"
-            android:ems="9"
+            android:layout_marginTop="460dp"
+            android:ems="10"
             android:onClick="doneButtonPressed"
             android:text="@string/done" />
 
@@ -132,29 +130,6 @@
             android:ems="2"
             android:inputType="number"
             android:text="0" />
-
-        <TextView
-            android:id="@+id/unit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/chooseUnit"
-            android:layout_below="@+id/questionField"
-            android:layout_marginRight="90dp"
-            android:layout_marginTop="70dp"
-            android:text="@string/unit"
-            android:textSize="18dp" />
-
-        <EditText
-            android:id="@+id/chooseUnit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/unit"
-            android:layout_marginBottom="-10dp"
-            android:layout_alignRight="@+id/seekBar"
-            android:layout_marginRight="80dp"
-            android:ems="4"
-            android:inputType="textPersonName"
-            android:text="" />
 
     </RelativeLayout>
 </LinearLayout>

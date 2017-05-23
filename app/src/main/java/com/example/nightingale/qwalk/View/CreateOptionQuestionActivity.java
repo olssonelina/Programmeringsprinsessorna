@@ -37,6 +37,7 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
 
     private TextView questionNumber;
     private EditText questionText;
+    private TextView locationText;
 
     private EditText[] options = new EditText[4];
     private TextView[] numbers = new TextView[4];
@@ -53,6 +54,7 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
         setContentView(R.layout.activity_createquestion);
 
         questionText = (EditText) findViewById(R.id.questionField);
+        locationText = (TextView) findViewById(R.id.addPosition);
 
         options[0] = (EditText) findViewById(R.id.option1Field);
         options[1] = (EditText) findViewById(R.id.option2Field);
@@ -235,9 +237,14 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
 
 
     @Override
+    public void setLocationText(String text) {
+        locationText.setText(text);
+    }
+
+    @Override
     public void reset() {
         questionCounter++;
-        questionNumber.setText(getResources().getString(R.string.question) + questionCounter + ".");
+        questionNumber.setText(getResources().getString(R.string.question) + " " + questionCounter + ".");
         questionText.getText().clear();
         numbers[0].setText("+");
 
@@ -286,7 +293,7 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
                 latitude = 0;
                 longitude = 0;
             }
-
+            presenter.updateLocationText();
         }
     }
 

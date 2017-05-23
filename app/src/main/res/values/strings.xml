@@ -5,8 +5,8 @@
     <string name="add_position">Lägg till position</string>
     <string name="question_here">Skriv fråga här</string>
     <string name="add_alternative">Lägg till alternativ</string>
-    <string name="add_question">Lägg till fråga</string>
-    <string name="done">Klar</string>
+    <string name="add_question">Ny fråga</string>
+    <string name="done">Återgå</string>
     <string name="create_new_quiz">Skapa nytt quiz</string>
     <string name="title">Titel</string>
     <string name="description">Kort beskrivning</string>
@@ -15,8 +15,8 @@
     <string name="add_tiebreaker">+ Lägg till utslagsfråga</string>
     <string name="tiebreaker">Utslagsfråga</string>
     <string name="choose_correct_answer">Välj rätt svar</string>
-    <string name="min">min:</string>
-    <string name="max">max:</string>
+    <string name="min">min: </string>
+    <string name="max">max: </string>
     <string name="unit">Enhet: </string>
     <string name="add_friend">Lägg till vän</string>
     <string name="your_friends">Dina Vänner</string>

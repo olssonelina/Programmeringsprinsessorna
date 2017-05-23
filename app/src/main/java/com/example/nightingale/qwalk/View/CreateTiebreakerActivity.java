@@ -16,6 +16,7 @@ import com.example.nightingale.qwalk.Presenter.CreateTiebreakerPresenter;
 import com.example.nightingale.qwalk.R;
 
 import static com.example.nightingale.qwalk.View.CreateOptionQuestionActivity.GET_POSITION_CODE;
+import static java.lang.Integer.min;
 import static java.lang.Integer.parseInt;
 
 /**
@@ -31,7 +32,6 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
     private EditText minField;
     private EditText maxField;
     private EditText questionTitle;
-    private EditText unit;
     private double latitude = 0, longitude = 0;
 
     @Override
@@ -44,10 +44,8 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
         minField = (EditText) findViewById(R.id.minField);
         maxField = (EditText) findViewById(R.id.maxField);
         questionTitle = (EditText) findViewById(R.id.questionField);
-        unit = (EditText) findViewById(R.id.chooseUnit);
 
-
-        value.setText("0");
+        value.setText("Rätt \n" + " " + minField.getText());
         seekBar.setOnSeekBarChangeListener(this);
 
         presenter = new CreateTiebreakerPresenter(this);
@@ -75,10 +73,6 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
 
     public void doneButtonPressed(View view){
         presenter.doneButtonPressed();
-    }
-
-    public String getUnit() {
-        return unit.getText().toString(); //TODO skriv ut unit när man svarar på en tiebreaker
     }
 
     @Override
@@ -127,7 +121,7 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         int val = (progress * (seekBar.getWidth() - 2 * seekBar.getThumbOffset())) / seekBar.getMax();
-        value.setText("" + (progress + parseInt(minField.getText().toString())) + " " + getUnit());
+        value.setText("Rätt \n" + " " + (progress + parseInt(minField.getText().toString())));
         value.setX(seekBar.getX() + val + seekBar.getThumbOffset() / 2);
         int minValue = parseInt(minField.getText().toString());
         seekBar.setMax(parseInt(maxField.getText().toString()) - minValue);

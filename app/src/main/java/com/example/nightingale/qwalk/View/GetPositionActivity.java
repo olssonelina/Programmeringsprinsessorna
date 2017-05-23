@@ -142,7 +142,8 @@ public class GetPositionActivity extends FragmentActivity implements OnMapReadyC
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(new LatLng(latitude, longitude));
             markerOptions.draggable(true);
-            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
+            //markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
+            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.minimarkerwhite));
             newQuestionMarker = mMap.addMarker(markerOptions);
         } else {
             newQuestionMarker.setPosition(new LatLng(latitude, longitude));

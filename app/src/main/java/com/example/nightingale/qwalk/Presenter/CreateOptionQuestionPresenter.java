@@ -71,4 +71,12 @@ public class CreateOptionQuestionPresenter {
         view.closeWithResult(questions);
     }
 
+    public void updateLocationText() {
+        if(view.getLatitude() == 0 && view.getLongitude() == 0) {
+            view.setLocationText("Lägg till position");
+        } else {
+            view.setLocationText("Ändra position");
+        }
+    }
+
 }
