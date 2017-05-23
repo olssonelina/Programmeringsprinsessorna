@@ -73,7 +73,8 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="50dp"
                 android:text="Dina Qwalks"
-                android:textSize="18dp" />
+                android:textSize="18dp"
+                android:visibility="invisible" />
 
             <ListView
                 android:id="@+id/userList"

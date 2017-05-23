@@ -28,7 +28,7 @@ public class QuizSettingsPresenter {
             view.setChecked(qs, quiz.getSetting(qs));
         }
 
-        view.setDifficultiesVisible(false);
+        view.setDifficultiesVisible(withBot);
     }
 
     public void setSetting(QuizSetting setting, boolean value) {

@@ -198,10 +198,15 @@ public class Quiz implements Parcelable {
 
 
     protected Quiz(Parcel in) {
+        withBot = in.readByte() != 0;
+        questionTimer = in.readByte() != 0;
+        quizTimer = in.readByte() != 0;
+        inOrder = in.readByte() != 0;
+        hiddenQuestions = in.readByte() != 0;
         quizID = in.readInt();
         title = in.readString();
         description = in.readString();
-        difficulty = (QuizDifficulty) in.readValue(QuizDifficulty.class.getClassLoader());
+        difficulty = (QuizDifficulty) in.readSerializable();
         questionTimer = in.readByte() != 0x00;
         if (in.readByte() == 0x01) {
             questions = new ArrayList<Question>();
@@ -224,10 +229,15 @@ public class Quiz implements Parcelable {
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeByte((byte) (withBot ? 1 : 0));
+        dest.writeByte((byte) (questionTimer ? 1 : 0));
+        dest.writeByte((byte) (quizTimer ? 1 : 0));
+        dest.writeByte((byte) (inOrder ? 1 : 0));
+        dest.writeByte((byte) (hiddenQuestions ? 1 : 0));
         dest.writeInt(quizID);
         dest.writeString(title);
         dest.writeString(description);
-        dest.writeValue(difficulty);
+        dest.writeSerializable(difficulty);
         dest.writeByte((byte) (questionTimer ? 0x01 : 0x00));
         if (questions == null) {
             dest.writeByte((byte) (0x00));
