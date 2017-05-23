@@ -98,6 +98,15 @@ public final class QLocation implements Parcelable{
         return d * 1000; // meters
     }
 
+    public double deltaLong(QLocation qLocation) {
+        return qLocation.getLongitude() - this.getLongitude();
+    }
+
+    public double deltaLat(QLocation qLocation) {
+        return qLocation.getLatitude() - this.getLatitude();
+    }
+
+
     /**
      *
      * @param location

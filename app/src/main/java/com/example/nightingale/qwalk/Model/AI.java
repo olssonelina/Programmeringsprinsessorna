@@ -14,29 +14,29 @@ public class AI implements Runnable, IActor {
     private int difficulty;
     private QLocation location;
     private QLocation[] questionLocations;
-    private QLocation startLocation;
 
     private GameTimer timer = new GameTimer();
     private List<IOnAIMoveListener> listeners = new ArrayList<>();
 
     /**
      * Creates an ai which aims to answer questions in a quiz and to walk around on the map
-     * @param correctAnswers the correct answers to a quiz, in order of index
-     * @param tieBreaker true if the quiz has a tiebreaker
-     * @param low the correct answers to the quiz, in order of index
-     * @param high the upper bounds of every question in the quiz, in order of index
-     * @param difficulty the difficulty of the quiz in percent, 1 - 100.
+     *
+     * @param correctAnswers    the correct answers to a quiz, in order of index
+     * @param tieBreaker        true if the quiz has a tiebreaker
+     * @param low               the correct answers to the quiz, in order of index
+     * @param high              the upper bounds of every question in the quiz, in order of index
+     * @param difficulty        the difficulty of the quiz in percent, 1 - 100.
      * @param questionLocations the question locations in the quiz, in order of index
      */
     public AI(int[] correctAnswers, boolean tieBreaker, int[] low, int[] high, int difficulty, QLocation[] questionLocations, QLocation startLocation) {
-        this.difficulty=difficulty;
+        this.difficulty = difficulty;
         this.answers = new int[correctAnswers.length];
-        for (int a: answers) {
+        for (int a : answers) {
             a = NO_ANSWER;
         }
         this.questionLocations = questionLocations;
         setAnswers(correctAnswers, tieBreaker, low, high);
-        this.startLocation = startLocation;
+        this.location = startLocation;
         timer.startTimer();
     }
 
@@ -47,7 +47,7 @@ public class AI implements Runnable, IActor {
     public int getScore(int[] correctAnswers) {
         int correctCount = 0;
         for (int i = 0; i < correctAnswers.length; i++) {
-            if (correctAnswers[i] == answers[i]){
+            if (correctAnswers[i] == answers[i]) {
                 correctCount++;
             }
         }
@@ -65,7 +65,7 @@ public class AI implements Runnable, IActor {
     /**
      * {@inheritDoc}
      */
-    public int[] getAnswers(){
+    public int[] getAnswers() {
         return answers;
     }
 
@@ -74,12 +74,12 @@ public class AI implements Runnable, IActor {
             if (difficulty > randomInt()) {
                 answers[i] = correctAnswers[i];
             } else {
-                answers[i] = randomAnswer((high[i]+1));
+                answers[i] = randomAnswer((high[i] + 1));
             }
         }
-        if(tiebreaker){
-            int lastIndex=correctAnswers.length - 1;
-            answers[lastIndex] =randomAnswer(high[lastIndex]-low[lastIndex])+low[lastIndex];
+        if (tiebreaker) {
+            int lastIndex = correctAnswers.length - 1;
+            answers[lastIndex] = randomAnswer(high[lastIndex] - low[lastIndex]) + low[lastIndex];
         }
     }
 
@@ -92,18 +92,49 @@ public class AI implements Runnable, IActor {
         Random rand = new Random();
         return rand.nextInt(numberOfOptions);
     }
-    
+
+    /**
+     * Moves the bot over the map with speed depending on time.
+     */
 
     @Override
     public void run() {
         //TODO gör någon loop där den hela tiden ändrar positionen på ai och även notifiesListeners.
         //TODO målet är att apan ska röra sig mot frågorna, mha questionlocations
+
+        double lat = location.getLatitude();
+        double lng = location.getLongitude();
+        int maxTime = 300; //maxTime = totalMaxTime / numberOfQuestions
+
+        /*
+        for (int i = 0; i < questionLocations.length - 1; i++) {
+            while (timer.getTime() < maxTime) {
+                lat = lat + (questionLocations[i].deltaLat(questionLocations[i+1]) / maxTime);
+                lng = lng + (questionLocations[i].deltaLong(questionLocations[i+1]) / maxTime);
+                location = new QLocation(lat, lng);
+                notifyListeners(location);*/
+
+        for (int i = 0; i < 30; i++) {
+
+            lat = lat + 0.03;
+            lng = lng + 0.03;
+            location = new QLocation(lat, lng);
+            
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+
+            }
+        }
+
+
         try {
-            Thread.sleep(10000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
 
         }
     }
+
 
     /**
      * {@inheritDoc}
@@ -134,7 +165,7 @@ public class AI implements Runnable, IActor {
     }
 
     private void notifyListeners(QLocation location) {
-        for (IOnAIMoveListener l:listeners) {
+        for (IOnAIMoveListener l : listeners) {
             l.AIMoved(location);
         }
     }

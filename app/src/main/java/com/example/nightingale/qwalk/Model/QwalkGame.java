@@ -165,14 +165,15 @@ public class QwalkGame implements IOnAIMoveListener {
                 break;
         }
 
+
+
         AI ai = new AI(quiz.getCorrectAnswers(), quiz.get(quiz.size() - 1) instanceof Tiebreaker, quiz.getLowerBounds(), quiz.getUpperBounds(), difficulty, quiz.getLocations(), userLocation);
         ai.setOnAImovedListener(this);
+        presenter.initializeAi(ai.getLocation());
         Thread botThread = new Thread(ai);
         botThread.start();
 
-
         this.ai = ai;
-        //presenter.initializeAi(); //TODO
     }
 
     private List<Question> questionsInRange(List<Question> questions) {

@@ -124,7 +124,7 @@ public class MapsPresenter {
      *
      * @param location
      */
-    public void initializeBot(QLocation location){ view.initializeAi(location); }
+    public void initializeAi(QLocation location){ view.initializeAi(location); }
 
     /**
      *
