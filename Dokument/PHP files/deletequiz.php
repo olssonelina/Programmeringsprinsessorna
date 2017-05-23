@@ -6,8 +6,7 @@ $con = connect(); //Anropar och ansluter till db.
 $quizid = $_POST['quizid'];
 
 
-echo $quizid;
-$sql = "SELECT  *  FROM quizrelation WHERE quizid = '$quizid'";
+$sql = "SELECT * FROM quizrelation WHERE quizid = '$quizid'";
 
 $checkquiz = mysqli_query($con, $sql);
 if (!$checkquiz) {
@@ -23,18 +22,21 @@ $results = array();
        
         $questionid = $data['questionid'];    
         
-        mysqli_query($con, "DELETE  *  FROM questions WHERE questionid = '$questionid'");
-        echo "deleted question";
+        mysqli_query($con, "DELETE FROM questions WHERE questionid = '$questionid'");
+
     
 }
 
-$sql = "DELETE  *  FROM quizrelation WHERE quizid = '$quizid'";
+$sql = "DELETE FROM quizrelation WHERE quizid = '$quizid'";
 mysqli_query($con, $sql);
-echo "deleted relation";
 
-$sql = "DELETE  *  FROM quiz WHERE quizid = '$quizid'";
+$sql = "DELETE  *  FROM accountrelation WHERE quizid = '$quizid'";
 mysqli_query($con, $sql);
-echo "deleted quiz";    
+
+$sql = "DELETE FROM quiz WHERE quizid = '$quizid'";
+mysqli_query($con, $sql);
+
+echo "0";    
 
 
 
