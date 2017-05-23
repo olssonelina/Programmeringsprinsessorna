@@ -99,9 +99,9 @@
             android:layout_height="wrap_content"
             android:text="Titel på Quiz"
             android:textSize="36dp"
-            android:layout_below="@+id/deleteQuizButton"
-            android:layout_alignLeft="@+id/description"
-            android:layout_alignStart="@+id/description" />
+            android:layout_below="@+id/edit"
+            android:layout_alignLeft="@+id/progressBar1"
+            android:layout_alignStart="@+id/progressBar1" />
 
         <TextView
             android:id="@+id/description"
@@ -118,9 +118,9 @@
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:layout_alignLeft="@+id/description"
-            android:layout_alignStart="@+id/description"
-            android:layout_alignTop="@+id/title" />
+            android:layout_below="@+id/deleteQuizButton"
+            android:layout_alignRight="@+id/edit"
+            android:layout_alignEnd="@+id/edit" />
 
     </RelativeLayout>
 

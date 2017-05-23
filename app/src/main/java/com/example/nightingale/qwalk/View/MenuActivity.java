@@ -132,7 +132,7 @@ public class MenuActivity extends AppCompatActivity {
 
                     Log.d("JSON", JSONstring);
                     JSONArray jsonArray = new JSONArray(JSONstring);
-                    Quiz q = new Quiz("", "");
+                    Quiz q = new Quiz("", "", 0);
                     List<Question> questions = new ArrayList<>();
                     for (int j = 0; j < jsonArray.length(); ++j) {
                         if (j == 0) {
@@ -141,7 +141,9 @@ public class MenuActivity extends AppCompatActivity {
                             Log.d("JSON", title);
                             String description = quiz.getString("description");
                             Log.d("JSON", description);
-                            q = new Quiz(title, description);
+                            int quizID = quiz.getInt("quizid");
+                            Log.d("JSON", String.valueOf(quizID));
+                            q = new Quiz(title, description, quizID);
                         } else {
 
                             ArrayList<String> options= new ArrayList<>();
@@ -259,6 +261,7 @@ public class MenuActivity extends AppCompatActivity {
         });
 
         setListViewHeightBasedOnItems(userList);
+        Log.d("Quizlist", String.valueOf(userQuizzes.get(1).getQuizID()));
 
     }
 

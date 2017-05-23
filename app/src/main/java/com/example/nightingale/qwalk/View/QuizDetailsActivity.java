@@ -2,15 +2,20 @@ package com.example.nightingale.qwalk.View;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.nightingale.qwalk.InterfaceView.IQuizDetails;
+import com.example.nightingale.qwalk.Model.DatabaseHandler;
 import com.example.nightingale.qwalk.Model.Quiz;
 import com.example.nightingale.qwalk.Model.QuizDifficulty;
 import com.example.nightingale.qwalk.Model.QuizSetting;
+import com.example.nightingale.qwalk.Presenter.DeleteDialog;
 import com.example.nightingale.qwalk.Presenter.QuizDetailsPresenter;
 import com.example.nightingale.qwalk.R;
 
@@ -27,6 +32,8 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
 
     private TextView title;
     private TextView description;
+    Button edit;
+    private ProgressBar spinner;
 
     public static final int QUIZ_SETTING_CODE = 34;
 
@@ -42,6 +49,11 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
         Quiz quiz = (Quiz) getIntent().getExtras().get("quiz");
 
         presenter = new QuizDetailsPresenter(this, quiz, editable);
+
+        edit = (Button) findViewById(R.id.edit);
+
+        spinner = (ProgressBar)findViewById(R.id.progressBar1);
+        spinner.setVisibility(View.GONE);
     }
 
 
@@ -59,7 +71,23 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
 
     public void onBackPressed(View view) {finish();}
 
-    public void onDeletePressed(View view) {presenter.deletePressed(); }
+    public void onDeletePressed(View view) {
+
+        edit.setEnabled(false);
+        spinner.setVisibility(View.VISIBLE);
+
+
+        presenter.deletePressed(this);
+
+    }
+
+    public void deleteComplete(String msg){
+        Toast.makeText(getApplicationContext(), msg,
+                Toast.LENGTH_LONG).show();
+
+        edit.setEnabled(true);
+        spinner.setVisibility(View.GONE);
+    }
 
     @Override
     public void openSettings(Quiz quiz) {
@@ -87,6 +115,7 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
 
     @Override
     public void editQuiz(Quiz quiz) {
+
         //TODO KEVIN här får du :)
     }
 

@@ -20,7 +20,7 @@ public final class StandardQuizzes {
 
     public static Quiz getChalmersQuiz(){
 
-        Quiz q = new Quiz("Chalmersquiz","Trivia om Chalmers och dess campus!");
+        Quiz q = new Quiz("Chalmersquiz","Trivia om Chalmers och dess campus!", -1);
 
         List<Question> questions = new ArrayList<>();
 
@@ -37,7 +37,7 @@ public final class StandardQuizzes {
 
     public static Quiz getAdressQuiz(){
 
-        Quiz q = new Quiz("Gissa huset!","Besök skaparna av appen och gissa vem som bor var!");
+        Quiz q = new Quiz("Gissa huset!","Besök skaparna av appen och gissa vem som bor var!", -2);
 
         List<Question> questions = new ArrayList<>();
 
@@ -62,7 +62,7 @@ public final class StandardQuizzes {
     }
 
     public static Quiz getMachineStudyRoomsQuiz(){
-        Quiz q = new Quiz("M-grupprummen","Najs grupprum");
+        Quiz q = new Quiz("M-grupprummen","Najs grupprum", -3);
 
         List<Question> questions = new ArrayList<>();
 

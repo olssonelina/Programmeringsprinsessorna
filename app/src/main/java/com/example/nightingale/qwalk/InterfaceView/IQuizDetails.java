@@ -12,4 +12,5 @@ public interface IQuizDetails {
     void setDescription(String description);
     void editQuiz(Quiz quiz);
     void openSettings(Quiz quiz);
+    void deleteComplete(String msg);
 }

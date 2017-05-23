@@ -115,9 +115,6 @@ public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz
     }
 
     public void saveQuiz() throws InterruptedException {
-        Quiz quiz = new Quiz(quizTitle.getText().toString(), quizDescription.getText().toString());
-        quiz.setQuestions(questions);
-
         QuestionIDArray = new ArrayList<Integer>();
         counter = 0;
 

@@ -7,8 +7,10 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.nightingale.qwalk.InterfaceView.IFriendActivity;
+import com.example.nightingale.qwalk.InterfaceView.IQuizDetails;
 import com.example.nightingale.qwalk.R;
 import com.example.nightingale.qwalk.View.FriendActivity;
+import com.example.nightingale.qwalk.View.QuizDetailsActivity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -31,7 +33,12 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class DatabaseHandler {
 
-    static IFriendActivity view;
+    static IFriendActivity FriendActivity;
+    static IQuizDetails QuizDetailsActivity;
+
+    private static int request;
+    private static String FriendUsername;
+    private static int quizID;
 
     final private static String host = "programmeringsprinsessorna.000webhostapp.com";
     final private static String insertQuizURL = "https://programmeringsprinsessorna.000webhostapp.com/insertquiz.php";
@@ -66,15 +73,13 @@ public class DatabaseHandler {
         return insertFriendURL;
     }
 
-    private static int request;
+
 
     public static void setFriendUsername(String friendUsername) {
         FriendUsername = friendUsername;
     }
 
-    private static String FriendUsername;
 
-    private static String quizID;
 
     public static String getPostDataString(JSONObject params) throws Exception {
 
@@ -132,12 +137,23 @@ public class DatabaseHandler {
         request = 0;
     }
 
-    public static void addFriend(String Friend, FriendActivity view2) {
-        view = view2;
+    public static void addFriend(String Friend, FriendActivity Activity) {
+        FriendActivity = Activity;
         FriendUsername = Friend;
         request = 0;
 
         new DatabaseHandler.SendFriendRequest().execute();
+
+
+    }
+
+    public static void deleteQuiz(int quiz, QuizDetailsActivity Activity) {
+
+        QuizDetailsActivity = Activity;
+
+        quizID = quiz;
+
+        new DatabaseHandler.SendDeleteQuizRequest().execute();
 
 
     }
@@ -237,20 +253,20 @@ public class DatabaseHandler {
 
                 if (result.equals("0")) {
                     msg = "Error";
-                    view.AddFriendComplete(msg);
+                    FriendActivity.AddFriendComplete(msg);
                 } else if (result.equals("1")) {
                     msg = "Användarnamnet finns inte";
-                    view.AddFriendComplete(msg);
+                    FriendActivity.AddFriendComplete(msg);
                 } else if (result.equals("2")) {
                     msg = "Du är redan vän med den här personen";
-                    view.AddFriendComplete(msg);
+                    FriendActivity.AddFriendComplete(msg);
                 } else if (result.equals("3")) {
                     msg = "Vän tillagd";
-                    view.AddFriendComplete(msg);
+                    FriendActivity.AddFriendComplete(msg);
                 }
                 else if(result.equals("Exception:Unabletoresolvehost\""+ DatabaseHandler.getHost() + "\":Noaddressassociatedwithhostname")){
                     msg = "Uppkoppling misslyckades";
-                    view.AddFriendComplete(msg);
+                    FriendActivity.AddFriendComplete(msg);
                 }
 
 
@@ -302,10 +318,10 @@ public class DatabaseHandler {
 
             if (result.equals("0")) {
                 msg = "Success";
-                view.AddFriendComplete(msg);
+                QuizDetailsActivity.deleteComplete(msg);
             } else{
                 msg = "Error";
-                view.AddFriendComplete(msg);
+                QuizDetailsActivity.deleteComplete(msg);
             }
 
 

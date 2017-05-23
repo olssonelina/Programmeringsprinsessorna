@@ -13,12 +13,20 @@ import java.util.List;
 public class Quiz implements Parcelable {
     private String title;
     private String description;
+
+
+
+    private int quizID;
     private QuizDifficulty difficulty = QuizDifficulty.MEDIUM;
 
     private boolean questionTimer = false, quizTimer = true, hiddenQuestions = false, inOrder = true, withBot = false;
 
     public QuizDifficulty getDifficulty() {
         return difficulty;
+    }
+
+    public int getQuizID() {
+        return quizID;
     }
 
     public void setDifficulty(QuizDifficulty difficulty) {
@@ -64,9 +72,10 @@ public class Quiz implements Parcelable {
     private List<Question> questions = new ArrayList<>();
     public ArrayList<Integer> answers = new ArrayList<>();
 
-    public Quiz(String title, String description) {
+    public Quiz(String title, String description, int quizID) {
         this.title = title;
         this.description = description;
+        this.quizID = quizID;
     }
 
     public void setQuestions(List<Question> questions) {
