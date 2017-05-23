@@ -198,6 +198,7 @@ public class Quiz implements Parcelable {
 
 
     protected Quiz(Parcel in) {
+        quizID = in.readInt();
         title = in.readString();
         description = in.readString();
         difficulty = (QuizDifficulty) in.readValue(QuizDifficulty.class.getClassLoader());
@@ -223,6 +224,7 @@ public class Quiz implements Parcelable {
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(quizID);
         dest.writeString(title);
         dest.writeString(description);
         dest.writeValue(difficulty);
