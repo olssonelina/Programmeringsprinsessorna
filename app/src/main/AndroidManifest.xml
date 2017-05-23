@@ -49,6 +49,24 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".View.QuizDetailsActivity"
+            android:parentActivityName=".View.MenuActivity"
+            android:screenOrientation="portrait" >
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".View.MenuActivity" />
+        </activity>
+
+        <activity android:name=".View.QuizSettingsActivity"
+            android:parentActivityName=".View.QuizDetailsActivity"
+            android:screenOrientation="portrait" >
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".View.QuizDetailsActivity" />
+        </activity>
+
         <activity android:name=".View.MapsActivity"
             android:parentActivityName=".View.QuizDetailsActivity"
             android:screenOrientation="portrait" >
