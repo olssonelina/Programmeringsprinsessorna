@@ -61,4 +61,13 @@ public class CreateTiebreakerPresenter {
                 view.getHigherBounds()
         );
     }
+
+    public void setAllFields(Tiebreaker question){
+        view.setQuestionTitle(question.getQuestionTitle());
+        view.setLatitude(question.getLatitude());
+        view.setLongitude(question.getLongitude());
+        view.setLowerBounds(question.getLowerBounds());
+        view.setUpperBounds(question.getUpperBounds());
+        view.setAnswer(question.getCorrectAnswer());
+    }
 }

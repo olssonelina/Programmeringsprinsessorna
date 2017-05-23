@@ -75,4 +75,12 @@ public class CreateOptionQuestionPresenter {
         view.closeWithResult(questions);
     }
 
+    public void setAllFields(OptionQuestion question){
+        view.setAnswer(question.getCorrectAnswer());
+        view.setLatitude(question.getLatitude());
+        view.setLongitude(question.getLongitude());
+        view.setOptions(question.getOptions());
+        view.setQuestionTitle(question.getQuestionTitle());
+    }
+
 }

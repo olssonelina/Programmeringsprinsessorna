@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListAdapter;
@@ -21,6 +22,7 @@ import com.example.nightingale.qwalk.Model.Question;
 import com.example.nightingale.qwalk.Model.Quiz;
 import com.example.nightingale.qwalk.Model.Tiebreaker;
 import com.example.nightingale.qwalk.Model.Account;
+import com.example.nightingale.qwalk.Presenter.CreateTiebreakerPresenter;
 import com.example.nightingale.qwalk.R;
 
 import org.json.JSONArray;
@@ -43,7 +45,7 @@ import javax.net.ssl.HttpsURLConnection;
  * Created by Kraft on 2017-04-27.
  */
 
-public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz {
+public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz, AdapterView.OnItemClickListener {
 
     public String test;
     ArrayList<Integer> QuestionIDArray = new ArrayList<Integer>();
@@ -57,6 +59,9 @@ public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz
 
     public final static int OPTIONQUESTION_CODE = 7;
     public final static int TIEBREAKER_CODE = 22;
+    private final static int IS_EDITING = 1;
+    private final static int IS_NOT_EDITING = 1;
+    private int mode = IS_NOT_EDITING;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +70,14 @@ public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz
 
         quizTitle = (EditText) findViewById(R.id.quizTitleField);
         quizDescription = (EditText) findViewById(R.id.descriptionField);
+
+        try {
+            Quiz quiz = getIntent().getParcelableExtra("quiz");
+            mode = IS_EDITING;
+            setAllFields(quiz);
+            loadList();
+        }
+        catch (NullPointerException e){}
 
     }
 
@@ -335,6 +348,7 @@ public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz
         questionList.setAdapter(adapter);
 
         setListViewHeightBasedOnItems(questionList);
+        questionList.setOnItemClickListener(this);
     }
 
     public static boolean setListViewHeightBasedOnItems(ListView listView) {
@@ -372,5 +386,47 @@ public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz
 
     }
 
+    /**
+     * Callback method to be invoked when an item in this AdapterView has
+     * been clicked.
+     * <p>
+     * Implementers can call getItemAtPosition(position) if they need
+     * to access the data associated with the selected item.
+     *
+     * @param parent   The AdapterView where the click happened.
+     * @param view     The view within the AdapterView that was clicked (this
+     *                 will be a view provided by the adapter)
+     * @param position The position of the view in the adapter.
+     * @param id       The row id of the item that was clicked.
+     */
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        try{
+            Question q = questions.get(position); //Question pressed is an optionquestion
+            questions.remove(q);
+            Intent intent = new Intent(this, CreateOptionQuestionActivity.class);
+            intent.putExtra("question", q);
+            startActivityForResult(intent, OPTIONQUESTION_CODE);
+        }
+        catch (IndexOutOfBoundsException e){ //Question pressed is the tiebreaker
+            Intent intent = new Intent(this, CreateTiebreakerActivity.class);
+            intent.putExtra("question", tiebreaker);
+            startActivityForResult(intent, TIEBREAKER_CODE);
+        }
+    }
 
+    private void setAllFields(Quiz quiz){
+        quizTitle.setText(quiz.getTitle());
+        quizDescription.setText(quiz.getDescription());
+        for (int i = 0; i < quiz.size() - 1; i++) {
+            questions.add(quiz.get(i));
+        }
+        Question lastQuestion = quiz.get(quiz.size()-1);
+        if (lastQuestion instanceof Tiebreaker){
+            tiebreaker = (Tiebreaker) lastQuestion;
+        }
+        else {
+            questions.add(lastQuestion);
+        }
+    }
 }

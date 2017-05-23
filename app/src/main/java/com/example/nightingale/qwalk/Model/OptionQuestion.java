@@ -34,7 +34,11 @@ public class OptionQuestion extends Question implements Parcelable {
         return "option does not exist";
     }
 
-    public ArrayList<String> getOptions(){
+    public String[] getOptions(){
+        String[] options = new String[this.options.size()];
+        for (int i = 0; i < options.length; i++) {
+            options[i] = this.options.get(i);
+        }
         return options;
     }
 

@@ -17,4 +17,9 @@ public interface ICreateOptionQuestion {
     boolean hasAnswer();
     String[] getOptions();
     void reset();
+    void setOptions(String[] options);
+    void setQuestionTitle(String questionTitle);
+    void setLatitude(double latitude);
+    void setLongitude(double longitude);
+    void setAnswer(int answer);
 }
