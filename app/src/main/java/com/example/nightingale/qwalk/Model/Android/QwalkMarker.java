@@ -17,7 +17,13 @@ public class QwalkMarker {
     private Question question;
     private boolean enabled;
 
-    public QwalkMarker(GoogleMap map, Question question){
+    /**
+     * Creates a new android marker for the Qwalk game
+     *
+     * @param map      instance of the current android map
+     * @param question the question associated with this marker
+     */
+    public QwalkMarker(GoogleMap map, Question question) {
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(question.getLocation().toLatLng());
         markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.minimarkerblue));
@@ -26,20 +32,31 @@ public class QwalkMarker {
         this.question = question;
     }
 
-
+    /**
+     * @return returns the Google Maps marker
+     */
     public Marker getMarker() {
         return marker;
     }
 
+    /**
+     * @return returns the associated question
+     */
     public Question getQuestion() {
         return question;
     }
 
+    /**
+     * @return true if this marker is within reach
+     */
     public boolean isEnabled() {
         return enabled;
     }
 
-    public void setEnabled(){
+    /**
+     * Enables the marker, it is in reach
+     */
+    public void setEnabled() {
         marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.minimarkergreen));
         enabled = true;
     }

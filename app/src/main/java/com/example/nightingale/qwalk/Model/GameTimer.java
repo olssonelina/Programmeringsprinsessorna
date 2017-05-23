@@ -5,53 +5,49 @@ package com.example.nightingale.qwalk.Model;
  */
 
 public class GameTimer {
-
-    private boolean TimerRunning=false;
+    private boolean TimerRunning = false;
     private long tStart, tStop, tSaved;
 
     /**
      * Starts counting time from this moment.
      */
-    public void startTimer(){
+    public void startTimer() {
         tStart = System.currentTimeMillis();
-        TimerRunning=true;
-        tSaved=0;
+        TimerRunning = true;
+        tSaved = 0;
     }
-
 
     /**
      * Stops counting time but saves current result for eventual "Resume".
      */
-    public void stopTimer(){
-        if(TimerRunning){
+    public void stopTimer() {
+        if (TimerRunning) {
             tStop = System.currentTimeMillis();
-            TimerRunning=false;
-            tSaved+=tStop-tStart;
+            TimerRunning = false;
+            tSaved += tStop - tStart;
         }
     }
-
 
     /**
      * Continue counting time from the last stop.
      */
-    public void resumeTimer(){
-        if(!TimerRunning){
+    public void resumeTimer() {
+        if (!TimerRunning) {
             tStart = System.currentTimeMillis();
-            TimerRunning=true;
+            TimerRunning = true;
         }
     }
 
-
     /**
-     *Returns time (in seconds) counted since latest Start.
+     * Returns time (in seconds) counted since latest Start.
      *
-     *@return time (in seconds) counted since latest Start
+     * @return time (in seconds) counted since latest Start
      */
-    public long getTime(){
-        if(TimerRunning){
+    public long getTime() {
+        if (TimerRunning) {
             tStop = System.currentTimeMillis();
-            return (tStop-tStart+tSaved)/1000;
+            return (tStop - tStart + tSaved) / 1000;
         }
-        return (tSaved)/1000;
+        return (tSaved) / 1000;
     }
 }

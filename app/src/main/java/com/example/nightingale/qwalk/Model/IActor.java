@@ -13,6 +13,7 @@ public interface IActor {
 
     /**
      * Gets a specific answer
+     *
      * @param index the index of the question
      * @return returns the answer to the question specified by the index
      */
@@ -20,7 +21,8 @@ public interface IActor {
 
     /**
      * Sets an answer to a question
-     * @param index index of the question to answer
+     *
+     * @param index  index of the question to answer
      * @param answer the answer to the question
      */
     void setAnswer(int index, int answer);
@@ -37,12 +39,14 @@ public interface IActor {
 
     /**
      * Sets the location of an object
+     *
      * @param location
      */
     void setLocation(QLocation location);
 
     /**
      * Calculates the score of the object
+     *
      * @param correctAnswers the correct answers to every question in the quiz
      * @return returns the score
      */

@@ -20,9 +20,10 @@ public class Quiz implements Parcelable {
 
     /**
      * Creates a new Qwalk quiz
-     * @param title the title pf the quiz
+     *
+     * @param title       the title pf the quiz
      * @param description the decription if this quiz
-     * @param quizID the ID used to identify this quiz
+     * @param quizID      the ID used to identify this quiz
      */
     public Quiz(String title, String description, int quizID, List<Question> questions) {
         this.title = title;
@@ -33,6 +34,7 @@ public class Quiz implements Parcelable {
 
     /**
      * Returns the difficulty of the quiz
+     *
      * @return returns easy, medium or hard
      */
     public QuizDifficulty getDifficulty() {
@@ -48,6 +50,7 @@ public class Quiz implements Parcelable {
 
     /**
      * Sets the difficulty of a quiz
+     *
      * @param difficulty easy, medium or hard
      */
     public void setDifficulty(QuizDifficulty difficulty) {
@@ -56,24 +59,25 @@ public class Quiz implements Parcelable {
 
     /**
      * Changes the settings of the quiz
+     *
      * @param setting Which setting to change
      * @param enabled Set to true to enable, false to disable
      */
     public void setSetting(QuizSetting setting, boolean enabled) {
         switch (setting) {
-            case QUESTION_TIMER:
+            case HAS_QUESTION_TIMER:
                 questionTimer = enabled;
                 break;
             case WITH_AI:
                 withBot = enabled;
                 break;
-            case IN_ORDER:
+            case QUESTIONS_IN_ORDER:
                 inOrder = enabled;
                 break;
-            case IS_HIDDEN:
+            case QUESTIONS_ARE_HIDDEN:
                 hiddenQuestions = enabled;
                 break;
-            case QUIZ_TIMER:
+            case HAS_QUIZ_TIMER:
                 quizTimer = enabled;
                 break;
         }
@@ -85,15 +89,15 @@ public class Quiz implements Parcelable {
      */
     public boolean getSetting(QuizSetting setting) {
         switch (setting) {
-            case QUESTION_TIMER:
+            case HAS_QUESTION_TIMER:
                 return questionTimer;
             case WITH_AI:
                 return withBot;
-            case IN_ORDER:
+            case QUESTIONS_IN_ORDER:
                 return inOrder;
-            case IS_HIDDEN:
+            case QUESTIONS_ARE_HIDDEN:
                 return hiddenQuestions;
-            case QUIZ_TIMER:
+            case HAS_QUIZ_TIMER:
                 return quizTimer;
         }
         return false;
@@ -126,6 +130,7 @@ public class Quiz implements Parcelable {
 
     /**
      * Returns a specific question
+     *
      * @param index index of the specif question
      * @return returns the question at the given index
      */
@@ -154,7 +159,7 @@ public class Quiz implements Parcelable {
     /**
      * @return returns an array of the lowest index or answer option available to each question
      */
-    public int[] getLowerBounds(){
+    public int[] getLowerBounds() {
         int[] lowerBounds = new int[questions.size()];
         for (int i = 0; i < questions.size(); i++) {
             lowerBounds[i] = questions.get(i).getLowerBounds();
@@ -165,7 +170,7 @@ public class Quiz implements Parcelable {
     /**
      * @return returns an array of the highest index or answer option available to each question
      */
-    public int[] getUpperBounds(){
+    public int[] getUpperBounds() {
         int[] upperBounds = new int[questions.size()];
         for (int i = 0; i < questions.size(); i++) {
             upperBounds[i] = questions.get(i).getUpperBounds();
@@ -173,7 +178,7 @@ public class Quiz implements Parcelable {
         return upperBounds;
     }
 
-    public QLocation[] getLocations(){
+    public QLocation[] getLocations() {
         QLocation[] locations = new QLocation[questions.size()];
         for (int i = 0; i < locations.length; i++) {
             locations[i] = questions.get(i).getLocation();
@@ -181,9 +186,9 @@ public class Quiz implements Parcelable {
         return locations;
     }
 
-
     /**
      * Figures ut the index of a given question
+     *
      * @param q the given question to figure out index of
      * @return Returns the index of the question in the question list
      */
@@ -195,7 +200,6 @@ public class Quiz implements Parcelable {
         }
         throw new IllegalArgumentException("No such question in list!");
     }
-
 
     protected Quiz(Parcel in) {
         withBot = in.readByte() != 0;

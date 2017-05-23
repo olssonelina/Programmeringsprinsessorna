@@ -1,8 +1,5 @@
 package com.example.nightingale.qwalk.Model;
 
-import com.example.nightingale.qwalk.Model.OptionQuestion;
-import com.example.nightingale.qwalk.Model.Quiz;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,57 +12,47 @@ import static com.example.nightingale.qwalk.Model.QuizSetting.*;
 
 public final class StandardQuizzes {
 
-    //Hide the constructor
-    private StandardQuizzes(){}
+    private StandardQuizzes() {
+    }
 
-    public static Quiz getChalmersQuiz(){
-
-
+    /**
+     * @return returns a standard quiz about chalmers
+     */
+    public static Quiz getChalmersQuiz() {
         List<Question> questions = new ArrayList<>();
 
-        questions.add(new OptionQuestion("Vilken sektion har sin sektionslokal här?", new ArrayList<String>(Arrays.asList(new String[]{"Data", "Informationsteknik", "Elektro", "Maskin"})), 1,57.688290, 11.979162));
-
+        questions.add(new OptionQuestion("Vilken sektion har sin sektionslokal här?", new ArrayList<String>(Arrays.asList(new String[]{"Data", "Informationsteknik", "Elektro", "Maskin"})), 1, 57.688290, 11.979162));
         questions.add(new OptionQuestion("Vad var syftet med denna byggnaden från början?", new ArrayList<String>(Arrays.asList(new String[]{"Att stänga in elever som fuskade", "Att klättra i", "Det är en så kallad Schrödingers Cage", "Att göra experiment i"})), 3, 57.687449, 11.980544));
+        questions.add(new OptionQuestion("Vad är denna pizzerian känd för?", new ArrayList<String>(Arrays.asList(new String[]{"Att göra fyrkantiga pizzor", "Att vara Sveriges bästa två år i rad", "Att det är IT-studenternas favorit", "Det har varit ett kattcafé"})), 2, 57.687837, 11.982194));
 
-        questions.add(new OptionQuestion("Vad är denna pizzerian känd för?", new ArrayList<String>(Arrays.asList(new String[]{"Att göra fyrkantiga pizzor", "Att vara Sveriges bästa två år i rad", "Att det är IT-studenternas favorit", "Det har varit ett kattcafé"})), 2,57.687837, 11.982194));
-
-        Quiz q = new Quiz("Chalmersquiz","Trivia om Chalmers och dess campus!", -1, questions);
-
-        return q;
+        return new Quiz("Chalmersquiz", "Trivia om Chalmers och dess campus!", -1, questions);
     }
 
-    public static Quiz getAdressQuiz(){
+    /**
+     * @return returns a standard quiz about the developers
+     */
+    public static Quiz getAdressQuiz() {
         List<Question> questions = new ArrayList<>();
 
-        questions.add(new OptionQuestion("Vem bor så här nära Chalmers?", new ArrayList<String>(Arrays.asList(new String[]{"Katten", "Pil", "Nightinggale", "Elit"})), 1,57.689280, 11.972306));
-        //questions.get(0).setLocation(57.689280, 11.972306);
+        questions.add(new OptionQuestion("Vem bor så här nära Chalmers?", new ArrayList<String>(Arrays.asList(new String[]{"Katten", "Pil", "Nightinggale", "Elit"})), 1, 57.689280, 11.972306));
+        questions.add(new OptionQuestion("Vem kan bo här?", new ArrayList<String>(Arrays.asList(new String[]{"Pil", "Katten", "Nightinggale", "Elit"})), 2, 57.742081, 11.969506));
+        questions.add(new OptionQuestion("Vem bor inneboende här?", new ArrayList<String>(Arrays.asList(new String[]{"Pil", "Nightinggale", "Elit", "Katten"})), 3, 57.735626, 12.116774));
+        questions.add(new OptionQuestion("Vem orkar pendla från Kungsbacka?", new ArrayList<String>(Arrays.asList(new String[]{"Elit", "Pil", "Nightinggale", "Katten"})), 0, 57.543822, 12.103735));
 
-        questions.add(new OptionQuestion("Vem kan bo här?", new ArrayList<String>(Arrays.asList(new String[]{"Pil", "Katten", "Nightinggale", "Elit"})), 2,57.742081, 11.969506));
-        //questions.get(1).setLocation(57.742081, 11.969506);
-
-        questions.add(new OptionQuestion("Vem bor inneboende här?", new ArrayList<String>(Arrays.asList(new String[]{"Pil", "Nightinggale", "Elit", "Katten"})), 3,57.735626, 12.116774));
-        //questions.get(2).setLocation(57.735626, 12.116774);
-
-        questions.add(new OptionQuestion("Vem orkar pendla från Kungsbacka?", new ArrayList<String>(Arrays.asList(new String[]{"Elit", "Pil", "Nightinggale", "Katten"})), 0,57.543822, 12.103735));
-        //questions.get(3).setLocation(57.543822, 12.103735);
-
-
-        Quiz q = new Quiz("Gissa huset!","Besök skaparna av appen och gissa vem som bor var!", -2, questions);
-
-        q.setSetting(IN_ORDER, false);
-
+        Quiz q = new Quiz("Gissa huset!", "Besök skaparna av appen och gissa vem som bor var!", -2, questions);
+        q.setSetting(QUESTIONS_IN_ORDER, false);
         return q;
     }
 
-    public static Quiz getMachineStudyRoomsQuiz(){
+    /**
+     * @return returns a standard quiz
+     */
+    public static Quiz getMachineStudyRoomsQuiz() {
 
         List<Question> questions = new ArrayList<>();
 
         questions.add(new Tiebreaker("Hur gammal är byggnaden?", 45, 57.688447, 11.978703, 20, 60));
 
-        Quiz q = new Quiz("M-grupprummen","Najs grupprum", -3, questions);
-
-
-        return q;
+        return new Quiz("M-grupprummen", "Najs grupprum", -3, questions);
     }
 }

@@ -8,14 +8,14 @@ import com.google.android.gms.maps.model.LatLng;
 
 /**
  * Created by Kraft on 2017-05-12.
- */ // TODO detta kanske kan göras till en adapter eller något idk, har massa dependencies nu
-public final class QLocation implements Parcelable{
+ */
+public final class QLocation implements Parcelable {
     private final double latitude;
     private final double longitude;
 
-
     /**
      * Creates a new location at following longitude and latitude
+     *
      * @param latitude
      * @param longitude
      */
@@ -26,42 +26,39 @@ public final class QLocation implements Parcelable{
 
 
     /**
-     *
-     * @param location
+     * @param location returns location
      */
-    public QLocation(Location location){
+    public QLocation(Location location) {
         this.latitude = location.getLatitude();
         this.longitude = location.getLongitude();
     }
 
     /**
+     * Creates a new Location with a LatLng
      *
      * @param location
      */
-    public QLocation(LatLng location){
+    public QLocation(LatLng location) {
         this.latitude = location.latitude;
         this.longitude = location.longitude;
     }
 
     /**
-     *
-     * @return
+     * @return returns latitude
      */
     public double getLatitude() {
         return latitude;
     }
 
     /**
-     *
-     * @return
+     * @return returns longitude
      */
     public double getLongitude() {
         return longitude;
     }
 
     /**
-     *
-     * @return
+     * @return converts to android Location
      */
     public Location toAndroidLocation() {
         Location l = new Location("");
@@ -71,63 +68,61 @@ public final class QLocation implements Parcelable{
     }
 
     /**
-     *
-     * @return
+     * @return converts to android LatLng
      */
-    public LatLng toLatLng(){
+    public LatLng toLatLng() {
         return new LatLng(latitude, longitude);
     }
 
     /**
+     * Calculates the distance in meters between this location and another
      *
-     * @param other
-     * @return
+     * @param other the location you want to measure the distance to
+     * @return returns the distance in meters
      */
-    public double distanceTo(QLocation other){
+    public double distanceTo(QLocation other) {
         return measure(getLatitude(), getLongitude(), other.getLatitude(), other.getLongitude()); //Math.sqrt(Math.pow(this.getLatitude() - other.latitude, 2) + Math.pow(this.getLongitude() - other.getLongitude(), 2));
     }
 
-    public static double measure(double latitude1, double longitude1, double latitude2, double longitude2){  // generally used geo measurement function
+    private static double measure(double latitude1, double longitude1, double latitude2, double longitude2) {  // generally used geo measurement function
         double R = 6378.137; // Radius of earth in KM
         double dLat = latitude2 * Math.PI / 180 - latitude1 * Math.PI / 180;
         double dLon = longitude2 * Math.PI / 180 - longitude1 * Math.PI / 180;
-        double a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(latitude1 * Math.PI / 180) *
-                Math.cos(latitude2 * Math.PI / 180) * Math.sin(dLon/2) * Math.sin(dLon/2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(latitude1 * Math.PI / 180) *
+                Math.cos(latitude2 * Math.PI / 180) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         double d = R * c;
         return d * 1000; // meters
     }
 
-    public double deltaLong(QLocation qLocation) {
-        return qLocation.getLongitude() - this.getLongitude();
-    }
-
-    public double deltaLat(QLocation qLocation) {
-        return qLocation.getLatitude() - this.getLatitude();
+    /**
+     * Calculates the distance in just one axis, longitude.
+     *
+     * @param location the location you want to measure the distance to
+     * @return returns the distance in longitude units
+     */
+    public double deltaLongitude(QLocation location) {
+        return location.getLongitude() - this.getLongitude();
     }
 
 
     /**
+     * Calculates the distance in just one axis, latitude.
      *
-     * @param location
-     * @return
+     * @param location the location you want to measure the distance to
+     * @return returns the distance in latitude units
      */
-    public static LatLng convertToLatLng(Location location){
-        return (new QLocation(location).toLatLng());
+    public double deltaLatitude(QLocation location) {
+        return location.getLatitude() - this.getLatitude();
     }
+
 
     /**
-     *
-     * @param location
-     * @return
+     * {@inheritDoc}
      */
-    public static Location convertToAndroidLocation(LatLng location){
-        return (new QLocation(location)).toAndroidLocation();
-    }
-
     @Override
-    public boolean equals(Object o){
-        if (o instanceof QLocation){
+    public boolean equals(Object o) {
+        if (o instanceof QLocation) {
             QLocation a = (QLocation) o;
             return a.getLongitude() == getLongitude() && a.getLatitude() == getLatitude();
         }
@@ -135,17 +130,21 @@ public final class QLocation implements Parcelable{
     }
 
     /**
-     *
-     * @param in
+     * {@inheritDoc}
      */
+    @Override
+    public int hashCode() {
+        //TODO
+        return 0;
+    }
+
     protected QLocation(Parcel in) {
         latitude = in.readDouble();
         longitude = in.readDouble();
     }
 
     /**
-     *  extenda javadoc
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public int describeContents() {
@@ -154,9 +153,7 @@ public final class QLocation implements Parcelable{
 
 
     /**
-     *  ectenda javadoc
-     * @param dest
-     * @param flags
+     * {@inheritDoc}
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
@@ -165,7 +162,7 @@ public final class QLocation implements Parcelable{
     }
 
     /**
-     *  extenda javadoc
+     * {@inheritDoc}
      */
     @SuppressWarnings("unused")
     public static final Parcelable.Creator<QLocation> CREATOR = new Parcelable.Creator<QLocation>() {

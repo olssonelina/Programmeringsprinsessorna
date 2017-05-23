@@ -12,17 +12,29 @@ import java.util.ArrayList;
 
 public interface IMaps {
     void focusOn(QLocation location);
+
     void close();
+
     boolean isOnScreen(QLocation location);
+
     void pointArrowTo(QLocation location);
+
     void hideArrow();
+
     void placeMarker(Question question);
+
     void enableMarker(Question question);
+
     void removeMarker(Question question);
+
     void showResults(Quiz quiz, int[] playerAnswers, int[] aiAnswers, long quizTime);
+
     void setShowClosestEnabled(boolean value);
+
     void initializeAi(QLocation location);
+
     void moveAi(QLocation location);
+
     void setProgress(int current, int total);
 
 }

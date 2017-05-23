@@ -8,7 +8,10 @@ import com.example.nightingale.qwalk.Model.Tiebreaker;
 
 public interface IAnswerTiebreaker {
     void closeWithResult(int value, Tiebreaker question);
+
     void setTitle(String title);
+
     void setRange(int from, int to);
+
     int getChoice(int from);
 }

@@ -47,15 +47,10 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz, AdapterView.OnItemClickListener {
 
-
-
-
-
     ArrayList<Question> questions = new ArrayList<>();
 
     private EditText quizTitle;
     private EditText quizDescription;
-
     private Tiebreaker tiebreaker;
 
     public final static int OPTIONQUESTION_CODE = 7;

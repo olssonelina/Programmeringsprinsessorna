@@ -92,16 +92,16 @@ public class QuizSettingsActivity extends AppCompatActivity implements IQuizSett
         CheckBox cb = (CheckBox) view;
 
         if (cb.equals(hideQuestions)){
-            presenter.setSetting(IS_HIDDEN, hideQuestions.isChecked());
+            presenter.setSetting(QUESTIONS_ARE_HIDDEN, hideQuestions.isChecked());
         }
         else if (cb.equals(inOrder)){
-            presenter.setSetting(IN_ORDER, inOrder.isChecked());
+            presenter.setSetting(QUESTIONS_IN_ORDER, inOrder.isChecked());
         }
         else if (cb.equals(questionTimer)){
-            presenter.setSetting(QUESTION_TIMER, questionTimer.isChecked());
+            presenter.setSetting(HAS_QUESTION_TIMER, questionTimer.isChecked());
         }
         else if (cb.equals(quizTimer)){
-            presenter.setSetting(QUIZ_TIMER, quizTimer.isChecked());
+            presenter.setSetting(HAS_QUIZ_TIMER, quizTimer.isChecked());
         }
         else if (cb.equals(bot)){
             presenter.setSetting(WITH_AI, bot.isChecked());
@@ -124,19 +124,19 @@ public class QuizSettingsActivity extends AppCompatActivity implements IQuizSett
     @Override
     public void setChecked(QuizSetting quizSetting, boolean value) {
         switch (quizSetting){
-            case IN_ORDER:
+            case QUESTIONS_IN_ORDER:
                 inOrder.setChecked(value);
                 break;
 
-            case IS_HIDDEN:
+            case QUESTIONS_ARE_HIDDEN:
                 hideQuestions.setChecked(value);
                 break;
 
-            case QUIZ_TIMER:
+            case HAS_QUIZ_TIMER:
                 quizTimer.setChecked(value);
                 break;
 
-            case QUESTION_TIMER:
+            case HAS_QUESTION_TIMER:
                 questionTimer.setChecked(value);
                 break;
 

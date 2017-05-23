@@ -9,54 +9,82 @@ import java.util.List;
 
 public class Account {
 
-    private int UserID = -1;
-    private String Username = "Gäst";
-    private List<String> Friends = new ArrayList<>();
-    private List<Integer> FriendIDs = new ArrayList<>();
-
-    public void WipeLists(){
-        FriendIDs = new ArrayList<>();
-        Friends = new ArrayList<>();
-    }
+    private int userID = -1;
+    private String username = "Gäst";
+    private List<String> friends = new ArrayList<>();
+    private List<Integer> friendIDs = new ArrayList<>();
 
     private static final Account instance = new Account();
 
-    //private constructor to avoid client applications to use constructor
+    /**
+     * Clears the current friend lists
+     */
+    void WipeLists() {
+        friendIDs = new ArrayList<>();
+        friends = new ArrayList<>();
+    }
+
+    // Private constructor to avoid client applications to use constructor
     private Account() {
     }
 
+    /**
+     * @return returns the singleton accounts instance
+     */
     public static Account getInstance() {
         return instance;
     }
 
+    /**
+     * @return return the users username
+     */
     public String getUsername() {
-        return Username;
+        return username;
     }
 
+    /**
+     * @param username the current users username
+     */
     public void setUsername(String username) {
-        Username = username;
+        this.username = username;
     }
 
+    /**
+     * @return returns a list of all this users friends
+     */
     public List<String> getFriends() {
-        return Friends;
+        return friends;
     }
 
+    /**
+     * @return returns a list of all this users friends ID´s
+     */
     public List<Integer> getFriendIDs() {
-        return FriendIDs;
+        return friendIDs;
     }
 
+    /**
+     * @return returns the ID of this user
+     */
     public int getUserID() {
-        return UserID;
+        return userID;
     }
 
+    /**
+     * Sets this users ID
+     *
+     * @param userID used in database
+     */
     public void setUserID(int userID) {
-        UserID = userID;
+        this.userID = userID;
     }
 
-    public void logOut()
-    {
-        UserID = -1;
-        Username = "Gäst";
+    /**
+     * Resets the account
+     */
+    public void logOut() {
+        userID = -1;
+        username = "Gäst";
         WipeLists();
 
     }

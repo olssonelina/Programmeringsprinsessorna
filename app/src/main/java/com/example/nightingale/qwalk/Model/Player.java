@@ -4,13 +4,14 @@ package com.example.nightingale.qwalk.Model;
  * Created by Elina Olsson on 2017-05-12.
  */
 
-public class Player  implements IActor{
+public class Player implements IActor {
 
-    private QLocation location = new QLocation(0, 0);
+    private QLocation location;
     private int[] answers;
 
     /**
      * Creates a Qwalkplayer containing the players location and answers to questions
+     *
      * @param quizLength
      */
     public Player(int quizLength) {
@@ -23,12 +24,16 @@ public class Player  implements IActor{
     /**
      * {@inheritDoc}
      */
-    public QLocation getLocation(){return location;}
+    public QLocation getLocation() {
+        return location;
+    }
 
     /**
      * {@inheritDoc}
      */
-    public void setLocation(QLocation location){this.location = location;}
+    public void setLocation(QLocation location) {
+        this.location = location;
+    }
 
     /**
      * {@inheritDoc}
@@ -40,7 +45,7 @@ public class Player  implements IActor{
     /**
      * {@inheritDoc}
      */
-    public int[] getAnswers(){
+    public int[] getAnswers() {
         return answers;
     }
 
@@ -48,7 +53,9 @@ public class Player  implements IActor{
      * {@inheritDoc}
      */
     @Override
-    public int getAnswer(int index) {return answers[index]; }
+    public int getAnswer(int index) {
+        return answers[index];
+    }
 
     /**
      * {@inheritDoc}
@@ -57,7 +64,7 @@ public class Player  implements IActor{
     public int getScore(int[] correctAnswers) {
         int correctCount = 0;
         for (int i = 0; i < correctAnswers.length; i++) {
-            if (correctAnswers[i] == answers[i]){
+            if (correctAnswers[i] == answers[i]) {
                 correctCount++;
             }
         }
