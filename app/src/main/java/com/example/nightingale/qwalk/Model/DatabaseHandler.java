@@ -45,12 +45,20 @@ public class DatabaseHandler {
     final private static String insertAccountURL = "https://programmeringsprinsessorna.000webhostapp.com/insert.php";
 
 
+
+    final private static String deleteQuizURL = "https://programmeringsprinsessorna.000webhostapp.com/deletequiz.php";
+
+
     final private static String insertFriendURL = "https://programmeringsprinsessorna.000webhostapp.com/insertfriend.php";
     final private static String validateURL = "https://programmeringsprinsessorna.000webhostapp.com/validera.php";
     final private static String readQuizURL = "https://programmeringsprinsessorna.000webhostapp.com/readquiz.php";
 
     public static String getHost() {
         return host;
+    }
+
+    public static String getDeleteQuizURL() {
+        return deleteQuizURL;
     }
 
     public static String getInsertQuizURL() {
@@ -288,7 +296,7 @@ public class DatabaseHandler {
 
             try{
 
-                URL url = new URL(DatabaseHandler.getInsertFriendURL());
+                URL url = new URL(DatabaseHandler.getDeleteQuizURL());
 
                 JSONObject postDataParams = new JSONObject();
 

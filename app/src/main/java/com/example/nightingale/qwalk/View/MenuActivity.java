@@ -50,6 +50,7 @@ public class MenuActivity extends AppCompatActivity {
 
     public static final int CREATE_QUIZ_CODE = 37;
     public static final int ADD_FRIEND_CODE = 14;
+    public static final int DELETE_QUIZ_CODE = 15;
 
     protected int request;
     int offset = 0;
@@ -327,7 +328,7 @@ public class MenuActivity extends AppCompatActivity {
         Intent intent = new Intent(this, QuizDetailsActivity.class);
         intent.putExtra("quiz", quiz);
         intent.putExtra("editable", true); //TODO ska inte alltid vara editable
-        startActivity(intent);
+        startActivityForResult(intent, DELETE_QUIZ_CODE);
     }
 
     private void showDetails(int index, List<Quiz> quiz) {
@@ -348,7 +349,7 @@ public class MenuActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CREATE_QUIZ_CODE) {
+        if (requestCode == CREATE_QUIZ_CODE || requestCode == DELETE_QUIZ_CODE) {
             userQuizzes.clear();
             loadOnlineQuizzes(Account.getInstance().getUserID(), userQuizzes);
             loadUserList();

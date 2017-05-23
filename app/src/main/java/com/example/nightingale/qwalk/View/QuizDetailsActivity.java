@@ -37,6 +37,7 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
 
     public static final int QUIZ_SETTING_CODE = 34;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +88,9 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
 
         edit.setEnabled(true);
         spinner.setVisibility(View.GONE);
+
+        finish();
+
     }
 
     @Override
