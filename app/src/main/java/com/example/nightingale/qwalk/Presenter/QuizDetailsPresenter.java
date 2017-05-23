@@ -24,6 +24,7 @@ public class QuizDetailsPresenter {
 
         view.setTitle(quiz.getTitle());
         view.setDescription(quiz.getDescription());
+        view.setEditable(editable);
 
     }
 

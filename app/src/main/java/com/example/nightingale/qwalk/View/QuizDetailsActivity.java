@@ -32,7 +32,8 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
 
     private TextView title;
     private TextView description;
-    Button edit;
+    private Button edit;
+    private Button delete;
     private ProgressBar spinner;
 
     public static final int QUIZ_SETTING_CODE = 34;
@@ -45,16 +46,17 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
 
         title = (TextView) findViewById(R.id.title);
         description = (TextView) findViewById(R.id.description);
+        edit = (Button) findViewById(R.id.edit);
+        delete = (Button) findViewById(R.id.deleteQuizButton);
+
+        spinner = (ProgressBar)findViewById(R.id.progressBar1);
+        spinner.setVisibility(View.GONE);
 
         boolean editable = (Boolean) getIntent().getExtras().get("editable");
         Quiz quiz = (Quiz) getIntent().getExtras().get("quiz");
 
         presenter = new QuizDetailsPresenter(this, quiz, editable);
 
-        edit = (Button) findViewById(R.id.edit);
-
-        spinner = (ProgressBar)findViewById(R.id.progressBar1);
-        spinner.setVisibility(View.GONE);
     }
 
 
@@ -151,4 +153,11 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
         }
     }
 
+    @Override
+    public void setEditable(boolean value) {
+        edit.setEnabled(value);
+        edit.setVisibility(value ? View.VISIBLE : View.INVISIBLE);
+        delete.setEnabled(value);
+        delete.setVisibility(value ? View.VISIBLE : View.INVISIBLE);
+    }
 }

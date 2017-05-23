@@ -32,6 +32,7 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
     private EditText minField;
     private EditText maxField;
     private EditText questionTitle;
+    private TextView locationText;
     private double latitude = 0, longitude = 0;
 
     @Override
@@ -44,7 +45,7 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
         minField = (EditText) findViewById(R.id.minField);
         maxField = (EditText) findViewById(R.id.maxField);
         questionTitle = (EditText) findViewById(R.id.questionField);
-
+        locationText = (TextView) findViewById(R.id.tiebreakerAddPosition);
         value.setText("Rätt \n" + " " + minField.getText());
         seekBar.setOnSeekBarChangeListener(this);
 
@@ -52,6 +53,7 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
 
         try {
             presenter.setAllFields((Tiebreaker) getIntent().getParcelableExtra("question"));
+            presenter.updateLocationText();
         }
         catch (NullPointerException e) {}
     }
@@ -73,6 +75,7 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
                 latitude = 0;
                 longitude = 0;
             }
+            presenter.updateLocationText();
         }
     }
 
@@ -167,5 +170,10 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
     @Override
     public void setQuestionTitle(String questionTitle) {
         this.questionTitle.setText(questionTitle);
+    }
+
+    @Override
+    public void setLocationText(String text) {
+        locationText.setText(text);
     }
 }

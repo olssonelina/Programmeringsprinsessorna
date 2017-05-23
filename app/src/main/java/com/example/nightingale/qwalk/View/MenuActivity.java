@@ -268,7 +268,7 @@ public class MenuActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                showDetails(position, userQuizzes);
+                showDetails(position, userQuizzes, true);
             }
         });
 
@@ -297,7 +297,7 @@ public class MenuActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                showDetails(position, friendQuizzes);
+                showDetails(position, friendQuizzes, false);
             }
         });
 
@@ -321,7 +321,7 @@ public class MenuActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                showDetails(position, featuredQuizzes);
+                showDetails(position, featuredQuizzes, false);
             }
         });
 
@@ -331,15 +331,15 @@ public class MenuActivity extends AppCompatActivity {
     }
 
 
-    private void showDetails(Quiz quiz) {
+    private void showDetails(Quiz quiz, boolean editable) {
         Intent intent = new Intent(this, QuizDetailsActivity.class);
         intent.putExtra("quiz", quiz);
-        intent.putExtra("editable", true); //TODO ska inte alltid vara editable
+        intent.putExtra("editable", editable);
         startActivityForResult(intent, DELETE_QUIZ_CODE);
     }
 
-    private void showDetails(int index, List<Quiz> quiz) {
-        showDetails(quiz.get(index));
+    private void showDetails(int index, List<Quiz> quiz, boolean editable) {
+        showDetails(quiz.get(index), editable);
     }
 
     public void createButtonPressed(View view) {

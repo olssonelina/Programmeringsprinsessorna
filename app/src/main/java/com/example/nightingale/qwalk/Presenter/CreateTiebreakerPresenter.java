@@ -70,4 +70,12 @@ public class CreateTiebreakerPresenter {
         view.setUpperBounds(question.getUpperBounds());
         view.setAnswer(question.getCorrectAnswer());
     }
+
+    public void updateLocationText() {
+        if (view.getLatitude() == 0 && view.getLongitude() == 0) {
+            view.setLocationText("Lägg till position");
+        } else {
+            view.setLocationText("Ändra position");
+        }
+    }
 }

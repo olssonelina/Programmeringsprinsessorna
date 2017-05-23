@@ -21,5 +21,7 @@ public interface ICreateTiebreaker {
     void setUpperBounds(int upperBounds);
     void setAnswer(int answer);
     void setQuestionTitle(String questionTitle);
+    void setLocationText(String text);
+
 
 }

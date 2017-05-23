@@ -83,6 +83,7 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
 
         try {
             presenter.setAllFields((OptionQuestion) getIntent().getParcelableExtra("question"));
+            presenter.updateLocationText();
         }
         catch (NullPointerException e) {}
     }
