@@ -14,6 +14,8 @@ import com.example.nightingale.qwalk.Model.OptionQuestion;
 import com.example.nightingale.qwalk.Presenter.AnswerOptionPresenter;
 import com.example.nightingale.qwalk.R;
 
+import static com.example.nightingale.qwalk.Model.IActor.NO_ANSWER;
+
 /**
  * Created by Kraft on 2017-04-26.
  */
@@ -46,7 +48,7 @@ public class AnswerOptionActivity extends AppCompatActivity implements IAnswerOp
         OptionQuestion question = i.getParcelableExtra("question");
         int questionIndex = i.getIntExtra("questionIndex", 0);
 
-        int ai = i.getIntExtra("aiAnswer", -1);
+        int ai = i.getIntExtra("aiAnswer", NO_ANSWER);
         presenter = new AnswerOptionPresenter(this, question, questionIndex, ai);
     }
 

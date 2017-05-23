@@ -14,6 +14,7 @@ public class AI implements Runnable, IActor {
     private int difficulty;
     private QLocation location;
     private QLocation[] questionLocations;
+    private QLocation startLocation;
 
     private GameTimer timer = new GameTimer();
     private List<IOnAIMoveListener> listeners = new ArrayList<>();
@@ -27,7 +28,7 @@ public class AI implements Runnable, IActor {
      * @param difficulty the difficulty of the quiz in percent, 1 - 100.
      * @param questionLocations the question locations in the quiz, in order of index
      */
-    public AI(int[] correctAnswers, boolean tieBreaker, int[] low, int[] high, int difficulty, QLocation[] questionLocations) {
+    public AI(int[] correctAnswers, boolean tieBreaker, int[] low, int[] high, int difficulty, QLocation[] questionLocations, QLocation startLocation) {
         this.difficulty=difficulty;
         this.answers = new int[correctAnswers.length];
         for (int a: answers) {
@@ -35,6 +36,7 @@ public class AI implements Runnable, IActor {
         }
         this.questionLocations = questionLocations;
         setAnswers(correctAnswers, tieBreaker, low, high);
+        this.startLocation = startLocation;
         timer.startTimer();
     }
 

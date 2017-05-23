@@ -50,6 +50,7 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static com.example.nightingale.qwalk.Model.IActor.NO_ANSWER;
 import static java.lang.Math.abs;
 import static java.lang.Math.sin;
 
@@ -265,7 +266,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void showResults(Quiz quiz, int[] playerAnswers, int[] aiAnswers, long quizTime) {
-        //TODO det som ska hända när ett quiz är klart
         Intent intent = new Intent(getBaseContext(), ShowResultActivity.class);
         intent.putExtra("player", playerAnswers);
         intent.putExtra("time", quizTime);
@@ -313,7 +313,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     intent.putExtra("aiAnswer", presenter.getAiAnswer(currentQuestion));
                 }
                 else{
-                    intent.putExtra("aiAnswer", -1);
+                    intent.putExtra("aiAnswer", NO_ANSWER);
                 }
 
                 startActivityForResult(intent, ANSWER_CODE);

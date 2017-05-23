@@ -51,35 +51,12 @@ public class QwalkGame implements IOnAIMoveListener {
             placeAllQuestions();
         }
 
-        if (quiz.getSetting(WITH_AI)) {
-            //TODO initialize ai
-            int difficulty = 0;
-            switch (quiz.getDifficulty()) {
-                case EASY:
-                    difficulty = 35;
-                    break;
-                case MEDIUM:
-                    difficulty = 50;
-                    break;
-                case HARD:
-                    difficulty = 75;
-                    break;
-            }
-
-            AI ai = new AI(quiz.getCorrectAnswers(), quiz.get(quiz.size()-1) instanceof Tiebreaker, quiz.getLowerBounds(), quiz.getUpperBounds(), difficulty, quiz.getLocations());
-            ai.setOnAImovedListener(this);
-            Thread botThread = new Thread(ai);
-            botThread.start();
-            this.ai = ai;
-            //presenter.initializeAi(); //TODO
-        }
-
         if (quiz.getSetting(QUIZ_TIMER)) {
             quizTimer = new GameTimer();
             quizTimer.startTimer();
         }
 
-        if (quiz.getSetting(IS_HIDDEN)){
+        if (quiz.getSetting(IS_HIDDEN)) {
             presenter.setShowClosestEnabled(false);
         }
 
@@ -104,15 +81,14 @@ public class QwalkGame implements IOnAIMoveListener {
 
     private void end() {
         long time = -1;
-        if (quiz.getSetting(QUIZ_TIMER)){
+        if (quiz.getSetting(QUIZ_TIMER)) {
             quizTimer.stopTimer();
             time = quizTimer.getTime();
         }
 
         if (quiz.getSetting(WITH_AI)) {
             presenter.showResults(quiz, player.getAnswers(), ai.getAnswers(), time);
-        }
-        else {
+        } else {
             presenter.showResults(quiz, player.getAnswers(), null, time);
 
         }
@@ -157,8 +133,9 @@ public class QwalkGame implements IOnAIMoveListener {
      * @param userLocation
      */
     public void update(QLocation userLocation) {
-        if (player.getLocation().equals(new QLocation(0,0))){
+        if (player.getLocation().equals(new QLocation(0, 0))) {
             presenter.focusOn(userLocation);
+            if (quiz.getSetting(WITH_AI)) {initializeAi(userLocation); }
         }
         player.setLocation(userLocation);
 
@@ -171,10 +148,31 @@ public class QwalkGame implements IOnAIMoveListener {
                 presenter.enableMarker(q);
             }
         }
-        if (quiz.getSetting(WITH_AI)){ updateBot(); }
     }
 
-    private void updateBot() {
+    private void initializeAi(QLocation userLocation) {
+
+        int difficulty = 0;
+        switch (quiz.getDifficulty()) {
+            case EASY:
+                difficulty = 35;
+                break;
+            case MEDIUM:
+                difficulty = 50;
+                break;
+            case HARD:
+                difficulty = 75;
+                break;
+        }
+
+        AI ai = new AI(quiz.getCorrectAnswers(), quiz.get(quiz.size() - 1) instanceof Tiebreaker, quiz.getLowerBounds(), quiz.getUpperBounds(), difficulty, quiz.getLocations(), userLocation);
+        ai.setOnAImovedListener(this);
+        Thread botThread = new Thread(ai);
+        botThread.start();
+
+
+        this.ai = ai;
+        //presenter.initializeAi(); //TODO
     }
 
     private List<Question> questionsInRange(List<Question> questions) {
@@ -203,7 +201,7 @@ public class QwalkGame implements IOnAIMoveListener {
 
 
     public void updateArrow() {
-        if (quiz.getSetting(IS_HIDDEN)){
+        if (quiz.getSetting(IS_HIDDEN)) {
             return;
         }
 
@@ -215,7 +213,7 @@ public class QwalkGame implements IOnAIMoveListener {
         }
     }
 
-    public boolean hasAi(){
+    public boolean hasAi() {
         return ai != null;
     }
 
@@ -224,11 +222,11 @@ public class QwalkGame implements IOnAIMoveListener {
         presenter.moveBot(location);
     }
 
-    public int getQuestionIndex(Question question){
+    public int getQuestionIndex(Question question) {
         return quiz.getQuestionIndex(question);
     }
 
-    public int getAiAnswer(Question question){
-       return ai.getAnswer(quiz.getQuestionIndex(question));
+    public int getAiAnswer(Question question) {
+        return ai.getAnswer(quiz.getQuestionIndex(question));
     }
 }
