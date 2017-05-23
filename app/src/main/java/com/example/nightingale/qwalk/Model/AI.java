@@ -97,33 +97,42 @@ public class AI implements Runnable, IActor {
 
         int sleepTime;
 
-        switch (difficulty){
+        switch (difficulty) {
             default:
                 sleepTime = 850;
                 break;
             case 50:
-                sleepTime = 750;
+                sleepTime = 780;
                 break;
             case 75:
-                sleepTime = 550;
+                sleepTime = 700;
                 break;
         }
 
-        for (QLocation q: questionLocations) {
+        for (QLocation q : questionLocations) {
             double deltaLatitude = location.deltaLat(q); // Calculate the total distance in each axis
             double deltaLongitude = location.deltaLong(q);
-            int distance =  (int) Math.round(location.distanceTo(q)); // Calculate the distance (in meters) between
+            int distance = (int) Math.round(location.distanceTo(q)); // Calculate the distance (in meters) between current location and next question
 
-            double stepLatitude = deltaLatitude/(distance);
-            double stepLongitude = deltaLongitude/(distance);
+            double stepLatitude = deltaLatitude / (distance); // Calculate how far the ai will move with every step
+            double stepLongitude = deltaLongitude / (distance);
 
-            for (int i = 0; i < distance ; i++) {
-                try {Thread.sleep(sleepTime); } catch (InterruptedException e) {}
+            for (int i = 0; i < distance; i++) { // For every meter, sleep and walk until location is at current question
+                try {
+                    Thread.sleep(sleepTime);
+                } catch (InterruptedException e) {
+                }
 
                 location = new QLocation(location.getLatitude() + stepLatitude, location.getLongitude() + stepLongitude);
             }
 
-            location = q;
+            location = q; //Adjust for rounding errors
+
+            try {
+                Thread.sleep(sleepTime * 10);
+            } catch (InterruptedException e) {
+            } // Let the ai "wait" while it is "answering" the question
+
         }
     }
 
