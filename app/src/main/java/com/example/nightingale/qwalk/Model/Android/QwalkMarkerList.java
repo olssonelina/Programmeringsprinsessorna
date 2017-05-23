@@ -3,6 +3,7 @@ package com.example.nightingale.qwalk.Model.Android;
 import android.content.Context;
 
 import com.example.nightingale.qwalk.Model.Question;
+import com.example.nightingale.qwalk.R;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -28,7 +29,8 @@ public class QwalkMarkerList {
 
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(new LatLng(question.getLatitude(), question.getLongitude()));
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+        //markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.minimarkerblue));
         markers.add(map.addMarker(markerOptions));
         questions.add(question);
         enabled.add(false);
@@ -39,7 +41,8 @@ public class QwalkMarkerList {
     }
 
     public void enable(int index){
-        markers.get(index).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+        //markers.get(index).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+        markers.get(index).setIcon(BitmapDescriptorFactory.fromResource(R.drawable.minimarkergreen));
         enabled.set(index, true);
     }
 
