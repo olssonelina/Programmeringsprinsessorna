@@ -1,14 +1,12 @@
 package com.example.nightingale.qwalk.Model;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
+import com.example.nightingale.qwalk.InterfaceView.ICreateQuiz;
 import com.example.nightingale.qwalk.InterfaceView.IFriendActivity;
 import com.example.nightingale.qwalk.InterfaceView.IQuizDetails;
-import com.example.nightingale.qwalk.R;
+import com.example.nightingale.qwalk.View.CreateQuizActivity;
 import com.example.nightingale.qwalk.View.FriendActivity;
 import com.example.nightingale.qwalk.View.QuizDetailsActivity;
 
@@ -23,6 +21,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -33,12 +32,21 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class DatabaseHandler {
 
+    private static String quizDescription;
+    private static String quizTitle;
+
+    private static String JSONarrayString;
+    private static String response;
     static IFriendActivity FriendActivity;
     static IQuizDetails QuizDetailsActivity;
-
+    static ICreateQuiz CreateQuizActivity;
+    private static int readycheck = 0;
     private static int request;
     private static String FriendUsername;
     private static int quizID;
+    private static ArrayList<Integer> QuestionIDArray = new ArrayList<Integer>();
+    private static int counter = 0;
+    private static ArrayList<Question> quizQuestions = new ArrayList<>();
 
     final private static String host = "programmeringsprinsessorna.000webhostapp.com";
     final private static String insertQuizURL = "https://programmeringsprinsessorna.000webhostapp.com/insertquiz.php";
@@ -146,6 +154,7 @@ public class DatabaseHandler {
     }
 
     public static void addFriend(String Friend, FriendActivity Activity) {
+
         FriendActivity = Activity;
         FriendUsername = Friend;
         request = 0;
@@ -215,6 +224,149 @@ public class DatabaseHandler {
     }
 
 }
+
+
+public static void saveQuiz(String Title, String Description,  ArrayList<Question> questions, CreateQuizActivity Activity ){
+    CreateQuizActivity = Activity;
+    quizDescription = Description;
+    quizTitle = Title;
+    quizQuestions = questions;
+
+    QuestionIDArray = new ArrayList<Integer>();
+    counter = 0;
+    readycheck = 0;
+
+    for (int i = 0; i < quizQuestions.size(); i++) {
+        try {
+
+            response = new SendInsertQuizRequest().execute().get();
+            Log.d("Getcomplete", "True");
+            Log.d("Getcomplete", response);
+            response = response.replaceAll("\\s+", "");
+            QuestionIDArray.add(Integer.parseInt(response));
+        } catch (Exception e) {
+            Log.d("Getcomplete", "False");
+            break;
+        }
+        Log.d("Getcomplete", "Test");
+    }
+
+    Log.d("JSONindex", String.valueOf(QuestionIDArray.get(0)));
+    JSONArray jsArray = new JSONArray(QuestionIDArray);
+    JSONarrayString = jsArray.toString();
+    Log.d("JSON", JSONarrayString);
+    readycheck = 1;
+    counter = 0;
+    new SendInsertQuizRequest().execute();
+
+}
+
+
+    public static class SendInsertQuizRequest extends AsyncTask<String, Void, String> {
+
+
+        protected void onPreExecute() {
+        }
+
+        protected String doInBackground(String... arg0) {
+
+            try {
+
+
+                URL url = new URL(DatabaseHandler.getInsertQuizURL());
+
+                JSONObject postDataParams = new JSONObject();
+
+
+                if (quizQuestions.get(counter) instanceof OptionQuestion) {
+                    Log.d("VARIABLE", "Type : 0");
+                    postDataParams.put("questiontype", 0);
+
+                    Log.d("VARIABLE", ((OptionQuestion) quizQuestions.get(counter)).getOption(0));
+                    postDataParams.put("option1", ((OptionQuestion) quizQuestions.get(counter)).getOption(0));
+
+                    Log.d("VARIABLE", ((OptionQuestion) quizQuestions.get(counter)).getOption(1));
+                    postDataParams.put("option2", ((OptionQuestion) quizQuestions.get(counter)).getOption(1));
+
+                    Log.d("VARIABLE", ((OptionQuestion) quizQuestions.get(counter)).getOption(2));
+                    postDataParams.put("option3", ((OptionQuestion) quizQuestions.get(counter)).getOption(2));
+
+                    Log.d("VARIABLE", ((OptionQuestion) quizQuestions.get(counter)).getOption(3));
+                    postDataParams.put("option4", ((OptionQuestion) quizQuestions.get(counter)).getOption(3));
+                } else if (quizQuestions.get(counter) instanceof Tiebreaker) {
+                    Log.d("VARIABLE", "Type : 1");
+                    postDataParams.put("questiontype", 1);
+
+                    Log.d("VARIABLE", String.valueOf(((Tiebreaker) quizQuestions.get(counter)).getLowerBounds()));
+                    postDataParams.put("option1", ((Tiebreaker) quizQuestions.get(counter)).getLowerBounds());
+
+                    Log.d("VARIABLE", String.valueOf(((Tiebreaker) quizQuestions.get(counter)).getUpperBounds()));
+                    postDataParams.put("option2", ((Tiebreaker) quizQuestions.get(counter)).getUpperBounds());
+
+
+                    postDataParams.put("option3", "");
+                    postDataParams.put("option4", "");
+                }
+
+
+                Log.d("VARIABLE", quizQuestions.get(counter).getQuestionTitle());
+                postDataParams.put("description", quizQuestions.get(counter).getQuestionTitle());
+
+
+                Log.d("VARIABLE", Integer.toString(quizQuestions.get(counter).getCorrectAnswer()));
+                postDataParams.put("correctanswer", quizQuestions.get(counter).getCorrectAnswer());
+
+                Log.d("VARIABLE", String.valueOf(quizQuestions.get(counter).getLongitude()));
+                postDataParams.put("longitude", quizQuestions.get(counter).getLongitude());
+
+                Log.d("VARIABLE", String.valueOf(quizQuestions.get(counter).getLatitude()));
+                postDataParams.put("latitude", quizQuestions.get(counter).getLatitude());
+
+                counter++;
+
+                Log.d("VARIABLE", Integer.toString(readycheck));
+                postDataParams.put("finish", readycheck);
+                postDataParams.put("questionidarray", JSONarrayString);
+
+                postDataParams.put("userid", Account.getInstance().getUserID());
+
+                Log.d("VARIABLE", quizTitle);
+                postDataParams.put("title", quizTitle);
+                Log.d("VARIABLE", quizDescription);
+                postDataParams.put("quizdescription", quizDescription);
+
+
+                Log.e("params", postDataParams.toString());
+
+                return sendParams(url, postDataParams);
+
+            } catch (Exception e) {
+                return new String("Exception: " + e.getMessage());
+            }
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+
+            Log.d("PRINT", result);
+            result = result.replaceAll("\\s+", "");
+
+            Log.d("PRINT", result);
+            String msg = "";
+            if (result.equals("0")) {
+                msg = "Quiz Tillagd"; // "Success" -> Klar
+
+            } else if (result.equals("-1")) {
+                msg = "Quiz titel upptagen"; //"Quiz Title Taken" översatt
+            }
+
+            CreateQuizActivity.saveQuizComplete(msg);
+
+        }
+    }
+
+
 
     public static class SendFriendRequest extends AsyncTask<String, Void, String> {
 
