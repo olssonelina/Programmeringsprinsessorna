@@ -38,29 +38,27 @@
                 android:text="@string/create_your_own_quiz" />
 
 
-            <ImageView
+            <Button
                 android:id="@+id/help"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:onClick="loadHelp"
-                android:padding="15dp"
-                app:srcCompat="@android:drawable/ic_menu_help" />
-
-            <ImageView
-                android:id="@+id/friends"
-                app:srcCompat="@drawable/friends"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
+
+                android:background="@android:drawable/ic_menu_help"
+                android:onClick="loadHelp"
+                android:layout_alignTop="@+id/addfriendbutton"
+                android:layout_alignLeft="@+id/userList"
+                android:layout_alignStart="@+id/userList" />
+
+            <Button
+                android:id="@+id/friends"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:background="@drawable/friends"
                 android:onClick="loadFriends"
-                android:padding="5dp" />
+                android:layout_alignBaseline="@+id/addfriendbutton"
+                android:layout_alignBottom="@+id/addfriendbutton"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
             <TextView
                 android:id="@+id/menuTitle"
