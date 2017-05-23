@@ -290,7 +290,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void initializeAi(QLocation location) {
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(location.toLatLng());
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.monkey));
         botMarker = mMap.addMarker(markerOptions);
     }
 
@@ -305,7 +305,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        if (qml.isEnabled(marker)){
+        if (marker != botMarker && qml.isEnabled(marker)){
 
             Question currentQuestion = qml.getQuestion(marker);
 
@@ -489,24 +489,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void hideArrow() {
         directionArrow.setVisibility(View.INVISIBLE);
     }
-
-    /**
-     * Places bot in the center of the screen.
-     */
-    public void initializeBot() {
-        bot.setX(screenWidth());
-        bot.setY(screenHeight());
-    }
-
-    public void moveBot(Location location) {
-    }
-
-
-    /*//Get interception of the line for the direction arrow and a screen line.
-    private double getInterception(double x1, double y1, double x2, double y2, double x) {
-        double k = (y1 - y2) / (x1 - x2);
-        return k * (x - x1) + y1;
-    }*/
 
 
     /**

@@ -15,8 +15,6 @@ public class AI implements Runnable, IActor {
     private QLocation location;
     private QLocation[] questionLocations;
 
-    private GameTimer timer = new GameTimer();
-
     /**
      * Creates an ai which aims to answer questions in a quiz and to walk around on the map
      *
@@ -36,7 +34,6 @@ public class AI implements Runnable, IActor {
         this.questionLocations = questionLocations;
         setAnswers(correctAnswers, tieBreaker, low, high);
         this.location = startLocation;
-        timer.startTimer();
     }
 
     /**
@@ -93,44 +90,40 @@ public class AI implements Runnable, IActor {
     }
 
     /**
-     * Moves the bot over the map with speed depending on time.
+     * Moves the bot over the map from question to question.
      */
-
     @Override
     public void run() {
-        //TODO gör någon loop där den hela tiden ändrar positionen på ai och även notifiesListeners.
-        //TODO målet är att apan ska röra sig mot frågorna, mha questionlocations
 
-        double lat = location.getLatitude();
-        double lng = location.getLongitude();
-        int maxTime = 300; //maxTime = totalMaxTime / numberOfQuestions
+        int sleepTime;
 
-        /*
-        for (int i = 0; i < questionLocations.length - 1; i++) {
-            while (timer.getTime() < maxTime) {
-                lat = lat + (questionLocations[i].deltaLat(questionLocations[i+1]) / maxTime);
-                lng = lng + (questionLocations[i].deltaLong(questionLocations[i+1]) / maxTime);
-                location = new QLocation(lat, lng);
-                notifyListeners(location);*/
-
-        for (int i = 0; i < 30; i++) {
-
-            lat = lat + 0.0003;
-            lng = lng + 0.0003;
-            location = new QLocation(lat, lng);
-            
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-
-            }
+        switch (difficulty){
+            default:
+                sleepTime = 850;
+                break;
+            case 50:
+                sleepTime = 750;
+                break;
+            case 75:
+                sleepTime = 550;
+                break;
         }
 
+        for (QLocation q: questionLocations) {
+            double deltaLatitude = location.deltaLat(q); // Calculate the total distance in each axis
+            double deltaLongitude = location.deltaLong(q);
+            int distance =  (int) Math.round(location.distanceTo(q)); // Calculate the distance (in meters) between
 
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
+            double stepLatitude = deltaLatitude/(distance);
+            double stepLongitude = deltaLongitude/(distance);
 
+            for (int i = 0; i < distance ; i++) {
+                try {Thread.sleep(sleepTime); } catch (InterruptedException e) {}
+
+                location = new QLocation(location.getLatitude() + stepLatitude, location.getLongitude() + stepLongitude);
+            }
+
+            location = q;
         }
     }
 

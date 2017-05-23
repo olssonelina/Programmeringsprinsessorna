@@ -16,7 +16,7 @@ public class Quiz implements Parcelable {
     private int quizID;
     private QuizDifficulty difficulty = QuizDifficulty.MEDIUM;
     private List<Question> questions = new ArrayList<>();
-    private boolean questionTimer = false, quizTimer = true, hiddenQuestions = false, inOrder = true, withBot = false;
+    private boolean questionTimer = false, quizTimer = true, hiddenQuestions = false, inOrder = true, withBot = true;
 
     /**
      * Creates a new Qwalk quiz
