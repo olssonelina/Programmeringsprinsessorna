@@ -242,6 +242,12 @@ public class MenuActivity extends AppCompatActivity {
 
     private void loadUserList() {
         userListTitle.setVisibility(userQuizzes.size() == 0 ? View.INVISIBLE : View.VISIBLE);
+        String userTitleText = Account.getInstance().getUsername();
+        if (userTitleText.charAt(userTitleText.length()-1) != 's'){
+            userTitleText += "s";
+        }
+        userTitleText += " Qwalks";
+        userListTitle.setText(userTitleText);
         if (userQuizzes.size() == 0) {
             return;
         }
@@ -265,7 +271,6 @@ public class MenuActivity extends AppCompatActivity {
         });
 
         setListViewHeightBasedOnItems(userList);
-        Log.d("Quizlist", String.valueOf(userQuizzes.get(1).getQuizID()));
 
     }
 

@@ -17,7 +17,6 @@ public class AI implements Runnable, IActor {
     private QLocation startLocation;
 
     private GameTimer timer = new GameTimer();
-    private List<IOnAIMoveListener> listeners = new ArrayList<>();
 
     /**
      * Creates an ai which aims to answer questions in a quiz and to walk around on the map
@@ -125,17 +124,7 @@ public class AI implements Runnable, IActor {
      * {@inheritDoc}
      */
     @Override
-    public void setLocation(QLocation location) {
+    public synchronized void setLocation(QLocation location) {
         this.location = location;
-    }
-
-    void setOnAImovedListener(IOnAIMoveListener listener) {
-        listeners.add(listener);
-    }
-
-    private void notifyListeners(QLocation location) {
-        for (IOnAIMoveListener l:listeners) {
-            l.AIMoved(location);
-        }
     }
 }
