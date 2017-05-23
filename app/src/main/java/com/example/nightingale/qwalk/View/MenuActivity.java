@@ -355,7 +355,7 @@ public class MenuActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CREATE_QUIZ_CODE || requestCode == DELETE_QUIZ_CODE) {
-            userQuizzes.clear();
+            userQuizzes.clear(); //TODO det kan krascha här om en inte lagt till ett quiz. veene hur det ska lösas
             loadOnlineQuizzes(Account.getInstance().getUserID(), userQuizzes);
             loadUserList();
         }
