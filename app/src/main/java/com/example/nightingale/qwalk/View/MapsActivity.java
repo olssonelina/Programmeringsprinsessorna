@@ -39,12 +39,14 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 
 import java.util.ArrayList;
@@ -74,6 +76,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private TextView progress;
     private ImageView directionArrow;
     private ImageView bot;
+    private Marker botMarker;
     private Button showClosest;
 
     //private List<Question> questions = new ArrayList<>();
@@ -285,12 +288,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void initializeAi(QLocation location) {
-        //TODO
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(location.toLatLng());
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+        botMarker = mMap.addMarker(markerOptions);
     }
 
     @Override
     public void moveAi(QLocation location) {
-        //TODO
+        botMarker.setPosition(location.toLatLng());
     }
 
     public void viewPinButtonClicked(View view) {
