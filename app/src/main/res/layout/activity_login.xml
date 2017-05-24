@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="115dp"
                 android:background="#FF09C856"
-                android:onClick="LoginButtonClicked"
+                android:onClick="loginButtonClicked"
                 android:text="@string/login"
                 android:layout_above="@+id/Registerbutton"
                 android:layout_alignLeft="@+id/password"
@@ -73,7 +73,7 @@
                 android:layout_marginLeft="19dp"
                 android:layout_marginStart="19dp"
                 android:background="#FF09C856"
-                android:onClick="RegisterButtonClicked"
+                android:onClick="registerButtonClicked"
                 android:text="@string/register" />
 
             <Button
