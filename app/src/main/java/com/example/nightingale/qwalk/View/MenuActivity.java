@@ -47,7 +47,7 @@ public class MenuActivity extends AppCompatActivity implements IMenu {
         friendsButton = (Button) findViewById(R.id.friends);
         userListTitle = (TextView) findViewById(R.id.userListText);
         friendListTitle = (TextView) findViewById(R.id.friendsListText);
-        createQuizButton = (Button) findViewById(R.id.addQuiz);
+        createQuizButton = (Button) findViewById(R.id.addQuizButton);
 
         presenter = new MenuPresenter(this);
     }

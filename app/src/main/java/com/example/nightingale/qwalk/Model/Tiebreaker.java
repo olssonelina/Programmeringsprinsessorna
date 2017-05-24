@@ -20,8 +20,8 @@ public class Tiebreaker extends Question implements Parcelable {
      * @param lowerBounds the lowest possible answer in the range of answers
      * @param upperBounds the highest possible answer in the range of answers
      */
-    public Tiebreaker(String questionTitle, int answer, double latitude, double longitude, int lowerBounds, int upperBounds) {
-        super(questionTitle, answer, new QLocation(latitude, longitude));
+    public Tiebreaker(String questionTitle, int answer, double latitude, double longitude, int lowerBounds, int upperBounds, int ID) {
+        super(questionTitle, answer, new QLocation(latitude, longitude), ID);
         this.upperBounds = upperBounds;
         this.lowerBounds = lowerBounds;
     }

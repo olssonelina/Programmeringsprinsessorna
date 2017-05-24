@@ -169,9 +169,9 @@ public class MenuPresenter {
                             if (questiontype == 0) {
                                 options.add(question.getString("option3"));
                                 options.add(question.getString("option4"));
-                                questions.add(new OptionQuestion(questionDescription, options, correctanswer, latitude, longitude));
+                                questions.add(new OptionQuestion(questionDescription, options, correctanswer, latitude, longitude, questionID));
                             } else if (questiontype == 1) {
-                                tiebreaker = new Tiebreaker(questionDescription, correctanswer, latitude, longitude, Integer.parseInt(options.get(0)), Integer.parseInt(options.get(1)));
+                                tiebreaker = new Tiebreaker(questionDescription, correctanswer, latitude, longitude, Integer.parseInt(options.get(0)), Integer.parseInt(options.get(1)), questionID);
                             }
 
                         }

@@ -55,7 +55,8 @@ public class CreateTiebreakerPresenter {
                 view.getLatitude(),
                 view.getLongitude(),
                 view.getLowerBounds(),
-                view.getHigherBounds()
+                view.getHigherBounds(),-1
+
         );
     }
 

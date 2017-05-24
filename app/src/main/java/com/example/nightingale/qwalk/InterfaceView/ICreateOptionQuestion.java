@@ -19,6 +19,8 @@ public interface ICreateOptionQuestion {
 
     double getLongitude();
 
+    int getQuestionID();
+
     void sendError(String error);
 
     boolean hasAnswer();
@@ -26,6 +28,8 @@ public interface ICreateOptionQuestion {
     String[] getOptions();
 
     void reset();
+
+    void setQuestionID(int ID);
 
     void setLocationText(String text);
 

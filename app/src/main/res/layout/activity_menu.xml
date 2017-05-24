@@ -25,7 +25,7 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/addQuiz"
+                android:id="@+id/addQuizButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -40,31 +40,30 @@
 
             <Button
                 android:id="@+id/help"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-
-                android:background="@android:drawable/ic_menu_help"
-                android:onClick="helpPressed"
-                android:layout_alignTop="@+id/addQuiz"
-                android:layout_alignLeft="@+id/userList"
-                android:layout_alignStart="@+id/userList" />
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignTop="@+id/addQuizButton"
+                android:layout_marginRight="30dp"
+                android:layout_toLeftOf="@+id/addQuizButton"
+                android:background="@drawable/help"
+                android:onClick="helpPressed" />
 
             <Button
                 android:id="@+id/friends"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignBaseline="@+id/addQuizButton"
+                android:layout_alignTop="@+id/addQuizButton"
+                android:layout_marginLeft="30dp"
+                android:layout_toRightOf="@+id/addQuizButton"
                 android:background="@drawable/friends"
-                android:onClick="friendsPressed"
-                android:layout_alignBaseline="@+id/addQuiz"
-                android:layout_alignBottom="@+id/addQuiz"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:onClick="friendsPressed" />
 
             <TextView
                 android:id="@+id/menuTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/addQuiz"
+                android:layout_below="@+id/addQuizButton"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="15dp"
                 android:layout_marginStart="15dp"
