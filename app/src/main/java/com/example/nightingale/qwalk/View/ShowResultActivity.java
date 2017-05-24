@@ -89,6 +89,6 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
 
     @Override
     public void showTime(long min, long sec) {
-        this.timeView.setText(getResources().getString(R.string.it_took) + min + getResources().getString(R.string.minutes_and) + sec + getResources().getString(R.string.seconds));
+        this.timeView.setText( min + getResources().getString(R.string.minutes_and) + sec + getResources().getString(R.string.seconds));
     }
 }

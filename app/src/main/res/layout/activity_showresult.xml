@@ -36,11 +36,12 @@
         android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
+        android:text="A minuter och B sekunder"
+        android:textSize="14sp"
         android:layout_below="@+id/total"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="21dp"
-        android:text="Det tog A minuter och B sekunder"
-        android:textSize="14sp" />
+        android:layout_alignLeft="@+id/totalMonkey"
+        android:layout_alignStart="@+id/totalMonkey" />
 
     <TextView
         android:id="@+id/monkeysAnswer"
@@ -61,6 +62,15 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"
          />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/total"
+        android:layout_toLeftOf="@+id/rightAnswers"
+        android:layout_toStartOf="@+id/rightAnswers"
+        app:srcCompat="@drawable/timer" />
 
     <TextView
         android:id="@+id/rightAnswersMonkey"
