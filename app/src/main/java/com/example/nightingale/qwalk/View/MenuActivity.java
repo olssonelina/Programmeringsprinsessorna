@@ -162,6 +162,8 @@ public class MenuActivity extends AppCompatActivity {
                             Log.d("JSON", String.valueOf(latitude));
                             double longitude = question.getDouble("longitude");
                             Log.d("JSON", String.valueOf(longitude));
+                            int questionID = question.getInt("questionid");
+                            Log.d("JSON", String.valueOf(questionID));
 
                             int questiontype = question.getInt("questiontype");
                             if (questiontype == 0) {
@@ -169,10 +171,10 @@ public class MenuActivity extends AppCompatActivity {
                                 Log.d("JSON", options.get(2));
                                 options.add(question.getString("option4"));
                                 Log.d("JSON", options.get(3));
-                                questions.add(new OptionQuestion(questionDescription, options, correctanswer, latitude, longitude));
+                                questions.add(new OptionQuestion(questionDescription, options, correctanswer, latitude, longitude, questionID));
                                 Log.d("JSON", "Question added");
                             } else if (questiontype == 1) {
-                                tiebreaker = new Tiebreaker(questionDescription, correctanswer, latitude, longitude, Integer.parseInt(options.get(0)), Integer.parseInt(options.get(1)));
+                                tiebreaker = new Tiebreaker(questionDescription, correctanswer, latitude, longitude, Integer.parseInt(options.get(0)), Integer.parseInt(options.get(1)), questionID);
                                 Log.d("JSON", "Tiebreaker Set");
                             }
 

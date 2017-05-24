@@ -33,12 +33,14 @@ public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz
     private EditText quizTitle;
     private EditText quizDescription;
     private Tiebreaker tiebreaker;
+    private int oldQuestions;
 
     public final static int OPTIONQUESTION_CODE = 7;
     public final static int TIEBREAKER_CODE = 22;
     private final static int IS_EDITING = 1;
     private final static int IS_NOT_EDITING = 0;
     private int mode = IS_NOT_EDITING;
+    Quiz quiz;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +51,7 @@ public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz
         quizDescription = (EditText) findViewById(R.id.descriptionField);
 
         try {
-            Quiz quiz = getIntent().getParcelableExtra("quiz");
+            quiz = getIntent().getParcelableExtra("quiz");
             mode = IS_EDITING;
             setAllFields(quiz);
             loadList();
@@ -112,7 +114,7 @@ public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz
         questions.add(tiebreaker);
 
 
-        DatabaseHandler.saveQuiz(quizTitle.getText().toString(), quizDescription.getText().toString(), questions);
+        DatabaseHandler.saveQuiz(quizTitle.getText().toString(), quizDescription.getText().toString(), questions, quiz);
 
 
     }
@@ -243,8 +245,10 @@ public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz
         Question lastQuestion = quiz.get(quiz.size() - 1);
         if (lastQuestion instanceof Tiebreaker) {
             tiebreaker = (Tiebreaker) lastQuestion;
+            oldQuestions = quiz.size() - 2;
         } else {
             questions.add(lastQuestion);
+            oldQuestions = quiz.size() - 1;
         }
     }
 }
