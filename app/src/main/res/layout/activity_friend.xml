@@ -29,7 +29,7 @@
             android:layout_alignRight="@+id/friendsList"
             android:layout_marginTop="30dp"
             android:background="#FF09C856"
-            android:ems="10"
+            android:ems="8"
             android:onClick="AddFriendButtonClicked"
             android:text="@string/add_friend" />
 
@@ -41,20 +41,19 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="25dp"
             android:ems="10"
+            android:textSize="18dp"
             android:inputType="textPersonName"
             android:text="@string/your_friends" />
 
         <EditText
             android:id="@+id/friendusername"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/friendTitle"
+            android:layout_height="56dp"
             android:layout_alignLeft="@+id/friendsList"
-            android:layout_alignStart="@+id/friendsList"
             android:layout_alignTop="@+id/addfriendbutton"
-            android:layout_toLeftOf="@+id/addfriendbutton"
-            android:layout_toStartOf="@+id/addfriendbutton"
-            android:ems="14"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="0dp"
+            android:ems="10"
             android:hint="@string/username"
             android:inputType="textPersonName"
             android:text="" />
@@ -63,10 +62,22 @@
             android:id="@+id/friendsList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="0dp"
             android:layout_below="@+id/friendTitle"
             android:layout_alignParentBottom="true" />
+
+        <TextView
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:textSize="24dp"
+            android:text="×" />
 
         <ProgressBar
             android:id="@+id/progressBar1"
@@ -76,9 +87,6 @@
             android:layout_below="@+id/friendTitle"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="34dp" />
-
     </RelativeLayout>
-
-
 </FrameLayout>
 
