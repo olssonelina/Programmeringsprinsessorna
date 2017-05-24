@@ -4,9 +4,7 @@ import com.example.nightingale.qwalk.InterfaceView.IQuizSettings;
 import com.example.nightingale.qwalk.Model.Quiz;
 import com.example.nightingale.qwalk.Model.QuizDifficulty;
 import com.example.nightingale.qwalk.Model.QuizSetting;
-
 import java.util.ArrayList;
-
 import static com.example.nightingale.qwalk.Model.QuizDifficulty.*;
 import static com.example.nightingale.qwalk.Model.QuizSetting.*;
 
@@ -22,7 +20,7 @@ public class QuizSettingsPresenter {
     public QuizSettingsPresenter(IQuizSettings view, Quiz quiz) {
         this.view = view;
 
-        QuizSetting[] settings = {QUESTION_TIMER, QUIZ_TIMER, WITH_AI, IS_HIDDEN, IN_ORDER};
+        QuizSetting[] settings = {HAS_QUESTION_TIMER, HAS_QUIZ_TIMER, WITH_AI, QUESTIONS_ARE_HIDDEN, QUESTIONS_IN_ORDER};
         for (QuizSetting qs: settings) {
             setSetting(qs, quiz.getSetting(qs));
             view.setChecked(qs, quiz.getSetting(qs));
@@ -33,19 +31,19 @@ public class QuizSettingsPresenter {
 
     public void setSetting(QuizSetting setting, boolean value) {
         switch (setting) {
-            case IS_HIDDEN:
+            case QUESTIONS_ARE_HIDDEN:
                 hiddenQuestions = value;
                 break;
 
-            case QUESTION_TIMER:
+            case HAS_QUESTION_TIMER:
                 questionTimer = value;
                 break;
 
-            case QUIZ_TIMER:
+            case HAS_QUIZ_TIMER:
                 quizTimer = value;
                 break;
 
-            case IN_ORDER:
+            case QUESTIONS_IN_ORDER:
                 inOrder = value;
                 break;
 
@@ -65,10 +63,10 @@ public class QuizSettingsPresenter {
 
     public void backPressed() {
         ArrayList<QuizSetting> setTrue = new ArrayList<>(), setFalse = new ArrayList<>();
-        addToLists(setTrue, setFalse, IN_ORDER, inOrder);
-        addToLists(setTrue, setFalse, IS_HIDDEN, hiddenQuestions);
-        addToLists(setTrue, setFalse, QUESTION_TIMER, questionTimer);
-        addToLists(setTrue, setFalse, QUIZ_TIMER, quizTimer);
+        addToLists(setTrue, setFalse, QUESTIONS_IN_ORDER, inOrder);
+        addToLists(setTrue, setFalse, QUESTIONS_ARE_HIDDEN, hiddenQuestions);
+        addToLists(setTrue, setFalse, HAS_QUESTION_TIMER, questionTimer);
+        addToLists(setTrue, setFalse, HAS_QUIZ_TIMER, quizTimer);
         addToLists(setTrue, setFalse, WITH_AI, withBot);
 
         view.closeWithResult(setTrue, setFalse, difficulty);

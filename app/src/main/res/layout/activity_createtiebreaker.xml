@@ -13,18 +13,17 @@
         android:visibility="visible">
 
 
-
-            <TextView
-                android:id="@+id/addPosition"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="130dp"
-                android:layout_marginTop="400dp"
-                android:onClick="addPosition"
-                android:padding="15dp"
-                android:text="Lägg till position"
-                android:textColor="#ffffff"
-                android:textSize="18dp" />
+        <TextView
+            android:id="@+id/tiebreakerAddPosition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="130dp"
+            android:layout_marginTop="400dp"
+            android:onClick="addPosition"
+            android:padding="15dp"
+            android:text="Lägg till position"
+            android:textColor="#ffffff"
+            android:textSize="18dp" />
 
             <ImageButton
                 android:id="@+id/positionMarker"

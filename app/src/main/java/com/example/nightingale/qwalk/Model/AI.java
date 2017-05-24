@@ -1,7 +1,5 @@
 package com.example.nightingale.qwalk.Model;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -110,8 +108,8 @@ public class AI implements Runnable, IActor {
         }
 
         for (QLocation q : questionLocations) {
-            double deltaLatitude = location.deltaLat(q); // Calculate the total distance in each axis
-            double deltaLongitude = location.deltaLong(q);
+            double deltaLatitude = location.deltaLatitude(q); // Calculate the total distance in each axis
+            double deltaLongitude = location.deltaLongitude(q);
             int distance = (int) Math.round(location.distanceTo(q)); // Calculate the distance (in meters) between current location and next question
 
             double stepLatitude = deltaLatitude / (distance); // Calculate how far the ai will move with every step

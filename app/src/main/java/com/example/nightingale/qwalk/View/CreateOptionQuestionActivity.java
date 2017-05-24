@@ -83,8 +83,9 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
 
         try {
             presenter.setAllFields((OptionQuestion) getIntent().getParcelableExtra("question"));
+            presenter.updateLocationText();
+        } catch (NullPointerException e) {
         }
-        catch (NullPointerException e) {}
     }
 
 
@@ -293,8 +294,7 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
                 Location l = (Location) data.getExtras().get("result");
                 latitude = l.getLatitude();
                 longitude = l.getLongitude();
-            }
-            catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 latitude = 0;
                 longitude = 0;
             }

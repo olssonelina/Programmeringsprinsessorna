@@ -8,9 +8,15 @@ import com.example.nightingale.qwalk.Model.Quiz;
 
 public interface IQuizDetails {
     void playQuiz(Quiz quiz);
+
     void setTitle(String title);
+
     void setDescription(String description);
+
     void editQuiz(Quiz quiz);
+
     void openSettings(Quiz quiz);
-    void deleteComplete(String msg);
+
+    void setEditable(boolean value);
+
 }

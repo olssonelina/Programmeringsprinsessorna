@@ -10,17 +10,15 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.nightingale.qwalk.InterfaceView.IAnswerOption;
-import com.example.nightingale.qwalk.InterfaceView.IFriendActivity;
-import com.example.nightingale.qwalk.Model.DatabaseHandler;
-import com.example.nightingale.qwalk.Model.Account;
+import com.example.nightingale.qwalk.Model.Database.DatabaseHandler;
+import com.example.nightingale.qwalk.Model.Database.Account;
 import com.example.nightingale.qwalk.R;
 
 /**
  * Created by Nightingale on 2017-05-16.
  */
 
-public class FriendActivity extends AppCompatActivity implements IFriendActivity {
+public class FriendActivity extends AppCompatActivity {
 
     EditText UsernameInput;
     private ListView listView;
@@ -31,11 +29,11 @@ public class FriendActivity extends AppCompatActivity implements IFriendActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend); //ändra namnet till rätt xml-fil
-        UsernameInput  = (EditText)findViewById(R.id.friendusername);
+        UsernameInput = (EditText) findViewById(R.id.friendusername);
 
         addfriendbutton = (Button) findViewById(R.id.addfriendbutton);
 
-        spinner = (ProgressBar)findViewById(R.id.progressBar1);
+        spinner = (ProgressBar) findViewById(R.id.progressBar1);
         spinner.setVisibility(View.GONE);
 
         loadList();
@@ -62,21 +60,19 @@ public class FriendActivity extends AppCompatActivity implements IFriendActivity
         if (UsernameInput.getText().toString().equals(Account.getInstance().getUsername())) {
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.self_friend_ex),
                     Toast.LENGTH_LONG).show();
-        }
-        else {
+        } else {
 
-           addfriendbutton.setEnabled(false);
+            addfriendbutton.setEnabled(false);
             spinner.setVisibility(View.VISIBLE);
-            DatabaseHandler.addFriend(UsernameInput.getText().toString(), this);
+            DatabaseHandler.addFriend(UsernameInput.getText().toString());
 
 
         }
-
 
 
     }
 
-    public void AddFriendComplete(String msg){
+    public void AddFriendComplete(String msg) {
 
         Toast.makeText(getApplicationContext(), msg,
                 Toast.LENGTH_LONG).show();
@@ -86,11 +82,6 @@ public class FriendActivity extends AppCompatActivity implements IFriendActivity
         DatabaseHandler.loadFriends();
         loadList();
     }
-
-
-
-
-
 
 
 }

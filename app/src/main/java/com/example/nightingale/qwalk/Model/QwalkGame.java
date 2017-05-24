@@ -13,7 +13,6 @@ import static com.example.nightingale.qwalk.Model.QuizSetting.*;
 
 public class QwalkGame {
 
-    //
     private MapsPresenter presenter;
     private Quiz quiz;
     private List<Question> currentQuestions = new ArrayList<>();
@@ -25,38 +24,37 @@ public class QwalkGame {
     /**
      * The distance in meters for a question to be considered in range.
      */
-    public final static double IN_RANGE = 25;
+    private final static double IN_RANGE = 25;
 
     /**
-     * @param presenter
-     * @param quiz
+     * @param presenter the model-view-presenter presenter
+     * @param quiz      the quiz to be played
      */
     public QwalkGame(MapsPresenter presenter, Quiz quiz) {
         this.presenter = presenter;
         this.quiz = quiz;
-
         answeredQuestions = 0;
     }
 
     /**
-     *
+     * Starts the game
      */
     public void startQuiz() {
 
         player = new Player(quiz.size());
 
-        if (quiz.getSetting(IN_ORDER)) {
+        if (quiz.getSetting(QUESTIONS_IN_ORDER)) {
             nextQuestion();
         } else {
             placeAllQuestions();
         }
 
-        if (quiz.getSetting(QUIZ_TIMER)) {
+        if (quiz.getSetting(HAS_QUIZ_TIMER)) {
             quizTimer = new GameTimer();
             quizTimer.startTimer();
         }
 
-        if (quiz.getSetting(IS_HIDDEN)) {
+        if (quiz.getSetting(QUESTIONS_ARE_HIDDEN)) {
             presenter.setShowClosestEnabled(false);
         }
 
@@ -64,16 +62,15 @@ public class QwalkGame {
 
     }
 
-    //
     private void nextQuestion() {
-        if (!quiz.getSetting(IN_ORDER)) {
-            throw new RuntimeException("Illegal method with current settings, specifically IN_ORDER");
+        if (!quiz.getSetting(QUESTIONS_IN_ORDER)) {
+            throw new RuntimeException("Illegal method with current settings, specifically QUESTIONS_IN_ORDER");
         }
 
         currentQuestions.clear();
 
         currentQuestions.add(quiz.get(answeredQuestions));
-        if (!quiz.getSetting(IS_HIDDEN)) {
+        if (!quiz.getSetting(QUESTIONS_ARE_HIDDEN)) {
             presenter.placeMarker(currentQuestions.get(0));
             presenter.focusOn(currentQuestions.get(0).getLocation());
         }
@@ -81,35 +78,34 @@ public class QwalkGame {
 
     private void end() {
         long time = -1;
-        if (quiz.getSetting(QUIZ_TIMER)) {
+
+        if (quiz.getSetting(HAS_QUIZ_TIMER)) {
             quizTimer.stopTimer();
             time = quizTimer.getTime();
         }
 
-        if (quiz.getSetting(WITH_AI)) {
-            presenter.showResults(quiz, player.getAnswers(), ai.getAnswers(), time);
-        } else {
-            presenter.showResults(quiz, player.getAnswers(), null, time);
+        presenter.showResults(quiz, player.getAnswers(), quiz.getSetting(WITH_AI) ? ai.getAnswers() : null, time);
 
-        }
         presenter.close();
     }
 
     private void placeAllQuestions() {
-        if (quiz.getSetting(IN_ORDER)) {
-            throw new RuntimeException("Illegal method with current settings, specifically IN_ORDER");
+        if (quiz.getSetting(QUESTIONS_IN_ORDER)) {
+            throw new RuntimeException("Illegal method with current settings, specifically QUESTIONS_IN_ORDER");
         }
 
         for (Question q : quiz.getQuestions()) {
             currentQuestions.add(q);
-            if (!quiz.getSetting(IS_HIDDEN)) {
+            if (!quiz.getSetting(QUESTIONS_ARE_HIDDEN)) {
                 presenter.placeMarker(q);
             }
         }
     }
 
     /**
-     * @param answer
+     * Recors the players answer to a specific question
+     * @param question the question at hand
+     * @param answer the players answer to the specified question
      */
     public void setAnswer(Question question, int answer) {
         player.setAnswer(quiz.getQuestionIndex(question), answer);
@@ -118,7 +114,7 @@ public class QwalkGame {
 
         currentQuestions.remove(question);
         presenter.removeMarker(question);
-        if (quiz.getSetting(IN_ORDER)) {
+        if (quiz.getSetting(QUESTIONS_IN_ORDER)) {
             if (answeredQuestions >= quiz.size()) {
                 end();
                 return;
@@ -130,26 +126,29 @@ public class QwalkGame {
     }
 
     /**
-     * @param userLocation
+     * Updates the game
+     * @param userLocation the players current location
      */
     public void update(QLocation userLocation) {
-        if (player.getLocation().equals(new QLocation(0, 0))) {
+        if (player.getLocation() == null) { // If the player hasn't yet got a location, focus the camera on the player and initalize the ai
             presenter.focusOn(userLocation);
-            if (quiz.getSetting(WITH_AI)) {initializeAi(userLocation); }
+            if (quiz.getSetting(WITH_AI)) {
+                initializeAi(userLocation);
+            }
         }
         player.setLocation(userLocation);
 
         List<Question> questionsInRange = questionsInRange(currentQuestions);
         if (questionsInRange.size() > 0) {
             for (Question q : questionsInRange) {
-                if (quiz.getSetting(IS_HIDDEN)) {
+                if (quiz.getSetting(QUESTIONS_ARE_HIDDEN)) {
                     presenter.placeMarker(q);
                 }
                 presenter.enableMarker(q);
             }
         }
 
-        if (hasAi()){
+        if (hasAi()) {
             presenter.moveBot(ai.getLocation());
         }
     }
@@ -170,9 +169,9 @@ public class QwalkGame {
         }
 
         AI ai = new AI(quiz.getCorrectAnswers(), quiz.get(quiz.size() - 1) instanceof Tiebreaker, quiz.getLowerBounds(), quiz.getUpperBounds(), difficulty, quiz.getLocations(), userLocation);
-        Thread botThread = new Thread(ai);
+        Thread aiThread = new Thread(ai);
         ai.setLocation(userLocation);
-        botThread.start();
+        aiThread.start();
 
         presenter.initializeAi(userLocation);
         this.ai = ai;
@@ -188,6 +187,9 @@ public class QwalkGame {
         return questionsInRange;
     }
 
+    /**
+     * @return returns the question closest to the player
+     */
     public Question getClosestQuestion() {
         Question a = currentQuestions.get(0);
         double distance = player.getLocation().distanceTo(a.getLocation());
@@ -202,9 +204,11 @@ public class QwalkGame {
         return a;
     }
 
-
+    /**
+     * Update the arrow pointing to the closest question
+     */
     public void updateArrow() {
-        if (quiz.getSetting(IS_HIDDEN)) {
+        if (quiz.getSetting(QUESTIONS_ARE_HIDDEN)) {
             return;
         }
 
@@ -216,14 +220,27 @@ public class QwalkGame {
         }
     }
 
+    /**
+     * @return returns true if the game has an ai
+     */
     public boolean hasAi() {
         return ai != null;
     }
 
+    /**
+     * Returns the index of a specified question
+     * @param question the question to know the index of
+     * @return returns the index of the specified question
+     */
     public int getQuestionIndex(Question question) {
         return quiz.getQuestionIndex(question);
     }
 
+    /**
+     * Fetches the ai's answer to a specified question
+     * @param question the question to know the ai's answer to
+     * @return returns the ai's answer to the specified question
+     */
     public int getAiAnswer(Question question) {
         return ai.getAnswer(quiz.getQuestionIndex(question));
     }

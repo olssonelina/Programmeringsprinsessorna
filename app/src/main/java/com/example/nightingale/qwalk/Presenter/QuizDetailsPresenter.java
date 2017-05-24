@@ -1,14 +1,11 @@
 package com.example.nightingale.qwalk.Presenter;
 
-import android.app.FragmentTransaction;
 import android.util.Log;
-
 import com.example.nightingale.qwalk.InterfaceView.IQuizDetails;
-import com.example.nightingale.qwalk.Model.DatabaseHandler;
+import com.example.nightingale.qwalk.Model.Database.DatabaseHandler;
 import com.example.nightingale.qwalk.Model.Quiz;
 import com.example.nightingale.qwalk.Model.QuizDifficulty;
 import com.example.nightingale.qwalk.Model.QuizSetting;
-import com.example.nightingale.qwalk.View.QuizDetailsActivity;
 
 /**
  * Created by Kraft on 2017-05-18.
@@ -24,6 +21,7 @@ public class QuizDetailsPresenter {
 
         view.setTitle(quiz.getTitle());
         view.setDescription(quiz.getDescription());
+        view.setEditable(editable);
 
     }
 
@@ -53,12 +51,12 @@ public class QuizDetailsPresenter {
         view.openSettings(quiz);
     }
 
-    public void deletePressed(QuizDetailsActivity view) {
+    public void deletePressed() {
 
         Log.d("QuizID", String.valueOf(quiz.getQuizID()));
-        DatabaseHandler.deleteQuiz(quiz.getQuizID(), view);
+        DatabaseHandler.deleteQuiz(quiz.getQuizID());
 
-    }  //TODO
+    }
 
 
 

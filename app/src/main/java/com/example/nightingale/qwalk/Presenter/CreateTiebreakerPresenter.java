@@ -1,10 +1,7 @@
 package com.example.nightingale.qwalk.Presenter;
 
-import android.content.Context;
-
 import com.example.nightingale.qwalk.InterfaceView.ICreateTiebreaker;
 import com.example.nightingale.qwalk.Model.Tiebreaker;
-import com.example.nightingale.qwalk.R;
 
 /**
  * Created by Kraft on 2017-05-10.
@@ -69,5 +66,13 @@ public class CreateTiebreakerPresenter {
         view.setLowerBounds(question.getLowerBounds());
         view.setUpperBounds(question.getUpperBounds());
         view.setAnswer(question.getCorrectAnswer());
+    }
+
+    public void updateLocationText() {
+        if (view.getLatitude() == 0 && view.getLongitude() == 0) {
+            view.setLocationText("Lägg till position");
+        } else {
+            view.setLocationText("Ändra position");
+        }
     }
 }

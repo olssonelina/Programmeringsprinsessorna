@@ -1,7 +1,6 @@
 package com.example.nightingale.qwalk.Presenter;
 
 import com.example.nightingale.qwalk.InterfaceView.IAnswerTiebreaker;
-import com.example.nightingale.qwalk.Model.Question;
 import com.example.nightingale.qwalk.Model.Tiebreaker;
 
 /**

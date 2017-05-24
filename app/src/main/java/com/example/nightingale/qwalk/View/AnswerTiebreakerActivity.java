@@ -2,21 +2,15 @@ package com.example.nightingale.qwalk.View;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.print.PrintHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.nightingale.qwalk.InterfaceView.IAnswerTiebreaker;
 import com.example.nightingale.qwalk.Model.Tiebreaker;
-import com.example.nightingale.qwalk.Presenter.AnswerOptionPresenter;
 import com.example.nightingale.qwalk.Presenter.AnswerTiebreakerPresenter;
 import com.example.nightingale.qwalk.R;
-
-import static java.lang.Integer.parseInt;
 
 /**
  * Created by Kraft on 2017-05-10.
@@ -35,9 +29,9 @@ public class AnswerTiebreakerActivity extends AppCompatActivity implements IAnsw
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answertiebreaker);
 
-        title = ((TextView)findViewById(R.id.tiebreakerTitle));
+        title = ((TextView) findViewById(R.id.tiebreakerTitle));
         value = (TextView) findViewById(R.id.answerValue);
-        slider = (SeekBar)findViewById(R.id.answerSlider);
+        slider = (SeekBar) findViewById(R.id.answerSlider);
 
         Intent i = getIntent();
         Tiebreaker question = i.getParcelableExtra("question");
@@ -75,7 +69,7 @@ public class AnswerTiebreakerActivity extends AppCompatActivity implements IAnsw
         return slider.getProgress() + from;
     }
 
-    public void saveButtonPressed(View view){
+    public void saveButtonPressed(View view) {
         presenter.closePressed();
     }
 
@@ -85,8 +79,10 @@ public class AnswerTiebreakerActivity extends AppCompatActivity implements IAnsw
     }
 
     @Override
-    public void onStartTrackingTouch(SeekBar seekBar) { }
+    public void onStartTrackingTouch(SeekBar seekBar) {
+    }
 
     @Override
-    public void onStopTrackingTouch(SeekBar seekBar) { }
+    public void onStopTrackingTouch(SeekBar seekBar) {
+    }
 }

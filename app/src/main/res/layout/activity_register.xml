@@ -62,7 +62,7 @@
 
             android:background="#FF09C856"
             android:ems="10"
-            android:onClick="RegisterButtonClicked"
+            android:onClick="registerButtonClicked"
             android:text="@string/register"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"

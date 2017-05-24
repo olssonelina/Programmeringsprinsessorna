@@ -16,7 +16,6 @@ import com.example.nightingale.qwalk.Presenter.CreateTiebreakerPresenter;
 import com.example.nightingale.qwalk.R;
 
 import static com.example.nightingale.qwalk.View.CreateOptionQuestionActivity.GET_POSITION_CODE;
-import static java.lang.Integer.min;
 import static java.lang.Integer.parseInt;
 
 /**
@@ -32,6 +31,7 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
     private EditText minField;
     private EditText maxField;
     private EditText questionTitle;
+    private TextView locationText;
     private double latitude = 0, longitude = 0;
 
     @Override
@@ -44,7 +44,7 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
         minField = (EditText) findViewById(R.id.minField);
         maxField = (EditText) findViewById(R.id.maxField);
         questionTitle = (EditText) findViewById(R.id.questionField);
-
+        locationText = (TextView) findViewById(R.id.tiebreakerAddPosition);
         value.setText("Rätt \n" + " " + minField.getText());
         seekBar.setOnSeekBarChangeListener(this);
 
@@ -52,8 +52,9 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
 
         try {
             presenter.setAllFields((Tiebreaker) getIntent().getParcelableExtra("question"));
+            presenter.updateLocationText();
+        } catch (NullPointerException e) {
         }
-        catch (NullPointerException e) {}
     }
 
     public void addPosition(View view) {
@@ -68,15 +69,15 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
                 Location l = (Location) data.getExtras().get("result");
                 latitude = l.getLatitude();
                 longitude = l.getLongitude();
-            }
-            catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 latitude = 0;
                 longitude = 0;
             }
+            presenter.updateLocationText();
         }
     }
 
-    public void doneButtonPressed(View view){
+    public void doneButtonPressed(View view) {
         presenter.doneButtonPressed();
     }
 
@@ -133,10 +134,12 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
     }
 
     @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {}
+    public void onStartTrackingTouch(SeekBar seekBar) {
+    }
 
     @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {}
+    public void onStopTrackingTouch(SeekBar seekBar) {
+    }
 
     @Override
     public void setLatitude(double latitude) {
@@ -150,12 +153,12 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
 
     @Override
     public void setLowerBounds(int lowerBounds) {
-        minField.setText(""+lowerBounds);
+        minField.setText("" + lowerBounds);
     }
 
     @Override
     public void setUpperBounds(int upperBounds) {
-        maxField.setText(""+upperBounds);
+        maxField.setText("" + upperBounds);
     }
 
     @Override
@@ -167,5 +170,10 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
     @Override
     public void setQuestionTitle(String questionTitle) {
         this.questionTitle.setText(questionTitle);
+    }
+
+    @Override
+    public void setLocationText(String text) {
+        locationText.setText(text);
     }
 }

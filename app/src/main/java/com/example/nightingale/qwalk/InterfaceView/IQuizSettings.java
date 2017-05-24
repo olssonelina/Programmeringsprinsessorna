@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 public interface IQuizSettings {
     void setDifficultiesVisible(boolean value);
+
     void closeWithResult(ArrayList<QuizSetting> setTrue, ArrayList<QuizSetting> setFalse, QuizDifficulty difficulty);
+
     void setChecked(QuizSetting quizSetting, boolean value);
 }

@@ -2,7 +2,6 @@ package com.example.nightingale.qwalk.View;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -11,11 +10,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nightingale.qwalk.InterfaceView.IQuizDetails;
-import com.example.nightingale.qwalk.Model.DatabaseHandler;
 import com.example.nightingale.qwalk.Model.Quiz;
 import com.example.nightingale.qwalk.Model.QuizDifficulty;
 import com.example.nightingale.qwalk.Model.QuizSetting;
-import com.example.nightingale.qwalk.Presenter.DeleteDialog;
 import com.example.nightingale.qwalk.Presenter.QuizDetailsPresenter;
 import com.example.nightingale.qwalk.R;
 
@@ -32,7 +29,8 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
 
     private TextView title;
     private TextView description;
-    Button edit;
+    private Button edit;
+    private Button delete;
     private ProgressBar spinner;
 
     public static final int QUIZ_SETTING_CODE = 34;
@@ -45,16 +43,17 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
 
         title = (TextView) findViewById(R.id.title);
         description = (TextView) findViewById(R.id.description);
+        edit = (Button) findViewById(R.id.edit);
+        delete = (Button) findViewById(R.id.deleteQuizButton);
+
+        spinner = (ProgressBar) findViewById(R.id.progressBar1);
+        spinner.setVisibility(View.GONE);
 
         boolean editable = (Boolean) getIntent().getExtras().get("editable");
         Quiz quiz = (Quiz) getIntent().getExtras().get("quiz");
 
         presenter = new QuizDetailsPresenter(this, quiz, editable);
 
-        edit = (Button) findViewById(R.id.edit);
-
-        spinner = (ProgressBar)findViewById(R.id.progressBar1);
-        spinner.setVisibility(View.GONE);
     }
 
 
@@ -70,7 +69,9 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
         presenter.settingsPressed();
     }
 
-    public void onBackPressed(View view) {finish();}
+    public void onBackPressed(View view) {
+        finish();
+    }
 
     public void onDeletePressed(View view) {
 
@@ -78,18 +79,7 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
         spinner.setVisibility(View.VISIBLE);
 
 
-        presenter.deletePressed(this);
-
-    }
-
-    public void deleteComplete(String msg){
-        Toast.makeText(getApplicationContext(), msg,
-                Toast.LENGTH_LONG).show();
-
-        edit.setEnabled(true);
-        spinner.setVisibility(View.GONE);
-
-        finish();
+        presenter.deletePressed();
 
     }
 
@@ -126,7 +116,6 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
     }
 
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == QUIZ_SETTING_CODE) {
@@ -151,4 +140,11 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
         }
     }
 
+    @Override
+    public void setEditable(boolean value) {
+        edit.setEnabled(value);
+        edit.setVisibility(value ? View.VISIBLE : View.INVISIBLE);
+        delete.setEnabled(value);
+        delete.setVisibility(value ? View.VISIBLE : View.INVISIBLE);
+    }
 }
