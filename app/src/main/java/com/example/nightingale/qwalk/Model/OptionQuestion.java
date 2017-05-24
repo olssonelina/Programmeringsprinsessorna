@@ -21,6 +21,7 @@ public class OptionQuestion extends Question implements Parcelable {
      * @param correctAnswer the index in options of the correct answer
      * @param latitude      the latitude of the question
      * @param longitude     the longitude of the question
+     * @param ID            the id stored in the database for this question
      */
     public OptionQuestion(String title, ArrayList<String> options, int correctAnswer, double latitude, double longitude, int ID/*Image image, Position position*/) {
         super(title, correctAnswer, new QLocation(latitude, longitude), ID);

@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.SeekBar;
@@ -16,6 +18,7 @@ import com.example.nightingale.qwalk.Presenter.CreateTiebreakerPresenter;
 import com.example.nightingale.qwalk.R;
 
 import static com.example.nightingale.qwalk.View.CreateOptionQuestionActivity.GET_POSITION_CODE;
+import static java.lang.Integer.max;
 import static java.lang.Integer.parseInt;
 
 /**
@@ -55,6 +58,19 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
             presenter.updateLocationText();
         } catch (NullPointerException e) {
         }
+
+        EditText[] arr = {minField, maxField};
+        for (EditText et: arr) {
+            et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (!hasFocus){
+                        presenter.makeAllowed(minField.getText().toString(), maxField.getText().toString());
+                    }
+                }
+            });
+        }
+
     }
 
     public void addPosition(View view) {
@@ -126,6 +142,10 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        if (fromUser) {
+            minField.clearFocus();
+            maxField.clearFocus();
+        }
         int val = (progress * (seekBar.getWidth() - 2 * seekBar.getThumbOffset())) / seekBar.getMax();
         value.setText("Rätt \n" + " " + (progress + parseInt(minField.getText().toString())));
         value.setX(seekBar.getX() + val + seekBar.getThumbOffset() / 2);
