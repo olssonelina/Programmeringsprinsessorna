@@ -25,7 +25,7 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/addfriendbutton"
+                android:id="@+id/addQuizButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -42,28 +42,28 @@
                 android:id="@+id/help"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:layout_alignTop="@+id/addQuizButton"
+                android:layout_marginRight="30dp"
+                android:layout_toLeftOf="@+id/addQuizButton"
                 android:background="@drawable/help"
-                android:onClick="loadHelp"
-                android:layout_alignTop="@+id/addfriendbutton"
-                android:layout_toLeftOf="@+id/addfriendbutton"
-                android:layout_marginRight="30dp"/>
+                android:onClick="helpPressed" />
 
             <Button
                 android:id="@+id/friends"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:layout_alignBaseline="@+id/addQuizButton"
+                android:layout_alignTop="@+id/addQuizButton"
+                android:layout_marginLeft="30dp"
+                android:layout_toRightOf="@+id/addQuizButton"
                 android:background="@drawable/friends"
-                android:onClick="loadFriends"
-                android:layout_alignBaseline="@+id/addfriendbutton"
-                android:layout_alignTop="@+id/addfriendbutton"
-                android:layout_toRightOf="@+id/addfriendbutton"
-                android:layout_marginLeft="30dp"/>
+                android:onClick="friendsPressed" />
 
             <TextView
                 android:id="@+id/menuTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/addfriendbutton"
+                android:layout_below="@+id/addQuizButton"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="15dp"
                 android:layout_marginStart="15dp"

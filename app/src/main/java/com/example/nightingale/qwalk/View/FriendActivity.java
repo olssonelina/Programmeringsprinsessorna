@@ -35,7 +35,7 @@ public class FriendActivity extends AppCompatActivity implements AdapterView.OnI
         UsernameInput = (EditText) findViewById(R.id.friendusername);
         listView = (ListView) findViewById(R.id.friendsList);
 
-        addfriendbutton = (Button) findViewById(R.id.addfriendbutton);
+        addfriendbutton = (Button) findViewById(R.id.addQuizButton);
 
         spinner = (ProgressBar) findViewById(R.id.progressBar1);
         spinner.setVisibility(View.GONE);
