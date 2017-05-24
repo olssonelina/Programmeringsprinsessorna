@@ -21,7 +21,7 @@
         android:layout_height="match_parent">
 
         <Button
-            android:id="@+id/addfriendbutton"
+            android:id="@+id/addQuiz"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignEnd="@+id/friendsList"
@@ -37,7 +37,7 @@
             android:id="@+id/friendTitle"
             android:layout_width="105dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addfriendbutton"
+            android:layout_below="@+id/addQuiz"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="25dp"
             android:ems="10"
@@ -51,9 +51,9 @@
             android:layout_above="@+id/friendTitle"
             android:layout_alignLeft="@+id/friendsList"
             android:layout_alignStart="@+id/friendsList"
-            android:layout_alignTop="@+id/addfriendbutton"
-            android:layout_toLeftOf="@+id/addfriendbutton"
-            android:layout_toStartOf="@+id/addfriendbutton"
+            android:layout_alignTop="@+id/addQuiz"
+            android:layout_toLeftOf="@+id/addQuiz"
+            android:layout_toStartOf="@+id/addQuiz"
             android:ems="14"
             android:hint="@string/username"
             android:inputType="textPersonName"

@@ -31,7 +31,7 @@ public class FriendActivity extends AppCompatActivity {
         setContentView(R.layout.activity_friend); //ändra namnet till rätt xml-fil
         UsernameInput = (EditText) findViewById(R.id.friendusername);
 
-        addfriendbutton = (Button) findViewById(R.id.addfriendbutton);
+        addfriendbutton = (Button) findViewById(R.id.addQuiz);
 
         spinner = (ProgressBar) findViewById(R.id.progressBar1);
         spinner.setVisibility(View.GONE);

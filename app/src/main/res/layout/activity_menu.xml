@@ -25,7 +25,7 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/addfriendbutton"
+                android:id="@+id/addQuiz"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -44,8 +44,8 @@
                 android:layout_height="75dp"
 
                 android:background="@android:drawable/ic_menu_help"
-                android:onClick="loadHelp"
-                android:layout_alignTop="@+id/addfriendbutton"
+                android:onClick="helpPressed"
+                android:layout_alignTop="@+id/addQuiz"
                 android:layout_alignLeft="@+id/userList"
                 android:layout_alignStart="@+id/userList" />
 
@@ -54,9 +54,9 @@
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:background="@drawable/friends"
-                android:onClick="loadFriends"
-                android:layout_alignBaseline="@+id/addfriendbutton"
-                android:layout_alignBottom="@+id/addfriendbutton"
+                android:onClick="friendsPressed"
+                android:layout_alignBaseline="@+id/addQuiz"
+                android:layout_alignBottom="@+id/addQuiz"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true" />
 
@@ -64,7 +64,7 @@
                 android:id="@+id/menuTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/addfriendbutton"
+                android:layout_below="@+id/addQuiz"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="15dp"
                 android:layout_marginStart="15dp"
