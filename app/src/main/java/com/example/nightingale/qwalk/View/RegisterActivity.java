@@ -1,6 +1,5 @@
 package com.example.nightingale.qwalk.View;
 
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,34 +26,32 @@ import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
 
 public class RegisterActivity extends AppCompatActivity {
-    private ProgressDialog progress;
 
-
-    EditText UsernameInput;
-    EditText PasswordInput;
-    EditText ConfirmPasswordInput;
-    Button registerbutton;
+    private EditText usernameInput;
+    private EditText passwordInput;
+    private EditText confirmPasswordInput;
+    private Button registerbutton;
     private ProgressBar spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        UsernameInput = (EditText) findViewById(R.id.usernameRegister);
-        PasswordInput = (EditText) findViewById(R.id.passwordRegister);
-        ConfirmPasswordInput = (EditText) findViewById(R.id.confirmPasswordRegister);
 
+        usernameInput = (EditText) findViewById(R.id.usernameRegister);
+        passwordInput = (EditText) findViewById(R.id.passwordRegister);
+        confirmPasswordInput = (EditText) findViewById(R.id.confirmPasswordRegister);
         registerbutton = (Button) findViewById(R.id.registerbutton);
-
         spinner = (ProgressBar) findViewById(R.id.progressBar1);
+
         spinner.setVisibility(View.GONE);
 
     }
 
-    public void RegisterButtonClicked(View view) {
+    public void registerButtonClicked(View view) {
         registerbutton.setEnabled(false);
         spinner.setVisibility(View.VISIBLE);
-        if (PasswordInput.getText().toString().equals(ConfirmPasswordInput.getText().toString())) {
+        if (passwordInput.getText().toString().equals(confirmPasswordInput.getText().toString())) {
             new SendRequest().execute();
         } else {
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.password_no_match), Toast.LENGTH_SHORT).show(); // "Passwords don't match" ->
@@ -63,8 +60,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     public class SendRequest extends AsyncTask<String, Void, String> {
 
-        String Username = UsernameInput.getText().toString();
-        String Password = PasswordInput.getText().toString();
+        String username = usernameInput.getText().toString();
+        String password = passwordInput.getText().toString();
 
         protected void onPreExecute() {
         }
@@ -78,8 +75,8 @@ public class RegisterActivity extends AppCompatActivity {
                 JSONObject postDataParams = new JSONObject();
 
 
-                postDataParams.put("username", Username);
-                postDataParams.put("password", Password);
+                postDataParams.put("username", username);
+                postDataParams.put("password", password);
 
 
                 Log.e("params", postDataParams.toString());
