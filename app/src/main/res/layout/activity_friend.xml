@@ -48,7 +48,7 @@
         <EditText
             android:id="@+id/friendusername"
             android:layout_width="wrap_content"
-            android:layout_height="56dp"
+            android:layout_height="55dp"
             android:layout_alignLeft="@+id/friendsList"
             android:layout_alignTop="@+id/addfriendbutton"
             android:layout_marginTop="0dp"
@@ -67,17 +67,6 @@
             android:layout_marginBottom="0dp"
             android:layout_below="@+id/friendTitle"
             android:layout_alignParentBottom="true" />
-
-        <TextView
-            android:id="@+id/delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:textSize="24dp"
-            android:text="×" />
 
         <ProgressBar
             android:id="@+id/progressBar1"

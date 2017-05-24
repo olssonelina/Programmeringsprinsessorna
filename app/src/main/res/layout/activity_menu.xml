@@ -40,25 +40,24 @@
 
             <Button
                 android:id="@+id/help"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-
-                android:background="@android:drawable/ic_menu_help"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/help"
                 android:onClick="loadHelp"
                 android:layout_alignTop="@+id/addfriendbutton"
-                android:layout_alignLeft="@+id/userList"
-                android:layout_alignStart="@+id/userList" />
+                android:layout_toLeftOf="@+id/addfriendbutton"
+                android:layout_marginRight="30dp"/>
 
             <Button
                 android:id="@+id/friends"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:background="@drawable/friends"
                 android:onClick="loadFriends"
                 android:layout_alignBaseline="@+id/addfriendbutton"
-                android:layout_alignBottom="@+id/addfriendbutton"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignTop="@+id/addfriendbutton"
+                android:layout_toRightOf="@+id/addfriendbutton"
+                android:layout_marginLeft="30dp"/>
 
             <TextView
                 android:id="@+id/menuTitle"
