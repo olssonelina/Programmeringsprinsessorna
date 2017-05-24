@@ -112,12 +112,19 @@ public class QuizSettingsActivity extends AppCompatActivity implements IQuizSett
     }
 
     public void difficultyPressed(View view){
+        easy.setBackgroundResource(R.drawable.greenmonkey);
+        medium.setBackgroundResource(R.drawable.yellowmonkey);
+        hard.setBackgroundResource(R.drawable.redmonkey);
+
         if (view.equals(easy)){
             presenter.setDifficulty(EASY);
+            easy.setBackgroundResource(R.drawable.greenmonkeyclicked);
         }else if (view.equals(medium)){
             presenter.setDifficulty(MEDIUM);
+            medium.setBackgroundResource(R.drawable.yellowmonkeyclicked);
         }else if (view.equals(hard)){
             presenter.setDifficulty(HARD);
+            hard.setBackgroundResource(R.drawable.redmonkeyclicked);
         }
     }
 

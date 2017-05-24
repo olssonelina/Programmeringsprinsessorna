@@ -91,9 +91,10 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_below="@+id/level"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:layout_toLeftOf="@+id/medium"
-            android:background="@drawable/green"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/greenmonkey"
             android:enabled="false"
             android:onClick="difficultyPressed"
             android:text="" />
@@ -104,7 +105,7 @@
             android:layout_height="80dp"
             android:layout_alignTop="@+id/easy"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/yellow"
+            android:background="@drawable/yellowmonkeyclicked"
             android:enabled="false"
             android:onClick="difficultyPressed"
             android:text="" />
@@ -114,9 +115,9 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_alignTop="@+id/easy"
-            android:layout_marginLeft="0dp"
+            android:layout_marginLeft="20dp"
             android:layout_toRightOf="@+id/medium"
-            android:background="@drawable/red"
+            android:background="@drawable/redmonkey"
             android:enabled="false"
             android:onClick="difficultyPressed"
             android:text="" />
