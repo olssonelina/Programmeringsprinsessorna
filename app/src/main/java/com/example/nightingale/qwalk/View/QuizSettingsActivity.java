@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.nightingale.qwalk.InterfaceView.IQuizSettings;
 import com.example.nightingale.qwalk.Model.Quiz;
@@ -86,6 +87,10 @@ public class QuizSettingsActivity extends AppCompatActivity implements IQuizSett
     @Override
     public void onBackPressed() {
         presenter.backPressed();
+    }
+
+    public void onBackClicked(View view) {
+        onBackPressed();
     }
 
     public void checkBoxPressed(View view) {

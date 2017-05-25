@@ -83,6 +83,8 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
 
     }
 
+
+
     @Override
     public void openSettings(Quiz quiz) {
         Intent intent = new Intent(this, QuizSettingsActivity.class);

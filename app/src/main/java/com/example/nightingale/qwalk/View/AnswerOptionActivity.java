@@ -61,6 +61,10 @@ public class AnswerOptionActivity extends AppCompatActivity implements IAnswerOp
         }
     }
 
+    public void onBackPressed(View view) {
+        finish();
+    }
+
     public void submitAnswer(View view) {
         presenter.submitClicked();
     }

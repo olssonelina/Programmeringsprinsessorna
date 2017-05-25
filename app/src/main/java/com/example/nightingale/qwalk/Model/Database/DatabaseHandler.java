@@ -7,6 +7,7 @@ import com.example.nightingale.qwalk.Model.MessageMediator.IOnMessageRecievedLis
 import com.example.nightingale.qwalk.Model.MessageMediator.MessageMediator;
 import com.example.nightingale.qwalk.Model.OptionQuestion;
 import com.example.nightingale.qwalk.Model.Question;
+import com.example.nightingale.qwalk.Model.Quiz;
 import com.example.nightingale.qwalk.Model.Tiebreaker;
 
 import org.json.JSONArray;
@@ -34,7 +35,7 @@ import javax.net.ssl.HttpsURLConnection;
 public class DatabaseHandler {
     private static String quizDescription;
     private static String quizTitle;
-
+    private static Quiz quiz;
     private static String JSONarrayString;
     private static String response;
     private static int readycheck = 0;
@@ -190,7 +191,8 @@ public class DatabaseHandler {
     }
 
 
-    public static void saveQuiz(String Title, String Description, ArrayList<Question> questions) {
+    public static void saveQuiz(String Title, String Description, ArrayList<Question> questions, Quiz editQuiz) {
+        quiz = editQuiz;
         quizDescription = Description;
         quizTitle = Title;
         quizQuestions = questions;
@@ -240,6 +242,9 @@ public class DatabaseHandler {
 
                 JSONObject postDataParams = new JSONObject();
 
+                    Log.d("VARIABLE QuizID", String.valueOf(quiz.getQuizID()));
+                    postDataParams.put("quizid", quiz.getQuizID());
+
 
                 if (quizQuestions.get(counter) instanceof OptionQuestion) {
                     Log.d("VARIABLE", "Type : 0");
@@ -274,6 +279,9 @@ public class DatabaseHandler {
 
                 Log.d("VARIABLE", quizQuestions.get(counter).getQuestionTitle());
                 postDataParams.put("description", quizQuestions.get(counter).getQuestionTitle());
+
+                Log.d("VARIABLE QuestionID", String.valueOf(quizQuestions.get(counter).getQuestionID()));
+                postDataParams.put("questionid", quizQuestions.get(counter).getQuestionID());
 
 
                 Log.d("VARIABLE", Integer.toString(quizQuestions.get(counter).getCorrectAnswer()));

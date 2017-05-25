@@ -45,6 +45,7 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
 
     private double latitude = 0;
     private double longitude = 0;
+    private int questionID = 0;
 
     private int questionCounter = 1;
 
@@ -128,6 +129,10 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
             public void afterTextChanged(Editable s) {
             }
         });
+    }
+
+    public void onBackPressed(View view) {
+        finish();
     }
 
 
@@ -332,6 +337,10 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
         return longitude;
     }
 
+    public int getQuestionID() {
+        return questionID;
+    }
+
     @Override
     public void sendError(String error) {
         Toast.makeText(getApplicationContext(), error, Toast.LENGTH_LONG).show();
@@ -384,6 +393,11 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
     @Override
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    @Override
+    public void setQuestionID(int questionID) {
+        this.questionID = questionID;
     }
 
     @Override

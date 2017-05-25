@@ -215,7 +215,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //Place arrow in different positions on the screen depending on the angle to next question
         if ((angle >= 0 && angle <= 45) || (angle > 315 && angle < 360)) {
-            directionArrow.setY(60);
+            directionArrow.setY(100);
             directionArrow.setX(screenWidth() / 2);
         }
         if (angle > 45 && angle <= 135) {

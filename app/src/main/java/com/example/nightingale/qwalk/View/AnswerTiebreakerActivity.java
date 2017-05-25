@@ -50,6 +50,10 @@ public class AnswerTiebreakerActivity extends AppCompatActivity implements IAnsw
         finish();
     }
 
+    public void onBackPressed(View view) {
+        finish();
+    }
+
     @Override
     public void setTitle(String title) {
         this.title.setText(title);

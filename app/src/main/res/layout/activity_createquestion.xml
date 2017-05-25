@@ -15,7 +15,19 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></ScrollView>
+            android:layout_height="match_parent">
+
+        </ScrollView>
+
+        <ImageView
+            android:id="@+id/goBack"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:onClick="onBackPressed"
+            android:padding="10dp"
+            app:srcCompat="@drawable/arrow2" />
 
         <TextView
             android:id="@+id/addPosition"

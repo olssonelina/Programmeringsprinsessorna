@@ -12,8 +12,10 @@ public abstract class Question implements Parcelable {
     private String questionTitle;
     private int correctAnswer;
     private QLocation location;
+    private int questionID;
 
-    public Question(String questionTitle, int correctAnswer, QLocation location) {
+    protected Question(String questionTitle, int correctAnswer, QLocation location, int questionID) {
+        this.questionID = questionID;
         this.questionTitle = questionTitle;
         this.correctAnswer = correctAnswer;
         this.location = location;
@@ -24,6 +26,10 @@ public abstract class Question implements Parcelable {
      */
     public double getLatitude() {
         return location.getLatitude();
+    }
+
+    public int getQuestionID() {
+        return questionID;
     }
 
     /**

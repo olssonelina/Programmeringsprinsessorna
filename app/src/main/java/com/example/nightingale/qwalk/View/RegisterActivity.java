@@ -58,6 +58,10 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
+    public void onBackPressed(View view) {
+        finish();
+    }
+
     public class SendRequest extends AsyncTask<String, Void, String> {
 
         String username = usernameInput.getText().toString();

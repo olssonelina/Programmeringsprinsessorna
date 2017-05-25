@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="23dp"
-            android:ems="15"
+            android:ems="10"
             android:hint="@string/username"
             android:inputType="textPersonName"
             android:layout_above="@+id/passwordRegister"
@@ -36,7 +36,7 @@
             android:id="@+id/passwordRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="15"
+            android:ems="10"
             android:hint="@string/password"
             android:inputType="textPassword"
             android:layout_marginBottom="21dp"
@@ -48,7 +48,7 @@
             android:id="@+id/confirmPasswordRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="15"
+            android:ems="10"
             android:hint="@string/repeat_password"
             android:inputType="textPassword"
             android:layout_above="@+id/registerbutton"
@@ -59,14 +59,16 @@
             android:id="@+id/registerbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:background="#FF09C856"
             android:ems="10"
             android:onClick="registerButtonClicked"
             android:text="@string/register"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="187dp" />
+            android:layout_marginBottom="187dp"
+            android:layout_alignLeft="@+id/confirmPasswordRegister"
+            android:layout_alignStart="@+id/confirmPasswordRegister"
+            android:layout_alignRight="@+id/confirmPasswordRegister"
+            android:layout_alignEnd="@+id/confirmPasswordRegister" />
 
         <ProgressBar
             android:id="@+id/progressBar1"
@@ -76,6 +78,18 @@
             android:layout_marginBottom="20dp"
             android:layout_above="@+id/registerbutton"
             android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:id="@+id/goBack"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:onClick="onBackPressed"
+            android:padding="10dp"
+            map:srcCompat="@drawable/arrow2" />
 
     </RelativeLayout>
 

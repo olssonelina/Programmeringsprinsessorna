@@ -13,15 +13,17 @@ public class Tiebreaker extends Question implements Parcelable {
 
     /**
      * Creates a tiebreaker for the Qwalk game
+     *
      * @param questionTitle title of the question, the actual question
-     * @param answer the correct answer to this tiebreaker
-     * @param latitude the latitude of the tiebreaker
-     * @param longitude the longitude of the tiebreaker
-     * @param lowerBounds the lowest possible answer in the range of answers
-     * @param upperBounds the highest possible answer in the range of answers
+     * @param answer        the correct answer to this tiebreaker
+     * @param latitude      the latitude of the tiebreaker
+     * @param longitude     the longitude of the tiebreaker
+     * @param lowerBounds   the lowest possible answer in the range of answers
+     * @param upperBounds   the highest possible answer in the range of answers
+     * @param ID            the id stored in the database for this question
      */
-    public Tiebreaker(String questionTitle, int answer, double latitude, double longitude, int lowerBounds, int upperBounds) {
-        super(questionTitle, answer, new QLocation(latitude, longitude));
+    public Tiebreaker(String questionTitle, int answer, double latitude, double longitude, int lowerBounds, int upperBounds, int ID) {
+        super(questionTitle, answer, new QLocation(latitude, longitude), ID);
         this.upperBounds = upperBounds;
         this.lowerBounds = lowerBounds;
     }
@@ -38,6 +40,7 @@ public class Tiebreaker extends Question implements Parcelable {
 
     /**
      * A static method to check if the specified bounds are allowed in a tiebreaker
+     *
      * @param lower the lowest possible answer in the range of answers
      * @param upper the highest possible answer in the range of answers
      * @return returns true if inputs are allowed
@@ -48,9 +51,10 @@ public class Tiebreaker extends Question implements Parcelable {
 
     /**
      * A static method to check if the specified bounds and answer are allowed in a tiebreaker
-     * @param lower the lowest possible answer in the range of answers
+     *
+     * @param lower  the lowest possible answer in the range of answers
      * @param answer the answer to the tiebreaker
-     * @param upper the highest possible answer in the range of answers
+     * @param upper  the highest possible answer in the range of answers
      * @return returns true if inputs are allowed
      */
     public static boolean validateAnswer(int lower, int answer, int upper) {
