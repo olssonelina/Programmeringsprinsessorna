@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,16 +21,23 @@ import com.example.nightingale.qwalk.R;
 public class ShowResultActivity extends AppCompatActivity implements IShowResult {
 
     private ShowResultPresenter presenter;
-    private AI AI;
+    private boolean isPlayingAgainstBot=false;
+    //private AI AI;
 
     private TextView rightView;
     private TextView totalView;
     private TextView timeView;
+    private TextView monkeyRight;
+    private TextView tieAnswer;
+    private TextView playerTieAnswer;
+    private TextView monkeyTieAnswer;
+    private TextView result;
     private ImageView monkey;
-    private TextView monkeyTitle;
-    private TextView monkeyResult;
-    private TextView monkeyTotal;
-    private TextView monkeyTime;
+    private ImageView timer;
+    private ImageView tieBreaker;
+    private ImageView winner;
+    private Button newQuizButton;
+    private Button detailsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,31 +47,41 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
         rightView = (TextView) findViewById(R.id.rightAnswers);
         totalView = (TextView) findViewById(R.id.total);
         timeView = (TextView) findViewById(R.id.time);
+        timer = (ImageView) findViewById(R.id.timer);
 
+        result = (TextView) findViewById(R.id.resultText);
+        winner =(ImageView) findViewById(R.id.winnerIcon);
+
+        tieAnswer= (TextView) findViewById(R.id.tieText1);
+        tieAnswer.setVisibility(View.INVISIBLE);
+        playerTieAnswer = (TextView) findViewById(R.id.tieText2);
+        playerTieAnswer.setVisibility(View.INVISIBLE);
+        monkeyTieAnswer = (TextView) findViewById(R.id.tieText3);
+        monkeyTieAnswer.setVisibility(View.INVISIBLE);
+        tieBreaker = (ImageView) findViewById(R.id.tieIcon);
+        tieBreaker.setVisibility(View.INVISIBLE);
+
+
+        monkeyRight = (TextView) findViewById(R.id.monkeyScore);
         monkey = (ImageView) findViewById(R.id.monkey);
-        monkey.setImageResource(R.drawable.monkey);
+        monkey.setVisibility(View.INVISIBLE);
 
-        monkeyTitle = (TextView) findViewById(R.id.monkeysAnswer);
-        monkeyResult = (TextView) findViewById(R.id.rightAnswersMonkey);
-        monkeyTotal = (TextView) findViewById(R.id.totalMonkey);
-        monkeyTime = (TextView) findViewById(R.id.monkeyTime);
+        newQuizButton = (Button) findViewById(R.id.playNewButton);
+        detailsButton = (Button) findViewById(R.id.detailedButton);
 
         Intent i = getIntent();
         long time = i.getLongExtra("time", 0);
         int[] playerAnswers = i.getIntArrayExtra("player");
         int[] aiAnswers = i.getIntArrayExtra("ai");
+        if(aiAnswers!=null){isPlayingAgainstBot=true;}
         Quiz quiz = i.getParcelableExtra("quiz");
 
         presenter = new ShowResultPresenter(this, playerAnswers, aiAnswers, quiz, time);
     }
 
     public void showMonkeyResult() {
-        if (isPlayingAgainstBot()) {
-            monkey.setVisibility(View.VISIBLE);
-            monkeyTitle.setVisibility(View.VISIBLE);
-            monkeyResult.setVisibility(View.VISIBLE);
-            monkeyTotal.setVisibility(View.VISIBLE);
-            monkeyTime.setVisibility(View.VISIBLE);
+        if (isPlayingAgainstBot) {
+
         }
     }
 
@@ -77,9 +95,6 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
         finish();
     }
 
-    public boolean isPlayingAgainstBot() {
-        return true;
-    }
 
     @Override
     public void showRightAnswers(int right) {

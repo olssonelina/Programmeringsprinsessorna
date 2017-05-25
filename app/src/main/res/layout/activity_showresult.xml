@@ -2,7 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:map="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     TextView
@@ -15,7 +17,7 @@
         android:textSize="24dp"/>
 
     <TextView
-        android:id="@+id/winnerText"
+        android:id="@+id/resultText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/monkeyScore"
@@ -88,11 +90,11 @@
         android:id="@+id/tieText1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/rightAnswers"
-        android:layout_alignStart="@+id/rightAnswers"
-        android:layout_alignTop="@+id/tieIcon"
         android:text="Rätt svar på urslagsfrågan: X"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:layout_below="@+id/monkey"
+        android:layout_alignLeft="@+id/monkeyScore"
+        android:layout_alignStart="@+id/monkeyScore" />
 
     <TextView
         android:id="@+id/tieText2"
@@ -157,7 +159,6 @@
         android:layout_toEndOf="@+id/tieText3"
         android:layout_toRightOf="@+id/tieText3"
         android:background="#FF09C856"
-        android:onClick="guestButtonClicked"
         android:text="@string/detailed" />
 
     <ImageView
