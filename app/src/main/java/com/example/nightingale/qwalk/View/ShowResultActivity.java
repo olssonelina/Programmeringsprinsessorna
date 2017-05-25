@@ -21,13 +21,12 @@ import com.example.nightingale.qwalk.R;
 public class ShowResultActivity extends AppCompatActivity implements IShowResult {
 
     private ShowResultPresenter presenter;
-    private boolean isPlayingAgainstBot=false;
     //private AI AI;
 
     private TextView rightView;
     private TextView totalView;
     private TextView timeView;
-    private TextView monkeyRight;
+    private TextView monkeyScore;
     private TextView tieAnswer;
     private TextView playerTieAnswer;
     private TextView monkeyTieAnswer;
@@ -62,7 +61,8 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
         tieBreaker.setVisibility(View.INVISIBLE);
 
 
-        monkeyRight = (TextView) findViewById(R.id.monkeyScore);
+        monkeyScore = (TextView) findViewById(R.id.monkeyScore);
+        monkeyScore.setVisibility(View.INVISIBLE);
         monkey = (ImageView) findViewById(R.id.monkey);
         monkey.setVisibility(View.INVISIBLE);
 
@@ -73,22 +73,36 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
         long time = i.getLongExtra("time", 0);
         int[] playerAnswers = i.getIntArrayExtra("player");
         int[] aiAnswers = i.getIntArrayExtra("ai");
-        if(aiAnswers!=null){isPlayingAgainstBot=true;}
         Quiz quiz = i.getParcelableExtra("quiz");
 
         presenter = new ShowResultPresenter(this, playerAnswers, aiAnswers, quiz, time);
     }
 
-    public void showMonkeyResult() {
-        if (isPlayingAgainstBot) {
-
-        }
+    public void showMonkeyResult(int monkeyRight) {
+        monkey.setVisibility(View.VISIBLE);
+        monkeyScore.setVisibility(View.VISIBLE);
+        monkeyScore.setText("Apan fick "+monkeyRight+" rätt");
     }
 
-    public void setMonkeyScore() {
-        //monkeyResult.setText("" + AI.getScore(correctAnswers) + getResources().getString(R.string.rigth_answers));
+    public void showTieBreakerResult(int rightAnswer, int playerAnswer){
+        tieBreaker.setVisibility(View.VISIBLE);
+        tieAnswer.setVisibility(View.VISIBLE);
+        tieAnswer.setText("Rätt svar på utslagsfrågan: "+rightAnswer);
+        playerTieAnswer.setVisibility(View.VISIBLE);
+        playerTieAnswer.setText("Ditt svar: "+playerAnswer);
+    }
 
-        //monkeyTotal.setText(getResources().getString(R.string.of) +  + getResources().getString(R.string.possible));
+    public void showMonkeyTieBreaker(int monkeyAnswer){
+        monkeyTieAnswer.setVisibility(View.VISIBLE);
+        monkeyTieAnswer.setText("Apans svar: "+monkeyAnswer);
+    }
+
+    public void showCompetitionResult(boolean playerWins){
+        if(playerWins){
+            result.setText("Du vann!");
+        } else{
+            result.setText("Apan vann!");
+        }
     }
 
     public void onBackPressed(View view) {

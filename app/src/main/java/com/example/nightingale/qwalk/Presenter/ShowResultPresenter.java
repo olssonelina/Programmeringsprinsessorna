@@ -10,7 +10,7 @@ import com.example.nightingale.qwalk.Model.Quiz;
 public class ShowResultPresenter {
 
     private IShowResult view;
-    private int[] playerAnswers;//byt ut mot player
+    private int[] playerAnswers;
 
     public ShowResultPresenter(IShowResult view, int[] playerAnswers, int[] aiAnswers, Quiz quiz, long time){ //byt ut "results" mot en player som innehåller resultat
         this.view=view;

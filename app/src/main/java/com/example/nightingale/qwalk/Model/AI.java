@@ -12,6 +12,7 @@ public class AI implements Runnable, IActor {
     private int difficulty;
     private QLocation location;
     private QLocation[] questionLocations;
+    private boolean tiebreaker=false;
 
     /**
      * Creates an ai which aims to answer questions in a quiz and to walk around on the map
@@ -29,8 +30,9 @@ public class AI implements Runnable, IActor {
         for (int a : answers) {
             a = NO_ANSWER;
         }
+        this.tiebreaker = tieBreaker;
         this.questionLocations = questionLocations;
-        setAnswers(correctAnswers, tieBreaker, low, high);
+        setAnswers(correctAnswers, low, high);
         this.location = startLocation;
     }
 
@@ -40,11 +42,14 @@ public class AI implements Runnable, IActor {
     @Override
     public int getScore(int[] correctAnswers) {
         int correctCount = 0;
-        for (int i = 0; i < correctAnswers.length; i++) {
+        int numberOfOptionQuestions=correctAnswers.length;
+        if(tiebreaker){numberOfOptionQuestions--;}   //för att poäng för optionquestions räknas separat från tiebreaker.
+        for (int i = 0; i < numberOfOptionQuestions; i++) {
             if (correctAnswers[i] == answers[i]) {
                 correctCount++;
             }
         }
+
         return correctCount;
     }
 
@@ -63,7 +68,7 @@ public class AI implements Runnable, IActor {
         return answers;
     }
 
-    private void setAnswers(int[] correctAnswers, boolean tiebreaker, int[] low, int[] high) {
+    private void setAnswers(int[] correctAnswers, int[] low, int[] high) {
         for (int i = 0; i < answers.length; i++) {
             if (difficulty > randomInt()) {
                 answers[i] = correctAnswers[i];
