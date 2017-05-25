@@ -102,6 +102,7 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
             result.setText("Du vann!");
         } else{
             result.setText("Apan vann!");
+            winner.setImageResource(R.drawable.monkey);
         }
     }
 
