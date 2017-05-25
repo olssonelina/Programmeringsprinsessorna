@@ -160,4 +160,17 @@
         android:onClick="guestButtonClicked"
         android:text="@string/detailed" />
 
+    <ImageView
+        android:id="@+id/goBack"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:onClick="onBackPressed"
+        android:padding="10dp"
+        app:srcCompat="@drawable/arrow2" />
+
+
 </RelativeLayout>
