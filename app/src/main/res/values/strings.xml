@@ -67,4 +67,6 @@
     <string name="invalid_range">Ogiligt intervall</string>
     <string name="out_of_range">Svaret ligger utanför intervallet!</string>
     <string name="you_must_add_question">Du måste ange en fråga!</string>
+    <string name="play_new_qwalk">Spela ny Qwalk</string>
+    <string name="detailed">Detaljerat</string>
 </resources>
