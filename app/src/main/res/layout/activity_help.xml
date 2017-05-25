@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -22,17 +23,24 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/help"
             android:layout_marginTop="20dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             android:layout_centerHorizontal="true"
             android:textSize="18dp"
-            android:text=   "Qwalk är appen där du kan spela digitala tipsrundor i mobilen. Välj mellan att spela färdiga rundor eller skapa egna som du kan dela med dina vänner.
-
-Skapa ett konto och logga in för att skapa egna tipsrundor och leta efter vänners.
-
-Mycket nöje!
-Programmeringsprinsessorna
+            android:text=   "Qwalk är appen där du kan spela digitala tipsrundor i mobilen. Välj mellan att spela färdiga rundor eller skapa egna som du kan dela med dina vänner. \n\nSkapa ett konto och logga in för att skapa egna tipsrundor och leta efter vänners. \n \n Mycket nöje! \n Programmeringsprinsessorna
                             " />
+
+        <ImageView
+            android:id="@+id/goBack"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:padding="10dp"
+            android:onClick="onBackPressed"
+            app:srcCompat="@drawable/arrow2" />
     </RelativeLayout>
 
 </LinearLayout>

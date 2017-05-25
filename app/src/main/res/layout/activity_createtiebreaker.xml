@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,15 +26,15 @@
             android:textColor="#ffffff"
             android:textSize="18dp" />
 
-            <ImageButton
-                android:id="@+id/positionMarker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="90dp"
-                android:layout_marginTop="400dp"
-                android:background="@drawable/minimarkerwhite"
-                android:onClick="addPosition"
-                android:visibility="visible" />
+        <ImageButton
+            android:id="@+id/positionMarker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="90dp"
+            android:layout_marginTop="400dp"
+            android:background="@drawable/minimarkerwhite"
+            android:onClick="addPosition"
+            android:visibility="visible" />
 
         <TextView
             android:id="@+id/questionX"
@@ -60,8 +61,8 @@
             android:layout_alignTop="@+id/seekBar"
             android:layout_marginLeft="58dp"
             android:layout_marginTop="50dp"
-            android:textSize="18dp"
-            android:text="Rätt" />
+            android:text="Rätt"
+            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/min"
@@ -129,6 +130,18 @@
             android:ems="2"
             android:inputType="number"
             android:text="0" />
+
+        <ImageView
+            android:id="@+id/goBack"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:onClick="onBackPressed"
+            android:padding="10dp"
+            map:srcCompat="@drawable/arrow2" />
 
     </RelativeLayout>
 </LinearLayout>

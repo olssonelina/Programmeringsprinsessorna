@@ -78,6 +78,10 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
         startActivityForResult(intent, GET_POSITION_CODE);
     }
 
+    public void onBackPressed(View view) {
+        finish();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == GET_POSITION_CODE) {

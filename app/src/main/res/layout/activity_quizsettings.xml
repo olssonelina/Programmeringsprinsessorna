@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:map="http://schemas.android.com/tools"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -13,8 +16,8 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="60dp"
-            android:textSize="30dp"
-            android:text="Spelinställningar" />
+            android:text="Spelinställningar"
+            android:textSize="30dp" />
 
         <CheckBox
             android:id="@+id/hiddenQuestions"
@@ -80,20 +83,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/bot"
-            android:text="Svårighetsgrad"
-            android:textSize="18dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            />
+            android:text="Svårighetsgrad"
+            android:textSize="18dp" />
 
         <Button
             android:id="@+id/easy"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_below="@+id/level"
+            android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
             android:layout_toLeftOf="@+id/medium"
-            android:layout_marginRight="20dp"
             android:background="@drawable/greenmonkey"
             android:enabled="false"
             android:onClick="difficultyPressed"
@@ -122,6 +124,17 @@
             android:onClick="difficultyPressed"
             android:text="" />
 
+        <ImageView
+            android:id="@+id/goBack"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:onClick="onBackClicked"
+            android:padding="10dp"
+            app:srcCompat="@drawable/arrow2" />
 
     </RelativeLayout>
 </LinearLayout>

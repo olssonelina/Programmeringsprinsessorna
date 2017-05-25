@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <ScrollView
@@ -102,10 +103,22 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="60dp"
                 android:layout_below="@id/addTiebreaker"
-                android:ems="4"
+                android:ems="10"
                 android:onClick="createQuiz"
                 android:background="#FF09C856"
                 android:text="@string/save" />
+
+            <ImageView
+                android:id="@+id/goBack"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:onClick="onBackPressed"
+                android:padding="10dp"
+                map:srcCompat="@drawable/arrow2" />
 
         </RelativeLayout>
     </ScrollView>

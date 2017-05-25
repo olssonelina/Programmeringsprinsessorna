@@ -2,6 +2,7 @@ package com.example.nightingale.qwalk.View;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.example.nightingale.qwalk.R;
 
@@ -17,4 +18,8 @@ public class HelpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_help);
     }
 
+
+    public void onBackPressed(View view) {
+        finish();
+    }
 }

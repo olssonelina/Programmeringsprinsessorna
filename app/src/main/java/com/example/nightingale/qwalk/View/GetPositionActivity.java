@@ -65,6 +65,8 @@ public class GetPositionActivity extends FragmentActivity implements OnMapReadyC
 
     }
 
+
+
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.

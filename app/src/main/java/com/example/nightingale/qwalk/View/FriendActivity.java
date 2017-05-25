@@ -47,6 +47,10 @@ public class FriendActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
 
+    public void onBackPressed(View view) {
+        finish();
+    }
+
     private void loadList() {
         String[] values = new String[Account.getInstance().getFriends().size()];
         for (int i = 0; i < values.length; i++) {

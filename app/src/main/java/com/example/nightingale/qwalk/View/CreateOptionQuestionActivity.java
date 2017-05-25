@@ -131,6 +131,10 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
         });
     }
 
+    public void onBackPressed(View view) {
+        finish();
+    }
+
 
     /**
      * Clears text field if the icon "×" is clicked

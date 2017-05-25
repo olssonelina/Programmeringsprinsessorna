@@ -73,6 +73,10 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
         //monkeyTotal.setText(getResources().getString(R.string.of) +  + getResources().getString(R.string.possible));
     }
 
+    public void onBackPressed(View view) {
+        finish();
+    }
+
     public boolean isPlayingAgainstBot() {
         return true;
     }

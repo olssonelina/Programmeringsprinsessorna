@@ -60,6 +60,10 @@ public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz
 
     }
 
+    public void onBackPressed(View view) {
+        finish();
+    }
+
     public void addQuestionButtonClicked(View view) {
         Intent intent = new Intent(this, CreateOptionQuestionActivity.class);
         startActivityForResult(intent, OPTIONQUESTION_CODE);

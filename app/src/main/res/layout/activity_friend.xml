@@ -27,7 +27,7 @@
             android:layout_alignEnd="@+id/friendsList"
             android:layout_alignParentTop="true"
             android:layout_alignRight="@+id/friendsList"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="80dp"
             android:background="#FF09C856"
             android:ems="8"
             android:onClick="AddFriendButtonClicked"
@@ -76,6 +76,19 @@
             android:layout_below="@+id/friendTitle"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="34dp" />
+
+        <ImageView
+            android:id="@+id/goBack"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:onClick="onBackPressed"
+            android:padding="10dp"
+            map:srcCompat="@drawable/arrow2" />
+
     </RelativeLayout>
 </FrameLayout>
 
