@@ -72,12 +72,7 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
         Intent i = getIntent();
         long time = i.getLongExtra("time", 0);
         int[] playerAnswers = i.getIntArrayExtra("player");
-        //int[] aiAnswers;
-        //try {
-           int[] aiAnswers = i.getIntArrayExtra("ai");
-        //}catch (NullPointerException e){
-        //    aiAnswers=new int[0];
-        //}
+        int[] aiAnswers = i.getIntArrayExtra("ai");
         Quiz quiz = i.getParcelableExtra("quiz");
 
         presenter = new ShowResultPresenter(this, playerAnswers, aiAnswers, quiz, time);
@@ -133,5 +128,13 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
     @Override
     public void showTime(long min, long sec) {
         this.timeView.setText( min +" "+ getResources().getString(R.string.minutes_and) +" "+ sec +" "+ getResources().getString(R.string.seconds));
+    }
+
+    public void playNewButtonPressed(View view){presenter.playNewPressed();}
+
+    @Override
+    public void openMenu(){
+        Intent intent = new Intent(this, MenuActivity.class);
+        startActivity(intent);
     }
 }

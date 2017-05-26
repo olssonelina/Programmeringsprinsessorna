@@ -147,6 +147,7 @@
         android:layout_marginLeft="19dp"
         android:layout_marginStart="19dp"
         android:background="#FF09C856"
+        android:onClick="playNewButtonPressed"
         android:text="@string/play_new_qwalk" />
 
     <Button

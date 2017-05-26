@@ -18,4 +18,6 @@ public interface IShowResult {
     void showMonkeyTieBreaker(int monkeyAnswer);
 
     void showCompetitionResult(boolean playerWins);
+
+    void openMenu();
 }
