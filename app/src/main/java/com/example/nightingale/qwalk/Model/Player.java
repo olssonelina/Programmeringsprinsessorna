@@ -57,17 +57,4 @@ public class Player implements IActor {
         return answers[index];
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getScore(int[] correctAnswers) {
-        int correctCount = 0;
-        for (int i = 0; i < correctAnswers.length; i++) {
-            if (correctAnswers[i] == answers[i]) {
-                correctCount++;
-            }
-        }
-        return correctCount;
-    }
 }

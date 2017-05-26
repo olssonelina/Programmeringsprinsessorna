@@ -44,11 +44,4 @@ public interface IActor {
      */
     void setLocation(QLocation location);
 
-    /**
-     * Calculates the score of the object
-     *
-     * @param correctAnswers the correct answers to every question in the quiz
-     * @return returns the score
-     */
-    int getScore(int[] correctAnswers);
 }

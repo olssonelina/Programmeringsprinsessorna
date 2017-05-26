@@ -168,7 +168,7 @@ public class QwalkGame {
                 break;
         }
 
-        AI ai = new AI(quiz.getCorrectAnswers(), quiz.get(quiz.size() - 1) instanceof Tiebreaker, quiz.getLowerBounds(), quiz.getUpperBounds(), difficulty, quiz.getLocations(), userLocation);
+        AI ai = new AI(quiz.getCorrectAnswers(), quiz.hasTieBreaker(), quiz.getLowerBounds(), quiz.getUpperBounds(), difficulty, quiz.getLocations(), userLocation);
         Thread aiThread = new Thread(ai);
         ai.setLocation(userLocation);
         aiThread.start();
