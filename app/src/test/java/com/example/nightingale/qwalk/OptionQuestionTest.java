@@ -1,8 +1,6 @@
 package com.example.nightingale.qwalk;
 
-import com.example.nightingale.qwalk.Model.OptionQuestion;
-import com.example.nightingale.qwalk.Model.Question;
-import com.example.nightingale.qwalk.Model.StandardQuizzes;
+import com.example.nightingale.qwalk.Model.Question.OptionQuestion;
 
 import org.junit.Before;
 import org.junit.Test;

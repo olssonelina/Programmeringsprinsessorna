@@ -1,10 +1,9 @@
 package com.example.nightingale.qwalk.Model.Android;
 
-import com.example.nightingale.qwalk.Model.Question;
+import com.example.nightingale.qwalk.Model.Question.Question;
 import com.example.nightingale.qwalk.R;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 

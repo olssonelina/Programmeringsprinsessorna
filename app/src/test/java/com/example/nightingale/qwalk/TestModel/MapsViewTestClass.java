@@ -1,10 +1,10 @@
 package com.example.nightingale.qwalk.TestModel;
 
-import com.example.nightingale.qwalk.InterfaceView.IMaps;
+import com.example.nightingale.qwalk.Presenter.Maps.IMaps;
 import com.example.nightingale.qwalk.Model.QLocation;
-import com.example.nightingale.qwalk.Model.Question;
-import com.example.nightingale.qwalk.Model.Quiz;
-import com.example.nightingale.qwalk.Presenter.MapsPresenter;
+import com.example.nightingale.qwalk.Model.Question.Question;
+import com.example.nightingale.qwalk.Model.Quiz.Quiz;
+import com.example.nightingale.qwalk.Presenter.Maps.MapsPresenter;
 
 import java.util.ArrayList;
 import java.util.List;

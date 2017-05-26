@@ -5,10 +5,10 @@ import android.util.Log;
 
 import com.example.nightingale.qwalk.Model.MessageMediator.IOnMessageRecievedListener;
 import com.example.nightingale.qwalk.Model.MessageMediator.MessageMediator;
-import com.example.nightingale.qwalk.Model.OptionQuestion;
-import com.example.nightingale.qwalk.Model.Question;
-import com.example.nightingale.qwalk.Model.Quiz;
-import com.example.nightingale.qwalk.Model.Tiebreaker;
+import com.example.nightingale.qwalk.Model.Question.OptionQuestion;
+import com.example.nightingale.qwalk.Model.Question.Question;
+import com.example.nightingale.qwalk.Model.Quiz.Quiz;
+import com.example.nightingale.qwalk.Model.Question.Tiebreaker;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

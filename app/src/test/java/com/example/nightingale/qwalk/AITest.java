@@ -1,13 +1,11 @@
 package com.example.nightingale.qwalk;
 
-import com.example.nightingale.qwalk.Model.AI;
-import com.example.nightingale.qwalk.Model.Quiz;
+import com.example.nightingale.qwalk.Model.Actor.AI;
+import com.example.nightingale.qwalk.Model.Quiz.Quiz;
 import com.example.nightingale.qwalk.Model.StandardQuizzes;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
 
 import static junit.framework.Assert.assertEquals;
 

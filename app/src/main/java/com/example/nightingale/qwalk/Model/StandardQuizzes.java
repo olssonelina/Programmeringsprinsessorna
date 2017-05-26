@@ -1,10 +1,15 @@
 package com.example.nightingale.qwalk.Model;
 
+import com.example.nightingale.qwalk.Model.Question.OptionQuestion;
+import com.example.nightingale.qwalk.Model.Question.Question;
+import com.example.nightingale.qwalk.Model.Question.Tiebreaker;
+import com.example.nightingale.qwalk.Model.Quiz.Quiz;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.example.nightingale.qwalk.Model.QuizSetting.*;
+import static com.example.nightingale.qwalk.Model.Quiz.QuizSetting.*;
 
 /**
  * Created by Kraft on 2017-04-28.

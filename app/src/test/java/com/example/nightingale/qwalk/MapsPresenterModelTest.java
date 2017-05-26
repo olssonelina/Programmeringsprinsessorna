@@ -1,9 +1,9 @@
 package com.example.nightingale.qwalk;
 
 
-import com.example.nightingale.qwalk.Model.Quiz;
+import com.example.nightingale.qwalk.Model.Quiz.Quiz;
 import com.example.nightingale.qwalk.Model.StandardQuizzes;
-import com.example.nightingale.qwalk.Presenter.MapsPresenter;
+import com.example.nightingale.qwalk.Presenter.Maps.MapsPresenter;
 import com.example.nightingale.qwalk.TestModel.MapsViewTestClass;
 
 import org.junit.Before;
