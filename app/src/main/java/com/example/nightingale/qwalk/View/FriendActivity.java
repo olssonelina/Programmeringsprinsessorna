@@ -21,7 +21,7 @@ import java.util.List;
  * Created by Nightingale on 2017-05-16.
  */
 
-public class FriendActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class FriendActivity extends AppCompatActivity{
 
     EditText UsernameInput;
     private ListView listView;
@@ -40,18 +40,29 @@ public class FriendActivity extends AppCompatActivity implements AdapterView.OnI
         spinner = (ProgressBar) findViewById(R.id.progressBar1);
         spinner.setVisibility(View.GONE);
 
-        loadList();
+
+        setListItemsFriends();
+
+}
         //loadQuizzes();
 
         //loadList();
-    }
 
+
+    public void setListItemsFriends() {
+        loadList(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                deleteFriend(position);
+            }
+        });
+    }
 
     public void onBackPressed(View view) {
         finish();
     }
 
-    private void loadList() {
+    private void loadList(AdapterView.OnItemClickListener onItemClickListener) {
         String[] values = new String[Account.getInstance().getFriends().size()];
         for (int i = 0; i < values.length; i++) {
             values[i] = Account.getInstance().getFriends().get(i);
@@ -61,6 +72,8 @@ public class FriendActivity extends AppCompatActivity implements AdapterView.OnI
                 android.R.layout.simple_list_item_1, android.R.id.text1, values);
 
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(onItemClickListener);
     }
 
     public void AddFriendButtonClicked(View view) {
@@ -82,16 +95,13 @@ public class FriendActivity extends AppCompatActivity implements AdapterView.OnI
         addfriendbutton.setEnabled(true);
         spinner.setVisibility(View.GONE);
         DatabaseHandler.loadFriends();
-        loadList();
+        setListItemsFriends();
     }
 
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        deleteFriend(position, Account.getInstance().getFriends());
-    }
 
-    private void deleteFriend(int position, List<String> list) {
-        list.get(position); //TODO Ta bort vän
+    private void deleteFriend(int position) {
+       //TODO Ta bort vän
+        DatabaseHandler.deleteFriend(Account.getInstance().getFriends().get(position));
     }
 }

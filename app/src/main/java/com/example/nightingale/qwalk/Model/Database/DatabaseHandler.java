@@ -50,6 +50,7 @@ public class DatabaseHandler {
     final public static String INSERT_QUIZ_URL = "https://programmeringsprinsessorna.000webhostapp.com/insertquiz.php";
     final public static String INSERT_ACCOUNT_URL = "https://programmeringsprinsessorna.000webhostapp.com/insert.php";
     final public static String DELETE_QUIZ_URL = "https://programmeringsprinsessorna.000webhostapp.com/deletequiz.php";
+    final public static String DELETE_FRIEND_URL = "https://programmeringsprinsessorna.000webhostapp.com/deletefriend.php";
     final public static String INSERT_FRIEND_URL = "https://programmeringsprinsessorna.000webhostapp.com/insertfriend.php";
     final public static String VALIDATE_URL = "https://programmeringsprinsessorna.000webhostapp.com/validera.php";
     final public static String READ_QUIZ_URL = "https://programmeringsprinsessorna.000webhostapp.com/readquiz.php";
@@ -130,6 +131,15 @@ public class DatabaseHandler {
         request = 0;
 
         new DatabaseHandler.SendFriendRequest().execute();
+
+
+    }
+
+    public static void deleteFriend(String Friend) {
+
+        FriendUsername = Friend;
+
+        new DatabaseHandler.SendDeleteFriendRequest().execute();
 
 
     }
@@ -331,6 +341,7 @@ public class DatabaseHandler {
         protected void onPostExecute(String result) {
 
             Log.d("PRINT", result);
+            Log.d("PRINT", result);
             result = result.replaceAll("\\s+", "");
 
             Log.d("PRINT", result);
@@ -454,4 +465,54 @@ public class DatabaseHandler {
 
         }
     }
+
+    public static class SendDeleteFriendRequest extends AsyncTask<String, Void, String> {
+
+
+        protected void onPreExecute() {
+        }
+
+        protected String doInBackground(String... arg0) {
+
+            try {
+
+                URL url = new URL(DELETE_FRIEND_URL);
+
+                JSONObject postDataParams = new JSONObject();
+
+
+
+                postDataParams.put("friendid", Account.getInstance().getFriendIDs().get(Account.getInstance().getFriends().indexOf(FriendUsername)));
+                postDataParams.put("accountid", Account.getInstance().getUserID());
+
+                Log.e("params", postDataParams.toString());
+
+                return sendParams(url, postDataParams);
+            } catch (Exception e) {
+                return new String("Exception: " + e.getMessage());
+            }
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+
+            String msg = "";
+
+
+            Log.e("response", result);
+            result = result.replaceAll("\\s+", "");
+
+
+            if (result.equals("0")) {
+                msg = "Success";
+            } else {
+                msg = "Error";
+            }
+            mediator.onMessageRecieved(msg);
+
+
+        }
+    }
+
 }
