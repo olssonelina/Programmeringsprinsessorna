@@ -22,6 +22,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -129,7 +130,10 @@ public class MenuPresenter {
             JSONstring = JSONstring.replaceAll("\\s+", "");
             int RequestAmount = Integer.parseInt(JSONstring);
             quizAmount = RequestAmount;
-        } catch (Exception e) {
+
+        } catch (ExecutionException e) {
+        } catch (InterruptedException e){
+
 
         }
 
@@ -238,10 +242,10 @@ public class MenuPresenter {
                     return sb.toString();
 
                 } else {
-                    return new String("false : " + responseCode);
+                    return "false : " + responseCode;
                 }
             } catch (Exception e) {
-                return new String("Exception: " + e.getMessage());
+                return "Exception: " + e.getMessage();
             }
         }
 

@@ -69,7 +69,7 @@ public class QwalkGame {
 
     private void nextQuestion() {
         if (!quiz.getSetting(QUESTIONS_IN_ORDER)) {
-            throw new RuntimeException("Illegal method with current settings, specifically QUESTIONS_IN_ORDER");
+            throw new IllegalAccessError("Illegal method with current settings, specifically QUESTIONS_IN_ORDER");
         }
 
         currentQuestions.clear();
@@ -96,7 +96,7 @@ public class QwalkGame {
 
     private void placeAllQuestions() {
         if (quiz.getSetting(QUESTIONS_IN_ORDER)) {
-            throw new RuntimeException("Illegal method with current settings, specifically QUESTIONS_IN_ORDER");
+            throw new IllegalAccessError("Illegal method with current settings, specifically QUESTIONS_IN_ORDER");
         }
 
         for (Question q : quiz.getQuestions()) {
@@ -200,7 +200,7 @@ public class QwalkGame {
         double distance = player.getLocation().distanceTo(a.getLocation());
 
         for (Question q : currentQuestions) {
-            if (q != a && q.getLocation().distanceTo(player.getLocation()) < distance) {
+            if (!q.equals(a) && q.getLocation().distanceTo(player.getLocation()) < distance) {
                 distance = q.getLocation().distanceTo(player.getLocation());
                 a = q;
             }

@@ -29,8 +29,8 @@ public class AI implements Runnable, IActor {
     public AI(int[] correctAnswers, boolean tieBreaker, int[] low, int[] high, int difficulty, QLocation[] questionLocations, QLocation startLocation) {
         this.difficulty = difficulty;
         this.answers = new int[correctAnswers.length];
-        for (int a : answers) {
-            a = NO_ANSWER;
+        for (int i = 0; i < answers.length; i++) {
+            answers[i] = NO_ANSWER;
         }
         this.tiebreaker = tieBreaker;
         this.questionLocations = questionLocations;
@@ -42,14 +42,14 @@ public class AI implements Runnable, IActor {
     /**
      * {@inheritDoc}
      */
-    public int getAnswer(int index) {
+    public final int getAnswer(int index) {
         return answers[index];
     }
 
     /**
      * {@inheritDoc}
      */
-    public int[] getAnswers() {
+    public final int[] getAnswers() {
         return answers;
     }
 
@@ -81,7 +81,7 @@ public class AI implements Runnable, IActor {
      * Moves the bot over the map from question to question.
      */
     @Override
-    public void run() {
+    public final void run() {
 
         int sleepTime;
 
@@ -129,7 +129,7 @@ public class AI implements Runnable, IActor {
      * {@inheritDoc}
      */
     @Override
-    public void setAnswer(int index, int answer) {
+    public final void setAnswer(int index, int answer) {
         throw new IllegalAccessError("Calling this method in ai is not allowed");
     }
 
@@ -137,7 +137,7 @@ public class AI implements Runnable, IActor {
      * {@inheritDoc}
      */
     @Override
-    public QLocation getLocation() {
+    public final QLocation getLocation() {
         return location;
     }
 
@@ -145,7 +145,7 @@ public class AI implements Runnable, IActor {
      * {@inheritDoc}
      */
     @Override
-    public synchronized void setLocation(QLocation location) {
+    public final synchronized void setLocation(QLocation location) {
         this.location = location;
     }
 }

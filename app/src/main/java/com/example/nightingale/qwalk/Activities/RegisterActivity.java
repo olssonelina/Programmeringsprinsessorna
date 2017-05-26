@@ -64,8 +64,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     public class SendRequest extends AsyncTask<String, Void, String> {
 
-        String username = usernameInput.getText().toString();
-        String password = passwordInput.getText().toString();
+        private String username = usernameInput.getText().toString();
+        private String password = passwordInput.getText().toString();
 
         protected void onPreExecute() {
         }
@@ -119,10 +119,10 @@ public class RegisterActivity extends AppCompatActivity {
                     return sb.toString();
 
                 } else {
-                    return new String("false : " + responseCode);
+                    return "false : " + responseCode;
                 }
             } catch (Exception e) {
-                return new String("Exception: " + e.getMessage());
+                return "Exception: " + e.getMessage();
             }
         }
 

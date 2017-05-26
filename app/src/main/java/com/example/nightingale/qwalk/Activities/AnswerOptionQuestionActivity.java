@@ -29,7 +29,7 @@ public class AnswerOptionQuestionActivity extends AppCompatActivity implements I
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answeroption);
 
@@ -44,13 +44,12 @@ public class AnswerOptionQuestionActivity extends AppCompatActivity implements I
 
         Intent i = getIntent();
         OptionQuestion question = i.getParcelableExtra("question");
-        int questionIndex = i.getIntExtra("questionIndex", 0);
 
         int ai = i.getIntExtra("aiAnswer", NO_ANSWER);
-        presenter = new AnswerOptionQuestionPresenter(this, question, questionIndex, ai);
+        presenter = new AnswerOptionQuestionPresenter(this, question, ai);
     }
 
-    public void optionPressed(View view) {
+    public final void optionPressed(View view) {
         for (int i = 0; i < optionButtons.length; i++) {
             if (optionButtons[i].equals(view)) {
                 presenter.optionPressed(i);
@@ -59,28 +58,28 @@ public class AnswerOptionQuestionActivity extends AppCompatActivity implements I
         }
     }
 
-    public void onBackPressed(View view) {
+    public final void onBackPressed(View view) {
         finish();
     }
 
-    public void submitAnswer(View view) {
+    public final void submitAnswer(View view) {
         presenter.submitClicked();
     }
 
-    public void showBotAnswer(int index) {
+    public final void showBotAnswer(int index) {
         optionButtons[index].setBackgroundResource(R.drawable.monkeyanswer);
     }
 
-    public String getButtonText() {
+    public final String getButtonText() {
         return saveAnswer.getText().toString();
     }
 
-    public void setButtonText(String text) {
+    public final void setButtonText(String text) {
         saveAnswer.setText(text);
     }
 
     @Override
-    public void setOptions(String[] options) {
+    public final void setOptions(String[] options) {
         for (Button b : optionButtons) {
             b.setEnabled(false);
             b.setVisibility(View.INVISIBLE);
@@ -95,7 +94,7 @@ public class AnswerOptionQuestionActivity extends AppCompatActivity implements I
 
 
     @Override
-    public void closeWithResult(int chosenIndex, OptionQuestion question) {
+    public final void closeWithResult(int chosenIndex, OptionQuestion question) {
         Intent returnIntent = new Intent();
         returnIntent.putExtra("answer", chosenIndex);
         returnIntent.putExtra("question", question);
@@ -104,12 +103,12 @@ public class AnswerOptionQuestionActivity extends AppCompatActivity implements I
     }
 
     @Override
-    public void setCloseButtonEnabled(boolean enabled) {
+    public final void setCloseButtonEnabled(boolean enabled) {
         saveAnswer.setEnabled(enabled);
     }
 
     @Override
-    public void setTitle(String title) {
+    public final void setTitle(String title) {
         this.title.setText(title);
     }
 }

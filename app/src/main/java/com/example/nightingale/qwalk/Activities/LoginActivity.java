@@ -25,7 +25,7 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
     private LoginPresenter presenter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -42,58 +42,58 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
     /**
      * Called when the user taps the Send button
      */
-    public void guestButtonClicked(View view) {
+    public final void guestButtonClicked(View view) {
         presenter.guestButtonPressed();
     }
 
-    public void registerButtonClicked(View view) {
+    public final void registerButtonClicked(View view) {
         presenter.registerButtonPressed();
     }
 
 
-    public void loginButtonClicked(View view) {
+    public final void loginButtonClicked(View view) {
         presenter.loginButtonPressed();
     }
 
     @Override
-    public void setSpinnerVisible(boolean value) {
+    public final void setSpinnerVisible(boolean value) {
         spinner.setVisibility(value ? View.VISIBLE : View.GONE);
     }
 
     @Override
-    public void openMenu() {
+    public final void openMenu() {
         Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
         startActivity(intent);
     }
 
     @Override
-    public void openRegister() {
+    public final void openRegister() {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
 
     @Override
-    public void enableButtons(boolean value) {
+    public final void enableButtons(boolean value) {
         loginButton.setEnabled(value);
         registerButton.setEnabled(value);
         guestButton.setEnabled(value);
     }
 
     @Override
-    public String getUsername() {
+    public final String getUsername() {
         return usernameInput.getText().toString();
     }
 
     @Override
-    public String getPassword() {
+    public final String getPassword() {
         return passwordInput.getText().toString();
     }
 
     @Override
-    public void showText(String message) {
+    public final void showText(String message) {
         if(!(message.equals(""))){
-
-        }Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        }
 
     }
 }

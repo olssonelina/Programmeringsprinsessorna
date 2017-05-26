@@ -9,7 +9,7 @@ import com.example.nightingale.qwalk.Model.MessageMediator.IOnMessageRecievedLis
 
 public class FriendPresenter implements IOnMessageRecievedListener{
 
-    IFriend view;
+    private IFriend view;
 
     public FriendPresenter(IFriend view) {
         this.view = view;
@@ -17,7 +17,7 @@ public class FriendPresenter implements IOnMessageRecievedListener{
     }
 
     @Override
-    public void messageRecieved(String message) {
+    public final void messageRecieved(String message) {
         view.DatabaseComplete(message);
     }
 }

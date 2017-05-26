@@ -16,6 +16,7 @@ import com.example.nightingale.qwalk.Presenter.QuizSettings.QuizSettingsPresente
 import com.example.nightingale.qwalk.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.example.nightingale.qwalk.Model.Quiz.QuizDifficulty.*;
 import static com.example.nightingale.qwalk.Model.Quiz.QuizSetting.*;
@@ -74,10 +75,10 @@ public class QuizSettingsActivity extends AppCompatActivity implements IQuizSett
     }
 
     @Override
-    public void closeWithResult(ArrayList<QuizSetting> setTrue, ArrayList<QuizSetting> setFalse, QuizDifficulty difficulty) {
+    public void closeWithResult(List<QuizSetting> setTrue, List<QuizSetting> setFalse, QuizDifficulty difficulty) {
         Intent returnIntent = new Intent();
-        returnIntent.putExtra("setTrue", setTrue);
-        returnIntent.putExtra("setFalse", setFalse);
+        returnIntent.putExtra("setTrue", (ArrayList) setTrue);
+        returnIntent.putExtra("setFalse", (ArrayList) setFalse);
         returnIntent.putExtra("difficulty", difficulty);
         setResult(RESULT_OK, returnIntent);
         finish();

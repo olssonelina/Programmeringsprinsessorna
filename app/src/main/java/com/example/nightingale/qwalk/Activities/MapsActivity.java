@@ -67,13 +67,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
-    private LocationRequest mLocationRequest;
 
     private MapsPresenter presenter;
 
     private TextView progress;
     private ImageView directionArrow;
-    private ImageView bot;
     private Marker botMarker;
     private Button showClosest;
 
@@ -81,7 +79,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
@@ -99,9 +97,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         directionArrow.setImageResource(R.drawable.direction);
         showClosest = (Button) findViewById(R.id.viewPinButton);
 
-        bot = (ImageView) findViewById(R.id.monkey);
-        bot.setImageResource(R.drawable.monkey);
-
         presenter = new MapsPresenter(this, (Quiz) getIntent().getParcelableExtra("quiz")); // TODO hantera felet kanske
 
 
@@ -117,7 +112,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * installed Google Play services and returned to the app.
      */
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public final void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
@@ -160,7 +155,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * @param location The device's current location
      */
     @Override
-    public void onLocationChanged(Location location) {
+    public final void onLocationChanged(Location location) {
         presenter.updateUserLocation(new QLocation(location));
     }
 
@@ -171,12 +166,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void focusOn(QLocation location) {
+    public final void focusOn(QLocation location) {
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location.toLatLng(), 17));
     }
 
     @Override
-    public void close() {
+    public final void close() {
         finish();
     }
 
@@ -187,7 +182,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * @return true if question marker is on screen, false if not
      */
     @Override
-    public boolean isOnScreen(QLocation location) {
+    public final boolean isOnScreen(QLocation location) {
         LatLngBounds bounds = this.mMap.getProjection().getVisibleRegion().latLngBounds;
 
         if (!bounds.contains(new LatLng(location.getLatitude(), location.getLongitude()))) {
@@ -201,7 +196,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      *
      * @param location Location of the next question
      */
-    public void pointArrowTo(QLocation location) {
+    public final void pointArrowTo(QLocation location) {
 
         //Latitude and longitude of screen center
         LatLng screenCenter = mMap.getCameraPosition().target;
@@ -233,7 +228,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void placeMarker(Question question) {
+    public final void placeMarker(Question question) {
         for (QwalkMarker qm : markers) {
             if (qm.getQuestion().equals(question)) {
                 return;
@@ -244,19 +239,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void enableMarker(Question question) {
+    public final void enableMarker(Question question) {
         markers.get(getQwalkMarkerIndex(question)).setEnabled();
     }
 
     @Override
-    public void removeMarker(Question question) {
+    public final void removeMarker(Question question) {
         int index = getQwalkMarkerIndex(question);
         markers.get(index).getMarker().remove();
         markers.remove(index);
     }
 
     @Override
-    public void showResults(Quiz quiz, int[] playerAnswers, int[] aiAnswers, long quizTime) {
+    public final void showResults(Quiz quiz, int[] playerAnswers, int[] aiAnswers, long quizTime) {
         Intent intent = new Intent(getBaseContext(), ShowResultActivity.class);
         intent.putExtra("player", playerAnswers);
         intent.putExtra("time", quizTime);
@@ -269,13 +264,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void setShowClosestEnabled(boolean value) {
+    public final void setShowClosestEnabled(boolean value) {
         showClosest.setEnabled(value);
         showClosest.setVisibility(value ? View.VISIBLE : View.INVISIBLE);
     }
 
     @Override
-    public void initializeAi(QLocation location) {
+    public final void initializeAi(QLocation location) {
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(location.toLatLng());
         markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.monkey));
@@ -283,16 +278,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void moveAi(QLocation location) {
+    public final void moveAi(QLocation location) {
         botMarker.setPosition(location.toLatLng());
     }
 
-    public void viewPinButtonClicked(View view) {
+    public final void viewPinButtonClicked(View view) {
         presenter.focusOnClosestQuestion();
     }
 
     @Override
-    public boolean onMarkerClick(Marker marker) {
+    public final boolean onMarkerClick(Marker marker) {
         if (!marker.equals(botMarker) && markers.get(getQwalkMarkerIndex(marker)).isEnabled()) {
 
             Question currentQuestion = markers.get(getQwalkMarkerIndex(marker)).getQuestion();
@@ -323,7 +318,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected final void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == ANSWER_CODE) {
             try {
                 int answer = (int) data.getExtras().get("answer");
@@ -335,7 +330,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-    protected synchronized void buildGoogleApiClient() {
+    protected final synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -345,8 +340,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void onConnected(Bundle bundle) {
-        mLocationRequest = new LocationRequest();
+    public final void onConnected(Bundle bundle) {
+        LocationRequest mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(1000);
         mLocationRequest.setFastestInterval(1000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
@@ -368,7 +363,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
-    public boolean checkLocationPermission() {
+    public final boolean checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -400,7 +395,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
+    public final void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_LOCATION: {
@@ -442,7 +437,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
 
     @Override
-    public void onCameraChange(CameraPosition cameraPosition) {
+    public final void onCameraChange(CameraPosition cameraPosition) {
         presenter.onCameraChanged();
     }
 
@@ -467,14 +462,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * @param current Number of answered questions
      * @param total   Number of total questions in current quiz
      */
-    public void setProgress(int current, int total) {
+    public final void setProgress(int current, int total) {
         progress.setText(current + " av " + total);
     }
 
     /**
      * Hides direction arrow.
      */
-    public void hideArrow() {
+    public final void hideArrow() {
         directionArrow.setVisibility(View.INVISIBLE);
     }
 

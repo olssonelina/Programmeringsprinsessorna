@@ -2,7 +2,7 @@ package com.example.nightingale.qwalk.Presenter.CreateOptionQuestion;
 
 import com.example.nightingale.qwalk.Model.Question.Question;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Elina Olsson on 2017-05-11.
@@ -13,7 +13,7 @@ public interface ICreateOptionQuestion {
 
     String getQuestionTitle();
 
-    void closeWithResult(ArrayList<Question> questions);
+    void closeWithResult(List<Question> questions);
 
     double getLatitude();
 

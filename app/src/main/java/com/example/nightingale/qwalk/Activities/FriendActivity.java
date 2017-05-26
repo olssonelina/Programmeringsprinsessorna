@@ -25,13 +25,13 @@ public class FriendActivity extends AppCompatActivity  implements IFriend {
 
     private FriendPresenter presenter;
 
-    EditText UsernameInput;
+    private EditText UsernameInput;
     private ListView listView;
-    Button addfriendbutton;
+    private Button addfriendbutton;
     private ProgressBar spinner;
 
 
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         presenter = new FriendPresenter(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend); //ändra namnet till rätt xml-fil
@@ -47,12 +47,8 @@ public class FriendActivity extends AppCompatActivity  implements IFriend {
         setListItemsFriends();
 
 }
-        //loadQuizzes();
 
-        //loadList();
-
-
-    public void setListItemsFriends() {
+    public final void setListItemsFriends() {
         loadList(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -61,7 +57,7 @@ public class FriendActivity extends AppCompatActivity  implements IFriend {
         });
     }
 
-    public void onBackPressed(View view) {
+    public final void onBackPressed(View view) {
         finish();
     }
 
@@ -79,7 +75,7 @@ public class FriendActivity extends AppCompatActivity  implements IFriend {
         listView.setOnItemClickListener(onItemClickListener);
     }
 
-    public void AddFriendButtonClicked(View view) {
+    public final void AddFriendButtonClicked(View view) {
         if (UsernameInput.getText().toString().equals(Account.getInstance().getUsername())) {
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.self_friend_ex),
                     Toast.LENGTH_LONG).show();
@@ -92,7 +88,7 @@ public class FriendActivity extends AppCompatActivity  implements IFriend {
     }
 
 
-    public void DatabaseComplete(String msg) {
+    public final void DatabaseComplete(String msg) {
         addfriendbutton.setEnabled(true);
         listView.setEnabled(true);
         spinner.setVisibility(View.GONE);

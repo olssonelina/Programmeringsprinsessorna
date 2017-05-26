@@ -36,7 +36,7 @@ public class MenuActivity extends AppCompatActivity implements IMenu {
     private Button createQuizButton, friendsButton;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
@@ -53,19 +53,19 @@ public class MenuActivity extends AppCompatActivity implements IMenu {
     }
 
     @Override
-    public void openCreateNewQuiz() {
+    public final  void openCreateNewQuiz() {
         Intent intent = new Intent(this, CreateQuizActivity.class);
         startActivityForResult(intent, CREATE_QUIZ_CODE);
     }
 
     @Override
-    public void openFriend() {
+    public final void openFriend() {
         Intent intent = new Intent(this, FriendActivity.class);
         startActivityForResult(intent, ADD_FRIEND_CODE);
     }
 
     @Override
-    public void openQuizDetails(Quiz quiz, boolean editable) {
+    public final void openQuizDetails(Quiz quiz, boolean editable) {
         Intent intent = new Intent(this, QuizDetailsActivity.class);
         intent.putExtra("quiz", quiz);
         intent.putExtra("editable", editable);
@@ -73,13 +73,13 @@ public class MenuActivity extends AppCompatActivity implements IMenu {
     }
 
     @Override
-    public void openHelp() {
+    public final void openHelp() {
         Intent intent = new Intent(this, HelpActivity.class);
         startActivity(intent);
     }
 
     @Override
-    public void setListItemsUser(List<Quiz> userQuizzes) {
+    public final void setListItemsUser(List<Quiz> userQuizzes) {
         loadList(userList, userQuizzes, new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -89,7 +89,7 @@ public class MenuActivity extends AppCompatActivity implements IMenu {
     }
 
     @Override
-    public void setListItemsFriends(List<Quiz> friendsQuizzes) {
+    public final void setListItemsFriends(List<Quiz> friendsQuizzes) {
         loadList(friendList, friendsQuizzes, new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -99,7 +99,7 @@ public class MenuActivity extends AppCompatActivity implements IMenu {
     }
 
     @Override
-    public void setListItemsDefault(List<Quiz> defaultQuizzes) {
+    public final void setListItemsDefault(List<Quiz> defaultQuizzes) {
         loadList(defaultList, defaultQuizzes, new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -109,46 +109,46 @@ public class MenuActivity extends AppCompatActivity implements IMenu {
     }
 
     @Override
-    public void setListTitleUserVisible(boolean value) {
+    public final void setListTitleUserVisible(boolean value) {
         userListTitle.setVisibility(value ? View.VISIBLE : View.INVISIBLE);
     }
 
     @Override
-    public void setListTitleFriendsVisible(boolean value) {
+    public final void setListTitleFriendsVisible(boolean value) {
         friendListTitle.setVisibility(value ? View.VISIBLE : View.INVISIBLE);
     }
 
     @Override
-    public void setListTitleDefaultVisible(boolean value) {
+    public final void setListTitleDefaultVisible(boolean value) {
         defaultTitle.setEnabled(value);
     }
 
     @Override
-    public void setAccountFunctionalityEnabled(boolean value) {
+    public final void setAccountFunctionalityEnabled(boolean value) {
         friendsButton.setEnabled(value);
         friendsButton.setVisibility(value ? View.VISIBLE : View.INVISIBLE);
         createQuizButton.setEnabled(value);
     }
 
     @Override
-    public void setListTitleUserText(String text) {
+    public final void setListTitleUserText(String text) {
         userListTitle.setText(text);
     }
 
-    public void helpPressed(View view) {
+    public final void helpPressed(View view) {
         presenter.helpButtonPressed();
     }
 
-    public void friendsPressed(View view) {
+    public final void friendsPressed(View view) {
         presenter.friendsButtonPressed();
     }
 
-    public void createButtonPressed(View view) {
+    public final void createButtonPressed(View view) {
         presenter.createQuizPressed();
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected final void onActivityResult(int requestCode, int resultCode, Intent data) {
         try {
             if (data.getBooleanExtra("update", false)) {
                 switch (requestCode) {

@@ -19,8 +19,8 @@ public class Player implements IActor {
      */
     public Player(int quizLength) {
         answers = new int[quizLength];
-        for (int a : answers) {
-            a = NO_ANSWER;
+        for (int i = 0; i < answers.length ; i++) {
+            answers[i] = NO_ANSWER;
         }
     }
 

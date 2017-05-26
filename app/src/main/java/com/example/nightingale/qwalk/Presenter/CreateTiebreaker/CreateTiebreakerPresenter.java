@@ -16,7 +16,7 @@ public class CreateTiebreakerPresenter {
         this.view = view;
     }
 
-    public void doneButtonPressed() {
+    public final void doneButtonPressed() {
         if (validateQuestion()) {
             view.closeWithResult(buildQuestion());
         }
@@ -56,7 +56,7 @@ public class CreateTiebreakerPresenter {
         );
     }
 
-    public void setAllFields(Tiebreaker question) {
+    public final void setAllFields(Tiebreaker question) {
         view.setQuestionTitle(question.getQuestionTitle());
         view.setLatitude(question.getLatitude());
         view.setLongitude(question.getLongitude());
@@ -65,7 +65,7 @@ public class CreateTiebreakerPresenter {
         view.setAnswer(question.getCorrectAnswer());
     }
 
-    public void updateLocationText() {
+    public final void updateLocationText() {
         if (view.getLatitude() == 0 && view.getLongitude() == 0) {
             view.setLocationText("Lägg till position");
         } else {
@@ -73,7 +73,7 @@ public class CreateTiebreakerPresenter {
         }
     }
 
-    public void makeAllowed(String min, String max) {
+    public final void makeAllowed(String min, String max) {
 
         int intMin = 0, intMax = 1, ans = 0;
         try {
