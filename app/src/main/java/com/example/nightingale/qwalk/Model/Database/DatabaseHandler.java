@@ -192,6 +192,8 @@ public class DatabaseHandler {
 
 
     public static void saveQuiz(String Title, String Description, ArrayList<Question> questions, Quiz editQuiz) {
+        Log.d("VARIABLE QuizID", "Stuff happening");
+
         quiz = editQuiz;
         quizDescription = Description;
         quizTitle = Title;
@@ -202,6 +204,7 @@ public class DatabaseHandler {
         readycheck = 0;
 
         for (int i = 0; i < quizQuestions.size(); i++) {
+            Log.d("Test", "In loop");
             try {
 
                 response = new SendInsertQuizRequest().execute().get();
@@ -215,6 +218,7 @@ public class DatabaseHandler {
             }
             Log.d("Getcomplete", "Test");
         }
+        Log.d("VARIABLE QuizID", "out of loop");
 
         Log.d("JSONindex", String.valueOf(QuestionIDArray.get(0)));
         JSONArray jsArray = new JSONArray(QuestionIDArray);
@@ -242,8 +246,14 @@ public class DatabaseHandler {
 
                 JSONObject postDataParams = new JSONObject();
 
-                    Log.d("VARIABLE QuizID", String.valueOf(quiz.getQuizID()));
+
+                if(quiz == null){
+                    postDataParams.put("quizid", -1);
+                }
+                    else{
                     postDataParams.put("quizid", quiz.getQuizID());
+                    Log.d("VARIABLE QuizID", String.valueOf(quiz.getQuizID()));
+                }
 
 
                 if (quizQuestions.get(counter) instanceof OptionQuestion) {

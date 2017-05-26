@@ -35,7 +35,7 @@ public class CreateOptionQuestionPresenter {
 
     private OptionQuestion buildQuestion() {
         String[] opts = view.getOptions();
-        return new OptionQuestion(view.getQuestionTitle(), new ArrayList<String>(Arrays.asList(opts)), view.getAnswer(), view.getLatitude(), view.getLongitude(), -1);
+        return new OptionQuestion(view.getQuestionTitle(), new ArrayList<String>(Arrays.asList(opts)), view.getAnswer(), view.getLatitude(), view.getLongitude(), -1 );
     }
 
     public void finishQuestions() {
