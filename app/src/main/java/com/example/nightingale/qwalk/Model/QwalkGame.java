@@ -1,11 +1,16 @@
 package com.example.nightingale.qwalk.Model;
 
-import com.example.nightingale.qwalk.Presenter.MapsPresenter;
+import com.example.nightingale.qwalk.Model.Actor.AI;
+import com.example.nightingale.qwalk.Model.Actor.IActor;
+import com.example.nightingale.qwalk.Model.Actor.Player;
+import com.example.nightingale.qwalk.Model.Question.Question;
+import com.example.nightingale.qwalk.Model.Quiz.Quiz;
+import com.example.nightingale.qwalk.Presenter.Maps.MapsPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.nightingale.qwalk.Model.QuizSetting.*;
+import static com.example.nightingale.qwalk.Model.Quiz.QuizSetting.*;
 
 /**
  * Created by Kraft on 2017-05-12.

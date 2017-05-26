@@ -39,7 +39,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".View.LoginActivity"
+            android:name=".Activities.LoginActivity"
             android:label="@string/title_activity_maps"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -49,138 +49,138 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".View.QuizDetailsActivity"
-            android:parentActivityName=".View.MenuActivity"
+        <activity android:name=".Activities.QuizDetailsActivity"
+            android:parentActivityName=".Activities.MenuActivity"
             android:screenOrientation="portrait" >
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".View.MenuActivity" />
+                android:value=".Activities.MenuActivity" />
         </activity>
 
-        <activity android:name=".View.QuizSettingsActivity"
-            android:parentActivityName=".View.QuizDetailsActivity"
+        <activity android:name=".Activities.QuizSettingsActivity"
+            android:parentActivityName=".Activities.QuizDetailsActivity"
             android:screenOrientation="portrait" >
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".View.QuizDetailsActivity" />
+                android:value=".Activities.QuizDetailsActivity" />
         </activity>
 
-        <activity android:name=".View.MapsActivity"
-            android:parentActivityName=".View.QuizDetailsActivity"
+        <activity android:name=".Activities.MapsActivity"
+            android:parentActivityName=".Activities.QuizDetailsActivity"
             android:screenOrientation="portrait" >
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".View.QuizDetailsActivity" />
+                android:value=".Activities.QuizDetailsActivity" />
         </activity>
 
-        <activity android:name=".View.RegisterActivity"
-            android:parentActivityName=".View.LoginActivity"
+        <activity android:name=".Activities.RegisterActivity"
+            android:parentActivityName=".Activities.LoginActivity"
             android:screenOrientation="portrait" >
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".View.LoginActivity" />
+                android:value=".Activities.LoginActivity" />
         </activity>
 
-        <activity android:name=".View.CreateOptionQuestionActivity"
-            android:parentActivityName=".View.CreateQuizActivity"
+        <activity android:name=".Activities.CreateOptionQuestionActivity"
+            android:parentActivityName=".Activities.CreateQuizActivity"
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" >
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".View.CreateQuizActivity" />
+                android:value=".Activities.CreateQuizActivity" />
         </activity>
 
-        <activity android:name=".View.AnswerOptionActivity"
-            android:parentActivityName=".View.MapsActivity"
+        <activity android:name=".Activities.AnswerOptionQuestionActivity"
+            android:parentActivityName=".Activities.MapsActivity"
             android:screenOrientation="portrait" >
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".View.MapsActivity" />
+                android:value=".Activities.MapsActivity" />
         </activity>
 
-        <activity android:name=".View.FriendActivity"
-            android:parentActivityName=".View.MenuActivity"
+        <activity android:name=".Activities.FriendActivity"
+            android:parentActivityName=".Activities.MenuActivity"
             android:screenOrientation="portrait" >
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".View.MenuActivity" />
+                android:value=".Activities.MenuActivity" />
         </activity>
 
 
-        <activity android:name=".View.GetPositionActivity"
-            android:parentActivityName=".View.CreateOptionQuestionActivity"
+        <activity android:name=".Activities.GetPositionActivity"
+            android:parentActivityName=".Activities.CreateOptionQuestionActivity"
             android:screenOrientation="portrait" >
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".View.CreateOptionQuestionActivity" />
+                android:value=".Activities.CreateOptionQuestionActivity" />
         </activity>
 
 
-        <activity android:name=".View.CreateQuizActivity"
-            android:parentActivityName=".View.MenuActivity"
+        <activity android:name=".Activities.CreateQuizActivity"
+            android:parentActivityName=".Activities.MenuActivity"
             android:screenOrientation="portrait" >
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".View.MenuActivity"
+                android:value=".Activities.MenuActivity"
             />
 
         </activity>
 
-        <activity android:name=".View.MenuActivity"
-            android:parentActivityName=".View.LoginActivity"
+        <activity android:name=".Activities.MenuActivity"
+            android:parentActivityName=".Activities.LoginActivity"
             android:screenOrientation="portrait" >
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".View.LoginActivity" />
+                android:value=".Activities.LoginActivity" />
 
         </activity>
 
-        <activity android:name=".View.CreateTiebreakerActivity"
-            android:parentActivityName=".View.CreateQuizActivity"
+        <activity android:name=".Activities.CreateTiebreakerActivity"
+            android:parentActivityName=".Activities.CreateQuizActivity"
             android:screenOrientation="portrait" >
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".View.CreateQuizActivity" />
+                android:value=".Activities.CreateQuizActivity" />
 
         </activity>
 
-        <activity android:name=".View.ShowResultActivity"
-            android:parentActivityName=".View.MapsActivity"
+        <activity android:name=".Activities.ShowResultActivity"
+            android:parentActivityName=".Activities.MapsActivity"
             android:screenOrientation="portrait" >
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".View.MapsActivity" />
+                android:value=".Activities.MapsActivity" />
 
         </activity>
 
-        <activity android:name=".View.AnswerTiebreakerActivity"
-            android:parentActivityName=".View.MapsActivity"
+        <activity android:name=".Activities.AnswerTiebreakerActivity"
+            android:parentActivityName=".Activities.MapsActivity"
             android:screenOrientation="portrait" >
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".View.MapsActivity" />
+                android:value=".Activities.MapsActivity" />
         </activity>
 
-        <activity android:name=".View.HelpActivity"
-            android:parentActivityName=".View.MenuActivity"
+        <activity android:name=".Activities.HelpActivity"
+            android:parentActivityName=".Activities.MenuActivity"
             android:screenOrientation="portrait" >
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".View.MenuActivity" />
+                android:value=".Activities.MenuActivity" />
         </activity>
 
     </application>
