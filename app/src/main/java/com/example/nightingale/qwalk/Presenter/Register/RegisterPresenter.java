@@ -6,7 +6,7 @@ package com.example.nightingale.qwalk.Presenter.Register;
 
 public class RegisterPresenter {
 
-    IRegister view;
+    private IRegister view;
 
     public RegisterPresenter(IRegister view) {
         this.view = view;

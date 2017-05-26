@@ -54,7 +54,7 @@ public class GetPositionActivity extends FragmentActivity implements OnMapReadyC
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_getposition);
 
@@ -80,7 +80,7 @@ public class GetPositionActivity extends FragmentActivity implements OnMapReadyC
      * installed Google Play services and returned to the app.
      */
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public final void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
@@ -116,7 +116,7 @@ public class GetPositionActivity extends FragmentActivity implements OnMapReadyC
 
     }
 
-    protected synchronized void buildGoogleApiClient() {
+    protected final synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -127,17 +127,17 @@ public class GetPositionActivity extends FragmentActivity implements OnMapReadyC
 
 
     @Override
-    public double getMarkerLatitude() {
+    public final double getMarkerLatitude() {
         return newQuestionMarker.getPosition().latitude;
     }
 
     @Override
-    public double getMarkerLongitude() {
+    public final double getMarkerLongitude() {
         return newQuestionMarker.getPosition().longitude;
     }
 
     @Override
-    public void onConnected(Bundle bundle) {
+    public final void onConnected(Bundle bundle) {
         LocationRequest mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(1000);
         mLocationRequest.setFastestInterval(1000);
@@ -151,12 +151,12 @@ public class GetPositionActivity extends FragmentActivity implements OnMapReadyC
     }
 
     @Override
-    public void onLocationChanged(Location location) {
+    public final void onLocationChanged(Location location) {
         presenter.setUserLocation(location.getLatitude(), location.getLongitude());
     }
 
     @Override
-    public void moveMarker(double latitude, double longitude) {
+    public final void moveMarker(double latitude, double longitude) {
         if (newQuestionMarker == null) {
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(new LatLng(latitude, longitude));
@@ -170,24 +170,24 @@ public class GetPositionActivity extends FragmentActivity implements OnMapReadyC
     }
 
     @Override
-    public void focusOn(double latitude, double longitude) {
+    public final void focusOn(double latitude, double longitude) {
         mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(latitude, longitude)));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
     }
 
     @Override
-    public void stopLocationUpdates() {
+    public final void stopLocationUpdates() {
         if (mGoogleApiClient != null) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
         }
     }
 
-    public void PlaceQuestionButtonClicked(View view) {
+    public final void PlaceQuestionButtonClicked(View view) {
         presenter.closeButtonPressed();
     }
 
     @Override
-    public void closeWithResult(double latitude, double longitude) {
+    public final void closeWithResult(double latitude, double longitude) {
         Location location = new Location("");
         location.setLatitude(latitude);
         location.setLongitude(longitude);
@@ -199,14 +199,14 @@ public class GetPositionActivity extends FragmentActivity implements OnMapReadyC
     }
 
     @Override
-    public void onMapClick(LatLng latLng) {
+    public final void onMapClick(LatLng latLng) {
         if (presenter.isMarkerPlaced()) {
             presenter.mapClicked(latLng.latitude, latLng.longitude);
         }
     }
 
     @Override
-    public boolean checkLocationPermission() {
+    public final boolean checkLocationPermission() {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -239,7 +239,7 @@ public class GetPositionActivity extends FragmentActivity implements OnMapReadyC
 
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public final void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_LOCATION: {
                 // If request is cancelled, the result arrays are empty.
@@ -276,7 +276,7 @@ public class GetPositionActivity extends FragmentActivity implements OnMapReadyC
     }
 
     @Override
-    public void setDoneButtonEnabled(boolean enabled) {
+    public final void setDoneButtonEnabled(boolean enabled) {
         doneButton.setEnabled(enabled);
     }
 }

@@ -32,34 +32,34 @@ public class MapsPresenter {
      *
      * @param location
      */
-    public void updateUserLocation(QLocation location){
+    public final void updateUserLocation(QLocation location){
         model.update(location);
     }
 
-    public void mapIsReady(){
+    public final void mapIsReady(){
         model.startQuiz();
     }
 
     /**
      *
      */
-    public void setAnswer(Question question, int answer){
+    public final void setAnswer(Question question, int answer){
         model.setAnswer(question, answer);
     }
 
-    public void onCameraChanged(){
+    public final void onCameraChanged(){
         model.updateArrow();
     }
 
-    public void focusOnClosestQuestion(){
+    public final void focusOnClosestQuestion(){
         focusOn(model.getClosestQuestion().getLocation());
     }
 
-    public int getAiAnswer(Question question){
+    public final int getAiAnswer(Question question){
         return model.getAiAnswer(question);
     }
 
-    public boolean hasAi(){
+    public final boolean hasAi(){
         return model.hasAi();
     }
 
@@ -71,13 +71,13 @@ public class MapsPresenter {
      *
      * @param question
      */
-    public void placeMarker(Question question){ view.placeMarker(question); }
+    public final void placeMarker(Question question){ view.placeMarker(question); }
 
     /**
      *
      * @param question
      */
-    public void removeMarker(Question question){ view.removeMarker(question); }
+    public final void removeMarker(Question question){ view.removeMarker(question); }
 
     /**
      *
@@ -86,13 +86,13 @@ public class MapsPresenter {
      * @param aiAnswers
      *
      */
-    public void showResults(Quiz quiz, int[] playerAnswers, int[] aiAnswers, long quizTime){ view.showResults(quiz, playerAnswers, aiAnswers, quizTime ); }
+    public final void showResults(Quiz quiz, int[] playerAnswers, int[] aiAnswers, long quizTime){ view.showResults(quiz, playerAnswers, aiAnswers, quizTime ); }
 
     /**
      *
      * @param question
      */
-    public void enableMarker(Question question){
+    public final void enableMarker(Question question){
         view.enableMarker(question);
     }
 
@@ -101,7 +101,7 @@ public class MapsPresenter {
      * @param location
      * @return
      */
-    public boolean isOnScreen(QLocation location){
+    public final boolean isOnScreen(QLocation location){
         return view.isOnScreen(location);
     }
 
@@ -109,48 +109,45 @@ public class MapsPresenter {
      *
      * @param location
      */
-    public void updateArrow(QLocation location){
+    public final void updateArrow(QLocation location){
         view.pointArrowTo(location);
     }
 
     /**
      *
      */
-    public void hideArrow(){ view.hideArrow(); }
+    public final void hideArrow(){ view.hideArrow(); }
 
     /**
      *
      * @param location
      */
-    public void initializeAi(QLocation location){ view.initializeAi(location); }
+    public final void initializeAi(QLocation location){ view.initializeAi(location); }
 
     /**
      *
      * @param location
      */
-    public void moveBot(QLocation location){ view.moveAi(location); }
+    public final void moveBot(QLocation location){ view.moveAi(location); }
 
     /**
      *
      */
-    public void close(){ view.close(); }
+    public final void close(){ view.close(); }
 
     /**
      *
      */
-    public void focusOn(QLocation location){ view.focusOn(location);}
+    public final void focusOn(QLocation location){ view.focusOn(location);}
 
 
-    public void setProgress(int current, int total) {
+    public final void setProgress(int current, int total) {
         view.setProgress(current, total);
     }
 
-    public int getQuestionIndex(Question question){ return model.getQuestionIndex(question);}
+    public final int getQuestionIndex(Question question){ return model.getQuestionIndex(question);}
 
-    public void setShowClosestEnabled(boolean value) {
+    public final void setShowClosestEnabled(boolean value) {
         view.setShowClosestEnabled(value);
     }
-
-
-
 }

@@ -34,16 +34,16 @@ public class LoginPresenter implements IOnMessageRecievedListener {
         DatabaseHandler.setOnMessageRecievedListener(this);
     }
 
-    public void guestButtonPressed() {
+    public final void guestButtonPressed() {
         Account.getInstance().logOut();
         view.openMenu();
     }
 
-    public void registerButtonPressed() {
+    public final void registerButtonPressed() {
         view.openRegister();
     }
 
-    public void loginButtonPressed() {
+    public final void loginButtonPressed() {
         view.enableButtons(false);
         view.setSpinnerVisible(true);
 
@@ -56,7 +56,7 @@ public class LoginPresenter implements IOnMessageRecievedListener {
     }
 
     @Override
-    public void messageRecieved(String message) {
+    public final void messageRecieved(String message) {
         view.showText(message);
     }
 
@@ -117,10 +117,10 @@ public class LoginPresenter implements IOnMessageRecievedListener {
                     return sb.toString();
 
                 } else {
-                    return new String("false : " + responseCode);
+                    return "false : " + responseCode;
                 }
             } catch (Exception e) {
-                return new String("Exception: " + e.getMessage());
+                return "Exception: " + e.getMessage();
             }
         }
 

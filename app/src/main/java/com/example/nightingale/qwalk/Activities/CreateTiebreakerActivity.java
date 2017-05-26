@@ -35,7 +35,7 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
     private double latitude = 0, longitude = 0;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createtiebreaker);
 
@@ -70,17 +70,17 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
 
     }
 
-    public void addPosition(View view) {
+    public final void addPosition(View view) {
         Intent intent = new Intent(this, GetPositionActivity.class);
         startActivityForResult(intent, GET_POSITION_CODE);
     }
 
-    public void onBackPressed(View view) {
+    public final void onBackPressed(View view) {
         finish();
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected final void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == GET_POSITION_CODE) {
             try {
                 Location l = (Location) data.getExtras().get("result");
@@ -94,32 +94,32 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
         }
     }
 
-    public void doneButtonPressed(View view) {
+    public final void doneButtonPressed(View view) {
         presenter.doneButtonPressed();
     }
 
     @Override
-    public int getLowerBounds() {
+    public final int getLowerBounds() {
         return parseInt(minField.getText().toString());
     }
 
     @Override
-    public int getHigherBounds() {
+    public final int getHigherBounds() {
         return parseInt(maxField.getText().toString());
     }
 
     @Override
-    public int getAnswer() {
+    public final int getAnswer() {
         return seekBar.getProgress() + parseInt(minField.getText().toString());
     }
 
     @Override
-    public String getQuestionTitle() {
+    public final String getQuestionTitle() {
         return questionTitle.getText().toString();
     }
 
     @Override
-    public void closeWithResult(Tiebreaker question) {
+    public final void closeWithResult(Tiebreaker question) {
         Intent returnIntent = new Intent();
         returnIntent.putExtra("tiebreaker", question);
         setResult(GetPositionActivity.RESULT_OK, returnIntent);
@@ -127,29 +127,29 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
     }
 
     @Override
-    public double getLatitude() {
+    public final double getLatitude() {
         return latitude;
     }
 
     @Override
-    public double getLongitude() {
+    public final double getLongitude() {
         return longitude;
     }
 
     @Override
-    public void sendError(String error) {
+    public final void sendError(String error) {
         Toast.makeText(this, error, Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+    public final void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         if (fromUser) {
             minField.clearFocus();
             maxField.clearFocus();
         }
         int val = (progress * (seekBar.getWidth() - 2 * seekBar.getThumbOffset())) / seekBar.getMax();
         value.setText("Rätt \n" + " " + (progress + parseInt(minField.getText().toString())));
-        value.setX(seekBar.getX() + val + seekBar.getThumbOffset() / 2);
+        value.setX((int) (seekBar.getX() + val + seekBar.getThumbOffset() / 2.0));
         int minValue = parseInt(minField.getText().toString());
         seekBar.setMax(parseInt(maxField.getText().toString()) - minValue);
     }
@@ -163,38 +163,38 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
     }
 
     @Override
-    public void setLatitude(double latitude) {
+    public final void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
     @Override
-    public void setLongitude(double longitude) {
+    public final void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
     @Override
-    public void setLowerBounds(int lowerBounds) {
+    public final void setLowerBounds(int lowerBounds) {
         minField.setText("" + lowerBounds);
     }
 
     @Override
-    public void setUpperBounds(int upperBounds) {
+    public final void setUpperBounds(int upperBounds) {
         maxField.setText("" + upperBounds);
     }
 
     @Override
-    public void setAnswer(int answer) {
+    public final void setAnswer(int answer) {
         seekBar.setProgress(answer + Integer.parseInt(minField.getText().toString()));
         onProgressChanged(seekBar, answer + Integer.parseInt(minField.getText().toString()), false);
     }
 
     @Override
-    public void setQuestionTitle(String questionTitle) {
+    public final void setQuestionTitle(String questionTitle) {
         this.questionTitle.setText(questionTitle);
     }
 
     @Override
-    public void setLocationText(String text) {
+    public final void setLocationText(String text) {
         locationText.setText(text);
     }
 }

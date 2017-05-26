@@ -1,7 +1,5 @@
 package com.example.nightingale.qwalk.Presenter.Login;
 
-import com.example.nightingale.qwalk.Model.MessageMediator.IOnMessageRecievedListener;
-
 /**
  * Created by Elina Olsson on 2017-05-22.
  */

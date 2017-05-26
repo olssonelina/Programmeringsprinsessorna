@@ -11,7 +11,7 @@ public class GameTimer {
     /**
      * Starts counting time from this moment.
      */
-    public void startTimer() {
+    public final void startTimer() {
         tStart = System.currentTimeMillis();
         TimerRunning = true;
         tSaved = 0;
@@ -20,7 +20,7 @@ public class GameTimer {
     /**
      * Stops counting time but saves current result for eventual "Resume".
      */
-    public void stopTimer() {
+    public final void stopTimer() {
         if (TimerRunning) {
             tStop = System.currentTimeMillis();
             TimerRunning = false;
@@ -31,7 +31,7 @@ public class GameTimer {
     /**
      * Continue counting time from the last stop.
      */
-    public void resumeTimer() {
+    public final void resumeTimer() {
         if (!TimerRunning) {
             tStart = System.currentTimeMillis();
             TimerRunning = true;
@@ -43,7 +43,7 @@ public class GameTimer {
      *
      * @return time (in seconds) counted since latest Start
      */
-    public long getTime() {
+    public final long getTime() {
         if (TimerRunning) {
             tStop = System.currentTimeMillis();
             return (tStop - tStart + tSaved) / 1000;

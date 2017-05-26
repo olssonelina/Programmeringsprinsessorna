@@ -22,6 +22,7 @@ import com.example.nightingale.qwalk.Presenter.CreateQuiz.CreateQuizPresenter;
 import com.example.nightingale.qwalk.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Kraft on 2017-04-27.
@@ -29,22 +30,18 @@ import java.util.ArrayList;
 
 public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz, AdapterView.OnItemClickListener {
     private CreateQuizPresenter presenter;
-    ArrayList<Question> questions = new ArrayList<>();
+    private List<Question> questions = new ArrayList<>();
 
     private EditText quizTitle;
     private EditText quizDescription;
     private Tiebreaker tiebreaker;
-    private int oldQuestions;
 
     public final static int OPTIONQUESTION_CODE = 7;
     public final static int TIEBREAKER_CODE = 22;
-    private final static int IS_EDITING = 1;
-    private final static int IS_NOT_EDITING = 0;
-    private int mode = IS_NOT_EDITING;
-    Quiz editQuiz;
+    private Quiz editQuiz;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
 
         presenter = new CreateQuizPresenter(this);
         super.onCreate(savedInstanceState);
@@ -55,7 +52,6 @@ public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz
 
         try {
             editQuiz = getIntent().getParcelableExtra("quiz");
-            mode = IS_EDITING;
             setAllFields(editQuiz);
             loadList();
         } catch (NullPointerException e) {
@@ -63,23 +59,23 @@ public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz
 
     }
 
-    public void onBackPressed(View view) {
+    public final void onBackPressed(View view) {
         finish();
     }
 
-    public void addQuestionButtonClicked(View view) {
+    public final void addQuestionButtonClicked(View view) {
         Intent intent = new Intent(this, CreateOptionQuestionActivity.class);
         startActivityForResult(intent, OPTIONQUESTION_CODE);
     }
 
-    public void addTiebreaker(View view) {
+    public final void addTiebreaker(View view) {
         Intent intent = new Intent(this, CreateTiebreakerActivity.class);
         startActivityForResult(intent, TIEBREAKER_CODE);
     }
 
-    public void createQuiz(View view) {
+    public final void createQuiz(View view) {
         if (!isQuizComplete()) {
-            sendErrorMsg();
+            sendErrorMessage();
         } else {
             try {
                 saveQuiz();
@@ -89,17 +85,15 @@ public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz
         }
     }
 
-    public boolean isQuizComplete() {
+    public final boolean isQuizComplete() {
         if (quizTitle.getText().toString().equals("") || quizDescription.getText().toString().equals("") || questions.size() == 0) {
             return false;
-        } else if (questions.size() == 0) {
-            return false;
-        } else {
-            return true;
         }
+
+        return questions.size() != 0;
     }
 
-    public void sendErrorMsg() {
+    public final void sendErrorMessage() {
         String msg;
         if (quizTitle.getText().toString().equals("")) {
             msg = getResources().getString(R.string.set_title_ex);
@@ -115,18 +109,12 @@ public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz
         toast.show();
     }
 
-    public void saveQuiz() throws InterruptedException {
-
-
+    public final void saveQuiz() throws InterruptedException {
         questions.add(tiebreaker);
-
-
         DatabaseHandler.saveQuiz(quizTitle.getText().toString(), quizDescription.getText().toString(), questions, editQuiz);
-
-
     }
 
-    public void saveQuizComplete(String msg) {
+    public final void saveQuizComplete(String msg) {
 
         Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 160);
@@ -139,7 +127,7 @@ public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected final void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == OPTIONQUESTION_CODE) {
             try {
                 questions.addAll((ArrayList<Question>) data.getSerializableExtra("questions"));
@@ -229,7 +217,7 @@ public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz
      * @param id       The row id of the item that was clicked.
      */
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    public final void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         try {
             Question q = questions.get(position); //Question pressed is an optionquestion
             questions.remove(q);
@@ -243,7 +231,7 @@ public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz
         }
     }
 
-    public void DatabaseComplete(String msg) {
+    public final void DatabaseComplete(String msg) {
         if(msg.equals("Quiz Tillagd") || msg.equals("Quiz Uppdaterad")){
             finish();
         }
@@ -258,10 +246,8 @@ public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz
         Question lastQuestion = quiz.get(quiz.size() - 1);
         if (lastQuestion instanceof Tiebreaker) {
             tiebreaker = (Tiebreaker) lastQuestion;
-            oldQuestions = quiz.size() - 2;
         } else {
             questions.add(lastQuestion);
-            oldQuestions = quiz.size() - 1;
         }
     }
 }

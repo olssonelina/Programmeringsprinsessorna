@@ -18,12 +18,12 @@ public class AnswerTiebreakerPresenter {
         view.setTitle(question.getQuestionTitle());
     }
 
-    public void closePressed(){
+    public final void closePressed(){
         view.closeWithResult(chosenAnswer, question);
     }
 
 
-    public void sliderChanged(int value){
+    public final void sliderChanged(int value){
         chosenAnswer = value + question.getLowerBounds();
         view.setRange(question.getLowerBounds(), question.getUpperBounds());
     }
