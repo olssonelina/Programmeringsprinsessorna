@@ -10,4 +10,12 @@ public interface IShowResult {
     void showTotalAnswers(int total);
 
     void showTime(long min, long sec);
+
+    void showMonkeyResult(int monkeyRight);
+
+    void showTieBreakerResult(int rightAnswer, int playerAnswer);
+
+    void showMonkeyTieBreaker(int monkeyAnswer);
+
+    void showCompetitionResult(boolean playerWins);
 }

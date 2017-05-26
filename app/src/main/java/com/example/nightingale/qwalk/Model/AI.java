@@ -36,23 +36,6 @@ public class AI implements Runnable, IActor {
         this.location = startLocation;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getScore(int[] correctAnswers) {
-        int correctCount = 0;
-        int numberOfOptionQuestions=correctAnswers.length;
-        if(tiebreaker){numberOfOptionQuestions--;}   //för att poäng för optionquestions räknas separat från tiebreaker.
-        for (int i = 0; i < numberOfOptionQuestions; i++) {
-            if (correctAnswers[i] == answers[i]) {
-                correctCount++;
-            }
-        }
-
-        return correctCount;
-    }
-
 
     /**
      * {@inheritDoc}

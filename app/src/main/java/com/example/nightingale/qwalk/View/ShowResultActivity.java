@@ -72,18 +72,25 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
         Intent i = getIntent();
         long time = i.getLongExtra("time", 0);
         int[] playerAnswers = i.getIntArrayExtra("player");
-        int[] aiAnswers = i.getIntArrayExtra("ai");
+        //int[] aiAnswers;
+        //try {
+           int[] aiAnswers = i.getIntArrayExtra("ai");
+        //}catch (NullPointerException e){
+        //    aiAnswers=new int[0];
+        //}
         Quiz quiz = i.getParcelableExtra("quiz");
 
         presenter = new ShowResultPresenter(this, playerAnswers, aiAnswers, quiz, time);
     }
 
+    @Override
     public void showMonkeyResult(int monkeyRight) {
         monkey.setVisibility(View.VISIBLE);
         monkeyScore.setVisibility(View.VISIBLE);
         monkeyScore.setText("Apan fick "+monkeyRight+" rätt");
     }
 
+    @Override
     public void showTieBreakerResult(int rightAnswer, int playerAnswer){
         tieBreaker.setVisibility(View.VISIBLE);
         tieAnswer.setVisibility(View.VISIBLE);
@@ -92,11 +99,13 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
         playerTieAnswer.setText("Ditt svar: "+playerAnswer);
     }
 
+    @Override
     public void showMonkeyTieBreaker(int monkeyAnswer){
         monkeyTieAnswer.setVisibility(View.VISIBLE);
         monkeyTieAnswer.setText("Apans svar: "+monkeyAnswer);
     }
 
+    @Override
     public void showCompetitionResult(boolean playerWins){
         if(playerWins){
             result.setText("Du vann!");
@@ -113,16 +122,16 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
 
     @Override
     public void showRightAnswers(int right) {
-        this.rightView.setText(right + getResources().getString(R.string.rigth_answers));
+        this.rightView.setText(right +" "+ getResources().getString(R.string.rigth_answers));
     }
 
     @Override
     public void showTotalAnswers(int total) {
-        this.totalView.setText(getResources().getString(R.string.of) + total + getResources().getString(R.string.possible));
+        this.totalView.setText(getResources().getString(R.string.of) +" "+ total +" "+ getResources().getString(R.string.possible));
     }
 
     @Override
     public void showTime(long min, long sec) {
-        this.timeView.setText( min + getResources().getString(R.string.minutes_and) + sec + getResources().getString(R.string.seconds));
+        this.timeView.setText( min +" "+ getResources().getString(R.string.minutes_and) +" "+ sec +" "+ getResources().getString(R.string.seconds));
     }
 }
