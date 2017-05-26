@@ -91,7 +91,7 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
         tieAnswer.setVisibility(View.VISIBLE);
         tieAnswer.setText(getResources().getString(R.string.right_answer_to_tiebreaker)+" "+rightAnswer);
         playerTieAnswer.setVisibility(View.VISIBLE);
-        playerTieAnswer.setText(getResources().getString(R.string.monkey_got)+" "+playerAnswer);
+        playerTieAnswer.setText(getResources().getString(R.string.your_answer)+" "+playerAnswer);
     }
 
     @Override
