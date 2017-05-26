@@ -415,6 +415,9 @@ public class DatabaseHandler {
             } else if (result.equals("Exception:Unabletoresolvehost\"" + HOST + "\":Noaddressassociatedwithhostname")) {
                 msg = "Uppkoppling misslyckades";
             }
+            else{
+                msg = "FriendsLoaded";
+            }
 
             mediator.onMessageRecieved(msg);
 
