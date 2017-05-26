@@ -20,7 +20,7 @@ public class MessageMediator {
 
     public void onMessageRecieved(String message) {
         for (IOnMessageRecievedListener listener : listeners) {
-            if(!(message.equals("FriendsLoaded"))){
+            if(!(message.equals("Ignore"))){
                 listener.messageRecieved(message);
             }
 

@@ -97,19 +97,17 @@ public class FriendActivity extends AppCompatActivity  implements IFriend {
 
 
     public void DatabaseComplete(String msg) {
-        Toast.makeText(getApplicationContext(), msg,
-                Toast.LENGTH_LONG).show();
-
         addfriendbutton.setEnabled(true);
         listView.setEnabled(true);
         spinner.setVisibility(View.GONE);
+        if(msg.equals("Vän tillagd")){
         DatabaseHandler.loadFriends();
         setListItemsFriends();
+        }
     }
 
 
     private void deleteFriend(int position) {
-       //TODO Ta bort vän
         DatabaseHandler.deleteFriend(Account.getInstance().getFriends().get(position));
     }
 }

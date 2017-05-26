@@ -355,6 +355,12 @@ public class DatabaseHandler {
             } else if (result.equals("-1")) {
                 msg = "Quiz titel upptagen"; //"Quiz Title Taken" översatt
             }
+            else if (result.equals("-2")) {
+                msg = "Quiz Uppdaterad"; //"Quiz Title Taken" översatt
+            }
+            else{
+                msg = "Ignore"; //"Quiz Title Taken" översatt
+            }
 
             mediator.onMessageRecieved(msg);
 
@@ -416,7 +422,7 @@ public class DatabaseHandler {
                 msg = "Uppkoppling misslyckades";
             }
             else{
-                msg = "FriendsLoaded";
+                msg = "Ignore";
             }
 
             mediator.onMessageRecieved(msg);
