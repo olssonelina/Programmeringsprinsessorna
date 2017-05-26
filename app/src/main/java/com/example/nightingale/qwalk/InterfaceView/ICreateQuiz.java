@@ -6,5 +6,5 @@ package com.example.nightingale.qwalk.InterfaceView;
 
 public interface ICreateQuiz {
 
-    void saveQuizComplete(String msg);
+    void DatabaseComplete(String message);
 }
