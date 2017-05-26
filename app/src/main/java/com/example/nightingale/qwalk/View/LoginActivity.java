@@ -91,7 +91,10 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
 
     @Override
     public void showText(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        if(!(message.equals(""))){
+
+        }Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+
     }
 }
 

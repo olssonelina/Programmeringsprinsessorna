@@ -11,8 +11,12 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.nightingale.qwalk.InterfaceView.IFriend;
+import com.example.nightingale.qwalk.InterfaceView.ILogin;
 import com.example.nightingale.qwalk.Model.Database.DatabaseHandler;
 import com.example.nightingale.qwalk.Model.Database.Account;
+import com.example.nightingale.qwalk.Presenter.FriendPresenter;
+import com.example.nightingale.qwalk.Presenter.LoginPresenter;
 import com.example.nightingale.qwalk.R;
 
 import java.util.List;
@@ -21,7 +25,9 @@ import java.util.List;
  * Created by Nightingale on 2017-05-16.
  */
 
-public class FriendActivity extends AppCompatActivity{
+public class FriendActivity extends AppCompatActivity  implements IFriend {
+
+    private FriendPresenter presenter;
 
     EditText UsernameInput;
     private ListView listView;
@@ -30,6 +36,7 @@ public class FriendActivity extends AppCompatActivity{
 
 
     protected void onCreate(Bundle savedInstanceState) {
+        presenter = new FriendPresenter(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend); //ändra namnet till rätt xml-fil
         UsernameInput = (EditText) findViewById(R.id.friendusername);
@@ -82,22 +89,23 @@ public class FriendActivity extends AppCompatActivity{
                     Toast.LENGTH_LONG).show();
         } else {
             addfriendbutton.setEnabled(false);
+            listView.setEnabled(false);
             spinner.setVisibility(View.VISIBLE);
             DatabaseHandler.addFriend(UsernameInput.getText().toString());
         }
     }
 
-    public void AddFriendComplete(String msg) {
 
+    public void DatabaseComplete(String msg) {
         Toast.makeText(getApplicationContext(), msg,
                 Toast.LENGTH_LONG).show();
 
         addfriendbutton.setEnabled(true);
+        listView.setEnabled(true);
         spinner.setVisibility(View.GONE);
         DatabaseHandler.loadFriends();
         setListItemsFriends();
     }
-
 
 
     private void deleteFriend(int position) {

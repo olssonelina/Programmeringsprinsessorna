@@ -64,9 +64,7 @@ public class DatabaseHandler {
     private DatabaseHandler() {
     }
 
-    public static void setFriendUsername(String friendUsername) {
-        FriendUsername = friendUsername;
-    }
+
 
 
     public static String getPostDataString(JSONObject params) throws Exception {
@@ -126,13 +124,18 @@ public class DatabaseHandler {
     }
 
     public static void addFriend(String Friend) {
+        if(Friend.equals("")){
+            return;
+        }
+        else{
+
 
         FriendUsername = Friend;
         request = 0;
 
         new DatabaseHandler.SendFriendRequest().execute();
 
-
+        }
     }
 
     public static void deleteFriend(String Friend) {
