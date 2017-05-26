@@ -49,7 +49,7 @@
     <string name="username_taken">Användarnamnet används redan</string>
     <string name="username_empty">Fyll i användarnamn</string>
     <string name="password_empty">Fyll i lösenord</string>
-    <string name="rigth_answers"> rätt</string>
+    <string name="rigth_answers">rätt</string>
     <string name="of"> av </string>
     <string name="possible"> möjliga.</string>
     <string name="it_took">Det tog </string>
@@ -69,4 +69,10 @@
     <string name="you_must_add_question">Du måste ange en fråga!</string>
     <string name="play_new_qwalk">Spela ny Qwalk</string>
     <string name="detailed">Detaljerat</string>
+    <string name="monkey_got">Apan fick</string>
+    <string name="right_answer_to_tiebreaker">Rätt svar på utslagsfrågan:</string>
+    <string name="your_answer">Ditt svar:</string>
+    <string name="monkeys_answer">Apans svar:</string>
+    <string name="you_won">Du vann!</string>
+    <string name="monkey_won">Apan vann!</string>
 </resources>

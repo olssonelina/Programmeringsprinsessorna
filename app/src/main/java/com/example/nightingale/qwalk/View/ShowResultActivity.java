@@ -87,30 +87,30 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
     public void showMonkeyResult(int monkeyRight) {
         monkey.setVisibility(View.VISIBLE);
         monkeyScore.setVisibility(View.VISIBLE);
-        monkeyScore.setText("Apan fick "+monkeyRight+" rätt");
+        monkeyScore.setText(getResources().getString(R.string.monkey_got)+" "+monkeyRight+" "+getResources().getString(R.string.rigth_answers));
     }
 
     @Override
     public void showTieBreakerResult(int rightAnswer, int playerAnswer){
         tieBreaker.setVisibility(View.VISIBLE);
         tieAnswer.setVisibility(View.VISIBLE);
-        tieAnswer.setText("Rätt svar på utslagsfrågan: "+rightAnswer);
+        tieAnswer.setText(getResources().getString(R.string.right_answer_to_tiebreaker)+" "+rightAnswer);
         playerTieAnswer.setVisibility(View.VISIBLE);
-        playerTieAnswer.setText("Ditt svar: "+playerAnswer);
+        playerTieAnswer.setText(getResources().getString(R.string.monkey_got)+" "+playerAnswer);
     }
 
     @Override
     public void showMonkeyTieBreaker(int monkeyAnswer){
         monkeyTieAnswer.setVisibility(View.VISIBLE);
-        monkeyTieAnswer.setText("Apans svar: "+monkeyAnswer);
+        monkeyTieAnswer.setText(getResources().getString(R.string.monkeys_answer)+" "+monkeyAnswer);
     }
 
     @Override
     public void showCompetitionResult(boolean playerWins){
         if(playerWins){
-            result.setText("Du vann!");
+            result.setText(getResources().getString(R.string.you_won));
         } else{
-            result.setText("Apan vann!");
+            result.setText(getResources().getString(R.string.monkey_won));
             winner.setImageResource(R.drawable.monkey);
         }
     }
