@@ -5,4 +5,6 @@ package com.example.nightingale.qwalk.InterfaceView;
  */
 
 public interface IFriend {
+
+    void DatabaseComplete(String message);
 }

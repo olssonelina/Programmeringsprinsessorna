@@ -92,6 +92,7 @@ public abstract class Question implements Parcelable {
     public abstract int getLowerBounds();
 
     protected Question(Parcel in) {
+        questionID = in.readInt();
         questionTitle = in.readString();
         correctAnswer = in.readInt();
         location = (QLocation) in.readValue(QLocation.class.getClassLoader());
@@ -110,6 +111,7 @@ public abstract class Question implements Parcelable {
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(questionID);
         dest.writeString(questionTitle);
         dest.writeInt(correctAnswer);
         dest.writeValue(location);

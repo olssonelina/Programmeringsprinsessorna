@@ -50,6 +50,7 @@ public class DatabaseHandler {
     final public static String INSERT_QUIZ_URL = "https://programmeringsprinsessorna.000webhostapp.com/insertquiz.php";
     final public static String INSERT_ACCOUNT_URL = "https://programmeringsprinsessorna.000webhostapp.com/insert.php";
     final public static String DELETE_QUIZ_URL = "https://programmeringsprinsessorna.000webhostapp.com/deletequiz.php";
+    final public static String DELETE_FRIEND_URL = "https://programmeringsprinsessorna.000webhostapp.com/deletefriend.php";
     final public static String INSERT_FRIEND_URL = "https://programmeringsprinsessorna.000webhostapp.com/insertfriend.php";
     final public static String VALIDATE_URL = "https://programmeringsprinsessorna.000webhostapp.com/validera.php";
     final public static String READ_QUIZ_URL = "https://programmeringsprinsessorna.000webhostapp.com/readquiz.php";
@@ -63,9 +64,7 @@ public class DatabaseHandler {
     private DatabaseHandler() {
     }
 
-    public static void setFriendUsername(String friendUsername) {
-        FriendUsername = friendUsername;
-    }
+
 
 
     public static String getPostDataString(JSONObject params) throws Exception {
@@ -125,11 +124,25 @@ public class DatabaseHandler {
     }
 
     public static void addFriend(String Friend) {
+        if(Friend.equals("")){
+            return;
+        }
+        else{
+
 
         FriendUsername = Friend;
         request = 0;
 
         new DatabaseHandler.SendFriendRequest().execute();
+
+        }
+    }
+
+    public static void deleteFriend(String Friend) {
+
+        FriendUsername = Friend;
+
+        new DatabaseHandler.SendDeleteFriendRequest().execute();
 
 
     }
@@ -192,6 +205,8 @@ public class DatabaseHandler {
 
 
     public static void saveQuiz(String Title, String Description, ArrayList<Question> questions, Quiz editQuiz) {
+        Log.d("VARIABLE QuizID", "Stuff happening");
+
         quiz = editQuiz;
         quizDescription = Description;
         quizTitle = Title;
@@ -202,6 +217,7 @@ public class DatabaseHandler {
         readycheck = 0;
 
         for (int i = 0; i < quizQuestions.size(); i++) {
+            Log.d("Test", "In loop");
             try {
 
                 response = new SendInsertQuizRequest().execute().get();
@@ -215,6 +231,7 @@ public class DatabaseHandler {
             }
             Log.d("Getcomplete", "Test");
         }
+        Log.d("VARIABLE QuizID", "out of loop");
 
         Log.d("JSONindex", String.valueOf(QuestionIDArray.get(0)));
         JSONArray jsArray = new JSONArray(QuestionIDArray);
@@ -242,8 +259,14 @@ public class DatabaseHandler {
 
                 JSONObject postDataParams = new JSONObject();
 
-                    Log.d("VARIABLE QuizID", String.valueOf(quiz.getQuizID()));
+
+                if(quiz == null){
+                    postDataParams.put("quizid", -1);
+                }
+                    else{
                     postDataParams.put("quizid", quiz.getQuizID());
+                    Log.d("VARIABLE QuizID", String.valueOf(quiz.getQuizID()));
+                }
 
 
                 if (quizQuestions.get(counter) instanceof OptionQuestion) {
@@ -321,6 +344,7 @@ public class DatabaseHandler {
         protected void onPostExecute(String result) {
 
             Log.d("PRINT", result);
+            Log.d("PRINT", result);
             result = result.replaceAll("\\s+", "");
 
             Log.d("PRINT", result);
@@ -330,6 +354,12 @@ public class DatabaseHandler {
 
             } else if (result.equals("-1")) {
                 msg = "Quiz titel upptagen"; //"Quiz Title Taken" översatt
+            }
+            else if (result.equals("-2")) {
+                msg = "Quiz Uppdaterad"; //"Quiz Title Taken" översatt
+            }
+            else{
+                msg = "Ignore"; //"Quiz Title Taken" översatt
             }
 
             mediator.onMessageRecieved(msg);
@@ -391,6 +421,9 @@ public class DatabaseHandler {
             } else if (result.equals("Exception:Unabletoresolvehost\"" + HOST + "\":Noaddressassociatedwithhostname")) {
                 msg = "Uppkoppling misslyckades";
             }
+            else{
+                msg = "Ignore";
+            }
 
             mediator.onMessageRecieved(msg);
 
@@ -444,4 +477,54 @@ public class DatabaseHandler {
 
         }
     }
+
+    public static class SendDeleteFriendRequest extends AsyncTask<String, Void, String> {
+
+
+        protected void onPreExecute() {
+        }
+
+        protected String doInBackground(String... arg0) {
+
+            try {
+
+                URL url = new URL(DELETE_FRIEND_URL);
+
+                JSONObject postDataParams = new JSONObject();
+
+
+
+                postDataParams.put("friendid", Account.getInstance().getFriendIDs().get(Account.getInstance().getFriends().indexOf(FriendUsername)));
+                postDataParams.put("accountid", Account.getInstance().getUserID());
+
+                Log.e("params", postDataParams.toString());
+
+                return sendParams(url, postDataParams);
+            } catch (Exception e) {
+                return new String("Exception: " + e.getMessage());
+            }
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+
+            String msg = "";
+
+
+            Log.e("response", result);
+            result = result.replaceAll("\\s+", "");
+
+
+            if (result.equals("0")) {
+                msg = "Success";
+            } else {
+                msg = "Error";
+            }
+            mediator.onMessageRecieved(msg);
+
+
+        }
+    }
+
 }

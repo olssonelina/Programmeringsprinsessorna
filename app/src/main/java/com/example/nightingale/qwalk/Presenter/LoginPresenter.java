@@ -133,7 +133,7 @@ public class LoginPresenter implements IOnMessageRecievedListener {
             Log.e("CrashID", id);
             if (id.equals("Exception:Unabletoresolvehost\"" + DatabaseHandler.HOST + "\":Noaddressassociatedwithhostname")) {
                 view.showText("Inget internet");
-            } else if (id == null) {
+            } else if (id == null || id.equals("<br/>") ) {
                 view.showText("Anslutning misslyckades");
             } else if (Integer.parseInt(id) == -1) {
                 view.showText("Fel lösenord/användarnamn!");

@@ -15,6 +15,8 @@ public class CreateOptionQuestionPresenter {
 
     //private static Context ctx;
 
+    int questionID = -1;
+
     private ICreateOptionQuestion view;
 
     private ArrayList<Question> questions = new ArrayList<>();
@@ -35,7 +37,7 @@ public class CreateOptionQuestionPresenter {
 
     private OptionQuestion buildQuestion() {
         String[] opts = view.getOptions();
-        return new OptionQuestion(view.getQuestionTitle(), new ArrayList<String>(Arrays.asList(opts)), view.getAnswer(), view.getLatitude(), view.getLongitude(), -1);
+        return new OptionQuestion(view.getQuestionTitle(), new ArrayList<String>(Arrays.asList(opts)), view.getAnswer(), view.getLatitude(), view.getLongitude(), questionID );
     }
 
     public void finishQuestions() {
@@ -78,6 +80,7 @@ public class CreateOptionQuestionPresenter {
     }
 
     public void setAllFields(OptionQuestion question){
+        questionID = question.getQuestionID();
         view.setAnswer(question.getCorrectAnswer());
         view.setLatitude(question.getLatitude());
         view.setLongitude(question.getLongitude());

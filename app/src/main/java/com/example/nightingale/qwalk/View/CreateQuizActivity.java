@@ -18,6 +18,8 @@ import com.example.nightingale.qwalk.Model.Database.DatabaseHandler;
 import com.example.nightingale.qwalk.Model.Question;
 import com.example.nightingale.qwalk.Model.Quiz;
 import com.example.nightingale.qwalk.Model.Tiebreaker;
+import com.example.nightingale.qwalk.Presenter.CreateQuizPresenter;
+import com.example.nightingale.qwalk.Presenter.FriendPresenter;
 import com.example.nightingale.qwalk.R;
 
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ import java.util.ArrayList;
  */
 
 public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz, AdapterView.OnItemClickListener {
-
+    private CreateQuizPresenter presenter;
     ArrayList<Question> questions = new ArrayList<>();
 
     private EditText quizTitle;
@@ -44,6 +46,8 @@ public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        presenter = new CreateQuizPresenter(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createquiz);
 
@@ -237,6 +241,12 @@ public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz
             Intent intent = new Intent(this, CreateTiebreakerActivity.class);
             intent.putExtra("question", tiebreaker);
             startActivityForResult(intent, TIEBREAKER_CODE);
+        }
+    }
+
+    public void DatabaseComplete(String msg) {
+        if(msg.equals("Quiz Tillagd") || msg.equals("Quiz Uppdaterad")){
+            finish();
         }
     }
 
