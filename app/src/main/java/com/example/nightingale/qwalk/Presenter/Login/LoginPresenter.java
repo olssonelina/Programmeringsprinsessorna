@@ -130,11 +130,14 @@ public class LoginPresenter implements IOnMessageRecievedListener {
             id = result;
             id = id.replaceAll("\\s+", "");
             Log.e("CrashID", id);
-            if (id.equals("Exception:Unabletoresolvehost\"" + DatabaseHandler.HOST + "\":Noaddressassociatedwithhostname")) {
-                view.showText("Inget internet");
-            } else if (id == null || id.equals("<br/>") ) {
+
+            if (id == null || id.equals("<br/>") ) {
                 view.showText("Anslutning misslyckades");
-            } else if (Integer.parseInt(id) == -1) {
+            }
+            else if (id.equals("Exception:Unabletoresolvehost\"" + DatabaseHandler.HOST + "\":Noaddressassociatedwithhostname")) {
+                view.showText("Inget internet");
+            }
+            else if (Integer.parseInt(id) == -1) {
                 view.showText("Fel lösenord/användarnamn!");
             } else if (Integer.parseInt(id) == -2) {
                 Account.getInstance().setUserID(Integer.parseInt(id));

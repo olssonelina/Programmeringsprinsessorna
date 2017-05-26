@@ -130,6 +130,7 @@ public class MenuPresenter {
             int RequestAmount = Integer.parseInt(JSONstring);
             quizAmount = RequestAmount;
         } catch (Exception e) {
+
         }
 
         String title = "", description = "";
