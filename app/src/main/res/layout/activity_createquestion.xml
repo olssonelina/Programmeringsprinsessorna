@@ -32,9 +32,9 @@
             android:layout_height="60dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
+            android:background="@drawable/arrow2"
             android:onClick="onBackPressed"
-            android:padding="10dp"
-            app:srcCompat="@drawable/arrow2" />
+            android:padding="10dp" />
 
         <TextView
             android:id="@+id/addPosition"
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="90dp"
             android:layout_marginTop="400dp"
-            android:background="@drawable/minimarkerwhite"
+            android:background="@drawable/minimarkergreen"
             android:onClick="addPosition"
             android:visibility="visible" />
 
