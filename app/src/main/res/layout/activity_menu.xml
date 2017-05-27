@@ -13,8 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
-        android:src="@drawable/login"
-        map:srcCompat="@drawable/background" />
+        android:src="@drawable/background" />
 
     <ScrollView
         android:layout_width="match_parent"
