@@ -27,7 +27,7 @@
             android:layout_marginBottom="40dp"
             android:ems="12"
             android:onClick="saveButtonPressed"
-            android:background="@android:color/holo_green_light"
+            android:background="#FF09C856"
             android:text="@string/answer" />
 
         <TextView

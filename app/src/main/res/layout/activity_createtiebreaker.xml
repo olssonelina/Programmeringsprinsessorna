@@ -25,23 +25,26 @@
             android:id="@+id/tiebreakerAddPosition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="130dp"
-            android:layout_marginTop="400dp"
             android:onClick="addPosition"
             android:padding="15dp"
             android:text="Lägg till position"
             android:textColor="#ffffff"
-            android:textSize="18dp" />
+            android:textSize="18dp"
+            android:layout_alignBottom="@+id/positionMarker"
+            android:layout_toRightOf="@+id/minField"
+            android:layout_toEndOf="@+id/minField" />
 
         <ImageButton
             android:id="@+id/positionMarker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="90dp"
-            android:layout_marginTop="400dp"
+            android:layout_marginTop="68dp"
             android:background="@drawable/minimarkergreen"
             android:onClick="addPosition"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:layout_below="@+id/value"
+            android:layout_alignLeft="@+id/minField"
+            android:layout_alignStart="@+id/minField" />
 
         <TextView
             android:id="@+id/questionX"
@@ -111,6 +114,7 @@
             android:layout_marginTop="460dp"
             android:ems="10"
             android:onClick="doneButtonPressed"
+            android:background="#FF09C856"
             android:text="@string/done" />
 
 

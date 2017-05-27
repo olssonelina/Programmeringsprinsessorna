@@ -89,12 +89,12 @@
                 android:id="@+id/userList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
+                android:scrollbars="none"
                 android:layout_below="@+id/userListText"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:scrollbars="none" />
+                android:layout_alignLeft="@+id/help"
+                android:layout_alignStart="@+id/help"
+                android:layout_alignRight="@+id/friendsList"
+                android:layout_alignEnd="@+id/friendsList" />
 
             <TextView
                 android:id="@+id/friendsListText"

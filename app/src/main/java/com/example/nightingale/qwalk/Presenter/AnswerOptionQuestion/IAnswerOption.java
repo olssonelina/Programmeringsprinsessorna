@@ -11,6 +11,8 @@ public interface IAnswerOption {
 
     void closeWithResult(int chosenIndex, OptionQuestion question);
 
+    void setOptionColour(int index, boolean isSelectedColour);
+
     void setCloseButtonEnabled(boolean enabled);
 
     void setTitle(String title);

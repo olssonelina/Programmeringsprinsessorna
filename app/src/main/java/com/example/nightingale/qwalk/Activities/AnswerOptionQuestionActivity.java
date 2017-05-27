@@ -1,6 +1,7 @@
 package com.example.nightingale.qwalk.Activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -27,6 +28,8 @@ public class AnswerOptionQuestionActivity extends AppCompatActivity implements I
     private Button saveAnswer;
     private TextView title;
 
+    private static final int selectedColour = Color.parseColor("#FF09C856");
+    private static final int deselectedColour = Color.parseColor("#FF303030");
 
     @Override
     protected final void onCreate(Bundle savedInstanceState) {
@@ -100,6 +103,11 @@ public class AnswerOptionQuestionActivity extends AppCompatActivity implements I
         returnIntent.putExtra("question", question);
         setResult(GetPositionActivity.RESULT_OK, returnIntent);
         finish();
+    }
+
+    @Override
+    public void setOptionColour(int index, boolean isSelectedColour) {
+        optionButtons[index].setBackgroundColor(isSelectedColour ? selectedColour : deselectedColour);
     }
 
     @Override
