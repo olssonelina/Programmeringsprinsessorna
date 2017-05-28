@@ -127,6 +127,9 @@ public class OptionQuestion extends Question implements Parcelable {
         return count >= 2;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     protected OptionQuestion(Parcel in) {
         super(in);
         if (in.readByte() == 0x01) {

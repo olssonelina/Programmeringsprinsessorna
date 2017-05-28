@@ -16,6 +16,13 @@ public abstract class Question implements Parcelable {
     private QLocation location;
     private int questionID;
 
+    /**
+     * Constructs a cuestion
+     * @param questionTitle
+     * @param correctAnswer
+     * @param location
+     * @param questionID
+     */
     protected Question(String questionTitle, int correctAnswer, QLocation location, int questionID) {
         this.questionID = questionID;
         this.questionTitle = questionTitle;
@@ -93,6 +100,9 @@ public abstract class Question implements Parcelable {
      */
     public abstract int getLowerBounds();
 
+    /**
+     * {@inheritDoc}
+     */
     protected Question(Parcel in) {
         questionID = in.readInt();
         questionTitle = in.readString();
@@ -119,6 +129,9 @@ public abstract class Question implements Parcelable {
         dest.writeValue(location);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @SuppressWarnings("unused")
     public static Parcelable.Creator<Tiebreaker> CREATOR = new Parcelable.Creator<Tiebreaker>() {
         @Override

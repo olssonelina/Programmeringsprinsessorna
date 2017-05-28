@@ -30,11 +30,17 @@ public class Tiebreaker extends Question implements Parcelable {
         this.lowerBounds = lowerBounds;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final int getLowerBounds() {
         return lowerBounds;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final int getUpperBounds() {
         return upperBounds;
@@ -79,6 +85,9 @@ public class Tiebreaker extends Question implements Parcelable {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     protected Tiebreaker(Parcel in) {
         super(in);
         lowerBounds = in.readInt();
