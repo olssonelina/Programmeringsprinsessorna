@@ -43,10 +43,6 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
 
         presenter = new LoginPresenter(this);
 
-        int[] playerAnswers= {0, 1, 2, 3};
-        Quiz quiz = StandardQuizzes.getAdressQuiz();
-        int[] aiAnswers= {1,2,3,0};
-
     }
 
     /**
