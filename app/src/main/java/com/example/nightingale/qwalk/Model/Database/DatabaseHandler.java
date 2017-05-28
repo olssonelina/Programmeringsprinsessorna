@@ -51,6 +51,8 @@ public class DatabaseHandler {
     private static List<Question> quizQuestions = new ArrayList<>();
     private static String username;
     private static String password;
+    private static int  offset;
+    private static int userid;
 
     final public static String HOST = "programmeringsprinsessorna.000webhostapp.com";
     final public static String INSERT_QUIZ_URL = "https://programmeringsprinsessorna.000webhostapp.com/insertquiz.php";
@@ -181,6 +183,19 @@ public class DatabaseHandler {
         new DatabaseHandler.SendLoginRequest().execute();
 
 
+    }
+
+
+    public static String readQuiz(int readRequest, int readOffset, int readUserid) {
+        request = readRequest;
+        offset = readOffset;
+        userid = readUserid;
+try {
+    return new DatabaseHandler.SendReadRequest().execute().get();
+}
+catch (Exception e) {
+    }
+        return "";
     }
 
     public static String sendParams(URL url, JSONObject postDataParams) {
@@ -699,6 +714,36 @@ String msg = "";
             }
 
             mediator.onMessageRecieved(msg);
+        }
+    }
+
+    private static class SendReadRequest extends AsyncTask<String, Void, String> {
+
+        protected void onPreExecute() {
+        }
+
+        protected String doInBackground(String... arg0) {
+
+            try {
+
+                URL url = new URL(DatabaseHandler.READ_QUIZ_URL);
+                JSONObject postDataParams = new JSONObject();
+
+                postDataParams.put("request", request);
+                postDataParams.put("offset", offset);
+                postDataParams.put("userid", userid);
+
+                Log.e("params", postDataParams.toString());
+
+                return sendParams(url, postDataParams);
+            } catch (Exception e) {
+                return "Exception: " + e.getMessage();
+            }
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
         }
     }
 

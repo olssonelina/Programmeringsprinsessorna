@@ -126,15 +126,12 @@ public class MenuPresenter {
         request = 0;
         int quizAmount = 0;
         try {
-            String JSONstring = new SendRequest().execute().get();
+            String JSONstring = DatabaseHandler.readQuiz(request, offset, userid);
             JSONstring = JSONstring.replaceAll("\\s+", "");
             int RequestAmount = Integer.parseInt(JSONstring);
             quizAmount = RequestAmount;
 
-        } catch (ExecutionException e) {
-        } catch (InterruptedException e){
-
-
+        } catch (Exception e) {
         }
 
         String title = "", description = "";
@@ -145,7 +142,8 @@ public class MenuPresenter {
             for (int i = 0; i < quizAmount; i++) {
                 offset = i;
                 try {
-                    String JSONstring = new SendRequest().execute().get();
+
+                    String JSONstring = DatabaseHandler.readQuiz(request, offset, userid);
 
                     JSONArray jsonArray = new JSONArray(JSONstring);
 
@@ -189,69 +187,6 @@ public class MenuPresenter {
                 } catch (Exception e) {
                 }
             }
-        }
-    }
-
-    private class SendRequest extends AsyncTask<String, Void, String> {
-
-        protected void onPreExecute() {
-        }
-
-        protected String doInBackground(String... arg0) {
-
-            try {
-
-                URL url = new URL(DatabaseHandler.READ_QUIZ_URL);
-                JSONObject postDataParams = new JSONObject();
-
-                postDataParams.put("request", request);
-                postDataParams.put("offset", offset);
-                postDataParams.put("userid", userid);
-
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setReadTimeout(15000 /* milliseconds */);
-                conn.setConnectTimeout(15000 /* milliseconds */);
-                conn.setRequestMethod("POST");
-                conn.setDoInput(true);
-                conn.setDoOutput(true);
-
-                OutputStream os = conn.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(
-                        new OutputStreamWriter(os, "UTF-8"));
-                writer.write(DatabaseHandler.getPostDataString(postDataParams));
-
-                writer.flush();
-                writer.close();
-                os.close();
-
-                int responseCode = conn.getResponseCode();
-
-                if (responseCode == HttpsURLConnection.HTTP_OK) {
-
-                    BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                    StringBuffer sb = new StringBuffer("");
-                    String line = "";
-
-                    while ((line = in.readLine()) != null) {
-
-                        sb.append(line);
-                        break;
-                    }
-
-                    in.close();
-                    return sb.toString();
-
-                } else {
-                    return "false : " + responseCode;
-                }
-            } catch (Exception e) {
-                return "Exception: " + e.getMessage();
-            }
-        }
-
-
-        @Override
-        protected void onPostExecute(String result) {
         }
     }
 
