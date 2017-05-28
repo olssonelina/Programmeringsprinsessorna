@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.nightingale.qwalk.Model.Quiz.Quiz;
+import com.example.nightingale.qwalk.Model.StandardQuizzes;
 import com.example.nightingale.qwalk.Presenter.Login.ILogin;
 import com.example.nightingale.qwalk.Presenter.Login.LoginPresenter;
 import com.example.nightingale.qwalk.R;
@@ -38,6 +40,20 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
         spinner = (ProgressBar) findViewById(R.id.progressBar1);
 
         presenter = new LoginPresenter(this);
+
+        int[] playerAnswers= {0, 1, 2, 3};
+        Quiz quiz = StandardQuizzes.getAdressQuiz();
+        int[] aiAnswers= {1,2,3,0};
+
+        Intent intent = new Intent(getBaseContext(), ShowResultActivity.class);
+        intent.putExtra("player", playerAnswers);
+        intent.putExtra("time", 213);
+        intent.putExtra("quiz", quiz);
+        if (aiAnswers != null) {
+            intent.putExtra("ai", aiAnswers);
+        }
+
+        startActivity(intent);
     }
 
     /**

@@ -40,13 +40,15 @@
                     android:padding="10dp" />
 
                 <ListView
-                    android:id="@+id/userList"
+                    android:id="@+id/resultList"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scrollbars="none"
-                    android:layout_below="@+id/imageView9"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
+                    android:layout_below="@+id/imageView9"
+                    android:clickable="false"
+                    android:contextClickable="false"
+                    android:scrollbars="none" />
 
 
             </RelativeLayout>

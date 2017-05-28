@@ -75,4 +75,5 @@
     <string name="monkeys_answer">Apans svar:</string>
     <string name="you_won">Du vann!</string>
     <string name="monkey_won">Apan vann!</string>
+    <string name="well_done">Bra jobbat!</string>
 </resources>
