@@ -14,18 +14,7 @@ import static junit.framework.Assert.assertTrue;
  */
 
 public class OptionQuestionTest {
-    OptionQuestion oq1;
-    OptionQuestion oq2;
-    OptionQuestion oq3;
-    OptionQuestion oq4;
 
-    @Before
-    public void create() {
-        /*oq1 = StandardQuizzes.getChalmersQuiz().getQuestions().get(0);
-        oq2 = StandardQuizzes.getChalmersQuiz().getQuestions().get(1);
-        oq3 = StandardQuizzes.getChalmersQuiz().getQuestions().get(2);
-        oq4 = StandardQuizzes.getChalmersQuiz().getQuestions().get(3);*/
-    }
 
     @Test
     public void hasMoreThanTwoOptions() throws Exception {
@@ -35,9 +24,9 @@ public class OptionQuestionTest {
         String[] blank = {""};
 
         boolean fourOptions = OptionQuestion.validateOptions(celebrities);
-        boolean threeOptions = oq1.validateOptions(years);
-        boolean oneOptions = oq1.validateOptions(names);
-        boolean noOptions = oq1.validateOptions(blank);
+        boolean threeOptions = OptionQuestion.validateOptions(years);
+        boolean oneOptions = OptionQuestion.validateOptions(names);
+        boolean noOptions = OptionQuestion.validateOptions(blank);
 
         assertTrue("Is enough options?", fourOptions);
         assertTrue("Is enough options?", threeOptions);

@@ -52,9 +52,5 @@ public class MapsPresenterModelTest {
 
         assertTrue(view.enabledMarkers.size() == 1);
 
-
-
-
-
     }
 }

@@ -60,4 +60,47 @@ public final class StandardQuizzes {
 
         return new Quiz("M-grupprummen", "Najs grupprum", -3, questions);
     }
+
+    public static Quiz getTestQuiz(){
+        List<Question> questions = new ArrayList<>();
+
+        questions.add(new OptionQuestion("Vem bor så här nära Chalmers?", new ArrayList<String>(Arrays.asList(new String[]{"Katten", "Pil", "Nightinggale", "Elit"})), 1, 57.689280, 11.972306, -1));
+        questions.add(new OptionQuestion("Vem kan bo här?", new ArrayList<String>(Arrays.asList(new String[]{"Pil", "Katten", "Nightinggale", "Elit"})), 2, 57.742081, 11.969506, -1));
+        questions.add(new OptionQuestion("Vem bor inneboende här?", new ArrayList<String>(Arrays.asList(new String[]{"Pil", "Nightinggale", "Elit", "Katten"})), 3, 57.735626, 12.116774, -1));
+        questions.add(new OptionQuestion("Vem orkar pendla från Kungsbacka?", new ArrayList<String>(Arrays.asList(new String[]{"Elit", "Pil", "Nightinggale", "Katten"})), 0, 57.543822, 12.103735, -1));
+        questions.add(new OptionQuestion("Vem bor så här nära Chalmers?", new ArrayList<String>(Arrays.asList(new String[]{"Katten", "Pil", "Nightinggale", "Elit"})), 1, 57.689280, 11.972306, -1));
+        questions.add(new OptionQuestion("Vem kan bo här?", new ArrayList<String>(Arrays.asList(new String[]{"Pil", "Katten", "Nightinggale", "Elit"})), 2, 57.742081, 11.969506, -1));
+        questions.add(new OptionQuestion("Vem bor inneboende här?", new ArrayList<String>(Arrays.asList(new String[]{"Pil", "Nightinggale", "Elit", "Katten"})), 3, 57.735626, 12.116774, -1));
+        questions.add(new OptionQuestion("Vem orkar pendla från Kungsbacka?", new ArrayList<String>(Arrays.asList(new String[]{"Elit", "Pil", "Nightinggale", "Katten"})), 0, 57.543822, 12.103735, -1));
+        questions.add(new OptionQuestion("Vem bor så här nära Chalmers?", new ArrayList<String>(Arrays.asList(new String[]{"Katten", "Pil", "Nightinggale", "Elit"})), 1, 57.689280, 11.972306, -1));
+        questions.add(new OptionQuestion("Vem kan bo här?", new ArrayList<String>(Arrays.asList(new String[]{"Pil", "Katten", "Nightinggale", "Elit"})), 2, 57.742081, 11.969506, -1));
+
+        questions.add(new OptionQuestion("Vem bor så här nära Chalmers?", new ArrayList<String>(Arrays.asList(new String[]{"Katten", "Pil", "Nightinggale", "Elit"})), 1, 57.689280, 11.972306, -1));
+        questions.add(new OptionQuestion("Vem kan bo här?", new ArrayList<String>(Arrays.asList(new String[]{"Pil", "Katten", "Nightinggale", "Elit"})), 2, 57.742081, 11.969506, -1));
+        questions.add(new OptionQuestion("Vem bor inneboende här?", new ArrayList<String>(Arrays.asList(new String[]{"Pil", "Nightinggale", "Elit", "Katten"})), 3, 57.735626, 12.116774, -1));
+        questions.add(new OptionQuestion("Vem orkar pendla från Kungsbacka?", new ArrayList<String>(Arrays.asList(new String[]{"Elit", "Pil", "Nightinggale", "Katten"})), 0, 57.543822, 12.103735, -1));
+        questions.add(new OptionQuestion("Vem bor så här nära Chalmers?", new ArrayList<String>(Arrays.asList(new String[]{"Katten", "Pil", "Nightinggale", "Elit"})), 1, 57.689280, 11.972306, -1));
+        questions.add(new OptionQuestion("Vem kan bo här?", new ArrayList<String>(Arrays.asList(new String[]{"Pil", "Katten", "Nightinggale", "Elit"})), 2, 57.742081, 11.969506, -1));
+        questions.add(new OptionQuestion("Vem bor inneboende här?", new ArrayList<String>(Arrays.asList(new String[]{"Pil", "Nightinggale", "Elit", "Katten"})), 3, 57.735626, 12.116774, -1));
+        questions.add(new OptionQuestion("Vem orkar pendla från Kungsbacka?", new ArrayList<String>(Arrays.asList(new String[]{"Elit", "Pil", "Nightinggale", "Katten"})), 0, 57.543822, 12.103735, -1));
+        questions.add(new OptionQuestion("Vem bor så här nära Chalmers?", new ArrayList<String>(Arrays.asList(new String[]{"Katten", "Pil", "Nightinggale", "Elit"})), 1, 57.689280, 11.972306, -1));
+        questions.add(new OptionQuestion("Vem kan bo här?", new ArrayList<String>(Arrays.asList(new String[]{"Pil", "Katten", "Nightinggale", "Elit"})), 2, 57.742081, 11.969506, -1));
+
+        questions.add(new OptionQuestion("Vem bor så här nära Chalmers?", new ArrayList<String>(Arrays.asList(new String[]{"Katten", "Pil", "Nightinggale", "Elit"})), 1, 57.689280, 11.972306, -1));
+        questions.add(new OptionQuestion("Vem kan bo här?", new ArrayList<String>(Arrays.asList(new String[]{"Pil", "Katten", "Nightinggale", "Elit"})), 2, 57.742081, 11.969506, -1));
+        questions.add(new OptionQuestion("Vem bor inneboende här?", new ArrayList<String>(Arrays.asList(new String[]{"Pil", "Nightinggale", "Elit", "Katten"})), 3, 57.735626, 12.116774, -1));
+        questions.add(new OptionQuestion("Vem orkar pendla från Kungsbacka?", new ArrayList<String>(Arrays.asList(new String[]{"Elit", "Pil", "Nightinggale", "Katten"})), 0, 57.543822, 12.103735, -1));
+        questions.add(new OptionQuestion("Vem bor så här nära Chalmers?", new ArrayList<String>(Arrays.asList(new String[]{"Katten", "Pil", "Nightinggale", "Elit"})), 1, 57.689280, 11.972306, -1));
+        questions.add(new OptionQuestion("Vem kan bo här?", new ArrayList<String>(Arrays.asList(new String[]{"Pil", "Katten", "Nightinggale", "Elit"})), 2, 57.742081, 11.969506, -1));
+        questions.add(new OptionQuestion("Vem bor inneboende här?", new ArrayList<String>(Arrays.asList(new String[]{"Pil", "Nightinggale", "Elit", "Katten"})), 3, 57.735626, 12.116774, -1));
+        questions.add(new OptionQuestion("Vem orkar pendla från Kungsbacka?", new ArrayList<String>(Arrays.asList(new String[]{"Elit", "Pil", "Nightinggale", "Katten"})), 0, 57.543822, 12.103735, -1));
+        questions.add(new OptionQuestion("Vem bor så här nära Chalmers?", new ArrayList<String>(Arrays.asList(new String[]{"Katten", "Pil", "Nightinggale", "Elit"})), 1, 57.689280, 11.972306, -1));
+        questions.add(new OptionQuestion("Vem kan bo här?", new ArrayList<String>(Arrays.asList(new String[]{"Pil", "Katten", "Nightinggale", "Elit"})), 2, 57.742081, 11.969506, -1));
+
+
+
+        Quiz q = new Quiz("Gissa huset!", "Besök skaparna av appen och gissa vem som bor var!", -2, questions);
+        q.setSetting(QUESTIONS_IN_ORDER, false);
+        return q;
+    }
 }
