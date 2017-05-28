@@ -14,6 +14,7 @@ $username = mysqli_real_escape_string($con, $username);
 $username = strtolower($username);
 $password = $_POST['password'];
 $password = mysqli_real_escape_string($con, $password);
+//Encrypts password before sending it to database for security reasons.
 $password = encrypt($password);
 $regdate = date("Y-m-d H:i:s");
 $error = 0;

@@ -2,11 +2,11 @@
 
 /**
 
-* Validering av inloggning
+* Validation of login
 
 * 
 
-* Validerar inloggning genom att hitta poster i databasen som stÃÂ¤mmer med inloggningsuppgifterna. Om de existerar kollas genom att utfÃÂ¶ra num_rows kommandot pÃÂ¥ de valda posterna och sedan se hur mÃÂ¥nga poster som hittades, dÃÂ¤r 0 = ej hittat.
+* Validates login by comparing send parameters to existing accounts in database
 
 *
 
@@ -17,35 +17,34 @@
 ?>
     <?php
 
-//begÃÂ¤r att encrypt.php och connectDB.php existerar fÃÂ¶r att kyrptera lÃÂ¶senord respektivt skapa en databasanslutning.
 require "encrypt.php";
 require "connectDB.php";
 $response = 0;
 $password = $_POST['password'];
-//Kallar pÃÂ¥ encrypt funktionen fÃÂ¶r att kryptera lÃÂ¶senordet innan det kan jÃÂ¤mnfÃÂ¶ras med databasen.
+//Encrypts the password before comparing to database, since the saved passwords are already encrypted.
 $password = encrypt($password);
 
 $username = $_POST['username'];
 $username = strtolower($username);
-$con = connect(); //Anropar och ansluter till db.
+$con = connect(); //Connects to database
 
-//VÃÂ¤ljer alla poster dÃÂ¤r lÃÂ¶senorder och anvÃÂ¤ndarnamn matchar inloggningen samt att kontonivÃÂ¥n ÃÂ¤r 1
+//Finds all accounts that match the sent login credentials and are administrators
 $selectadmin = mysqli_query($con, "SELECT * FROM account WHERE password = '$password' AND username = '$username' AND level = 1");
 
-//VÃÂ¤ljer alla poster dÃÂ¤r lÃÂ¶senorder och email matchar inloggningen samt att konto nivÃÂ¥n ÃÂ¤r 0
+//Finds all accounts that match the sent login credentials and are normal users
 $select = mysqli_query($con, "SELECT * FROM account WHERE password = '$password' AND username = '$username' AND level = 0");
 	
-//Ser hur mÃÂ¥nga poster man hittat fÃÂ¶r bÃÂ¥da nivÃÂ¥erna	
+//Counts matches for both searches, if both are 0 no account with those credentials exists, otherwise one will be "1" depending on the account level
 $nradmin = mysqli_num_rows($selectadmin);
 $nr = mysqli_num_rows($select);
 
 
-//om man hittat en post med den inloggningsinformationen som ÃÂ¤r ett admin account loggas man in som administratÃÂ¶r och skickas tillbaka. 
+//If an admin account was found, a special code is sent back to the application
 if($nradmin == 1)
 {
 $response = -2;
 }
-//Om man istÃÂ¤llet hittat en post som ej ÃÂ¤r administratÃÂ¶r loggas man in som vanlig anvÃÂ¤ndare.
+//If the found account is a normal user, the account ID is sent back instead to be used by the application
 else if($nr == 1)
 {
 while($data = mysqli_fetch_array($select)){
@@ -54,10 +53,12 @@ $response = $data['accountid'];
 
 }    
 }
-//Om ingen post hittas fÃÂ¶r vare sig admin eller vanlig anvÃÂ¤ndare skickas ett medellande om misslyckat inloggning.
+//If no account was found with the chosen credentials, the application is notified with a special code
 else{
 $response = -1;
 }
+
+//Returns response to application
 echo $response;
 
 mysqli_close($con);
