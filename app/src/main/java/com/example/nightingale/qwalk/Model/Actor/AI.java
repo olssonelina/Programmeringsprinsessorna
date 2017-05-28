@@ -52,6 +52,10 @@ public class AI implements Runnable, IActor {
 
     }
 
+    /**
+     *
+     * @return difficulty settings of the opponent
+     */
     public final int getDifficulty() {
         return difficulty;
     }
@@ -70,6 +74,14 @@ public class AI implements Runnable, IActor {
         return answers.clone();
     }
 
+    /**
+     *
+     * Generates the computer-opponent's answers
+     *
+     * @param correctAnswers The correct answers to the quiz
+     * @param low The lower bounds of the possible answers
+     * @param high The higher bounds of the possible answers
+     */
     private void setAnswers(int[] correctAnswers, int[] low, int[] high) {
         for (int i = 0; i < answers.length; i++) {
             if (difficulty > randomInt()) {
@@ -84,11 +96,20 @@ public class AI implements Runnable, IActor {
         }
     }
 
+    /**
+     *
+     * @return a randomized number between 0 and 99
+     */
     private int randomInt() {
         Random rand = new Random();
         return rand.nextInt(100);
     }
 
+    /**
+     *
+     * @param numberOfOptions How many options there are to randomly select from
+     * @return the randomly selected alternative
+     */
     private int randomAnswer(int numberOfOptions) {
         Random rand = new Random();
         return rand.nextInt(numberOfOptions);
