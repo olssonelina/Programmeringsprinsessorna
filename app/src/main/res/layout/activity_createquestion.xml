@@ -35,8 +35,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/arrow2"
-            android:onClick="onBackPressed"
-             />
+            android:onClick="onBackPressed" />
 
         <TextView
             android:id="@+id/addPosition"
@@ -264,30 +263,41 @@
         </RadioGroup>
 
         <Button
+            android:id="@+id/deleteQuestionButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignTop="@+id/goBack"
+            android:layout_toEndOf="@+id/addPosition"
+            android:layout_toRightOf="@+id/addPosition"
+            android:background="@drawable/delete"
+            android:onClick="onDeletePressed"
+            android:text="" />
+
+        <Button
             android:id="@+id/nextQuestion"
             android:layout_width="150dp"
             android:layout_height="50dp"
+            android:layout_alignBaseline="@+id/done"
+            android:layout_alignBottom="@+id/done"
+            android:layout_alignEnd="@+id/questionField"
+            android:layout_alignRight="@+id/questionField"
             android:background="#FF09C856"
             android:ems="10"
             android:onClick="addQuestion"
-            android:text="@string/add_question"
-            android:layout_alignBaseline="@+id/done"
-            android:layout_alignBottom="@+id/done"
-            android:layout_alignRight="@+id/questionField"
-            android:layout_alignEnd="@+id/questionField" />
+            android:text="@string/add_question" />
 
         <Button
             android:id="@+id/done"
             android:layout_width="150dp"
             android:layout_height="50dp"
+            android:layout_alignLeft="@+id/questionField"
+            android:layout_alignStart="@+id/questionField"
+            android:layout_below="@+id/addPosition"
             android:layout_marginTop="20dp"
             android:background="#FF09C856"
             android:ems="10"
             android:onClick="questionsDone"
-            android:text="@string/done"
-            android:layout_below="@+id/addPosition"
-            android:layout_alignLeft="@+id/questionField"
-            android:layout_alignStart="@+id/questionField" />
+            android:text="@string/done" />
 
 
     </RelativeLayout>

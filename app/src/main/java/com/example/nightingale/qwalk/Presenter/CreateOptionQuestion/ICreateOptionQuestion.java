@@ -12,9 +12,9 @@ public interface ICreateOptionQuestion {
     int getAnswer();
 
     String getQuestionTitle();
-
+    void setDeleteVisible();
     void closeWithResult(List<Question> questions);
-
+    void databaseComplete(String message);
     void close();
 
     double getLatitude();

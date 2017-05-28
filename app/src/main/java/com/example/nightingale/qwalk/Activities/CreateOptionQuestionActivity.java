@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -36,6 +37,8 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
     private CreateOptionQuestionPresenter presenter;
     public static final int GET_POSITION_CODE = 97;
 
+    private Button deleteQuestion;
+
     private TextView questionNumber;
     private EditText questionText;
     private TextView locationText;
@@ -56,11 +59,13 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
 
         questionText = (EditText) findViewById(R.id.questionField);
         locationText = (TextView) findViewById(R.id.addPosition);
-
+        deleteQuestion = (Button) findViewById(R.id.deleteQuestionButton);
+        deleteQuestion.setVisibility(View.GONE);
         options[0] = (EditText) findViewById(R.id.option1Field);
         options[1] = (EditText) findViewById(R.id.option2Field);
         options[2] = (EditText) findViewById(R.id.option3Field);
         options[3] = (EditText) findViewById(R.id.option4Field);
+
 
         numbers[0] = (TextView) findViewById(R.id.number1);
         numbers[1] = (TextView) findViewById(R.id.number2);
@@ -325,6 +330,12 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
     }
 
     @Override
+    public void databaseComplete(String message) {
+        Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
     public final void close() {
         finish();
     }
@@ -380,6 +391,15 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
 
             }
         }
+    }
+
+
+    public void onDeletePressed(View view){
+        presenter.removeQuestion();
+    }
+
+    public void setDeleteVisible(){
+        deleteQuestion.setVisibility(View.VISIBLE);
     }
 
     @Override

@@ -44,7 +44,7 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
         title = (TextView) findViewById(R.id.title);
         description = (TextView) findViewById(R.id.description);
         edit = (Button) findViewById(R.id.edit);
-        delete = (Button) findViewById(R.id.deleteQuizButton);
+        delete = (Button) findViewById(R.id.deleteQuestionButton);
 
         spinner = (ProgressBar) findViewById(R.id.progressBar1);
         spinner.setVisibility(View.GONE);

@@ -40,6 +40,7 @@ public final class DatabaseHandler {
     /**
      * Variables for various requests to database
      */
+    private static int questionid;
     private static String quizDescription;
     private static String quizTitle;
     private static Quiz quiz;
@@ -219,6 +220,11 @@ public final class DatabaseHandler {
         new DatabaseHandler.SendLoginRequest().execute();
 
 
+    }
+
+    public static void deleteQuestion(int questionID){
+        questionid = questionID;
+        new DatabaseHandler.SendDeleteQuestionRequest().execute();
     }
 
     /**
@@ -646,6 +652,58 @@ catch (Exception e) {
                 msg = "Vän borttagen";
             } else {
                 msg = "Error";
+            }
+            mediator.onMessageRecieved(msg);
+
+
+        }
+    }
+
+    public static class SendDeleteQuestionRequest extends AsyncTask<String, Void, String> {
+
+
+        protected void onPreExecute() {
+        }
+
+        protected final String doInBackground(String... arg0) {
+
+            try {
+
+                URL url = new URL(DELETE_FRIEND_URL);
+
+                JSONObject postDataParams = new JSONObject();
+
+
+
+                postDataParams.put("questionid", questionid);
+
+
+                Log.e("params", postDataParams.toString());
+
+                return sendParams(url, postDataParams);
+            } catch (Exception e) {
+                return "Exception: " + e.getMessage();
+            }
+        }
+
+
+        @Override
+        protected final void onPostExecute(String result) {
+
+            String msg = "";
+
+
+            Log.e("response", result);
+            result = result.replaceAll("\\s+", "");
+
+            if (result == null || result.equals("<br/>") || result.equals("false:500")){
+                msg = "Anslutning misslyckades";
+            }
+            else if (result.equals("Exception:Unabletoresolvehost\"" + HOST + "\":Noaddressassociatedwithhostname")) {
+                msg = "Uppkoppling misslyckades";
+            }
+            else {
+                msg = "Fråga Borttagen";
             }
             mediator.onMessageRecieved(msg);
 

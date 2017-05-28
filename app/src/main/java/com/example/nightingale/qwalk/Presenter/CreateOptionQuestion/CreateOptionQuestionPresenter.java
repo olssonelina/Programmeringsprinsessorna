@@ -1,7 +1,12 @@
 package com.example.nightingale.qwalk.Presenter.CreateOptionQuestion;
 
+import android.view.View;
+
+import com.example.nightingale.qwalk.Model.Database.DatabaseHandler;
+import com.example.nightingale.qwalk.Model.MessageMediator.IOnMessageRecievedListener;
 import com.example.nightingale.qwalk.Model.Question.OptionQuestion;
 import com.example.nightingale.qwalk.Model.Question.Question;
+import com.example.nightingale.qwalk.Presenter.Register.IRegister;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,9 +17,8 @@ import java.util.List;
  * Created by Elina Olsson on 2017-05-11.
  */
 
-public class CreateOptionQuestionPresenter {
+public class CreateOptionQuestionPresenter implements IOnMessageRecievedListener {
 
-    //private static Context ctx;
 
     private int questionID = -1;
     private int questionCounter = 1;
@@ -27,6 +31,7 @@ public class CreateOptionQuestionPresenter {
         this.view = view;
         this.questionCounter = questionCounter;
         view.reset(questionCounter);
+        DatabaseHandler.setOnMessageRecievedListener(this);
     }
 
     public final boolean addQuestion(boolean reset) {
@@ -53,6 +58,10 @@ public class CreateOptionQuestionPresenter {
         if (addQuestion(false)) {
             view.closeWithResult(questions);
         }
+    }
+
+    public void removeQuestion(){
+        DatabaseHandler.deleteQuestion(questionID);
     }
 
     private boolean validateQuestion() {
@@ -92,11 +101,19 @@ public class CreateOptionQuestionPresenter {
     }
 
     public final void setAllFields(OptionQuestion question) {
+        view.setDeleteVisible();
         questionID = question.getQuestionID();
         view.setAnswer(question.getCorrectAnswer());
         view.setLatitude(question.getLatitude());
         view.setLongitude(question.getLongitude());
         view.setOptions(question.getOptions());
         view.setQuestionTitle(question.getQuestionTitle());
+    }
+
+    @Override
+    public void messageRecieved(String message) {
+        if(message.equals("Fråga Borttagen")){
+            view.databaseComplete(message);
+        }
     }
 }
