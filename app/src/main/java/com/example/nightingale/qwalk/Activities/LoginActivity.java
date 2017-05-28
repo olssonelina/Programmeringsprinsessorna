@@ -107,6 +107,8 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
     public final void databaseComplete(String message) {
         if (message.equals("Loggar in")){
             openMenu();
+            setPassword("");
+            setUsername("");
         }
         else if(!(message.equals(""))){
             Toast.makeText(this, message, Toast.LENGTH_LONG).show();

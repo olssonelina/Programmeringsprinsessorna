@@ -21,6 +21,8 @@ public class LoginPresenter implements IOnMessageRecievedListener {
     public final void guestButtonPressed() {
         Account.getInstance().logOut();
         view.openMenu();
+        view.setPassword("");
+        view.setUsername("");
     }
 
     public final void registerButtonPressed() {
