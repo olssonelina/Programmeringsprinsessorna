@@ -62,9 +62,9 @@ public class AnswerTiebreakerActivity extends AppCompatActivity implements IAnsw
     @Override
     public final void setRange(int from, int to) {
         int progress = slider.getProgress();
-        int val = (int) ((progress * (slider.getWidth() - 2.0 * slider.getThumbOffset())) / slider.getMax());
+        int val = (int) ((progress * (slider.getWidth() - 2f * slider.getThumbOffset())) / slider.getMax());
         value.setText("" + (progress + from));
-        value.setX((int)(slider.getX() + val + slider.getThumbOffset() / 2.0));
+        value.setX((int)(slider.getX() + val + slider.getThumbOffset() / 2f));
         slider.setMax(to - from);
     }
 

@@ -57,7 +57,7 @@ public class FriendPresenter implements IOnMessageRecievedListener{
         view.setFriendList(getFriendsNames());
     }
 
-    public String[] getFriendsNames(){
+    private final String[] getFriendsNames(){
         String[] friends = new String[Account.getInstance().getFriends().size()];
         for (int i = 0; i < friends.length; i++) {
             friends[i] = Account.getInstance().getFriends().get(i);

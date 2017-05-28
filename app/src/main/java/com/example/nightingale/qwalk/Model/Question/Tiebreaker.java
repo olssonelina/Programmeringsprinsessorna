@@ -89,14 +89,6 @@ public class Tiebreaker extends Question implements Parcelable {
      * {@inheritDoc}
      */
     @Override
-    public final int describeContents() {
-        return 0;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public final void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
         dest.writeInt(lowerBounds);

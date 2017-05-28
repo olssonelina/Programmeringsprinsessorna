@@ -149,7 +149,7 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
         }
         int val = (progress * (seekBar.getWidth() - 2 * seekBar.getThumbOffset())) / seekBar.getMax();
         value.setText("Rätt \n" + " " + (progress + parseInt(minField.getText().toString())));
-        value.setX((int) (seekBar.getX() + val + seekBar.getThumbOffset() / 2.0));
+        value.setX((int) (seekBar.getX() + val + seekBar.getThumbOffset() / 2f));
         int minValue = parseInt(minField.getText().toString());
         seekBar.setMax(parseInt(maxField.getText().toString()) - minValue);
     }

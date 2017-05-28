@@ -325,7 +325,7 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
     }
 
     @Override
-    public void close() {
+    public final void close() {
         finish();
     }
 

@@ -5,7 +5,6 @@ import com.example.nightingale.qwalk.Model.Actor.IActor;
 import com.example.nightingale.qwalk.Model.Actor.Player;
 import com.example.nightingale.qwalk.Model.Question.Question;
 import com.example.nightingale.qwalk.Model.Quiz.Quiz;
-import com.example.nightingale.qwalk.Model.Quiz.QuizDifficulty;
 import com.example.nightingale.qwalk.Presenter.Maps.MapsPresenter;
 
 import java.util.ArrayList;
@@ -160,20 +159,6 @@ public class QwalkGame {
     }
 
     private void initializeAi(QLocation userLocation) {
-
-        int difficulty = 0;
-        switch (quiz.getDifficulty()) {
-            case EASY:
-                difficulty = 35;
-                break;
-            case MEDIUM:
-                difficulty = 50;
-                break;
-            case HARD:
-                difficulty = 75;
-                break;
-        }
-
         AI ai = new AI(quiz.getCorrectAnswers(), quiz.hasTieBreaker(), quiz.getLowerBounds(), quiz.getUpperBounds(), quiz.getDifficulty(), quiz.getLocations(), userLocation);
         Thread aiThread = new Thread(ai);
         ai.setLocation(userLocation);

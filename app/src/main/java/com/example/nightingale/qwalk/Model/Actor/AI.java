@@ -7,10 +7,6 @@ import com.example.nightingale.qwalk.Model.Quiz.QuizDifficulty;
 
 import java.util.Random;
 
-import static com.example.nightingale.qwalk.Model.Quiz.QuizDifficulty.EASY;
-import static com.example.nightingale.qwalk.Model.Quiz.QuizDifficulty.HARD;
-import static com.example.nightingale.qwalk.Model.Quiz.QuizDifficulty.MEDIUM;
-
 /**
  * Created by Elina Olsson on 2017-05-15.
  */
@@ -56,7 +52,7 @@ public class AI implements Runnable, IActor {
 
     }
 
-    public int getDifficulty() {
+    public final int getDifficulty() {
         return difficulty;
     }
 

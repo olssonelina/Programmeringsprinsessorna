@@ -104,7 +104,7 @@ public abstract class Question implements Parcelable {
      * {@inheritDoc}
      */
     @Override
-    public int describeContents() {
+    public final int describeContents() {
         return 0;
     }
 

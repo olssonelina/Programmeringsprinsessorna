@@ -23,7 +23,7 @@ public class AITest {
 
     @Before
     public void create() {
-        quiz = StandardQuizzes.getTestQuiz();
+        quiz = StandardQuizzes.getChalmersQuiz();
     }
 
     /**

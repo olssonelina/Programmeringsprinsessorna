@@ -12,7 +12,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.nightingale.qwalk.Model.Database.DatabaseHandler;
 import com.example.nightingale.qwalk.Presenter.Friend.IFriend;
 import com.example.nightingale.qwalk.Presenter.Friend.FriendPresenter;
 import com.example.nightingale.qwalk.R;

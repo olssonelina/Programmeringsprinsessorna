@@ -219,10 +219,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         if (angle > 135 && angle <= 225) {
             directionArrow.setY(screenHeight() - 240);
-            directionArrow.setX(screenWidth() / 2);
+            directionArrow.setX(screenWidth() / 2f);
         }
         if (angle > 225 && angle <= 315) {
-            directionArrow.setY(screenHeight() / 2 - 80);
+            directionArrow.setY(screenHeight() / 2f - 80);
             directionArrow.setX(60);
         }
     }
