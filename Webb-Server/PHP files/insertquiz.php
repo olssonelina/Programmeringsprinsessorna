@@ -7,7 +7,7 @@
 
 */
 require "connectDB.php";
-$con    = connect(); //Anropar och ansluter till db.
+$con    = connect(); //Connects to Database
 $finish = $_POST['finish'];
 
 //Finish == 0 means the application is asking to add a question. In the application this happens in a loop until every question is added.

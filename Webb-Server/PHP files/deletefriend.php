@@ -7,7 +7,7 @@
 
 */
 require "connectDB.php";
-$con = connect(); //Anropar och ansluter till db.
+$con = connect(); //Connects to Database
 
 
 $accountid = $_POST['accountid'];
