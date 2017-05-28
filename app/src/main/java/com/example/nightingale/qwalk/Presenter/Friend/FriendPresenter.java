@@ -30,7 +30,7 @@ public class FriendPresenter implements IOnMessageRecievedListener{
         view.setAddFriendButtonEnabled(true);
         view.setFriendListEnabled(true);
         view.setSpinnerVisibility(false);
-        if (message.equals("Vän tillagd")) {
+        if (message.equals("Vän tillagd") || message.equals("Vän borttagen")) {
             DatabaseHandler.loadFriends();
             view.setFriendList(getFriendsNames());
             shouldMenuUpdate = true;
@@ -57,7 +57,7 @@ public class FriendPresenter implements IOnMessageRecievedListener{
         view.setFriendList(getFriendsNames());
     }
 
-    public String[] getFriendsNames(){
+    private final String[] getFriendsNames(){
         String[] friends = new String[Account.getInstance().getFriends().size()];
         for (int i = 0; i < friends.length; i++) {
             friends[i] = Account.getInstance().getFriends().get(i);

@@ -111,7 +111,7 @@ public class Quiz implements Parcelable {
     /**
      * @return Returns true if the quiz has a tiebreaker, returns false if not
      */
-    public boolean hasTieBreaker(){return (questions.get(questions.size() - 1) instanceof Tiebreaker);}
+    public final boolean hasTieBreaker(){return (questions.get(questions.size() - 1) instanceof Tiebreaker);}
 
     /**
      * @return Returns the title of the quiz

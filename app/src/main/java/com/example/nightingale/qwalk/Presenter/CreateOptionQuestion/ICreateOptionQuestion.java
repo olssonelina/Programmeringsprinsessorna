@@ -15,6 +15,8 @@ public interface ICreateOptionQuestion {
 
     void closeWithResult(List<Question> questions);
 
+    void close();
+
     double getLatitude();
 
     double getLongitude();

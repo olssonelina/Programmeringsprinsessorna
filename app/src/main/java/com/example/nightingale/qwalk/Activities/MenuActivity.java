@@ -165,8 +165,7 @@ public class MenuActivity extends AppCompatActivity implements IMenu {
 
     public final void logout(View view) {
         Account.getInstance().logOut();
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+        finish();
     }
 
     private void loadList(ListView listView, List<Quiz> quizzes, AdapterView.OnItemClickListener onItemClickListener) {

@@ -1,11 +1,19 @@
 <?php
+/**
+
+* Deletes friendship relations from database
+
+* @param author kevin.solovjov@gmail.com
+
+*/
 require "connectDB.php";
-$con = connect(); //Anropar och ansluter till db.
+$con = connect(); //Connects to Database
 
 
 $accountid = $_POST['accountid'];
 $friendid = $_POST['friendid'];
 
+//Deletes the friend from the relation table.
 $sql = "DELETE FROM friendrelation WHERE accountid = '$accountid' AND friendid = '$friendid'";
 mysqli_query($con, $sql);
 

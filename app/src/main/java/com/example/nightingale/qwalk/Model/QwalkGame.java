@@ -159,21 +159,7 @@ public class QwalkGame {
     }
 
     private void initializeAi(QLocation userLocation) {
-
-        int difficulty = 0;
-        switch (quiz.getDifficulty()) {
-            case EASY:
-                difficulty = 35;
-                break;
-            case MEDIUM:
-                difficulty = 50;
-                break;
-            case HARD:
-                difficulty = 75;
-                break;
-        }
-
-        AI ai = new AI(quiz.getCorrectAnswers(), quiz.hasTieBreaker(), quiz.getLowerBounds(), quiz.getUpperBounds(), difficulty, quiz.getLocations(), userLocation);
+        AI ai = new AI(quiz.getCorrectAnswers(), quiz.hasTieBreaker(), quiz.getLowerBounds(), quiz.getUpperBounds(), quiz.getDifficulty(), quiz.getLocations(), userLocation);
         Thread aiThread = new Thread(ai);
         ai.setLocation(userLocation);
         aiThread.start();

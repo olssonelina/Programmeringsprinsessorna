@@ -35,10 +35,11 @@ public class MapsViewTestClass implements IMaps {
         presenter.setAnswer(question, answer);
     }
 
+    /*
     @Override
     public void showResults(Quiz quiz, int[] playerAnswers, ArrayList<Integer> aiAnswers, long quizTime) {
 
-    }
+    }*/
 
     @Override
     public void focusOn(QLocation location) {
@@ -84,6 +85,11 @@ public class MapsViewTestClass implements IMaps {
         enabledMarkers.remove(question);
         placedHiddenMarkers.remove(question);
         placedMarkers.remove(question);
+    }
+
+    @Override
+    public void showResults(Quiz quiz, int[] playerAnswers, int[] aiAnswers, long quizTime) {
+
     }
 
     @Override

@@ -1,6 +1,9 @@
 package com.example.nightingale.qwalk.Model.Actor;
 
+import android.widget.Toast;
+
 import com.example.nightingale.qwalk.Model.QLocation;
+import com.example.nightingale.qwalk.Model.Quiz.QuizDifficulty;
 
 import java.util.Random;
 
@@ -14,7 +17,7 @@ public class AI implements Runnable, IActor {
     private int difficulty;
     private QLocation location;
     private QLocation[] questionLocations;
-    private boolean tiebreaker=false;
+    private boolean tiebreaker = false;
 
     /**
      * Creates an ai which aims to answer questions in a quiz and to walk around on the map
@@ -26,8 +29,18 @@ public class AI implements Runnable, IActor {
      * @param difficulty        the difficulty of the quiz in percent, 1 - 100.
      * @param questionLocations the question locations in the quiz, in order of index
      */
-    public AI(int[] correctAnswers, boolean tieBreaker, int[] low, int[] high, int difficulty, QLocation[] questionLocations, QLocation startLocation) {
-        this.difficulty = difficulty;
+    public AI(int[] correctAnswers, boolean tieBreaker, int[] low, int[] high, QuizDifficulty difficulty, QLocation[] questionLocations, QLocation startLocation) {
+        switch (difficulty) {
+            case EASY:
+                this.difficulty = 35;
+                break;
+            case MEDIUM:
+                this.difficulty = 50;
+                break;
+            case HARD:
+                this.difficulty = 75;
+                break;
+        }
         this.answers = new int[correctAnswers.length];
         for (int i = 0; i < answers.length; i++) {
             answers[i] = NO_ANSWER;
@@ -36,8 +49,12 @@ public class AI implements Runnable, IActor {
         this.questionLocations = questionLocations.clone();
         setAnswers(correctAnswers, low, high);
         this.location = startLocation;
+
     }
 
+    public final int getDifficulty() {
+        return difficulty;
+    }
 
     /**
      * {@inheritDoc}
@@ -82,7 +99,6 @@ public class AI implements Runnable, IActor {
      */
     @Override
     public final void run() {
-
         int sleepTime;
 
         switch (difficulty) {

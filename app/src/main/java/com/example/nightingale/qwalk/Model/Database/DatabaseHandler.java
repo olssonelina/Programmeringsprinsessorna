@@ -36,6 +36,10 @@ import javax.net.ssl.HttpsURLConnection;
  */
 
 public final class DatabaseHandler {
+
+    /**
+     * Variables for various requests to database
+     */
     private static String quizDescription;
     private static String quizTitle;
     private static Quiz quiz;
@@ -50,8 +54,12 @@ public final class DatabaseHandler {
     private static List<Question> quizQuestions = new ArrayList<>();
     private static String username;
     private static String password;
-    private static int  offset;
+    private static int offset;
     private static int userid;
+
+    /**
+     * URLs to current host, change these when migrating host, or the program wont work.
+     */
 
     final private static String HOST = "programmeringsprinsessorna.000webhostapp.com";
     final private static String INSERT_QUIZ_URL = "https://programmeringsprinsessorna.000webhostapp.com/insertquiz.php";
@@ -72,7 +80,9 @@ public final class DatabaseHandler {
     }
 
 
-
+    /**
+     * Creates the string that is sent to the database, used in all requests
+     */
 
     public static String getPostDataString(JSONObject params)  throws UnsupportedEncodingException, JSONException {
 
@@ -101,6 +111,9 @@ public final class DatabaseHandler {
         return result.toString();
     }
 
+    /**
+     * Called whenever the friend list needs to be updated
+     */
 
     public static void loadFriends() {
 
@@ -114,6 +127,10 @@ public final class DatabaseHandler {
             JSONArray jsonArray = new JSONArray(JSONstring);
 
             Account.getInstance().wipeLists();
+
+            /**
+             * Gets info from the JSON string that is returned by database
+             */
             for (int i = 0; i < jsonArray.length(); ++i) {
 
                 JSONObject quiz = jsonArray.getJSONObject(i);
@@ -132,6 +149,9 @@ public final class DatabaseHandler {
         request = 0;
     }
 
+    /**
+     * Called when adding friends from FriendActivity
+     */
     public static void addFriend(String friend) {
         if(friend.equals("")){
             return;
@@ -147,6 +167,10 @@ public final class DatabaseHandler {
         }
     }
 
+    /**
+     * Called to delete friends when pressing a name in the friend list
+     */
+
     public static void deleteFriend(String friend) {
 
         friendUsername = friend;
@@ -155,6 +179,10 @@ public final class DatabaseHandler {
 
 
     }
+
+    /**
+     * Called to delete quizzes from quizdetailsactivity
+     */
 
     public static void deleteQuiz(int quiz) {
 
@@ -165,6 +193,9 @@ public final class DatabaseHandler {
 
     }
 
+    /**
+     * Called to register accounts from registeractivity
+     */
 
     public static void registerAccount(String username, String password) {
 
@@ -176,6 +207,10 @@ public final class DatabaseHandler {
 
     }
 
+    /**
+     * Called to login form loginActivity
+     */
+
     public static void login(String username, String password) {
 
         DatabaseHandler.username = username;
@@ -186,6 +221,9 @@ public final class DatabaseHandler {
 
     }
 
+    /**
+     * Called to load quizzes from a specific account, works for both the current user and any friends
+     */
 
     public static String readQuiz(int readRequest, int readOffset, int readUserid) {
         request = readRequest;
@@ -198,6 +236,12 @@ catch (Exception e) {
     }
         return "";
     }
+
+
+
+    /**
+     * Sends parameters to database, used in all requests
+     */
 
     public static String sendParams(URL url, JSONObject postDataParams) {
 
@@ -247,6 +291,10 @@ catch (Exception e) {
     }
 
 
+    /**
+     * Called to save or update a quiz from createQuizActivity
+     */
+
     public static void saveQuiz(String title, String description, List<Question> questions, Quiz editQuiz) {
         Log.d("VARIABLE QuizID", "Stuff happening");
 
@@ -259,6 +307,9 @@ catch (Exception e) {
         counter = 0;
         readycheck = 0;
 
+        /**
+         * Sends a request for every question to be added in database
+         */
         for (int i = 0; i < quizQuestions.size(); i++) {
             Log.d("Test", "In loop");
             try {
@@ -267,6 +318,7 @@ catch (Exception e) {
                 Log.d("Getcomplete", "True");
                 Log.d("Getcomplete", response);
                 response = response.replaceAll("\\s+", "");
+                //Adds the ID of the newly added question to a list which is later used to establish a relation between questions and quizzes
                 questionIDArray.add(Integer.parseInt(response));
             } catch (Exception e) {
                 Log.d("Getcomplete", "False");
@@ -280,15 +332,22 @@ catch (Exception e) {
         Log.d("JSONindex", String.valueOf(questionIDArray.get(0)));
         } catch (Exception e) {
         }
+
+        //Converts the list to a JSON array and then a string so it can be sent to the database
         JSONArray jsArray = new JSONArray(questionIDArray);
 
         JSONarrayString = jsArray.toString();
         Log.d("JSON", JSONarrayString);
         readycheck = 1;
         counter = 0;
+        //Sends a new request the create a quiz to contain all the added questions
         new SendInsertQuizRequest().execute();
 
     }
+
+    /**
+     * Various requests below, simply send data from functions above to database and return a string as result. Some notify classes in the post execute phase
+     */
 
 
     public static class SendInsertQuizRequest extends AsyncTask<String, Void, String> {
@@ -315,7 +374,7 @@ catch (Exception e) {
                     Log.d("VARIABLE QuizID", String.valueOf(quiz.getQuizID()));
                 }
 
-
+                //Counter increments every time a question is added
                 if (quizQuestions.get(counter) instanceof OptionQuestion) {
                     Log.d("VARIABLE", "Type : 0");
                     postDataParams.put("questiontype", 0);
@@ -697,6 +756,9 @@ String msg = "";
             }
             else if (result.equals("Exception:Unabletoresolvehost\"" + DatabaseHandler.HOST + "\":Noaddressassociatedwithhostname")) {
                 msg = "Inget internet";
+            }
+            else if (result.equals("timeout")){
+                msg = "Timed out";
             }
             else if (Integer.parseInt(result) == -1) {
                 msg = "Fel lösenord/användarnamn!";

@@ -34,8 +34,8 @@ public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz
     private EditText quizDescription;
     private ListView questionList;
 
-    private final int OPTIONQUESTION_CODE = 7;
-    private final int TIEBREAKER_CODE = 22;
+    private final static int OPTIONQUESTION_CODE = 7;
+    private final static int TIEBREAKER_CODE = 22;
 
     @Override
     protected final void onCreate(Bundle savedInstanceState) {

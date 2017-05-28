@@ -1,7 +1,6 @@
 package com.example.nightingale.qwalk.Presenter.CreateQuiz;
 
 import com.example.nightingale.qwalk.Model.Question.OptionQuestion;
-import com.example.nightingale.qwalk.Model.Question.Question;
 import com.example.nightingale.qwalk.Model.Question.Tiebreaker;
 import com.example.nightingale.qwalk.Model.Quiz.Quiz;
 
