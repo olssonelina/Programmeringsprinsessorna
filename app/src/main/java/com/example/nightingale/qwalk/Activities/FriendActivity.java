@@ -13,8 +13,6 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.nightingale.qwalk.Presenter.Friend.IFriend;
-import com.example.nightingale.qwalk.Model.Database.DatabaseHandler;
-import com.example.nightingale.qwalk.Model.Database.Account;
 import com.example.nightingale.qwalk.Presenter.Friend.FriendPresenter;
 import com.example.nightingale.qwalk.R;
 
@@ -26,36 +24,62 @@ public class FriendActivity extends AppCompatActivity implements IFriend {
 
     private FriendPresenter presenter;
 
-    private EditText UsernameInput;
-    private ListView listView;
-    private Button addfriendbutton;
+    private EditText usernameInput;
+    private ListView friendList;
+    private Button addFriendButton;
     private ProgressBar spinner;
 
 
     protected final void onCreate(Bundle savedInstanceState) {
-        presenter = new FriendPresenter(this);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_friend); //ändra namnet till rätt xml-fil
-        UsernameInput = (EditText) findViewById(R.id.friendusername);
-        listView = (ListView) findViewById(R.id.friendsList);
+        setContentView(R.layout.activity_friend);
 
-        addfriendbutton = (Button) findViewById(R.id.addQuizButton);
-
+        usernameInput = (EditText) findViewById(R.id.friendusername);
+        friendList = (ListView) findViewById(R.id.friendsList);
+        addFriendButton = (Button) findViewById(R.id.addQuizButton);
         spinner = (ProgressBar) findViewById(R.id.progressBar1);
-        spinner.setVisibility(View.GONE);
 
-
-        setListItemsFriends();
-
+        presenter = new FriendPresenter(this);
     }
 
-    public final void setListItemsFriends() {
-        loadList(new AdapterView.OnItemClickListener() {
+    @Override
+    public void setFriendList(String[] friends) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, friends);
+
+        friendList.setAdapter(adapter);
+
+        friendList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                deleteFriend(position);
+                presenter.deleteFriend(position);
             }
         });
+    }
+
+    @Override
+    public void setSpinnerVisibility(Boolean value) {
+        spinner.setVisibility(value ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void setAddFriendButtonEnabled(Boolean value) {
+        addFriendButton.setEnabled(value);
+    }
+
+    @Override
+    public void setFriendListEnabled(Boolean value) {
+        friendList.setEnabled(value);
+    }
+
+    @Override
+    public String getUsername() {
+        return usernameInput.getText().toString();
+    }
+
+    @Override
+    public void showError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
     public final void onBackPressed(View view) {
@@ -67,49 +91,8 @@ public class FriendActivity extends AppCompatActivity implements IFriend {
         presenter.onBackPressed();
     }
 
-
-    private void loadList(AdapterView.OnItemClickListener onItemClickListener) {
-        String[] values = new String[Account.getInstance().getFriends().size()];
-        for (int i = 0; i < values.length; i++) {
-            values[i] = Account.getInstance().getFriends().get(i);
-        }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, values);
-
-        listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(onItemClickListener);
-    }
-
-    public final void AddFriendButtonClicked(View view) {
-        if (UsernameInput.getText().toString().equals(Account.getInstance().getUsername())) {
-            Toast.makeText(getApplicationContext(), getResources().getString(R.string.self_friend_ex),
-                    Toast.LENGTH_LONG).show();
-        } else {
-            addfriendbutton.setEnabled(false);
-            listView.setEnabled(false);
-            spinner.setVisibility(View.VISIBLE);
-            DatabaseHandler.addFriend(UsernameInput.getText().toString());
-        }
-    }
-
-
-    public final void DatabaseComplete(String msg) {
-        addfriendbutton.setEnabled(true);
-        listView.setEnabled(true);
-        spinner.setVisibility(View.GONE);
-        if (msg.equals("Vän tillagd")) {
-            DatabaseHandler.loadFriends();
-            setListItemsFriends();
-            presenter.menuShouldUpdate();
-        }
-    }
-
-
-    private void deleteFriend(int position) {
-        presenter.menuShouldUpdate();
-        DatabaseHandler.deleteFriend(Account.getInstance().getFriends().get(position));
+    public final void addFriendButtonClicked(View view) {
+        presenter.addFriendButtonPressed();
     }
 
     @Override

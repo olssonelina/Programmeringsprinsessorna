@@ -122,7 +122,7 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
                 presenter.onRegisterResult(data.getStringExtra("username"), data.getStringExtra("password"));
             }
             catch (NullPointerException e){
-                
+
             }
         }
     }

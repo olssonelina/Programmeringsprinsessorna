@@ -30,7 +30,7 @@
             android:layout_marginTop="80dp"
             android:background="#FF09C856"
             android:ems="8"
-            android:onClick="AddFriendButtonClicked"
+            android:onClick="addFriendButtonClicked"
             android:text="@string/add_friend" />
 
         <TextView
