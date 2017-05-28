@@ -1,7 +1,7 @@
 <?php
 /**
 
-* Saves accounts in database
+* Saves friend relations in database
 
 * @param author kevin.solovjov@gmail.com
 
