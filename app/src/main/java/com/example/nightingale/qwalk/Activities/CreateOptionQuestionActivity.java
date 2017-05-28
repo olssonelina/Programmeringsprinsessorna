@@ -194,7 +194,7 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
                 return index;
             }
         }
-        throw new NullPointerException(getResources().getString(R.string.no_correct_answer_ex));// "No correct answer chosen" (skrev om meddelande till svenska)
+        throw new IllegalArgumentException(getResources().getString(R.string.no_correct_answer_ex));
     }
 
     @Override

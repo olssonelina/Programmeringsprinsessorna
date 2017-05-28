@@ -27,36 +27,36 @@ public class Player implements IActor {
     /**
      * {@inheritDoc}
      */
-    public QLocation getLocation() {
+    public final QLocation getLocation() {
         return location;
     }
 
     /**
      * {@inheritDoc}
      */
-    public void setLocation(QLocation location) {
+    public final void setLocation(QLocation location) {
         this.location = location;
     }
 
     /**
      * {@inheritDoc}
      */
-    public void setAnswer(int index, int answer) {
+    public final void setAnswer(int index, int answer) {
         answers[index] = answer;
     }
 
     /**
      * {@inheritDoc}
      */
-    public int[] getAnswers() {
-        return answers;
+    public final int[] getAnswers() {
+        return answers.clone();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public int getAnswer(int index) {
+    public final int getAnswer(int index) {
         return answers[index];
     }
 

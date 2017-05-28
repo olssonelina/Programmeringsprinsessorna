@@ -37,7 +37,7 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quizdetails);
 
@@ -57,23 +57,23 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
     }
 
 
-    public void onPlayPressed(View view) {
+    public final void onPlayPressed(View view) {
         presenter.playPressed();
     }
 
-    public void onEditPressed(View view) {
+    public final void onEditPressed(View view) {
         presenter.editPressed();
     }
 
-    public void onSettingsPressed(View view) {
+    public final void onSettingsPressed(View view) {
         presenter.settingsPressed();
     }
 
-    public void onBackPressed(View view) {
+    public final void onBackPressed(View view) {
         finish();
     }
 
-    public void onDeletePressed(View view) {
+    public final void onDeletePressed(View view) {
 
         edit.setEnabled(false);
         spinner.setVisibility(View.VISIBLE);
@@ -86,31 +86,31 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
 
 
     @Override
-    public void openSettings(Quiz quiz) {
+    public final void openSettings(Quiz quiz) {
         Intent intent = new Intent(this, QuizSettingsActivity.class);
         intent.putExtra("quiz", quiz);
         startActivityForResult(intent, QUIZ_SETTING_CODE);
     }
 
     @Override
-    public void playQuiz(Quiz quiz) {
+    public final void playQuiz(Quiz quiz) {
         Intent intent = new Intent(this, MapsActivity.class);
         intent.putExtra("quiz", quiz);
         startActivity(intent);
     }
 
     @Override
-    public void setTitle(String title) {
+    public final void setTitle(String title) {
         this.title.setText(title);
     }
 
     @Override
-    public void setDescription(String description) {
+    public final void setDescription(String description) {
         this.description.setText(description);
     }
 
     @Override
-    public void editQuiz(Quiz quiz) {
+    public final void editQuiz(Quiz quiz) {
         Intent intent = new Intent(this, CreateQuizActivity.class);
         intent.putExtra("quiz", quiz);
         startActivityForResult(intent, QUIZ_EDIT_CODE);
@@ -118,7 +118,7 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected final void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == QUIZ_SETTING_CODE) {
             ArrayList<QuizSetting> trueSettings = (ArrayList<QuizSetting>) data.getExtras().get("setTrue");
             ArrayList<QuizSetting> falseSettings = (ArrayList<QuizSetting>) data.getExtras().get("setFalse");
@@ -145,7 +145,7 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
     }
 
     @Override
-    public void setEditable(boolean value) {
+    public final void setEditable(boolean value) {
         edit.setEnabled(value);
         edit.setVisibility(value ? View.VISIBLE : View.INVISIBLE);
         delete.setEnabled(value);
@@ -153,9 +153,9 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
     }
 
     @Override
-    public void closeWithResult(boolean shouldMenuUpdate) {
+    public final void closeWithResult(boolean shouldMenuUpdate) {
         Intent returnIntent = new Intent();
-        setResult(GetPositionActivity.RESULT_OK, returnIntent);
+        setResult(RESULT_OK, returnIntent);
         returnIntent.putExtra("update", shouldMenuUpdate);
         finish();
     }

@@ -21,7 +21,7 @@ public class FriendPresenter implements IOnMessageRecievedListener{
         view.setFriendList(getFriendsNames());
     }
 
-    public void onBackPressed(){
+    public final void onBackPressed(){
         view.closeWithResult(shouldMenuUpdate);
     }
 
@@ -37,7 +37,7 @@ public class FriendPresenter implements IOnMessageRecievedListener{
         }
     }
 
-    public void addFriendButtonPressed(){
+    public final void addFriendButtonPressed(){
         if (view.getUsername().equals(Account.getInstance().getUsername())) {
             view.showError("Du kan inte lägga till dig själv!");
         } else {
@@ -48,7 +48,7 @@ public class FriendPresenter implements IOnMessageRecievedListener{
         }
     }
 
-    public void deleteFriend(int index){
+    public final void deleteFriend(int index){
         view.setSpinnerVisibility(true);
         view.setAddFriendButtonEnabled(false);
         view.setFriendListEnabled(false);

@@ -26,39 +26,39 @@ public abstract class Question implements Parcelable {
     /**
      * @return returns latitude
      */
-    public double getLatitude() {
+    public final double getLatitude() {
         return location.getLatitude();
     }
 
-    public int getQuestionID() {
+    public final int getQuestionID() {
         return questionID;
     }
 
     /**
      * @return returns longitude
      */
-    public double getLongitude() {
+    public final double getLongitude() {
         return location.getLongitude();
     }
 
     /**
      * @return returns correct answer, whether it is index or the actual answer is different
      */
-    public int getCorrectAnswer() {
+    public final int getCorrectAnswer() {
         return correctAnswer;
     }
 
     /**
      * @return return location
      */
-    public QLocation getLocation() {
+    public final QLocation getLocation() {
         return location;
     }
 
     /**
      * @return returns question title
      */
-    public String getQuestionTitle() {
+    public final String getQuestionTitle() {
         return questionTitle;
     }
 
@@ -120,7 +120,7 @@ public abstract class Question implements Parcelable {
     }
 
     @SuppressWarnings("unused")
-    public static final Parcelable.Creator<Tiebreaker> CREATOR = new Parcelable.Creator<Tiebreaker>() {
+    public static Parcelable.Creator<Tiebreaker> CREATOR = new Parcelable.Creator<Tiebreaker>() {
         @Override
         public Tiebreaker createFromParcel(Parcel in) {
             return new Tiebreaker(in);

@@ -30,7 +30,7 @@ public class QuizSettingsPresenter {
         view.setDifficultiesVisible(withBot);
     }
 
-    public void setSetting(QuizSetting setting, boolean value) {
+    public final void setSetting(QuizSetting setting, boolean value) {
         switch (setting) {
             case QUESTIONS_ARE_HIDDEN:
                 hiddenQuestions = value;
@@ -58,11 +58,11 @@ public class QuizSettingsPresenter {
         }
     }
 
-    public void setDifficulty(QuizDifficulty difficulty) {
+    public final void setDifficulty(QuizDifficulty difficulty) {
         this.difficulty = difficulty;
     }
 
-    public void backPressed() {
+    public final void backPressed() {
         ArrayList<QuizSetting> setTrue = new ArrayList<>(), setFalse = new ArrayList<>();
         addToLists(setTrue, setFalse, QUESTIONS_IN_ORDER, inOrder);
         addToLists(setTrue, setFalse, QUESTIONS_ARE_HIDDEN, hiddenQuestions);

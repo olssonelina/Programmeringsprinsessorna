@@ -43,7 +43,7 @@ public class FriendActivity extends AppCompatActivity implements IFriend {
     }
 
     @Override
-    public void setFriendList(String[] friends) {
+    public final void setFriendList(String[] friends) {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, friends);
 
@@ -58,27 +58,27 @@ public class FriendActivity extends AppCompatActivity implements IFriend {
     }
 
     @Override
-    public void setSpinnerVisibility(Boolean value) {
+    public final void setSpinnerVisibility(Boolean value) {
         spinner.setVisibility(value ? View.VISIBLE : View.GONE);
     }
 
     @Override
-    public void setAddFriendButtonEnabled(Boolean value) {
+    public final void setAddFriendButtonEnabled(Boolean value) {
         addFriendButton.setEnabled(value);
     }
 
     @Override
-    public void setFriendListEnabled(Boolean value) {
+    public final void setFriendListEnabled(Boolean value) {
         friendList.setEnabled(value);
     }
 
     @Override
-    public String getUsername() {
+    public final String getUsername() {
         return usernameInput.getText().toString();
     }
 
     @Override
-    public void showError(String message) {
+    public final void showError(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
@@ -96,9 +96,9 @@ public class FriendActivity extends AppCompatActivity implements IFriend {
     }
 
     @Override
-    public void closeWithResult(boolean shouldMenuUpdate) {
+    public final void closeWithResult(boolean shouldMenuUpdate) {
         Intent returnIntent = new Intent();
-        setResult(GetPositionActivity.RESULT_OK, returnIntent);
+        setResult(RESULT_OK, returnIntent);
         returnIntent.putExtra("update", shouldMenuUpdate);
         finish();
     }

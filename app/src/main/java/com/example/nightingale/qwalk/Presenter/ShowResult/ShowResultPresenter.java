@@ -58,7 +58,7 @@ public class ShowResultPresenter {
         return true; //om det är precis lika på allt vinner spelaren
     }
 
-    public void playNewPressed(){
+    public final void playNewPressed(){
         view.openMenu();
     }
 

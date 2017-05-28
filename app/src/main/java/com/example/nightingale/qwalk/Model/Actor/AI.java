@@ -33,7 +33,7 @@ public class AI implements Runnable, IActor {
             answers[i] = NO_ANSWER;
         }
         this.tiebreaker = tieBreaker;
-        this.questionLocations = questionLocations;
+        this.questionLocations = questionLocations.clone();
         setAnswers(correctAnswers, low, high);
         this.location = startLocation;
     }
@@ -50,7 +50,7 @@ public class AI implements Runnable, IActor {
      * {@inheritDoc}
      */
     public final int[] getAnswers() {
-        return answers;
+        return answers.clone();
     }
 
     private void setAnswers(int[] correctAnswers, int[] low, int[] high) {
@@ -86,14 +86,14 @@ public class AI implements Runnable, IActor {
         int sleepTime;
 
         switch (difficulty) {
-            default:
-                sleepTime = 850;
-                break;
             case 50:
                 sleepTime = 780;
                 break;
             case 75:
                 sleepTime = 700;
+                break;
+            default:
+                sleepTime = 850;
                 break;
         }
 
@@ -137,7 +137,7 @@ public class AI implements Runnable, IActor {
      * {@inheritDoc}
      */
     @Override
-    public final QLocation getLocation() {
+    public final synchronized QLocation getLocation() {
         return location;
     }
 

@@ -104,7 +104,7 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
     }
 
     @Override
-    public final void DatabaseComplete(String message) {
+    public final void databaseComplete(String message) {
         if (message.equals("Loggar in")){
             openMenu();
         }
@@ -128,12 +128,12 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
     }
 
     @Override
-    public void setUsername(String username) {
+    public final void setUsername(String username) {
         usernameInput.setText(username);
     }
 
     @Override
-    public void setPassword(String password) {
+    public final void setPassword(String password) {
         passwordInput.setText(password);
     }
 }

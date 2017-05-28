@@ -24,10 +24,10 @@ public class OptionQuestion extends Question implements Parcelable {
      * @param correctAnswer the index in options of the correct answer
      * @param latitude      the latitude of the question
      * @param longitude     the longitude of the question
-     * @param ID            the id stored in the database for this question
+     * @param id            the id stored in the database for this question
      */
-    public OptionQuestion(String title, List<String> options, int correctAnswer, double latitude, double longitude, int ID/*Image image, Position position*/) {
-        super(title, correctAnswer, new QLocation(latitude, longitude), ID);
+    public OptionQuestion(String title, List<String> options, int correctAnswer, double latitude, double longitude, int id/*Image image, Position position*/) {
+        super(title, correctAnswer, new QLocation(latitude, longitude), id);
         for (String option : options) {
             this.options.add(option);
         }
@@ -39,7 +39,7 @@ public class OptionQuestion extends Question implements Parcelable {
      * @param index the index of the specific option
      * @return returns a specific option
      */
-    public String getOption(int index) {
+    public final String getOption(int index) {
         if (index < options.size() && index > -1) {
             return options.get(index);
         }
@@ -49,7 +49,7 @@ public class OptionQuestion extends Question implements Parcelable {
     /**
      * @return returns all options
      */
-    public String[] getOptions() {
+    public final String[] getOptions() {
         String[] options = new String[this.options.size()];
         for (int i = 0; i < options.length; i++) {
             options[i] = this.options.get(i);
@@ -61,7 +61,7 @@ public class OptionQuestion extends Question implements Parcelable {
      * {@inheritDoc}
      */
     @Override
-    public int getUpperBounds() {
+    public final int getUpperBounds() {
         int count = 0;
         for (int i = 0; i < options.size(); i++) {
             if (options.get(i).equals("")) {
@@ -77,7 +77,7 @@ public class OptionQuestion extends Question implements Parcelable {
      * {@inheritDoc}
      */
     @Override
-    public int getLowerBounds() {
+    public  final int getLowerBounds() {
         return 0;
     }
 
@@ -85,7 +85,7 @@ public class OptionQuestion extends Question implements Parcelable {
      * {@inheritDoc}
      */
     @Override
-    public boolean equals(Object o) {
+    public final boolean equals(Object o) {
         if (o instanceof OptionQuestion) {
             OptionQuestion other = (OptionQuestion) o;
 
@@ -106,7 +106,7 @@ public class OptionQuestion extends Question implements Parcelable {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         // TODO gör en haschcode och lägg till den i equals
         return 0;
     }
@@ -141,7 +141,7 @@ public class OptionQuestion extends Question implements Parcelable {
      * {@inheritDoc}
      */
     @Override
-    public int describeContents() {
+    public final int describeContents() {
         return 0;
     }
 
@@ -149,7 +149,7 @@ public class OptionQuestion extends Question implements Parcelable {
      * {@inheritDoc}
      */
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
+    public final void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
         if (options == null) {
             dest.writeByte((byte) (0x00));

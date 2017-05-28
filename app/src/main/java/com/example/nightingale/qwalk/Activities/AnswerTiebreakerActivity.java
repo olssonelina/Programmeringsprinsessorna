@@ -46,7 +46,7 @@ public class AnswerTiebreakerActivity extends AppCompatActivity implements IAnsw
         Intent returnIntent = new Intent();
         returnIntent.putExtra("answer", value);
         returnIntent.putExtra("question", question);
-        setResult(GetPositionActivity.RESULT_OK, returnIntent);
+        setResult(RESULT_OK, returnIntent);
         finish();
     }
 

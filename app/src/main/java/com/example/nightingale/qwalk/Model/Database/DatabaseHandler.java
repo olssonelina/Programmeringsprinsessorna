@@ -2,8 +2,6 @@ package com.example.nightingale.qwalk.Model.Database;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
 import com.example.nightingale.qwalk.Model.MessageMediator.IOnMessageRecievedListener;
 import com.example.nightingale.qwalk.Model.MessageMediator.MessageMediator;
@@ -11,7 +9,6 @@ import com.example.nightingale.qwalk.Model.Question.OptionQuestion;
 import com.example.nightingale.qwalk.Model.Question.Question;
 import com.example.nightingale.qwalk.Model.Quiz.Quiz;
 import com.example.nightingale.qwalk.Model.Question.Tiebreaker;
-import com.example.nightingale.qwalk.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,7 +35,7 @@ import javax.net.ssl.HttpsURLConnection;
  * This class is responsible for all communication with the database online
  */
 
-public class DatabaseHandler {
+public final class DatabaseHandler {
     private static String quizDescription;
     private static String quizTitle;
     private static Quiz quiz;
@@ -46,9 +43,9 @@ public class DatabaseHandler {
     private static String response;
     private static int readycheck = 0;
     private static int request;
-    private static String FriendUsername;
+    private static String friendUsername;
     private static int quizID;
-    private static List<Integer> QuestionIDArray = new ArrayList<Integer>();
+    private static List<Integer> questionIDArray = new ArrayList<Integer>();
     private static int counter = 0;
     private static List<Question> quizQuestions = new ArrayList<>();
     private static String username;
@@ -56,14 +53,14 @@ public class DatabaseHandler {
     private static int  offset;
     private static int userid;
 
-    final public static String HOST = "programmeringsprinsessorna.000webhostapp.com";
-    final public static String INSERT_QUIZ_URL = "https://programmeringsprinsessorna.000webhostapp.com/insertquiz.php";
-    final public static String INSERT_ACCOUNT_URL = "https://programmeringsprinsessorna.000webhostapp.com/insert.php";
-    final public static String DELETE_QUIZ_URL = "https://programmeringsprinsessorna.000webhostapp.com/deletequiz.php";
-    final public static String DELETE_FRIEND_URL = "https://programmeringsprinsessorna.000webhostapp.com/deletefriend.php";
-    final public static String INSERT_FRIEND_URL = "https://programmeringsprinsessorna.000webhostapp.com/insertfriend.php";
-    final public static String VALIDATE_URL = "https://programmeringsprinsessorna.000webhostapp.com/validera.php";
-    final public static String READ_QUIZ_URL = "https://programmeringsprinsessorna.000webhostapp.com/readquiz.php";
+    final private static String HOST = "programmeringsprinsessorna.000webhostapp.com";
+    final private static String INSERT_QUIZ_URL = "https://programmeringsprinsessorna.000webhostapp.com/insertquiz.php";
+    final private static String INSERT_ACCOUNT_URL = "https://programmeringsprinsessorna.000webhostapp.com/insert.php";
+    final private static String DELETE_QUIZ_URL = "https://programmeringsprinsessorna.000webhostapp.com/deletequiz.php";
+    final private static String DELETE_FRIEND_URL = "https://programmeringsprinsessorna.000webhostapp.com/deletefriend.php";
+    final private static String INSERT_FRIEND_URL = "https://programmeringsprinsessorna.000webhostapp.com/insertfriend.php";
+    final private static String VALIDATE_URL = "https://programmeringsprinsessorna.000webhostapp.com/validera.php";
+    final private static String READ_QUIZ_URL = "https://programmeringsprinsessorna.000webhostapp.com/readquiz.php";
 
     private static MessageMediator mediator = new MessageMediator();
 
@@ -89,10 +86,12 @@ public class DatabaseHandler {
             String key = itr.next();
             Object value = params.get(key);
 
-            if (first)
+            if (first){
                 first = false;
-            else
+            }
+            else {
                 result.append("&");
+            }
 
             result.append(URLEncoder.encode(key, "UTF-8"));
             result.append("=");
@@ -107,14 +106,14 @@ public class DatabaseHandler {
 
         Log.d("JSON", "Method entered");
         request = 1;
-        FriendUsername = "";
+        friendUsername = "";
         try {
             String JSONstring = new SendFriendRequest().execute().get();
 
             Log.d("JSON", JSONstring);
             JSONArray jsonArray = new JSONArray(JSONstring);
 
-            Account.getInstance().WipeLists();
+            Account.getInstance().wipeLists();
             for (int i = 0; i < jsonArray.length(); ++i) {
 
                 JSONObject quiz = jsonArray.getJSONObject(i);
@@ -133,14 +132,14 @@ public class DatabaseHandler {
         request = 0;
     }
 
-    public static void addFriend(String Friend) {
-        if(Friend.equals("")){
+    public static void addFriend(String friend) {
+        if(friend.equals("")){
             return;
         }
         else{
 
 
-        FriendUsername = Friend;
+        friendUsername = friend;
         request = 0;
 
         new DatabaseHandler.SendFriendRequest().execute();
@@ -148,9 +147,9 @@ public class DatabaseHandler {
         }
     }
 
-    public static void deleteFriend(String Friend) {
+    public static void deleteFriend(String friend) {
 
-        FriendUsername = Friend;
+        friendUsername = friend;
 
         new DatabaseHandler.SendDeleteFriendRequest().execute();
 
@@ -167,20 +166,20 @@ public class DatabaseHandler {
     }
 
 
-    public static void registerAccount(String Username, String Password) {
+    public static void registerAccount(String username, String password) {
 
-        username = Username;
-        password = Password;
+        DatabaseHandler.username = username;
+        DatabaseHandler.password = password;
 
         new DatabaseHandler.SendRegisterRequest().execute();
 
 
     }
 
-    public static void login(String Username, String Password) {
+    public static void login(String username, String password) {
 
-        username = Username;
-        password = Password;
+        DatabaseHandler.username = username;
+        DatabaseHandler.password = password;
 
         new DatabaseHandler.SendLoginRequest().execute();
 
@@ -248,15 +247,15 @@ catch (Exception e) {
     }
 
 
-    public static void saveQuiz(String Title, String Description, List<Question> questions, Quiz editQuiz) {
+    public static void saveQuiz(String title, String description, List<Question> questions, Quiz editQuiz) {
         Log.d("VARIABLE QuizID", "Stuff happening");
 
         quiz = editQuiz;
-        quizDescription = Description;
-        quizTitle = Title;
+        quizDescription = description;
+        quizTitle = title;
         quizQuestions = questions;
 
-        QuestionIDArray = new ArrayList<Integer>();
+        questionIDArray = new ArrayList<Integer>();
         counter = 0;
         readycheck = 0;
 
@@ -268,7 +267,7 @@ catch (Exception e) {
                 Log.d("Getcomplete", "True");
                 Log.d("Getcomplete", response);
                 response = response.replaceAll("\\s+", "");
-                QuestionIDArray.add(Integer.parseInt(response));
+                questionIDArray.add(Integer.parseInt(response));
             } catch (Exception e) {
                 Log.d("Getcomplete", "False");
                 break;
@@ -277,8 +276,8 @@ catch (Exception e) {
         }
         Log.d("VARIABLE QuizID", "out of loop");
 
-        Log.d("JSONindex", String.valueOf(QuestionIDArray.get(0)));
-        JSONArray jsArray = new JSONArray(QuestionIDArray);
+        Log.d("JSONindex", String.valueOf(questionIDArray.get(0)));
+        JSONArray jsArray = new JSONArray(questionIDArray);
         JSONarrayString = jsArray.toString();
         Log.d("JSON", JSONarrayString);
         readycheck = 1;
@@ -420,7 +419,7 @@ catch (Exception e) {
 
     public static class SendFriendRequest extends AsyncTask<String, Void, String> {
 
-        private String Username = FriendUsername;
+        private String username = friendUsername;
 
         protected void onPreExecute() {
         }
@@ -434,7 +433,7 @@ catch (Exception e) {
                 JSONObject postDataParams = new JSONObject();
 
 
-                postDataParams.put("friendusername", Username);
+                postDataParams.put("friendusername", username);
                 postDataParams.put("userid", Account.getInstance().getUserID());
                 postDataParams.put("request", request);
 
@@ -553,7 +552,7 @@ catch (Exception e) {
 
 
 
-                postDataParams.put("friendid", Account.getInstance().getFriendIDs().get(Account.getInstance().getFriends().indexOf(FriendUsername)));
+                postDataParams.put("friendid", Account.getInstance().getFriendIDs().get(Account.getInstance().getFriends().indexOf(friendUsername)));
                 postDataParams.put("accountid", Account.getInstance().getUserID());
 
                 Log.e("params", postDataParams.toString());
@@ -599,7 +598,7 @@ catch (Exception e) {
         protected void onPreExecute() {
         }
 
-        protected String doInBackground(String... arg0) {
+        protected final String doInBackground(String... arg0) {
 
             try {
 
@@ -622,7 +621,7 @@ catch (Exception e) {
 
 
         @Override
-        protected void onPostExecute(String result) {
+        protected final void onPostExecute(String result) {
 
             result = result.replaceAll("\\s+", "");
 

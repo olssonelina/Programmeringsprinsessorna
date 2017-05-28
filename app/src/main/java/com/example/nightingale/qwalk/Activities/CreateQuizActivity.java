@@ -3,7 +3,6 @@ package com.example.nightingale.qwalk.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -15,7 +14,6 @@ import android.widget.Toast;
 
 import com.example.nightingale.qwalk.Model.Question.OptionQuestion;
 import com.example.nightingale.qwalk.Presenter.CreateQuiz.ICreateQuiz;
-import com.example.nightingale.qwalk.Model.Database.DatabaseHandler;
 import com.example.nightingale.qwalk.Model.Question.Question;
 import com.example.nightingale.qwalk.Model.Quiz.Quiz;
 import com.example.nightingale.qwalk.Model.Question.Tiebreaker;
@@ -23,7 +21,6 @@ import com.example.nightingale.qwalk.Presenter.CreateQuiz.CreateQuizPresenter;
 import com.example.nightingale.qwalk.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Kraft on 2017-04-27.
@@ -37,8 +34,8 @@ public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz
     private EditText quizDescription;
     private ListView questionList;
 
-    public final static int OPTIONQUESTION_CODE = 7;
-    public final static int TIEBREAKER_CODE = 22;
+    private final int OPTIONQUESTION_CODE = 7;
+    private final int TIEBREAKER_CODE = 22;
 
     @Override
     protected final void onCreate(Bundle savedInstanceState) {
@@ -61,40 +58,40 @@ public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz
     }
 
     @Override
-    public void fillFields(Quiz editQuiz) {
+    public final void fillFields(Quiz editQuiz) {
         quizTitle.setText(editQuiz.getTitle());
         quizDescription.setText(editQuiz.getDescription());
     }
 
     @Override
-    public void setListItems(String[] questionTitles) {
+    public final void setListItems(String[] questionTitles) {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, questionTitles);
         questionList.setAdapter(adapter);
         setListViewHeightBasedOnItems(questionList);
     }
 
     @Override
-    public void close() {
+    public final void close() {
         finish();
     }
 
     @Override
-    public void closeWithResult() {
+    public final void closeWithResult() {
         Intent returnIntent = new Intent();
-        setResult(GetPositionActivity.RESULT_OK, returnIntent);
+        setResult(RESULT_OK, returnIntent);
         returnIntent.putExtra("update", true);
         finish();
     }
 
     @Override
-    public void openCreateOptionQuestion(int questionCounter) {
+    public final void openCreateOptionQuestion(int questionCounter) {
         Intent intent = new Intent(this, CreateOptionQuestionActivity.class);
         intent.putExtra("questionCounter", questionCounter);
         startActivityForResult(intent, OPTIONQUESTION_CODE);
     }
 
     @Override
-    public void openCreateOptionQuestion(OptionQuestion question, int questionCounter) {
+    public final void openCreateOptionQuestion(OptionQuestion question, int questionCounter) {
         Intent intent = new Intent(this, CreateOptionQuestionActivity.class);
         intent.putExtra("question", question);
         intent.putExtra("questionCounter", questionCounter);
@@ -102,30 +99,30 @@ public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz
     }
 
     @Override
-    public void openCreateTiebreakerQuestion() {
+    public final void openCreateTiebreakerQuestion() {
         Intent intent = new Intent(this, CreateTiebreakerActivity.class);
         startActivityForResult(intent, TIEBREAKER_CODE);
     }
 
     @Override
-    public void openCreateTiebreakerQuestion(Tiebreaker tiebreaker) {
+    public final void openCreateTiebreakerQuestion(Tiebreaker tiebreaker) {
         Intent intent = new Intent(this, CreateTiebreakerActivity.class);
         intent.putExtra("question", tiebreaker);
         startActivityForResult(intent, TIEBREAKER_CODE);
     }
 
     @Override
-    public String getDescription() {
+    public final String getDescription() {
         return quizDescription.getText().toString();
     }
 
     @Override
-    public String getQuestionTitle() {
+    public final String getQuestionTitle() {
         return quizTitle.getText().toString();
     }
 
     @Override
-    public void sendError(String message) {
+    public final void sendError(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
 

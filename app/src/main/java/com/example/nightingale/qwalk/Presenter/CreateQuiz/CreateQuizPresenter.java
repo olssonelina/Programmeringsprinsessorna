@@ -49,19 +49,19 @@ public class CreateQuizPresenter implements IOnMessageRecievedListener {
         }
     }
 
-    public void onBackPressed() {
+    public final void onBackPressed() {
         view.close();
     }
 
-    public void addOptionQuestionButtonPressed() {
+    public final void addOptionQuestionButtonPressed() {
         view.openCreateOptionQuestion(questions.size() + 1);
     }
 
-    public void addTiebreakerQuestionButtonPressed() {
+    public final void addTiebreakerQuestionButtonPressed() {
         view.openCreateTiebreakerQuestion();
     }
 
-    public void saveQuizButtonPressed() {
+    public final void saveQuizButtonPressed() {
         if (isQuizComplete()) {
             try {
                 saveQuizToDatabase();
@@ -75,17 +75,17 @@ public class CreateQuizPresenter implements IOnMessageRecievedListener {
         }
     }
 
-    public void addQuestions(List<Question> questionsToAdd) {
+    public final void addQuestions(List<Question> questionsToAdd) {
         questions.addAll(questionsToAdd);
         view.setListItems(getQuestionTitles());
     }
 
-    public void setTiebreaker(Tiebreaker tiebreaker) {
+    public final void setTiebreaker(Tiebreaker tiebreaker) {
         this.tiebreaker = tiebreaker;
         view.setListItems(getQuestionTitles());
     }
 
-    public void questionPressed(int index) {
+    public final void questionPressed(int index) {
         try {
             Question q = questions.get(index); //Question pressed is an option question
             questions.remove(q);

@@ -10,15 +10,26 @@ import java.util.List;
 
 public interface IMenu {
     void openCreateNewQuiz();
+
     void openFriend();
+
     void fadeFriendsIcon();
+
     void openQuizDetails(Quiz quiz, boolean editable);
+
     void setListItemsUser(List<Quiz> userQuizzes);
+
     void setListItemsFriends(List<Quiz> friendsQuizzes);
+
     void setListItemsDefault(List<Quiz> defaultQuizzes);
+
     void setListTitleUserVisible(boolean value);
+
     void setListTitleFriendsVisible(boolean value);
+
     void setListTitleDefaultVisible(boolean value);
+
     void setAccountFunctionalityEnabled(boolean value);
+
     void setListTitleUserText(String text);
 }
