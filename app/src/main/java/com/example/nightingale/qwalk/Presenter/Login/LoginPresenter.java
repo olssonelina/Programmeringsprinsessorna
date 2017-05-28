@@ -47,112 +47,12 @@ public class LoginPresenter implements IOnMessageRecievedListener {
         view.enableButtons(false);
         view.setSpinnerVisible(true);
 
-        try {
-            new SendRequest().execute();
-
-        } catch (Exception e) {
-
-        }
+            DatabaseHandler.login(view.getUsername(), view.getPassword());
     }
 
     @Override
     public final void messageRecieved(String message) {
-        view.showText(message);
+        view.DatabaseComplete(message);
     }
 
-    private class SendRequest extends AsyncTask<String, Void, String> {
-
-        private String username = view.getUsername();
-        private String password = view.getPassword();
-
-        protected void onPreExecute() {
-        }
-
-        protected String doInBackground(String... arg0) {
-
-            try {
-
-                URL url = new URL(DatabaseHandler.VALIDATE_URL);
-
-                JSONObject postDataParams = new JSONObject();
-
-
-                postDataParams.put("username", username);
-                postDataParams.put("password", password);
-
-
-                Log.e("params", postDataParams.toString());
-
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setReadTimeout(15000 /* milliseconds */);
-                conn.setConnectTimeout(15000 /* milliseconds */);
-                conn.setRequestMethod("POST");
-                conn.setDoInput(true);
-                conn.setDoOutput(true);
-
-                OutputStream os = conn.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(
-                        new OutputStreamWriter(os, "UTF-8"));
-                writer.write(DatabaseHandler.getPostDataString(postDataParams));
-
-                writer.flush();
-                writer.close();
-                os.close();
-
-                int responseCode = conn.getResponseCode();
-
-                if (responseCode == HttpsURLConnection.HTTP_OK) {
-
-                    BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                    StringBuffer sb = new StringBuffer("");
-                    String line = "";
-
-                    while ((line = in.readLine()) != null) {
-
-                        sb.append(line);
-                        break;
-                    }
-
-                    in.close();
-                    return sb.toString();
-
-                } else {
-                    return "false : " + responseCode;
-                }
-            } catch (Exception e) {
-                return "Exception: " + e.getMessage();
-            }
-        }
-
-
-        @Override
-        protected void onPostExecute(String result) {
-            id = result;
-            id = id.replaceAll("\\s+", "");
-            Log.e("CrashID", id);
-
-            if (id == null || id.equals("<br/>") || id.equals("false:500")){
-                view.showText("Anslutning misslyckades");
-            }
-            else if (id.equals("Exception:Unabletoresolvehost\"" + DatabaseHandler.HOST + "\":Noaddressassociatedwithhostname")) {
-                view.showText("Inget internet");
-            }
-            else if (Integer.parseInt(id) == -1) {
-                view.showText("Fel lösenord/användarnamn!");
-            } else if (Integer.parseInt(id) == -2) {
-                Account.getInstance().setUserID(Integer.parseInt(id));
-                Account.getInstance().setUsername(view.getUsername());
-                DatabaseHandler.loadFriends();
-                view.openMenu();
-            } else {
-                Account.getInstance().setUserID(Integer.parseInt(id));
-                Account.getInstance().setUsername(view.getUsername());
-                DatabaseHandler.loadFriends();
-                view.setSpinnerVisible(false);
-                view.openMenu();
-            }
-            view.setSpinnerVisible(false);
-            view.enableButtons(true);
-        }
-    }
 }

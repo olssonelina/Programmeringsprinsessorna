@@ -65,11 +65,6 @@ public class RegisterActivity extends AppCompatActivity implements IRegister{
         }
     }
 
-
-
-
-
-
     public void onBackPressed(View view) {
         finish();
     }

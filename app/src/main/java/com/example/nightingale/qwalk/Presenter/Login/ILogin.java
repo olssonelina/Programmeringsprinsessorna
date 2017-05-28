@@ -11,5 +11,5 @@ public interface ILogin {
     void enableButtons(boolean value);
     String getUsername();
     String getPassword();
-    void showText(String message);
+    void DatabaseComplete(String message);
 }

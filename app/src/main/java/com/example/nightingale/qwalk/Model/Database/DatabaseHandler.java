@@ -173,6 +173,16 @@ public class DatabaseHandler {
 
     }
 
+    public static void login(String Username, String Password) {
+
+        username = Username;
+        password = Password;
+
+        new DatabaseHandler.SendLoginRequest().execute();
+
+
+    }
+
     public static String sendParams(URL url, JSONObject postDataParams) {
 
         try {
@@ -628,4 +638,68 @@ String msg = "";
 
         }
     }
+
+    private static class SendLoginRequest extends AsyncTask<String, Void, String> {
+
+        protected void onPreExecute() {
+        }
+
+        protected String doInBackground(String... arg0) {
+
+            try {
+
+                URL url = new URL(DatabaseHandler.VALIDATE_URL);
+
+                JSONObject postDataParams = new JSONObject();
+
+
+                postDataParams.put("username", username);
+                postDataParams.put("password", password);
+
+
+                Log.e("params", postDataParams.toString());
+
+                return sendParams(url, postDataParams);
+            } catch (Exception e) {
+                return "Exception: " + e.getMessage();
+            }
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+
+            result = result.replaceAll("\\s+", "");
+            Log.e("CrashID", result);
+            String msg = "";
+            if (result == null || result.equals("<br/>") || result.equals("false:500")){
+                msg = "Anslutning misslyckades";
+            }
+            else if (result.equals("Exception:Unabletoresolvehost\"" + DatabaseHandler.HOST + "\":Noaddressassociatedwithhostname")) {
+                msg = "Inget internet";
+            }
+            else if (Integer.parseInt(result) == -1) {
+                msg = "Fel lösenord/användarnamn!";
+            } else if (Integer.parseInt(result) == -2) {
+                Account.getInstance().setUserID(Integer.parseInt(result));
+                Account.getInstance().setUsername(username);
+                DatabaseHandler.loadFriends();
+
+                msg = "Loggar in";
+
+                //Här kan man implementera admin funktioner
+
+
+            } else {
+                Account.getInstance().setUserID(Integer.parseInt(result));
+                Account.getInstance().setUsername(username);
+                DatabaseHandler.loadFriends();
+
+                msg = "Loggar in";
+            }
+
+            mediator.onMessageRecieved(msg);
+        }
+    }
+
 }

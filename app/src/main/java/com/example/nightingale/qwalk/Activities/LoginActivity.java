@@ -1,6 +1,7 @@
 package com.example.nightingale.qwalk.Activities;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -64,6 +65,17 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
     public final void openMenu() {
         Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
         startActivity(intent);
+
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                setSpinnerVisible(false);
+                enableButtons(true);
+            }
+        }, 5000);
+
     }
 
     @Override
@@ -90,10 +102,21 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
     }
 
     @Override
-    public final void showText(String message) {
-        if(!(message.equals(""))){
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    public final void DatabaseComplete(String message) {
+
+
+
+
+        if (message.equals("Loggar in")){
+            openMenu();
         }
+        else if(!(message.equals(""))){
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            setSpinnerVisible(false);
+            enableButtons(true);
+        }
+
+
 
     }
 }
