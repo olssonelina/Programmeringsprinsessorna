@@ -31,7 +31,7 @@ public class AITest {
      */
 
     @Test
-    public void testAnswers() {
+    public void testGeneratedAnswers() {
         int[] correctAnswers = quiz.getCorrectAnswers();
         int numberOfQuestions = quiz.getCorrectAnswers().length;
         int numberOfAIs = 100;
@@ -49,9 +49,6 @@ public class AITest {
                 }
             }
         }
-        System.out.println("Count: " + numberOfCorrectAnswers);
-        System.out.println("Frågor med rätt svar: " + diffucultyPercent * numberOfQuestions * numberOfAIs);
-        //assertTrue(Math.round(numberOfCorrectAnswers/numberOfAIs) == diffucultyPercent * numberOfQuestions * numberOfAIs);
 
         assertTrue(numberOfCorrectAnswers > diffucultyPercent * numberOfQuestions * numberOfAIs);
 

@@ -15,7 +15,6 @@ import static junit.framework.Assert.assertTrue;
 
 public class OptionQuestionTest {
 
-
     @Test
     public void hasMoreThanTwoOptions() throws Exception {
         String[] celebrities = {"Brad Pitt", "Michael Jackson", "The King", "Beyoncé"};
@@ -32,23 +31,5 @@ public class OptionQuestionTest {
         assertTrue("Is enough options?", threeOptions);
         assertFalse("Is not enough options?", oneOptions);
         assertFalse("Is no options?", noOptions);
-    }
-
-    @Test
-    public void getNumberOfOptions() throws Exception {
-        /*String[] celebrities = {"Brad Pitt", "Michael Jackson", "The King", "Beyoncé"};
-        String[] years = {"1932", "1995", "2003", ""};
-        String[] names = {"elina", "", "", ""};
-        String[] blank = {"", "", "", ""};
-
-        int fourOptions = oq1.getNumberOfOptions();
-        int threeOptions = oq1.getNumberOfOptions();
-        int oneOption = oq1.getNumberOfOptions();
-        int noOptions = oq1.getNumberOfOptions();
-
-        assertEquals("Number of options", fourOptions, 4);
-        assertEquals("Number of options", threeOptions, 3);
-        assertEquals("Number of options", oneOption, 1);
-        assertEquals("Number of options", noOptions, 0);*/
     }
 }
