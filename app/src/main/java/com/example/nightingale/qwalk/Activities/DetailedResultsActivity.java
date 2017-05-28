@@ -1,7 +1,9 @@
 package com.example.nightingale.qwalk.Activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.Contacts;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
 import com.example.nightingale.qwalk.Model.Question.OptionQuestion;
 import com.example.nightingale.qwalk.Model.Question.Question;
@@ -17,6 +20,8 @@ import com.example.nightingale.qwalk.Presenter.DetailedResults.DetailedResultsPr
 import com.example.nightingale.qwalk.Presenter.DetailedResults.IDetailedResults;
 import com.example.nightingale.qwalk.R;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -62,17 +67,29 @@ public class DetailedResultsActivity extends AppCompatActivity implements IDetai
 
     public void loadList(String[] questions, String[] answers) {
 
+        //CustomAdapter mAdapter = new CustomAdapter(this, R.layout.listitem, new ArrayList<>(Arrays.asList(questions)));
+        //resultList.setAdapter(mAdapter);
+        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        //        android.R.layout.simple_list_item_1, android.R.id.text1, questions);
+
+        //resultList.setAdapter(adapter);
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, questions);
+                android.R.layout.simple_list_item_1, android.R.id.text1, answers);
 
         resultList.setAdapter(adapter);
 
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_2, android.R.id.text2, answers);
-
-        resultList.setAdapter(adapter2);
-
         MenuActivity.setListViewHeightBasedOnItems(resultList);
 
+    }
+
+    public void setListColors(boolean[] isCorrect){
+        for(int i=0;i<isCorrect.length;i++) {
+            if (isCorrect[i]){
+                resultList.getChildAt(i).setBackgroundColor(Color.parseColor("green"));
+            }else{
+                resultList.getChildAt(i).setBackgroundColor(Color.parseColor("red"));
+            }
+        }
     }
 }
