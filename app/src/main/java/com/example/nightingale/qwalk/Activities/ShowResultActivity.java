@@ -131,9 +131,19 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
 
     public void playNewButtonPressed(View view){presenter.playNewPressed();}
 
+    public void detailedButtonPressed(View view){presenter.detailedButtonPressed();}
+
     @Override
     public void openMenu(){
         Intent intent = new Intent(this, MenuActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void openDetailed(Quiz quiz, int[] answers){
+        Intent intent = new Intent(this, DetailedResultsActivity.class);
+        intent.putExtra("quiz", quiz);
+        intent.putExtra("answers", answers);
         startActivity(intent);
     }
 }

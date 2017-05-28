@@ -1,5 +1,7 @@
 package com.example.nightingale.qwalk.Presenter.ShowResult;
 
+import com.example.nightingale.qwalk.Model.Quiz.Quiz;
+
 /**
  * Created by PiaLocal on 2017-05-10.
  */
@@ -20,4 +22,6 @@ public interface IShowResult {
     void showCompetitionResult(boolean playerWins);
 
     void openMenu();
+
+    void openDetailed(Quiz quiz, int[]answers);
 }

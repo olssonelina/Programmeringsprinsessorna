@@ -9,10 +9,14 @@ import com.example.nightingale.qwalk.Model.Quiz.Quiz;
 public class ShowResultPresenter {
 
     private IShowResult view;
+    private Quiz quiz;
+    private int[] playerAnswers;
 
     public ShowResultPresenter(IShowResult view, int[] playerAnswers, int[] aiAnswers, Quiz quiz, long time){ //byt ut "results" mot en player som innehåller resultat
         this.view=view;
-        view.showRightAnswers(calculateScore(quiz.getCorrectAnswers(), playerAnswers, quiz.hasTieBreaker()));
+        this.quiz=quiz;
+        this.playerAnswers=playerAnswers;
+        view.showRightAnswers(calculateScore(playerAnswers));
         if(quiz.hasTieBreaker()){
             view.showTotalAnswers(quiz.size()-1);
             view.showTieBreakerResult(quiz.getCorrectAnswers()[quiz.size()-1], playerAnswers[playerAnswers.length-1]);
@@ -21,8 +25,8 @@ public class ShowResultPresenter {
         }
         view.showTime(time/60,time%60);
         if(aiAnswers!=null){
-            view.showMonkeyResult(calculateScore(quiz.getCorrectAnswers(), aiAnswers, quiz.hasTieBreaker()));
-            view.showCompetitionResult(playerWins(calculateScore(quiz.getCorrectAnswers(), playerAnswers, true), calculateScore(quiz.getCorrectAnswers(),aiAnswers,true), playerAnswers[playerAnswers.length-1], aiAnswers[aiAnswers.length-1],quiz.getCorrectAnswers()[quiz.size()-1]));
+            view.showMonkeyResult(calculateScore(aiAnswers));
+            view.showCompetitionResult(playerWins(calculateScore(playerAnswers), calculateScore(aiAnswers), playerAnswers[playerAnswers.length-1], aiAnswers[aiAnswers.length-1],quiz.getCorrectAnswers()[quiz.size()-1]));
             if(quiz.hasTieBreaker()){
                 view.showMonkeyTieBreaker(aiAnswers[aiAnswers.length-1]);
             }
@@ -32,16 +36,15 @@ public class ShowResultPresenter {
     /**
      * Calculates the score of some object
      *
-     * @param correctAnswers the correct answers to every question in the quiz
      * @param answers the answers from the Player or AI
      * @return returns the score
      */
-    private int calculateScore(int[] correctAnswers, int[] answers, boolean tiebreaker){
+    private int calculateScore(int[] answers){
         int correctCount = 0;
-        int numberOfOptionQuestions=correctAnswers.length;
-        if(tiebreaker){numberOfOptionQuestions--;}   //för att poäng för optionquestions räknas separat från tiebreaker.
+        int numberOfOptionQuestions=quiz.getCorrectAnswers().length;
+        if(quiz.hasTieBreaker()){numberOfOptionQuestions--;}   //för att poäng för optionquestions räknas separat från tiebreaker.
         for (int i = 0; i < numberOfOptionQuestions; i++) {
-            if (correctAnswers[i] == answers[i]) {
+            if (quiz.getCorrectAnswers()[i] == answers[i]) {
                 correctCount++;
             }
         }
@@ -61,5 +64,7 @@ public class ShowResultPresenter {
     public void playNewPressed(){
         view.openMenu();
     }
+
+    public void detailedButtonPressed(){view.openDetailed(quiz, playerAnswers);}
 
 }

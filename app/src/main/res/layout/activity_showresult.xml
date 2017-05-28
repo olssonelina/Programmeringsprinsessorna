@@ -159,6 +159,7 @@
         android:layout_toEndOf="@+id/tieText3"
         android:layout_toRightOf="@+id/tieText3"
         android:background="#FF09C856"
+        android:onClick="detailedButtonPressed"
         android:text="@string/detailed" />
 
     <ImageView
