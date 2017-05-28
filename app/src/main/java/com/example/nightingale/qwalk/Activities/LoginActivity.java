@@ -47,15 +47,6 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
         Quiz quiz = StandardQuizzes.getAdressQuiz();
         int[] aiAnswers= {1,2,3,0};
 
-        Intent intent = new Intent(getBaseContext(), ShowResultActivity.class);
-        intent.putExtra("player", playerAnswers);
-        intent.putExtra("time", 213);
-        intent.putExtra("quiz", quiz);
-        if (aiAnswers != null) {
-            intent.putExtra("ai", aiAnswers);
-        }
-
-        startActivity(intent);
     }
 
     /**
