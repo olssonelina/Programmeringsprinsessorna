@@ -50,7 +50,7 @@ public final class DatabaseHandler {
     private static List<Question> quizQuestions = new ArrayList<>();
     private static String username;
     private static String password;
-    private static int  offset;
+    private static int offset;
     private static int userid;
 
     final private static String HOST = "programmeringsprinsessorna.000webhostapp.com";
@@ -697,6 +697,9 @@ String msg = "";
             }
             else if (result.equals("Exception:Unabletoresolvehost\"" + DatabaseHandler.HOST + "\":Noaddressassociatedwithhostname")) {
                 msg = "Inget internet";
+            }
+            else if (result.equals("timeout")){
+                msg = "Timed out";
             }
             else if (Integer.parseInt(result) == -1) {
                 msg = "Fel lösenord/användarnamn!";

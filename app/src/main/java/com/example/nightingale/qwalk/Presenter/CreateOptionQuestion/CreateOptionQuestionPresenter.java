@@ -76,7 +76,10 @@ public class CreateOptionQuestionPresenter {
 
 
     public final void backButtonPressed() {
-        view.closeWithResult(questions);
+        if (questions.size() > 0){
+            view.closeWithResult(questions);
+        }
+        view.close();
     }
 
 

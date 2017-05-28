@@ -129,7 +129,7 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
     }
 
     public final void onBackPressed(View view) {
-        finish();
+        presenter.backButtonPressed();
     }
 
 
@@ -321,6 +321,11 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
         Intent returnIntent = new Intent();
         returnIntent.putExtra("questions", (ArrayList) questions);
         setResult(RESULT_OK, returnIntent);
+        finish();
+    }
+
+    @Override
+    public void close() {
         finish();
     }
 
