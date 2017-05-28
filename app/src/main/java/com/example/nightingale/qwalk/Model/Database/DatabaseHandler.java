@@ -581,7 +581,7 @@ catch (Exception e) {
                 msg = "Uppkoppling misslyckades";
             }
             else if (result.equals("0")) {
-                msg = "Vän tillagd";
+                msg = "Vän borttagen";
             } else {
                 msg = "Error";
             }

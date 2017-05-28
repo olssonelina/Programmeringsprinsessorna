@@ -99,7 +99,7 @@ public class FriendActivity extends AppCompatActivity implements IFriend {
         addfriendbutton.setEnabled(true);
         listView.setEnabled(true);
         spinner.setVisibility(View.GONE);
-        if (msg.equals("Vän tillagd")) {
+        if (msg.equals("Vän tillagd") || msg.equals("Vän borttagen")) {
             DatabaseHandler.loadFriends();
             setListItemsFriends();
             presenter.menuShouldUpdate();
