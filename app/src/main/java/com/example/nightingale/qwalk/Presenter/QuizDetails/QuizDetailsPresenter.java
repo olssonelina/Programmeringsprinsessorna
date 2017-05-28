@@ -56,7 +56,7 @@ public class QuizDetailsPresenter {
         Log.d("QuizID", String.valueOf(quiz.getQuizID()));
         DatabaseHandler.deleteQuiz(quiz.getQuizID());
 
-        view.closeWithDeletion();
+        view.closeWithResult(true);
 
     }
 

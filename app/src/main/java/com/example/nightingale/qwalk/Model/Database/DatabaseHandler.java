@@ -14,6 +14,7 @@ import com.example.nightingale.qwalk.Model.Question.Tiebreaker;
 import com.example.nightingale.qwalk.R;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -21,6 +22,7 @@ import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -75,7 +77,7 @@ public class DatabaseHandler {
 
 
 
-    public static String getPostDataString(JSONObject params) throws Exception { //TODO tydligen får den inte kasta Exception, var mer specifik
+    public static String getPostDataString(JSONObject params)  throws UnsupportedEncodingException, JSONException {
 
         StringBuilder result = new StringBuilder();
         boolean first = true;

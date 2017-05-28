@@ -31,7 +31,7 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
     private TextView monkeyTieAnswer;
     private TextView result;
     private ImageView monkey;
-    private ImageView timer; //TODO finns lite saker som inte används här
+    private ImageView timer;
     private ImageView tieBreaker;
     private ImageView winner;
     private Button newQuizButton;

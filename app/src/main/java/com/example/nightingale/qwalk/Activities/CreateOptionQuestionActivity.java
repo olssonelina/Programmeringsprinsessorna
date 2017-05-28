@@ -154,7 +154,7 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
      * @param index
      */
 
-    private void shiftOptions(int index) { //TODO Skriv om denna metod och gör den snyggare
+    private void shiftOptions(int index) {
         for (int i = index; i < options.length - 1; i++) {
             options[i].setText(options[i + 1].getText());
             options[i + 1].getText().clear();
@@ -162,7 +162,6 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
                 radioButtons[i].setChecked(true);
                 radioButtons[i + 1].setChecked(false);
             }
-
         }
 
         numbers[numbers.length - 1].setText("+");
