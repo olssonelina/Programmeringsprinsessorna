@@ -28,7 +28,7 @@ public class AnswerOptionQuestionActivity extends AppCompatActivity implements I
     private Button saveAnswer;
     private TextView title;
 
-    private static final int selectedColour = Color.parseColor("#FF09C856");
+    private static final int selectedColour = Color.parseColor("#FF0295d8");
     private static final int deselectedColour = Color.parseColor("#FF303030");
 
     @Override
@@ -70,7 +70,11 @@ public class AnswerOptionQuestionActivity extends AppCompatActivity implements I
     }
 
     public final void showBotAnswer(int index) {
-        optionButtons[index].setBackgroundResource(R.drawable.monkeyanswer);
+        if (presenter.isSameAnswer()) {
+            optionButtons[index].setBackgroundResource(R.drawable.monkeyanswerblue);
+        } else {
+            optionButtons[index].setBackgroundResource(R.drawable.monkeyanswer);
+        }
     }
 
     public final String getButtonText() {

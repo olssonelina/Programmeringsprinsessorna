@@ -41,6 +41,13 @@ public class AnswerOptionQuestionPresenter {
         chosenAnswer = index;
     }
 
+    public boolean isSameAnswer() {
+        if(chosenAnswer == aiAnswer) {
+            return true;
+        }
+        return false;
+    }
+
 
     public final void submitClicked() {
         if (aiAnswer == -1 || view.getButtonText().equals("Stäng")) {
