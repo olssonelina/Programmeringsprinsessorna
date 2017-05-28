@@ -70,6 +70,8 @@ public final class DatabaseHandler {
     final private static String INSERT_FRIEND_URL = "https://programmeringsprinsessorna.000webhostapp.com/insertfriend.php";
     final private static String VALIDATE_URL = "https://programmeringsprinsessorna.000webhostapp.com/validera.php";
     final private static String READ_QUIZ_URL = "https://programmeringsprinsessorna.000webhostapp.com/readquiz.php";
+    final private static String DELETE_QUESTION_URL = "https://programmeringsprinsessorna.000webhostapp.com/deletequestion.php";
+
 
     private static MessageMediator mediator = new MessageMediator();
 
@@ -669,7 +671,7 @@ catch (Exception e) {
 
             try {
 
-                URL url = new URL(DELETE_FRIEND_URL);
+                URL url = new URL(DELETE_QUESTION_URL);
 
                 JSONObject postDataParams = new JSONObject();
 
