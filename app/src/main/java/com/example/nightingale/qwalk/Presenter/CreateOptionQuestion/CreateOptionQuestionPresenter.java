@@ -2,6 +2,7 @@ package com.example.nightingale.qwalk.Presenter.CreateOptionQuestion;
 
 import com.example.nightingale.qwalk.Model.Question.OptionQuestion;
 import com.example.nightingale.qwalk.Model.Question.Question;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,20 +17,27 @@ public class CreateOptionQuestionPresenter {
     //private static Context ctx;
 
     private int questionID = -1;
+    private int questionCounter = 1;
 
     private ICreateOptionQuestion view;
 
     private List<Question> questions = new ArrayList<>();
 
-    public CreateOptionQuestionPresenter(ICreateOptionQuestion view) {
+    public CreateOptionQuestionPresenter(ICreateOptionQuestion view, int questionCounter) {
         this.view = view;
+        this.questionCounter = questionCounter;
+        view.reset(questionCounter);
     }
 
     public final boolean addQuestion(boolean reset) {
-        if(validateQuestion()) {
+        if (validateQuestion()) {
             OptionQuestion q = buildQuestion();
             questions.add(q);
-            if (reset) { view.reset(); }
+            if (reset) {
+                questionCounter++;
+                view.reset(questionCounter);
+                updateLocationText();
+            }
             return true;
         }
         return false;
@@ -37,11 +45,11 @@ public class CreateOptionQuestionPresenter {
 
     private OptionQuestion buildQuestion() {
         String[] opts = view.getOptions();
-        return new OptionQuestion(view.getQuestionTitle(), new ArrayList<String>(Arrays.asList(opts)), view.getAnswer(), view.getLatitude(), view.getLongitude(), questionID );
+        return new OptionQuestion(view.getQuestionTitle(), new ArrayList<String>(Arrays.asList(opts)), view.getAnswer(), view.getLatitude(), view.getLongitude(), questionID);
     }
 
     public final void finishQuestions() {
-        if(addQuestion(false)) {
+        if (addQuestion(false)) {
             view.closeWithResult(questions);
         }
     }
@@ -66,7 +74,7 @@ public class CreateOptionQuestionPresenter {
     }
 
 
-    public final void backButtonPressed(){
+    public final void backButtonPressed() {
         view.closeWithResult(questions);
     }
 
@@ -79,7 +87,7 @@ public class CreateOptionQuestionPresenter {
         }
     }
 
-    public final void setAllFields(OptionQuestion question){
+    public final void setAllFields(OptionQuestion question) {
         questionID = question.getQuestionID();
         view.setAnswer(question.getCorrectAnswer());
         view.setLatitude(question.getLatitude());

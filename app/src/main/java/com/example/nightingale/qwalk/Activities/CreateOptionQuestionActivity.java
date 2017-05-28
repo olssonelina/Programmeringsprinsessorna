@@ -48,7 +48,6 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
     private double longitude = 0;
     private int questionID = 0;
 
-    private int questionCounter = 1;
 
     @Override
     protected final void onCreate(Bundle savedInstanceState) {
@@ -81,7 +80,7 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
             //options[i].addTextChangedListener(this);
         }
 
-        presenter = new CreateOptionQuestionPresenter(this);
+        presenter = new CreateOptionQuestionPresenter(this, getIntent().getIntExtra("questionCounter", 1));
 
         try {
             presenter.setAllFields((OptionQuestion) getIntent().getParcelableExtra("question"));
@@ -250,11 +249,12 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
     }
 
     @Override
-    public final void reset() {
-        questionCounter++;
+    public final void reset(int questionCounter) {
         questionNumber.setText(getResources().getString(R.string.question) + " " + questionCounter + ".");
         questionText.getText().clear();
         numbers[0].setText("+");
+        latitude = 0;
+        longitude = 0;
 
         for (int i = 0; i < options.length; i++) {
             options[i].getText().clear();

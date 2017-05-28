@@ -67,6 +67,7 @@ public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz
 
     public final void addQuestionButtonClicked(View view) {
         Intent intent = new Intent(this, CreateOptionQuestionActivity.class);
+        intent.putExtra("questionCounter", questions.size() + 1);
         startActivityForResult(intent, OPTIONQUESTION_CODE);
     }
 
@@ -226,6 +227,7 @@ public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz
             questions.remove(q);
             Intent intent = new Intent(this, CreateOptionQuestionActivity.class);
             intent.putExtra("question", q);
+            intent.putExtra("questionCounter", questions.size() + 1);
             startActivityForResult(intent, OPTIONQUESTION_CODE);
         } catch (IndexOutOfBoundsException e) { //Question pressed is the tiebreaker
             Intent intent = new Intent(this, CreateTiebreakerActivity.class);
