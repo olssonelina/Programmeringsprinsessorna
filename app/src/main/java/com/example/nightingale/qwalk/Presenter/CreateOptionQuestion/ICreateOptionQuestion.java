@@ -29,7 +29,7 @@ public interface ICreateOptionQuestion {
 
     void reset(int questionCounter);
 
-    void setQuestionID(int ID);
+    void setQuestionID(int id);
 
     void setLocationText(String text);
 

@@ -122,7 +122,7 @@ public class CreateTiebreakerActivity extends AppCompatActivity implements ICrea
     public final void closeWithResult(Tiebreaker question) {
         Intent returnIntent = new Intent();
         returnIntent.putExtra("tiebreaker", question);
-        setResult(GetPositionActivity.RESULT_OK, returnIntent);
+        setResult(RESULT_OK, returnIntent);
         finish();
     }
 

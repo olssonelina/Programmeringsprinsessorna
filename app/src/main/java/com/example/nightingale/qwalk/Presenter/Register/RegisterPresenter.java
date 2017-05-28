@@ -17,7 +17,7 @@ public class RegisterPresenter implements IOnMessageRecievedListener {
         view.setSpinnerVisible(false);
     }
 
-    public void registerPressed(){
+    public final void registerPressed(){
         if (view.getPasswordField1().equals(view.getPasswordField2())) {
             view.enableRegisterButton(false);
             view.setSpinnerVisible(true);
@@ -27,7 +27,7 @@ public class RegisterPresenter implements IOnMessageRecievedListener {
         }
     }
 
-    public void onBackPressed(){
+    public final void onBackPressed(){
         view.close();
     }
 

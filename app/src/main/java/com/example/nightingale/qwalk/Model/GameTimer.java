@@ -5,7 +5,7 @@ package com.example.nightingale.qwalk.Model;
  */
 
 public class GameTimer {
-    private boolean TimerRunning = false;
+    private boolean timerRunning = false;
     private long tStart, tStop, tSaved;
 
     /**
@@ -13,7 +13,7 @@ public class GameTimer {
      */
     public final void startTimer() {
         tStart = System.currentTimeMillis();
-        TimerRunning = true;
+        timerRunning = true;
         tSaved = 0;
     }
 
@@ -21,9 +21,9 @@ public class GameTimer {
      * Stops counting time but saves current result for eventual "Resume".
      */
     public final void stopTimer() {
-        if (TimerRunning) {
+        if (timerRunning) {
             tStop = System.currentTimeMillis();
-            TimerRunning = false;
+            timerRunning = false;
             tSaved += tStop - tStart;
         }
     }
@@ -32,9 +32,9 @@ public class GameTimer {
      * Continue counting time from the last stop.
      */
     public final void resumeTimer() {
-        if (!TimerRunning) {
+        if (!timerRunning) {
             tStart = System.currentTimeMillis();
-            TimerRunning = true;
+            timerRunning = true;
         }
     }
 
@@ -44,7 +44,7 @@ public class GameTimer {
      * @return time (in seconds) counted since latest Start
      */
     public final long getTime() {
-        if (TimerRunning) {
+        if (timerRunning) {
             tStop = System.currentTimeMillis();
             return (tStop - tStart + tSaved) / 1000;
         }

@@ -38,7 +38,7 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
     private Button detailsButton;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_showresult);
 
@@ -78,14 +78,14 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
     }
 
     @Override
-    public void showMonkeyResult(int monkeyRight) {
+    public final void showMonkeyResult(int monkeyRight) {
         monkey.setVisibility(View.VISIBLE);
         monkeyScore.setVisibility(View.VISIBLE);
         monkeyScore.setText(getResources().getString(R.string.monkey_got)+" "+monkeyRight+" "+getResources().getString(R.string.rigth_answers));
     }
 
     @Override
-    public void showTieBreakerResult(int rightAnswer, int playerAnswer){
+    public final void showTieBreakerResult(int rightAnswer, int playerAnswer){
         tieBreaker.setVisibility(View.VISIBLE);
         tieAnswer.setVisibility(View.VISIBLE);
         tieAnswer.setText(getResources().getString(R.string.right_answer_to_tiebreaker)+" "+rightAnswer);
@@ -94,13 +94,13 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
     }
 
     @Override
-    public void showMonkeyTieBreaker(int monkeyAnswer){
+    public final void showMonkeyTieBreaker(int monkeyAnswer){
         monkeyTieAnswer.setVisibility(View.VISIBLE);
         monkeyTieAnswer.setText(getResources().getString(R.string.monkeys_answer)+" "+monkeyAnswer);
     }
 
     @Override
-    public void showCompetitionResult(boolean playerWins){
+    public final void showCompetitionResult(boolean playerWins){
         if(playerWins){
             result.setText(getResources().getString(R.string.you_won));
         } else{
@@ -109,30 +109,30 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
         }
     }
 
-    public void onBackPressed(View view) {
+    public final void onBackPressed(View view) {
         finish();
     }
 
 
     @Override
-    public void showRightAnswers(int right) {
+    public final void showRightAnswers(int right) {
         this.rightView.setText(right +" "+ getResources().getString(R.string.rigth_answers));
     }
 
     @Override
-    public void showTotalAnswers(int total) {
+    public final void showTotalAnswers(int total) {
         this.totalView.setText(getResources().getString(R.string.of) +" "+ total +" "+ getResources().getString(R.string.possible));
     }
 
     @Override
-    public void showTime(long min, long sec) {
+    public final void showTime(long min, long sec) {
         this.timeView.setText( min +" "+ getResources().getString(R.string.minutes_and) +" "+ sec +" "+ getResources().getString(R.string.seconds));
     }
 
-    public void playNewButtonPressed(View view){presenter.playNewPressed();}
+    public final void playNewButtonPressed(View view){presenter.playNewPressed();}
 
     @Override
-    public void openMenu(){
+    public final void openMenu(){
         Intent intent = new Intent(this, MenuActivity.class);
         startActivity(intent);
     }

@@ -182,7 +182,7 @@ public class GetPositionActivity extends FragmentActivity implements OnMapReadyC
         }
     }
 
-    public final void PlaceQuestionButtonClicked(View view) {
+    public final void placeQuestionButtonClicked(View view) {
         presenter.closeButtonPressed();
     }
 

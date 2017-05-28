@@ -22,7 +22,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegister{
     private ProgressBar spinner;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
@@ -36,42 +36,42 @@ public class RegisterActivity extends AppCompatActivity implements IRegister{
     }
 
     @Override
-    public void setSpinnerVisible(Boolean enabled) {
+    public final void setSpinnerVisible(Boolean enabled) {
         spinner.setVisibility(enabled ? View.VISIBLE : View.GONE);
     }
 
     @Override
-    public void enableRegisterButton(boolean enabled) {
+    public final void enableRegisterButton(boolean enabled) {
         registerbutton.setEnabled(enabled);
     }
 
     @Override
-    public String getUsername() {
+    public final String getUsername() {
         return usernameInput.getText().toString();
     }
 
     @Override
-    public String getPasswordField1() {
+    public final String getPasswordField1() {
         return passwordInput.getText().toString();
     }
 
     @Override
-    public String getPasswordField2() {
+    public final String getPasswordField2() {
         return confirmPasswordInput.getText().toString();
     }
 
     @Override
-    public void showError(String message) {
+    public final void showError(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void close() {
+    public final void close() {
         finish();
     }
 
     @Override
-    public void closeWithResult(String username, String password) {
+    public final void closeWithResult(String username, String password) {
         Intent returnIntent = new Intent();
         returnIntent.putExtra("username", username);
         returnIntent.putExtra("password", password);
@@ -79,16 +79,16 @@ public class RegisterActivity extends AppCompatActivity implements IRegister{
         finish();
     }
 
-    public void registerButtonClicked(View view) {
+    public final void registerButtonClicked(View view) {
         presenter.registerPressed();
     }
 
-    public void onBackPressed(View view) {
+    public final void onBackPressed(View view) {
         presenter.onBackPressed();
     }
 
     @Override
-    public void onBackPressed(){
+    public final void onBackPressed(){
         presenter.onBackPressed();
     }
 }

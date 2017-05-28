@@ -25,7 +25,7 @@ public class QuizDetailsPresenter {
 
     }
 
-    public void settingsChanged(QuizSetting[] setTrue, QuizSetting[] setFalse){
+    public final void settingsChanged(QuizSetting[] setTrue, QuizSetting[] setFalse){
         for (QuizSetting qs: setTrue) {
             quiz.setSetting(qs, true);
         }
@@ -35,23 +35,23 @@ public class QuizDetailsPresenter {
         }
     }
 
-    public void difficultyChanged(QuizDifficulty difficulty){
+    public final void difficultyChanged(QuizDifficulty difficulty){
         quiz.setDifficulty(difficulty);
     }
 
-    public void playPressed(){
+    public final void playPressed(){
         view.playQuiz(quiz);
     }
 
-    public void editPressed(){
+    public final void editPressed(){
         view.editQuiz(quiz);
     }
 
-    public void settingsPressed(){
+    public final void settingsPressed(){
         view.openSettings(quiz);
     }
 
-    public void deletePressed() {
+    public final void deletePressed() {
 
         Log.d("QuizID", String.valueOf(quiz.getQuizID()));
         DatabaseHandler.deleteQuiz(quiz.getQuizID());

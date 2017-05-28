@@ -40,7 +40,7 @@ public class AnswerOptionQuestionPresenter {
         chosenAnswer = index;
     }
 
-    public boolean isSameAnswer() {
+    public final boolean isSameAnswer() {
         if(chosenAnswer == aiAnswer) {
             return true;
         }

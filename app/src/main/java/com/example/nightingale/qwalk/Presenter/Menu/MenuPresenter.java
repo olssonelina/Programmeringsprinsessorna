@@ -1,7 +1,5 @@
 package com.example.nightingale.qwalk.Presenter.Menu;
 
-import android.os.AsyncTask;
-
 import com.example.nightingale.qwalk.Model.Database.Account;
 import com.example.nightingale.qwalk.Model.Database.DatabaseHandler;
 import com.example.nightingale.qwalk.Model.Question.OptionQuestion;
@@ -11,20 +9,11 @@ import com.example.nightingale.qwalk.Model.StandardQuizzes;
 import com.example.nightingale.qwalk.Model.Question.Tiebreaker;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-
-import javax.net.ssl.HttpsURLConnection;
 
 /**
  * Created by Elina Olsson on 2017-05-22.
@@ -71,38 +60,38 @@ public class MenuPresenter {
     }
 
 
-    public void friendsButtonPressed() {
+    public final void friendsButtonPressed() {
         if (!isGuest) {
             view.openFriend();
         }
     }
 
-    public void userQuizPressed(int index) {
+    public final void userQuizPressed(int index) {
         view.openQuizDetails(userQuizzes.get(index), true);
     }
 
-    public void friendQuizPressed(int index) {
+    public final void friendQuizPressed(int index) {
         view.openQuizDetails(friendQuizzes.get(index), false);
     }
 
-    public void defaultQuizPressed(int index) {
+    public final void defaultQuizPressed(int index) {
         view.openQuizDetails(defaultQuizzes.get(index), false);
     }
 
-    public void createQuizPressed() {
+    public final void createQuizPressed() {
         if (!isGuest) {
             view.openCreateNewQuiz();
         }
     }
 
-    public void userQuizUpdated() {
+    public final void userQuizUpdated() {
         userQuizzes.clear();
         loadOnlineQuizzes(Account.getInstance().getUserID(), userQuizzes);
         view.setListItemsUser(userQuizzes);
         view.setListTitleUserVisible(userQuizzes.size() != 0);
     }
 
-    public void friendQuizUpdated() {
+    public final void friendQuizUpdated() {
         friendQuizzes.clear();
         loadAllFriendsQuizzes();
         view.setListItemsFriends(friendQuizzes);
@@ -116,20 +105,18 @@ public class MenuPresenter {
         }
     }
 
-    private int request;
     private int offset = 0;
-    private int userid;
     private Tiebreaker tiebreaker;
 
-    private void loadOnlineQuizzes(int UserID, List<Quiz> currentQuizList) {
-        userid = UserID;
-        request = 0;
+    private void loadOnlineQuizzes(int userID, List<Quiz> currentQuizList) {
+        int userid = userID;
+        int request = 0;
         int quizAmount = 0;
         try {
             String JSONstring = DatabaseHandler.readQuiz(request, offset, userid);
             JSONstring = JSONstring.replaceAll("\\s+", "");
-            int RequestAmount = Integer.parseInt(JSONstring);
-            quizAmount = RequestAmount;
+            int requestAmount = Integer.parseInt(JSONstring);
+            quizAmount = requestAmount;
 
         } catch (Exception e) {
         }
@@ -184,7 +171,7 @@ public class MenuPresenter {
                     Quiz q = new Quiz(title, description, quizID, questions);
                     currentQuizList.add(q);
 
-                } catch (Exception e) {
+                } catch (JSONException j) {
                 }
             }
         }

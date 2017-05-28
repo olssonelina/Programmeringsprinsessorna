@@ -67,7 +67,7 @@ public class MenuActivity extends AppCompatActivity implements IMenu {
     }
 
     @Override
-    public void fadeFriendsIcon() {
+    public final void fadeFriendsIcon() {
         friendsButton.setBackgroundResource(R.drawable.friendsfaded);
     }
 
@@ -150,11 +150,11 @@ public class MenuActivity extends AppCompatActivity implements IMenu {
         try {
             if (data.getBooleanExtra("update", false)) {
                 switch (requestCode) {
-                    default: // Create Quiz & Show Details & Edit quiz
-                        presenter.userQuizUpdated();
-                        break;
                     case ADD_FRIEND_CODE:
                         presenter.friendQuizUpdated();
+                        break;
+                    default: // Create Quiz & Show Details & Edit quiz
+                        presenter.userQuizUpdated();
                         break;
                 }
             }
@@ -163,7 +163,7 @@ public class MenuActivity extends AppCompatActivity implements IMenu {
         }
     }
 
-    public void logout(View view) {
+    public final void logout(View view) {
         Account.getInstance().logOut();
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
