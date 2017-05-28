@@ -276,8 +276,10 @@ catch (Exception e) {
             Log.d("Getcomplete", "Test");
         }
         Log.d("VARIABLE QuizID", "out of loop");
-
+        try {
         Log.d("JSONindex", String.valueOf(QuestionIDArray.get(0)));
+        } catch (Exception e) {
+        }
         JSONArray jsArray = new JSONArray(QuestionIDArray);
         JSONarrayString = jsArray.toString();
         Log.d("JSON", JSONarrayString);
