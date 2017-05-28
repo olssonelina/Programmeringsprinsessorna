@@ -276,8 +276,12 @@ catch (Exception e) {
         }
         Log.d("VARIABLE QuizID", "out of loop");
 
+        try {
         Log.d("JSONindex", String.valueOf(questionIDArray.get(0)));
+        } catch (Exception e) {
+        }
         JSONArray jsArray = new JSONArray(questionIDArray);
+
         JSONarrayString = jsArray.toString();
         Log.d("JSON", JSONarrayString);
         readycheck = 1;
@@ -580,7 +584,7 @@ catch (Exception e) {
                 msg = "Uppkoppling misslyckades";
             }
             else if (result.equals("0")) {
-                msg = "Vän tillagd";
+                msg = "Vän borttagen";
             } else {
                 msg = "Error";
             }

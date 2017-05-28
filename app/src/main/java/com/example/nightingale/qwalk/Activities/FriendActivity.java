@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.nightingale.qwalk.Model.Database.DatabaseHandler;
 import com.example.nightingale.qwalk.Presenter.Friend.IFriend;
 import com.example.nightingale.qwalk.Presenter.Friend.FriendPresenter;
 import com.example.nightingale.qwalk.R;
@@ -82,8 +83,20 @@ public class FriendActivity extends AppCompatActivity implements IFriend {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
+
+    public final void DatabaseComplete(String msg) {
+        addFriendButton.setEnabled(true);
+        friendList.setEnabled(true);
+        spinner.setVisibility(View.GONE);
+        if (msg.equals("Vän tillagd") || msg.equals("Vän borttagen")) {
+            DatabaseHandler.loadFriends();
+            setFriendList(presenter.getFriendsNames());
+        }
+    }
+
     public final void onBackPressed(View view) {
         presenter.onBackPressed();
+
     }
 
     @Override

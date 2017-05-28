@@ -34,6 +34,7 @@ public class CreateOptionQuestionPresenter {
             OptionQuestion q = buildQuestion();
             questions.add(q);
             if (reset) {
+                questionID = -1;
                 questionCounter++;
                 view.reset(questionCounter);
                 updateLocationText();
