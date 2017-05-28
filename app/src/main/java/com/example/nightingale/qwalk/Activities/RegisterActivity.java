@@ -11,6 +11,10 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.nightingale.qwalk.Model.Database.DatabaseHandler;
+import com.example.nightingale.qwalk.Presenter.Login.LoginPresenter;
+import com.example.nightingale.qwalk.Presenter.QuizDetails.QuizDetailsPresenter;
+import com.example.nightingale.qwalk.Presenter.Register.IRegister;
+import com.example.nightingale.qwalk.Presenter.Register.RegisterPresenter;
 import com.example.nightingale.qwalk.R;
 
 import org.json.JSONObject;
@@ -25,8 +29,8 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class RegisterActivity extends AppCompatActivity {
-
+public class RegisterActivity extends AppCompatActivity implements IRegister{
+    private RegisterPresenter presenter;
     private EditText usernameInput;
     private EditText passwordInput;
     private EditText confirmPasswordInput;
@@ -35,7 +39,10 @@ public class RegisterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
+        presenter = new RegisterPresenter(this);
         setContentView(R.layout.activity_register);
 
         usernameInput = (EditText) findViewById(R.id.usernameRegister);
@@ -49,120 +56,32 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void registerButtonClicked(View view) {
-        registerbutton.setEnabled(false);
-        spinner.setVisibility(View.VISIBLE);
         if (passwordInput.getText().toString().equals(confirmPasswordInput.getText().toString())) {
-            new SendRequest().execute();
+            registerbutton.setEnabled(false);
+            spinner.setVisibility(View.VISIBLE);
+            DatabaseHandler.registerAccount(usernameInput.getText().toString(),passwordInput.getText().toString());
         } else {
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.password_no_match), Toast.LENGTH_SHORT).show(); // "Passwords don't match" ->
         }
     }
 
+
+
+
+
+
     public void onBackPressed(View view) {
         finish();
     }
 
-    public class SendRequest extends AsyncTask<String, Void, String> {
 
-        private String username = usernameInput.getText().toString();
-        private String password = passwordInput.getText().toString();
+    @Override
+    public void DatabaseComplete(String message) {
+        spinner.setVisibility(View.GONE);
+        registerbutton.setEnabled(true);
 
-        protected void onPreExecute() {
-        }
-
-        protected String doInBackground(String... arg0) {
-
-            try {
-
-                URL url = new URL(DatabaseHandler.INSERT_ACCOUNT_URL);
-
-                JSONObject postDataParams = new JSONObject();
-
-
-                postDataParams.put("username", username);
-                postDataParams.put("password", password);
-
-
-                Log.e("params", postDataParams.toString());
-
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setReadTimeout(15000 /* milliseconds */);
-                conn.setConnectTimeout(15000 /* milliseconds */);
-                conn.setRequestMethod("POST");
-                conn.setDoInput(true);
-                conn.setDoOutput(true);
-
-                OutputStream os = conn.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(
-                        new OutputStreamWriter(os, "UTF-8"));
-                writer.write(DatabaseHandler.getPostDataString(postDataParams));
-
-                writer.flush();
-                writer.close();
-                os.close();
-
-                int responseCode = conn.getResponseCode();
-
-                if (responseCode == HttpsURLConnection.HTTP_OK) {
-
-                    BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                    StringBuffer sb = new StringBuffer("");
-                    String line = "";
-
-                    while ((line = in.readLine()) != null) {
-
-                        sb.append(line);
-                        break;
-                    }
-
-                    in.close();
-                    return sb.toString();
-
-                } else {
-                    return "false : " + responseCode;
-                }
-            } catch (Exception e) {
-                return "Exception: " + e.getMessage();
-            }
-        }
-
-
-        @Override
-        protected void onPostExecute(String result) {
-            spinner.setVisibility(View.GONE);
-            registerbutton.setEnabled(true);
-            result = result.replaceAll("\\s+", "");
-
-            if (result.equals("Exception:Unabletoresolvehost\"" + DatabaseHandler.HOST + "\":Noaddressassociatedwithhostname")) {
-
-                Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_internet_ex),
-                        Toast.LENGTH_LONG).show();
-            } else if (result == null) {
-
-                Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_failed_ex),
-                        Toast.LENGTH_LONG).show(); //"Connection Failed" -> "Uppkoppnilng misslyckades"
-            } else if (result.equals("0")) {
-                //Toast.makeText(getApplicationContext(), getResources().getString(R.string.done),
-                //Toast.LENGTH_LONG).show(); // "Success" -> "Klar"
-                finish();
-
-            } else if (result.equals("1")) {
-                Toast.makeText(getApplicationContext(), getResources().getString(R.string.username_taken),
-                        Toast.LENGTH_LONG).show();
-
-            } else if (result.equals("2")) {
-                Toast.makeText(getApplicationContext(), getResources().getString(R.string.username_empty),
-                        Toast.LENGTH_LONG).show();
-
-            } else if (result.equals("3")) {
-                Toast.makeText(getApplicationContext(), getResources().getString(R.string.password_empty),
-                        Toast.LENGTH_LONG).show();
-
-            }
-
-
+        if(message.equals("Registrering lyckad")){
+            finish();
         }
     }
-
-
 }

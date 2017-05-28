@@ -5,4 +5,6 @@ package com.example.nightingale.qwalk.Presenter.Register;
  */
 
 public interface IRegister {
+
+    void DatabaseComplete(String message);
 }

@@ -2,6 +2,8 @@ package com.example.nightingale.qwalk.Model.Database;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import com.example.nightingale.qwalk.Model.MessageMediator.IOnMessageRecievedListener;
 import com.example.nightingale.qwalk.Model.MessageMediator.MessageMediator;
@@ -9,6 +11,7 @@ import com.example.nightingale.qwalk.Model.Question.OptionQuestion;
 import com.example.nightingale.qwalk.Model.Question.Question;
 import com.example.nightingale.qwalk.Model.Quiz.Quiz;
 import com.example.nightingale.qwalk.Model.Question.Tiebreaker;
+import com.example.nightingale.qwalk.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -46,6 +49,8 @@ public class DatabaseHandler {
     private static List<Integer> QuestionIDArray = new ArrayList<Integer>();
     private static int counter = 0;
     private static List<Question> quizQuestions = new ArrayList<>();
+    private static String username;
+    private static String password;
 
     final public static String HOST = "programmeringsprinsessorna.000webhostapp.com";
     final public static String INSERT_QUIZ_URL = "https://programmeringsprinsessorna.000webhostapp.com/insertquiz.php";
@@ -153,6 +158,17 @@ public class DatabaseHandler {
         quizID = quiz;
 
         new DatabaseHandler.SendDeleteQuizRequest().execute();
+
+
+    }
+
+
+    public static void registerAccount(String Username, String Password) {
+
+        username = Username;
+        password = Password;
+
+        new DatabaseHandler.SendRegisterRequest().execute();
 
 
     }
@@ -350,7 +366,10 @@ public class DatabaseHandler {
 
             Log.d("PRINT", result);
             String msg = "";
-            if (result.equals("0")) {
+            if (result == null || result.equals("<br/>") || result.equals("false:500")){
+                msg = "Anslutning misslyckades";
+            }
+            else if (result.equals("0")) {
                 msg = "Quiz Tillagd"; // "Success" -> Klar
 
             } else if (result.equals("-1")) {
@@ -358,6 +377,9 @@ public class DatabaseHandler {
             }
             else if (result.equals("-2")) {
                 msg = "Quiz Uppdaterad"; //"Quiz Title Taken" översatt
+            }
+            else if (result.equals("Exception:Unabletoresolvehost\"" + HOST + "\":Noaddressassociatedwithhostname")) {
+                msg = "Uppkoppling misslyckades";
             }
             else{
                 msg = "Ignore"; //"Quiz Title Taken" översatt
@@ -410,8 +432,10 @@ public class DatabaseHandler {
             Log.e("response", result);
             result = result.replaceAll("\\s+", "");
 
-
-            if (result.equals("0")) {
+            if (result == null || result.equals("<br/>") || result.equals("false:500")){
+                msg = "Anslutning misslyckades";
+            }
+            else if (result.equals("0")) {
                 msg = "Error";
             } else if (result.equals("1")) {
                 msg = "Användarnamnet finns inte";
@@ -467,10 +491,17 @@ public class DatabaseHandler {
             Log.e("response", result);
             result = result.replaceAll("\\s+", "");
 
-
-            if (result.equals("0")) {
+            if (result == null || result.equals("<br/>") || result.equals("false:500")){
+                msg = "Anslutning misslyckades";
+            }
+            else if (result.equals("0")) {
                 msg = "Success";
-            } else {
+
+            }
+            else if (result.equals("Exception:Unabletoresolvehost\"" + HOST + "\":Noaddressassociatedwithhostname")) {
+                msg = "Uppkoppling misslyckades";
+            }
+            else {
                 msg = "Error";
             }
             mediator.onMessageRecieved(msg);
@@ -516,8 +547,13 @@ public class DatabaseHandler {
             Log.e("response", result);
             result = result.replaceAll("\\s+", "");
 
-
-            if (result.equals("0")) {
+            if (result == null || result.equals("<br/>") || result.equals("false:500")){
+                msg = "Anslutning misslyckades";
+            }
+            else if (result.equals("Exception:Unabletoresolvehost\"" + HOST + "\":Noaddressassociatedwithhostname")) {
+                msg = "Uppkoppling misslyckades";
+            }
+            else if (result.equals("0")) {
                 msg = "Success";
             } else {
                 msg = "Error";
@@ -528,4 +564,68 @@ public class DatabaseHandler {
         }
     }
 
+
+    public static class SendRegisterRequest extends AsyncTask<String, Void, String> {
+
+
+
+        protected void onPreExecute() {
+        }
+
+        protected String doInBackground(String... arg0) {
+
+            try {
+
+                URL url = new URL(DatabaseHandler.INSERT_ACCOUNT_URL);
+
+                JSONObject postDataParams = new JSONObject();
+
+
+                postDataParams.put("username", username);
+                postDataParams.put("password", password);
+
+
+                Log.e("params", postDataParams.toString());
+
+                return sendParams(url, postDataParams);
+            } catch (Exception e) {
+                return "Exception: " + e.getMessage();
+            }
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+
+            result = result.replaceAll("\\s+", "");
+
+String msg = "";
+
+            if (result == null || result.equals("<br/>") || result.equals("false:500")){
+                msg = "Anslutning misslyckades";
+            }
+            else if (result.equals("Exception:Unabletoresolvehost\"" + HOST + "\":Noaddressassociatedwithhostname")) {
+                msg = "Uppkoppling misslyckades";
+            }
+            else if (result.equals("0")) {
+                msg = "Registrering lyckad";
+
+
+            } else if (result.equals("1")) {
+                msg = "Användarnamn upptaget";
+
+            } else if (result.equals("2")) {
+                msg = "Fyll i användarnamn";
+
+            } else if (result.equals("3")) {
+                msg = "Fyll i lösenord";
+
+            }
+            else{
+                msg = "Error";
+            }
+            mediator.onMessageRecieved(msg);
+
+        }
+    }
 }
