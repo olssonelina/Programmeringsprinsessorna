@@ -25,6 +25,8 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
 
     private LoginPresenter presenter;
 
+    private static final int REGISTER_CODE = 92;
+
     @Override
     protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +83,7 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
     @Override
     public final void openRegister() {
         Intent intent = new Intent(this, RegisterActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, REGISTER_CODE);
     }
 
     @Override
@@ -103,10 +105,6 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
 
     @Override
     public final void DatabaseComplete(String message) {
-
-
-
-
         if (message.equals("Loggar in")){
             openMenu();
         }
@@ -115,9 +113,23 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
             setSpinnerVisible(false);
             enableButtons(true);
         }
+    }
 
+    @Override
+    protected final void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REGISTER_CODE) {
+            presenter.onRegisterResult(data.getStringExtra("username"), data.getStringExtra("password"));
+        }
+    }
 
+    @Override
+    public void setUsername(String username) {
+        usernameInput.setText(username);
+    }
 
+    @Override
+    public void setPassword(String password) {
+        passwordInput.setText(password);
     }
 }
 

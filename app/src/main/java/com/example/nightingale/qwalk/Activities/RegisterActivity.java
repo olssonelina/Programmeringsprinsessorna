@@ -1,5 +1,6 @@
 package com.example.nightingale.qwalk.Activities;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -76,6 +77,10 @@ public class RegisterActivity extends AppCompatActivity implements IRegister{
         registerbutton.setEnabled(true);
 
         if(message.equals("Registrering lyckad")){
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("username", usernameInput.getText().toString());
+            returnIntent.putExtra("password", passwordInput.getText().toString());
+            setResult(GetPositionActivity.RESULT_OK, returnIntent);
             finish();
         }
     }

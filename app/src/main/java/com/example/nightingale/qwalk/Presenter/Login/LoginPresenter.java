@@ -47,7 +47,7 @@ public class LoginPresenter implements IOnMessageRecievedListener {
         view.enableButtons(false);
         view.setSpinnerVisible(true);
 
-            DatabaseHandler.login(view.getUsername(), view.getPassword());
+        DatabaseHandler.login(view.getUsername(), view.getPassword());
     }
 
     @Override
@@ -55,4 +55,10 @@ public class LoginPresenter implements IOnMessageRecievedListener {
         view.DatabaseComplete(message);
     }
 
+
+    public void onRegisterResult(String username, String password){
+        view.setUsername(username);
+        view.setPassword(password);
+        loginButtonPressed();
+    }
 }
