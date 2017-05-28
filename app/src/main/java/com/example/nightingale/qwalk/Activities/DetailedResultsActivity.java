@@ -2,6 +2,7 @@ package com.example.nightingale.qwalk.Activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.example.nightingale.qwalk.Presenter.DetailedResults.DetailedResultsPresenter;
 import com.example.nightingale.qwalk.Presenter.DetailedResults.IDetailedResults;
@@ -21,5 +22,9 @@ public class DetailedResultsActivity extends AppCompatActivity implements IDetai
 
 
         presenter = new DetailedResultsPresenter(this);
+    }
+
+    public void onBackPressed(View view) {
+        finish();
     }
 }
