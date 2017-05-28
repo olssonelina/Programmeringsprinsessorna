@@ -30,7 +30,7 @@ public class FriendPresenter implements IOnMessageRecievedListener{
         view.setAddFriendButtonEnabled(true);
         view.setFriendListEnabled(true);
         view.setSpinnerVisibility(false);
-        if (message.equals("Vän tillagd")) {
+        if (message.equals("Vän tillagd") || message.equals("Vän borttagen")) {
             DatabaseHandler.loadFriends();
             view.setFriendList(getFriendsNames());
             shouldMenuUpdate = true;
