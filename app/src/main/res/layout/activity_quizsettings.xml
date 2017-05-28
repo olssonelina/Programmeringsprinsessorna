@@ -50,25 +50,14 @@
             android:text="Frågorna tas i ordning"
             android:textSize="18dp" />
 
-        <CheckBox
-            android:id="@+id/questionTimer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/customOrder"
-            android:layout_alignStart="@+id/customOrder"
-            android:layout_below="@+id/customOrder"
-            android:layout_marginTop="13dp"
-            android:onClick="checkBoxPressed"
-            android:text="Tidtagning på frågor"
-            android:textSize="18dp" />
 
         <CheckBox
             android:id="@+id/quizTimer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/questionTimer"
-            android:layout_alignStart="@+id/questionTimer"
-            android:layout_below="@+id/questionTimer"
+            android:layout_alignLeft="@+id/customOrder"
+            android:layout_alignStart="@+id/customOrder"
+            android:layout_below="@+id/customOrder"
             android:layout_marginTop="15dp"
             android:onClick="checkBoxPressed"
             android:text="Tidtagning på quiz"

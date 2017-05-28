@@ -15,13 +15,13 @@ import static com.example.nightingale.qwalk.Model.Quiz.QuizSetting.*;
 
 public class QuizSettingsPresenter {
     private IQuizSettings view;
-    private boolean questionTimer, quizTimer, hiddenQuestions, inOrder, withBot;
+    private boolean quizTimer, hiddenQuestions, inOrder, withBot;
     private QuizDifficulty difficulty = MEDIUM;
 
     public QuizSettingsPresenter(IQuizSettings view, Quiz quiz) {
         this.view = view;
 
-        QuizSetting[] settings = {HAS_QUESTION_TIMER, HAS_QUIZ_TIMER, WITH_AI, QUESTIONS_ARE_HIDDEN, QUESTIONS_IN_ORDER};
+        QuizSetting[] settings = {HAS_QUIZ_TIMER, WITH_AI, QUESTIONS_ARE_HIDDEN, QUESTIONS_IN_ORDER};
         for (QuizSetting qs: settings) {
             setSetting(qs, quiz.getSetting(qs));
             view.setChecked(qs, quiz.getSetting(qs));
@@ -34,10 +34,6 @@ public class QuizSettingsPresenter {
         switch (setting) {
             case QUESTIONS_ARE_HIDDEN:
                 hiddenQuestions = value;
-                break;
-
-            case HAS_QUESTION_TIMER:
-                questionTimer = value;
                 break;
 
             case HAS_QUIZ_TIMER:
@@ -66,7 +62,6 @@ public class QuizSettingsPresenter {
         ArrayList<QuizSetting> setTrue = new ArrayList<>(), setFalse = new ArrayList<>();
         addToLists(setTrue, setFalse, QUESTIONS_IN_ORDER, inOrder);
         addToLists(setTrue, setFalse, QUESTIONS_ARE_HIDDEN, hiddenQuestions);
-        addToLists(setTrue, setFalse, HAS_QUESTION_TIMER, questionTimer);
         addToLists(setTrue, setFalse, HAS_QUIZ_TIMER, quizTimer);
         addToLists(setTrue, setFalse, WITH_AI, withBot);
 

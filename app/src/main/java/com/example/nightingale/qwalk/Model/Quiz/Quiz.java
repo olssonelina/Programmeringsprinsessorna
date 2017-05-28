@@ -20,7 +20,7 @@ public class Quiz implements Parcelable {
     private int quizID;
     private QuizDifficulty difficulty = QuizDifficulty.MEDIUM;
     private List<Question> questions = new ArrayList<>();
-    private boolean questionTimer = false, quizTimer = true, hiddenQuestions = false, inOrder = true, withBot = true;
+    private boolean quizTimer = true, hiddenQuestions = false, inOrder = true, withBot = true;
 
     /**
      * Creates a new Qwalk quiz
@@ -69,9 +69,6 @@ public class Quiz implements Parcelable {
      */
     public final void setSetting(QuizSetting setting, boolean enabled) {
         switch (setting) {
-            case HAS_QUESTION_TIMER:
-                questionTimer = enabled;
-                break;
             case WITH_AI:
                 withBot = enabled;
                 break;
@@ -93,8 +90,6 @@ public class Quiz implements Parcelable {
      */
     public final boolean getSetting(QuizSetting setting) {
         switch (setting) {
-            case HAS_QUESTION_TIMER:
-                return questionTimer;
             case WITH_AI:
                 return withBot;
             case QUESTIONS_IN_ORDER:
@@ -213,7 +208,6 @@ public class Quiz implements Parcelable {
 
     protected Quiz(Parcel in) {
         withBot = in.readByte() != 0;
-        questionTimer = in.readByte() != 0;
         quizTimer = in.readByte() != 0;
         inOrder = in.readByte() != 0;
         hiddenQuestions = in.readByte() != 0;
@@ -221,7 +215,6 @@ public class Quiz implements Parcelable {
         title = in.readString();
         description = in.readString();
         difficulty = (QuizDifficulty) in.readSerializable();
-        questionTimer = in.readByte() != 0x00;
         if (in.readByte() == 0x01) {
             questions = new ArrayList<Question>();
             in.readList(questions, Question.class.getClassLoader());
@@ -244,7 +237,6 @@ public class Quiz implements Parcelable {
     @Override
     public final void writeToParcel(Parcel dest, int flags) {
         dest.writeByte((byte) (withBot ? 1 : 0));
-        dest.writeByte((byte) (questionTimer ? 1 : 0));
         dest.writeByte((byte) (quizTimer ? 1 : 0));
         dest.writeByte((byte) (inOrder ? 1 : 0));
         dest.writeByte((byte) (hiddenQuestions ? 1 : 0));
@@ -252,7 +244,6 @@ public class Quiz implements Parcelable {
         dest.writeString(title);
         dest.writeString(description);
         dest.writeSerializable(difficulty);
-        dest.writeByte((byte) (questionTimer ? 0x01 : 0x00));
         if (questions == null) {
             dest.writeByte((byte) (0x00));
         } else {

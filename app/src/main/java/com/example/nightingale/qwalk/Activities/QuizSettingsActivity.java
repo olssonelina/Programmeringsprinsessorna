@@ -29,7 +29,7 @@ public class QuizSettingsActivity extends AppCompatActivity implements IQuizSett
 
     private QuizSettingsPresenter presenter;
 
-    private CheckBox hideQuestions, inOrder, questionTimer, quizTimer, bot;
+    private CheckBox hideQuestions, inOrder, quizTimer, bot;
     private Button easy, medium, hard;
     private TextView level;
 
@@ -40,7 +40,6 @@ public class QuizSettingsActivity extends AppCompatActivity implements IQuizSett
 
         hideQuestions = (CheckBox) findViewById(R.id.hiddenQuestions);
         inOrder = (CheckBox) findViewById(R.id.customOrder);
-        questionTimer = (CheckBox) findViewById(R.id.questionTimer);
         quizTimer = (CheckBox) findViewById(R.id.quizTimer);
         bot = (CheckBox) findViewById(R.id.bot);
 
@@ -102,9 +101,6 @@ public class QuizSettingsActivity extends AppCompatActivity implements IQuizSett
         else if (cb.equals(inOrder)){
             presenter.setSetting(QUESTIONS_IN_ORDER, inOrder.isChecked());
         }
-        else if (cb.equals(questionTimer)){
-            presenter.setSetting(HAS_QUESTION_TIMER, questionTimer.isChecked());
-        }
         else if (cb.equals(quizTimer)){
             presenter.setSetting(HAS_QUIZ_TIMER, quizTimer.isChecked());
         }
@@ -146,10 +142,6 @@ public class QuizSettingsActivity extends AppCompatActivity implements IQuizSett
 
             case HAS_QUIZ_TIMER:
                 quizTimer.setChecked(value);
-                break;
-
-            case HAS_QUESTION_TIMER:
-                questionTimer.setChecked(value);
                 break;
 
             case WITH_AI:

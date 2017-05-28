@@ -7,5 +7,5 @@ import java.io.Serializable;
  */
 
 public enum QuizSetting implements Serializable {
-    HAS_QUESTION_TIMER, HAS_QUIZ_TIMER, QUESTIONS_ARE_HIDDEN, QUESTIONS_IN_ORDER, WITH_AI
+    HAS_QUIZ_TIMER, QUESTIONS_ARE_HIDDEN, QUESTIONS_IN_ORDER, WITH_AI
 }
