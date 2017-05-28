@@ -11,6 +11,7 @@ import java.util.List;
 public interface IMenu {
     void openCreateNewQuiz();
     void openFriend();
+    void fadeFriendsIcon();
     void openQuizDetails(Quiz quiz, boolean editable);
     void setListItemsUser(List<Quiz> userQuizzes);
     void setListItemsFriends(List<Quiz> friendsQuizzes);

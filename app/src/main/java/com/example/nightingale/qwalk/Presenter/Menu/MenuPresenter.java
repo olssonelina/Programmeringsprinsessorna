@@ -58,6 +58,9 @@ public class MenuPresenter {
                 view.setListTitleUserText(username + "s Qwalks");
             }
         }
+        if(isGuest)  {
+            view.fadeFriendsIcon();
+        }
 
         view.setListTitleDefaultVisible(true);
         defaultQuizzes.add(StandardQuizzes.getChalmersQuiz());

@@ -12,6 +12,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.nightingale.qwalk.Model.Database.Account;
 import com.example.nightingale.qwalk.Presenter.Menu.IMenu;
 import com.example.nightingale.qwalk.Model.Quiz.Quiz;
 import com.example.nightingale.qwalk.Presenter.Menu.MenuPresenter;
@@ -50,6 +51,7 @@ public class MenuActivity extends AppCompatActivity implements IMenu {
         createQuizButton = (Button) findViewById(R.id.addQuizButton);
 
         presenter = new MenuPresenter(this);
+
     }
 
     @Override
@@ -62,6 +64,11 @@ public class MenuActivity extends AppCompatActivity implements IMenu {
     public final void openFriend() {
         Intent intent = new Intent(this, FriendActivity.class);
         startActivityForResult(intent, ADD_FRIEND_CODE);
+    }
+
+    @Override
+    public void fadeFriendsIcon() {
+        friendsButton.setBackgroundResource(R.drawable.friendsfaded);
     }
 
     @Override
@@ -121,7 +128,7 @@ public class MenuActivity extends AppCompatActivity implements IMenu {
     @Override
     public final void setAccountFunctionalityEnabled(boolean value) {
         friendsButton.setEnabled(value);
-        friendsButton.setVisibility(value ? View.VISIBLE : View.INVISIBLE);
+        friendsButton.setVisibility(View.VISIBLE);
         createQuizButton.setEnabled(value);
     }
 
@@ -157,6 +164,7 @@ public class MenuActivity extends AppCompatActivity implements IMenu {
     }
 
     public void logout(View view) {
+        Account.getInstance().logOut();
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
