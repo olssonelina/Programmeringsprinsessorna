@@ -67,9 +67,6 @@ public class MenuPresenter {
 
     }
 
-    public void helpButtonPressed() {
-        view.openHelp();
-    }
 
     public void friendsButtonPressed() {
         if (!isGuest) {

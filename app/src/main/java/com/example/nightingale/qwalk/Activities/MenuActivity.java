@@ -72,11 +72,6 @@ public class MenuActivity extends AppCompatActivity implements IMenu {
         startActivityForResult(intent, SHOW_DETAILS_CODE);
     }
 
-    @Override
-    public final void openHelp() {
-        Intent intent = new Intent(this, HelpActivity.class);
-        startActivity(intent);
-    }
 
     @Override
     public final void setListItemsUser(List<Quiz> userQuizzes) {
@@ -135,10 +130,6 @@ public class MenuActivity extends AppCompatActivity implements IMenu {
         userListTitle.setText(text);
     }
 
-    public final void helpPressed(View view) {
-        presenter.helpButtonPressed();
-    }
-
     public final void friendsPressed(View view) {
         presenter.friendsButtonPressed();
     }
@@ -163,6 +154,11 @@ public class MenuActivity extends AppCompatActivity implements IMenu {
         } catch (NullPointerException e) {
 
         }
+    }
+
+    public void logout(View view) {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 
     private void loadList(ListView listView, List<Quiz> quizzes, AdapterView.OnItemClickListener onItemClickListener) {

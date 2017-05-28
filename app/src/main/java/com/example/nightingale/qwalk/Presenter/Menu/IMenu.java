@@ -12,7 +12,6 @@ public interface IMenu {
     void openCreateNewQuiz();
     void openFriend();
     void openQuizDetails(Quiz quiz, boolean editable);
-    void openHelp();
     void setListItemsUser(List<Quiz> userQuizzes);
     void setListItemsFriends(List<Quiz> friendsQuizzes);
     void setListItemsDefault(List<Quiz> defaultQuizzes);
