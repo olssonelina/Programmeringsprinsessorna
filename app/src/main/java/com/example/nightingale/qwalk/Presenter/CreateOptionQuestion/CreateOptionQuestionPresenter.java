@@ -29,6 +29,7 @@ public class CreateOptionQuestionPresenter {
         if(validateQuestion()) {
             OptionQuestion q = buildQuestion();
             questions.add(q);
+            view.setLocationText("Lägg till position");
             if (reset) { view.reset(); }
             return true;
         }

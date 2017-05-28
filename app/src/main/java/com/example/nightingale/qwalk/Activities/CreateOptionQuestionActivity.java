@@ -256,6 +256,8 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
         questionNumber.setText(getResources().getString(R.string.question) + " " + questionCounter + ".");
         questionText.getText().clear();
         numbers[0].setText("+");
+        longitude = 0;
+        latitude = 0;
 
         for (int i = 0; i < options.length; i++) {
             options[i].getText().clear();
