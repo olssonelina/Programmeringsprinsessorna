@@ -263,23 +263,29 @@
 
         <Button
             android:id="@+id/nextQuestion"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_alignBottom="@+id/done"
-            android:layout_marginLeft="190dp"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:background="#FF09C856"
             android:ems="10"
             android:onClick="addQuestion"
-            android:text="@string/add_question" />
+            android:text="@string/add_question"
+            android:layout_alignBaseline="@+id/done"
+            android:layout_alignBottom="@+id/done"
+            android:layout_alignRight="@+id/questionField"
+            android:layout_alignEnd="@+id/questionField" />
 
         <Button
             android:id="@+id/done"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="470dp"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:background="#FF09C856"
             android:ems="10"
             android:onClick="questionsDone"
-            android:text="@string/done" />
+            android:text="@string/done"
+            android:layout_below="@+id/addPosition"
+            android:layout_alignLeft="@+id/questionField"
+            android:layout_alignStart="@+id/questionField" />
 
 
     </RelativeLayout>
