@@ -183,6 +183,10 @@ public class Quiz implements Parcelable {
         return upperBounds;
     }
 
+    /**
+     *
+     * @return the locations where the questions are located
+     */
     public final QLocation[] getLocations() {
         QLocation[] locations = new QLocation[questions.size()];
         for (int i = 0; i < locations.length; i++) {
@@ -206,6 +210,9 @@ public class Quiz implements Parcelable {
         throw new IllegalArgumentException("No such question in list!");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     protected Quiz(Parcel in) {
         withBot = in.readByte() != 0;
         quizTimer = in.readByte() != 0;
