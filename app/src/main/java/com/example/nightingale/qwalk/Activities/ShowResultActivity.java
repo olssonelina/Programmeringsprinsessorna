@@ -133,7 +133,6 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
 
     @Override
     public final void openMenu(){
-        Intent intent = new Intent(this, MenuActivity.class);
-        startActivity(intent);
+        finish();
     }
 }
