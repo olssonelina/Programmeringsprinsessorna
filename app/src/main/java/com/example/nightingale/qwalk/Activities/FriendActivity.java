@@ -1,5 +1,6 @@
 package com.example.nightingale.qwalk.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -21,7 +22,7 @@ import com.example.nightingale.qwalk.R;
  * Created by Nightingale on 2017-05-16.
  */
 
-public class FriendActivity extends AppCompatActivity  implements IFriend {
+public class FriendActivity extends AppCompatActivity implements IFriend {
 
     private FriendPresenter presenter;
 
@@ -46,7 +47,7 @@ public class FriendActivity extends AppCompatActivity  implements IFriend {
 
         setListItemsFriends();
 
-}
+    }
 
     public final void setListItemsFriends() {
         loadList(new AdapterView.OnItemClickListener() {
@@ -58,8 +59,14 @@ public class FriendActivity extends AppCompatActivity  implements IFriend {
     }
 
     public final void onBackPressed(View view) {
-        finish();
+        presenter.onBackPressed();
     }
+
+    @Override
+    public final void onBackPressed() {
+        presenter.onBackPressed();
+    }
+
 
     private void loadList(AdapterView.OnItemClickListener onItemClickListener) {
         String[] values = new String[Account.getInstance().getFriends().size()];
@@ -92,14 +99,24 @@ public class FriendActivity extends AppCompatActivity  implements IFriend {
         addfriendbutton.setEnabled(true);
         listView.setEnabled(true);
         spinner.setVisibility(View.GONE);
-        if(msg.equals("Vän tillagd")){
-        DatabaseHandler.loadFriends();
-        setListItemsFriends();
+        if (msg.equals("Vän tillagd")) {
+            DatabaseHandler.loadFriends();
+            setListItemsFriends();
+            presenter.menuShouldUpdate();
         }
     }
 
 
     private void deleteFriend(int position) {
+        presenter.menuShouldUpdate();
         DatabaseHandler.deleteFriend(Account.getInstance().getFriends().get(position));
+    }
+
+    @Override
+    public void closeWithResult(boolean shouldMenuUpdate) {
+        Intent returnIntent = new Intent();
+        setResult(GetPositionActivity.RESULT_OK, returnIntent);
+        returnIntent.putExtra("update", shouldMenuUpdate);
+        finish();
     }
 }

@@ -33,6 +33,7 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
     private ProgressBar spinner;
 
     public static final int QUIZ_SETTING_CODE = 34;
+    public static final int QUIZ_EDIT_CODE = 72;
 
 
     @Override
@@ -112,8 +113,7 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
     public void editQuiz(Quiz quiz) {
         Intent intent = new Intent(this, CreateQuizActivity.class);
         intent.putExtra("quiz", quiz);
-        startActivity(intent);
-        finish();
+        startActivityForResult(intent, QUIZ_EDIT_CODE);
     }
 
 
@@ -139,6 +139,9 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
 
             presenter.difficultyChanged((QuizDifficulty) data.getExtras().get("difficulty"));
         }
+        else if (requestCode == QUIZ_EDIT_CODE){
+            closeWithResult(true);
+        }
     }
 
     @Override
@@ -147,5 +150,13 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
         edit.setVisibility(value ? View.VISIBLE : View.INVISIBLE);
         delete.setEnabled(value);
         delete.setVisibility(value ? View.VISIBLE : View.INVISIBLE);
+    }
+
+    @Override
+    public void closeWithResult(boolean shouldMenuUpdate) {
+        Intent returnIntent = new Intent();
+        setResult(GetPositionActivity.RESULT_OK, returnIntent);
+        returnIntent.putExtra("update", shouldMenuUpdate);
+        finish();
     }
 }

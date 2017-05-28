@@ -97,7 +97,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         directionArrow.setImageResource(R.drawable.direction);
         showClosest = (Button) findViewById(R.id.viewPinButton);
 
-        presenter = new MapsPresenter(this, (Quiz) getIntent().getParcelableExtra("quiz")); // TODO hantera felet kanske
+        presenter = new MapsPresenter(this, (Quiz) getIntent().getParcelableExtra("quiz"));
 
 
     }

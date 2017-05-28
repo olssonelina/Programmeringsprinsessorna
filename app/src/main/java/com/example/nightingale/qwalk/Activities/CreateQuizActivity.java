@@ -40,6 +40,8 @@ public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz
     public final static int TIEBREAKER_CODE = 22;
     private Quiz editQuiz;
 
+    private boolean shouldMenuUpdate = false;
+
     @Override
     protected final void onCreate(Bundle savedInstanceState) {
 
@@ -65,6 +67,7 @@ public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz
 
     public final void addQuestionButtonClicked(View view) {
         Intent intent = new Intent(this, CreateOptionQuestionActivity.class);
+        intent.putExtra("questionCounter", questions.size() + 1);
         startActivityForResult(intent, OPTIONQUESTION_CODE);
     }
 
@@ -79,6 +82,7 @@ public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz
         } else {
             try {
                 saveQuiz();
+
             } catch (Exception e) {
 
             }
@@ -223,6 +227,7 @@ public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz
             questions.remove(q);
             Intent intent = new Intent(this, CreateOptionQuestionActivity.class);
             intent.putExtra("question", q);
+            intent.putExtra("questionCounter", questions.size() + 1);
             startActivityForResult(intent, OPTIONQUESTION_CODE);
         } catch (IndexOutOfBoundsException e) { //Question pressed is the tiebreaker
             Intent intent = new Intent(this, CreateTiebreakerActivity.class);
@@ -233,6 +238,9 @@ public class CreateQuizActivity extends AppCompatActivity implements ICreateQuiz
 
     public final void DatabaseComplete(String msg) {
         if(msg.equals("Quiz Tillagd") || msg.equals("Quiz Uppdaterad")){
+            Intent returnIntent = new Intent();
+            setResult(GetPositionActivity.RESULT_OK, returnIntent);
+            returnIntent.putExtra("update", true);
             finish();
         }
     }

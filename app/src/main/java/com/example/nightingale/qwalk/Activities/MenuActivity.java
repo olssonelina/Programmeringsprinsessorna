@@ -150,7 +150,7 @@ public class MenuActivity extends AppCompatActivity implements IMenu {
         try {
             if (data.getBooleanExtra("update", false)) {
                 switch (requestCode) {
-                    default: // Create Quiz & Show Details
+                    default: // Create Quiz & Show Details & Edit quiz
                         presenter.userQuizUpdated();
                         break;
                     case ADD_FRIEND_CODE:

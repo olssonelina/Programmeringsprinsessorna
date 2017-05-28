@@ -27,7 +27,7 @@ public interface ICreateOptionQuestion {
 
     String[] getOptions();
 
-    void reset();
+    void reset(int questionCounter);
 
     void setQuestionID(int ID);
 

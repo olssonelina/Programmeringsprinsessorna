@@ -48,7 +48,6 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
     private double longitude = 0;
     private int questionID = 0;
 
-    private int questionCounter = 1;
 
     @Override
     protected final void onCreate(Bundle savedInstanceState) {
@@ -81,7 +80,7 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
             //options[i].addTextChangedListener(this);
         }
 
-        presenter = new CreateOptionQuestionPresenter(this);
+        presenter = new CreateOptionQuestionPresenter(this, getIntent().getIntExtra("questionCounter", 1));
 
         try {
             presenter.setAllFields((OptionQuestion) getIntent().getParcelableExtra("question"));
@@ -154,7 +153,7 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
      * @param index
      */
 
-    private void shiftOptions(int index) { //TODO Skriv om denna metod och gör den snyggare
+    private void shiftOptions(int index) {
         for (int i = index; i < options.length - 1; i++) {
             options[i].setText(options[i + 1].getText());
             options[i + 1].getText().clear();
@@ -162,7 +161,6 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
                 radioButtons[i].setChecked(true);
                 radioButtons[i + 1].setChecked(false);
             }
-
         }
 
         numbers[numbers.length - 1].setText("+");
@@ -251,13 +249,12 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
     }
 
     @Override
-    public final void reset() {
-        questionCounter++;
+    public final void reset(int questionCounter) {
         questionNumber.setText(getResources().getString(R.string.question) + " " + questionCounter + ".");
         questionText.getText().clear();
         numbers[0].setText("+");
-        longitude = 0;
         latitude = 0;
+        longitude = 0;
 
         for (int i = 0; i < options.length; i++) {
             options[i].getText().clear();

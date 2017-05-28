@@ -19,4 +19,6 @@ public interface IQuizDetails {
 
     void setEditable(boolean value);
 
+    void closeWithResult(boolean shouldMenuUpdate);
+
 }
