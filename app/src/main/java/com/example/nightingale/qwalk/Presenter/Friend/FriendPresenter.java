@@ -10,10 +10,19 @@ import com.example.nightingale.qwalk.Model.MessageMediator.IOnMessageRecievedLis
 public class FriendPresenter implements IOnMessageRecievedListener{
 
     private IFriend view;
+    private boolean shouldMenuUpdate = false;
 
     public FriendPresenter(IFriend view) {
         this.view = view;
         DatabaseHandler.setOnMessageRecievedListener(this);
+    }
+
+    public void menuShouldUpdate(){
+        shouldMenuUpdate = true;
+    }
+
+    public void onBackPressed(){
+        view.closeWithResult(shouldMenuUpdate);
     }
 
     @Override

@@ -148,4 +148,12 @@ public class QuizDetailsActivity extends AppCompatActivity implements IQuizDetai
         delete.setEnabled(value);
         delete.setVisibility(value ? View.VISIBLE : View.INVISIBLE);
     }
+
+    @Override
+    public void closeWithDeletion() {
+        Intent returnIntent = new Intent();
+        setResult(GetPositionActivity.RESULT_OK, returnIntent);
+        returnIntent.putExtra("update", true);
+        finish();
+    }
 }
