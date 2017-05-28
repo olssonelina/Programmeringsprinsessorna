@@ -10,6 +10,16 @@ public class ShowResultPresenter {
 
     private IShowResult view;
 
+    /**
+     *
+     * Creates a ShowResultPresenter which performs the calculations for ShowResultActivity
+     *
+     * @param view The activity
+     * @param playerAnswers The answers player has given to the questions of the quiz
+     * @param aiAnswers The answers computer-opponent has given to the questions of the quiz
+     * @param quiz The quiz played
+     * @param time The time taken to finish the quiz
+     */
     public ShowResultPresenter(IShowResult view, int[] playerAnswers, int[] aiAnswers, Quiz quiz, long time){ //byt ut "results" mot en player som innehåller resultat
         this.view=view;
         view.showRightAnswers(calculateScore(quiz.getCorrectAnswers(), playerAnswers, quiz.hasTieBreaker()));
@@ -49,6 +59,17 @@ public class ShowResultPresenter {
         return correctCount;
     }
 
+    /**
+     *
+     * Determines wether or not the player wins over the computer-opponent
+     *
+     * @param playerScore Amount of questions answered correctly by the player
+     * @param aiScore Amount of questions answered correctly by the computer-opponent
+     * @param playerTie Player's answer to the tiebreaker
+     * @param aiTie Computer-opponent's answer to the tiebreaker
+     * @param correctTie correct answer ti the tiebreaker
+     * @return true if the player is winner, false if the computer-opponent is winner
+     */
     private boolean playerWins(int playerScore, int aiScore, int playerTie, int aiTie, int correctTie){
         if(playerScore>aiScore){
             return true;
@@ -58,6 +79,9 @@ public class ShowResultPresenter {
         return true; //om det är precis lika på allt vinner spelaren
     }
 
+    /**
+     * Calls for the activity to return to the menu
+     */
     public final void playNewPressed(){
         view.openMenu();
     }

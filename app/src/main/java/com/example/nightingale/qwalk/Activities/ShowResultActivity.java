@@ -20,7 +20,6 @@ import com.example.nightingale.qwalk.R;
 public class ShowResultActivity extends AppCompatActivity implements IShowResult {
 
     private ShowResultPresenter presenter;
-    //private AI AI;
 
     private TextView rightView;
     private TextView totalView;
@@ -37,6 +36,10 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
     private Button newQuizButton;
     private Button detailsButton;
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +80,9 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
         presenter = new ShowResultPresenter(this, playerAnswers, aiAnswers, quiz, time);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void showMonkeyResult(int monkeyRight) {
         monkey.setVisibility(View.VISIBLE);
@@ -84,6 +90,9 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
         monkeyScore.setText(getResources().getString(R.string.monkey_got)+" "+monkeyRight+" "+getResources().getString(R.string.rigth_answers));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void showTieBreakerResult(int rightAnswer, int playerAnswer){
         tieBreaker.setVisibility(View.VISIBLE);
@@ -93,12 +102,18 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
         playerTieAnswer.setText(getResources().getString(R.string.your_answer)+" "+playerAnswer);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void showMonkeyTieBreaker(int monkeyAnswer){
         monkeyTieAnswer.setVisibility(View.VISIBLE);
         monkeyTieAnswer.setText(getResources().getString(R.string.monkeys_answer)+" "+monkeyAnswer);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void showCompetitionResult(boolean playerWins){
         if(playerWins){
@@ -109,28 +124,51 @@ public class ShowResultActivity extends AppCompatActivity implements IShowResult
         }
     }
 
+    /**
+     *
+     * Exit the result view
+     *
+     * @param view
+     */
     public final void onBackPressed(View view) {
         finish();
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void showRightAnswers(int right) {
         this.rightView.setText(right +" "+ getResources().getString(R.string.rigth_answers));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void showTotalAnswers(int total) {
         this.totalView.setText(getResources().getString(R.string.of) +" "+ total +" "+ getResources().getString(R.string.possible));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void showTime(long min, long sec) {
         this.timeView.setText( min +" "+ getResources().getString(R.string.minutes_and) +" "+ sec +" "+ getResources().getString(R.string.seconds));
     }
 
+    /**
+     *
+     * Calls for the playNewPressed method of ShowResultPresenter
+     *
+     * @param view
+     */
     public final void playNewButtonPressed(View view){presenter.playNewPressed();}
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void openMenu(){
         finish();
