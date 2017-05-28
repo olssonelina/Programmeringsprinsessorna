@@ -12,7 +12,7 @@ public class ShowResultPresenter {
 
     /**
      *
-     * Creates a ShowResultPresenter which performs the calculations for ShowResultActivity
+     * Creates a ShowResultPresenter which performs the calculations for ShowResult view
      *
      * @param view The activity
      * @param playerAnswers The answers player has given to the questions of the quiz

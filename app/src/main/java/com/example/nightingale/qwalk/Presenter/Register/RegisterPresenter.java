@@ -11,12 +11,21 @@ public class RegisterPresenter implements IOnMessageRecievedListener {
 
     private IRegister view;
 
+    /**
+     *
+     * Creates a RegisterPresenter which performs calculations for the Register view
+     *
+     * @param view
+     */
     public RegisterPresenter(IRegister view) {
         this.view = view;
         DatabaseHandler.setOnMessageRecievedListener(this);
         view.setSpinnerVisible(false);
     }
 
+    /**
+     * Checks if the password filled in are the same
+     */
     public final void registerPressed(){
         if (view.getPasswordField1().equals(view.getPasswordField2())) {
             view.enableRegisterButton(false);
@@ -27,10 +36,18 @@ public class RegisterPresenter implements IOnMessageRecievedListener {
         }
     }
 
+    /**
+     *
+     * Calls the Activity to exit the register view
+     *
+     */
     public final void onBackPressed(){
         view.close();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void messageRecieved(String message) {
         view.setSpinnerVisible(false);
