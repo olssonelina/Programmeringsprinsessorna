@@ -97,7 +97,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         directionArrow.setImageResource(R.drawable.direction);
         showClosest = (Button) findViewById(R.id.viewPinButton);
 
-        presenter = new MapsPresenter(this, (Quiz) getIntent().getParcelableExtra("quiz")); // TODO hantera felet kanske
+        presenter = new MapsPresenter(this, (Quiz) getIntent().getParcelableExtra("quiz"));
 
 
     }
@@ -211,7 +211,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //Place arrow in different positions on the screen depending on the angle to next question
         if ((angle >= 0 && angle <= 45) || (angle > 315 && angle < 360)) {
             directionArrow.setY(100);
-            directionArrow.setX(screenWidth() / 2);
+            directionArrow.setX((int)(screenWidth() / 2.0));
         }
         if (angle > 45 && angle <= 135) {
             directionArrow.setY(screenHeight() / 2 - 80);

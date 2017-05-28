@@ -7,19 +7,19 @@ import java.util.List;
  * Created by Nightingale on 2017-05-08.
  */
 
-public class Account {
+public final class Account {
 
     private int userID = -1;
     private String username = "Gäst";
     private List<String> friends = new ArrayList<>();
     private List<Integer> friendIDs = new ArrayList<>();
 
-    private static final Account instance = new Account();
+    private static final Account INSTANCE = new Account();
 
     /**
      * Clears the current friend lists
      */
-    void WipeLists() {
+    void wipeLists() {
         friendIDs = new ArrayList<>();
         friends = new ArrayList<>();
     }
@@ -29,10 +29,10 @@ public class Account {
     }
 
     /**
-     * @return returns the singleton accounts instance
+     * @return returns the singleton accounts INSTANCE
      */
     public static Account getInstance() {
-        return instance;
+        return INSTANCE;
     }
 
     /**
@@ -85,7 +85,7 @@ public class Account {
     public void logOut() {
         userID = -1;
         username = "Gäst";
-        WipeLists();
+        wipeLists();
 
     }
 }

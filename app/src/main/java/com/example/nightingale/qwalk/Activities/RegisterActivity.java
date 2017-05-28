@@ -1,33 +1,17 @@
 package com.example.nightingale.qwalk.Activities;
 
-import android.os.AsyncTask;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.nightingale.qwalk.Model.Database.DatabaseHandler;
-import com.example.nightingale.qwalk.Presenter.Login.LoginPresenter;
-import com.example.nightingale.qwalk.Presenter.QuizDetails.QuizDetailsPresenter;
 import com.example.nightingale.qwalk.Presenter.Register.IRegister;
 import com.example.nightingale.qwalk.Presenter.Register.RegisterPresenter;
 import com.example.nightingale.qwalk.R;
-
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-import javax.net.ssl.HttpsURLConnection;
 
 public class RegisterActivity extends AppCompatActivity implements IRegister{
     private RegisterPresenter presenter;
@@ -38,11 +22,8 @@ public class RegisterActivity extends AppCompatActivity implements IRegister{
     private ProgressBar spinner;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
-
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new RegisterPresenter(this);
         setContentView(R.layout.activity_register);
 
         usernameInput = (EditText) findViewById(R.id.usernameRegister);
@@ -51,32 +32,63 @@ public class RegisterActivity extends AppCompatActivity implements IRegister{
         registerbutton = (Button) findViewById(R.id.registerbutton);
         spinner = (ProgressBar) findViewById(R.id.progressBar1);
 
-        spinner.setVisibility(View.GONE);
-
+        presenter = new RegisterPresenter(this);
     }
 
-    public void registerButtonClicked(View view) {
-        if (passwordInput.getText().toString().equals(confirmPasswordInput.getText().toString())) {
-            registerbutton.setEnabled(false);
-            spinner.setVisibility(View.VISIBLE);
-            DatabaseHandler.registerAccount(usernameInput.getText().toString(),passwordInput.getText().toString());
-        } else {
-            Toast.makeText(getApplicationContext(), getResources().getString(R.string.password_no_match), Toast.LENGTH_SHORT).show(); // "Passwords don't match" ->
-        }
+    @Override
+    public final void setSpinnerVisible(Boolean enabled) {
+        spinner.setVisibility(enabled ? View.VISIBLE : View.GONE);
     }
 
-    public void onBackPressed(View view) {
+    @Override
+    public final void enableRegisterButton(boolean enabled) {
+        registerbutton.setEnabled(enabled);
+    }
+
+    @Override
+    public final String getUsername() {
+        return usernameInput.getText().toString();
+    }
+
+    @Override
+    public final String getPasswordField1() {
+        return passwordInput.getText().toString();
+    }
+
+    @Override
+    public final String getPasswordField2() {
+        return confirmPasswordInput.getText().toString();
+    }
+
+    @Override
+    public final void showError(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public final void close() {
         finish();
     }
 
+    @Override
+    public final void closeWithResult(String username, String password) {
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("username", username);
+        returnIntent.putExtra("password", password);
+        setResult(RESULT_OK, returnIntent);
+        finish();
+    }
+
+    public final void registerButtonClicked(View view) {
+        presenter.registerPressed();
+    }
+
+    public final void onBackPressed(View view) {
+        presenter.onBackPressed();
+    }
 
     @Override
-    public void DatabaseComplete(String message) {
-        spinner.setVisibility(View.GONE);
-        registerbutton.setEnabled(true);
-
-        if(message.equals("Registrering lyckad")){
-            finish();
-        }
+    public final void onBackPressed(){
+        presenter.onBackPressed();
     }
 }

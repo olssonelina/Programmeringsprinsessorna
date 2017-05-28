@@ -34,28 +34,28 @@ public class QwalkMarker {
     /**
      * @return returns the Google Maps marker
      */
-    public Marker getMarker() {
+    public final Marker getMarker() {
         return marker;
     }
 
     /**
      * @return returns the associated question
      */
-    public Question getQuestion() {
+    public final Question getQuestion() {
         return question;
     }
 
     /**
      * @return true if this marker is within reach
      */
-    public boolean isEnabled() {
+    public final boolean isEnabled() {
         return enabled;
     }
 
     /**
      * Enables the marker, it is in reach
      */
-    public void setEnabled() {
+    public final void setEnabled() {
         marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.minimarkergreen));
         enabled = true;
     }

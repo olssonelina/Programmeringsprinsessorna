@@ -41,14 +41,14 @@ public class Quiz implements Parcelable {
      *
      * @return returns easy, medium or hard
      */
-    public QuizDifficulty getDifficulty() {
+    public final QuizDifficulty getDifficulty() {
         return difficulty;
     }
 
     /**
      * @return returns the quiz id used in a database
      */
-    public int getQuizID() {
+    public final int getQuizID() {
         return quizID;
     }
 
@@ -57,7 +57,7 @@ public class Quiz implements Parcelable {
      *
      * @param difficulty easy, medium or hard
      */
-    public void setDifficulty(QuizDifficulty difficulty) {
+    public final void setDifficulty(QuizDifficulty difficulty) {
         this.difficulty = difficulty;
     }
 
@@ -67,7 +67,7 @@ public class Quiz implements Parcelable {
      * @param setting Which setting to change
      * @param enabled Set to true to enable, false to disable
      */
-    public void setSetting(QuizSetting setting, boolean enabled) {
+    public final void setSetting(QuizSetting setting, boolean enabled) {
         switch (setting) {
             case HAS_QUESTION_TIMER:
                 questionTimer = enabled;
@@ -91,7 +91,7 @@ public class Quiz implements Parcelable {
      * @param setting Setting to check enabled status of
      * @return Returns true if given setting is enabled
      */
-    public boolean getSetting(QuizSetting setting) {
+    public final boolean getSetting(QuizSetting setting) {
         switch (setting) {
             case HAS_QUESTION_TIMER:
                 return questionTimer;
@@ -116,21 +116,21 @@ public class Quiz implements Parcelable {
     /**
      * @return Returns the title of the quiz
      */
-    public String getTitle() {
+    public final String getTitle() {
         return title;
     }
 
     /**
      * @return Returns the description of the quiz
      */
-    public String getDescription() {
+    public final String getDescription() {
         return description;
     }
 
     /**
      * @return Returns the questions of this quiz
      */
-    public Question[] getQuestions() {
+    public final Question[] getQuestions() {
         Question[] qArr = new Question[questions.size()];
         for (int i = 0; i < qArr.length; i++) {
             qArr[i] = questions.get(i);
@@ -144,21 +144,21 @@ public class Quiz implements Parcelable {
      * @param index index of the specif question
      * @return returns the question at the given index
      */
-    public Question get(int index) {
+    public final Question get(int index) {
         return questions.get(index);
     }
 
     /**
      * @return Returns the number of questions in this quiz
      */
-    public int size() {
+    public final int size() {
         return questions.size();
     }
 
     /**
      * @return Returns an array of all the correct answers
      */
-    public int[] getCorrectAnswers() {
+    public final int[] getCorrectAnswers() {
         int[] correctAnswers = new int[questions.size()];
         for (int i = 0; i < questions.size(); i++) {
             correctAnswers[i] = questions.get(i).getCorrectAnswer();
@@ -169,7 +169,7 @@ public class Quiz implements Parcelable {
     /**
      * @return returns an array of the lowest index or answer option available to each question
      */
-    public int[] getLowerBounds() {
+    public final int[] getLowerBounds() {
         int[] lowerBounds = new int[questions.size()];
         for (int i = 0; i < questions.size(); i++) {
             lowerBounds[i] = questions.get(i).getLowerBounds();
@@ -180,7 +180,7 @@ public class Quiz implements Parcelable {
     /**
      * @return returns an array of the highest index or answer option available to each question
      */
-    public int[] getUpperBounds() {
+    public final int[] getUpperBounds() {
         int[] upperBounds = new int[questions.size()];
         for (int i = 0; i < questions.size(); i++) {
             upperBounds[i] = questions.get(i).getUpperBounds();
@@ -188,7 +188,7 @@ public class Quiz implements Parcelable {
         return upperBounds;
     }
 
-    public QLocation[] getLocations() {
+    public final QLocation[] getLocations() {
         QLocation[] locations = new QLocation[questions.size()];
         for (int i = 0; i < locations.length; i++) {
             locations[i] = questions.get(i).getLocation();
@@ -202,7 +202,7 @@ public class Quiz implements Parcelable {
      * @param q the given question to figure out index of
      * @return Returns the index of the question in the question list
      */
-    public int getQuestionIndex(Question q) {
+    public final int getQuestionIndex(Question q) {
         for (int i = 0; i < questions.size(); i++) {
             if (q.equals(questions.get(i))) {
                 return i;
@@ -234,7 +234,7 @@ public class Quiz implements Parcelable {
      * {@inheritDoc}
      */
     @Override
-    public int describeContents() {
+    public final int describeContents() {
         return 0;
     }
 
@@ -242,7 +242,7 @@ public class Quiz implements Parcelable {
      * {@inheritDoc}
      */
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
+    public final void writeToParcel(Parcel dest, int flags) {
         dest.writeByte((byte) (withBot ? 1 : 0));
         dest.writeByte((byte) (questionTimer ? 1 : 0));
         dest.writeByte((byte) (quizTimer ? 1 : 0));

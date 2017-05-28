@@ -30,7 +30,7 @@ $results = array();
 $sql = "DELETE FROM quizrelation WHERE quizid = '$quizid'";
 mysqli_query($con, $sql);
 
-$sql = "DELETE  *  FROM accountrelation WHERE quizid = '$quizid'";
+$sql = "DELETE FROM accountrelation WHERE quizid = '$quizid'";
 mysqli_query($con, $sql);
 
 $sql = "DELETE FROM quiz WHERE quizid = '$quizid'";

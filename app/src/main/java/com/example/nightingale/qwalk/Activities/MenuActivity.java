@@ -12,6 +12,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.nightingale.qwalk.Model.Database.Account;
 import com.example.nightingale.qwalk.Presenter.Menu.IMenu;
 import com.example.nightingale.qwalk.Model.Quiz.Quiz;
 import com.example.nightingale.qwalk.Presenter.Menu.MenuPresenter;
@@ -50,6 +51,7 @@ public class MenuActivity extends AppCompatActivity implements IMenu {
         createQuizButton = (Button) findViewById(R.id.addQuizButton);
 
         presenter = new MenuPresenter(this);
+
     }
 
     @Override
@@ -65,6 +67,11 @@ public class MenuActivity extends AppCompatActivity implements IMenu {
     }
 
     @Override
+    public final void fadeFriendsIcon() {
+        friendsButton.setBackgroundResource(R.drawable.friendsfaded);
+    }
+
+    @Override
     public final void openQuizDetails(Quiz quiz, boolean editable) {
         Intent intent = new Intent(this, QuizDetailsActivity.class);
         intent.putExtra("quiz", quiz);
@@ -72,11 +79,6 @@ public class MenuActivity extends AppCompatActivity implements IMenu {
         startActivityForResult(intent, SHOW_DETAILS_CODE);
     }
 
-    @Override
-    public final void openHelp() {
-        Intent intent = new Intent(this, HelpActivity.class);
-        startActivity(intent);
-    }
 
     @Override
     public final void setListItemsUser(List<Quiz> userQuizzes) {
@@ -126,17 +128,13 @@ public class MenuActivity extends AppCompatActivity implements IMenu {
     @Override
     public final void setAccountFunctionalityEnabled(boolean value) {
         friendsButton.setEnabled(value);
-        friendsButton.setVisibility(value ? View.VISIBLE : View.INVISIBLE);
+        friendsButton.setVisibility(View.VISIBLE);
         createQuizButton.setEnabled(value);
     }
 
     @Override
     public final void setListTitleUserText(String text) {
         userListTitle.setText(text);
-    }
-
-    public final void helpPressed(View view) {
-        presenter.helpButtonPressed();
     }
 
     public final void friendsPressed(View view) {
@@ -152,17 +150,23 @@ public class MenuActivity extends AppCompatActivity implements IMenu {
         try {
             if (data.getBooleanExtra("update", false)) {
                 switch (requestCode) {
-                    default: // Create Quiz & Show Details
-                        presenter.userQuizUpdated();
-                        break;
                     case ADD_FRIEND_CODE:
                         presenter.friendQuizUpdated();
+                        break;
+                    default: // Create Quiz & Show Details & Edit quiz
+                        presenter.userQuizUpdated();
                         break;
                 }
             }
         } catch (NullPointerException e) {
 
         }
+    }
+
+    public final void logout(View view) {
+        Account.getInstance().logOut();
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 
     private void loadList(ListView listView, List<Quiz> quizzes, AdapterView.OnItemClickListener onItemClickListener) {

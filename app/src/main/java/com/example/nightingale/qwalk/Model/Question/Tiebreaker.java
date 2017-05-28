@@ -22,21 +22,21 @@ public class Tiebreaker extends Question implements Parcelable {
      * @param longitude     the longitude of the tiebreaker
      * @param lowerBounds   the lowest possible answer in the range of answers
      * @param upperBounds   the highest possible answer in the range of answers
-     * @param ID            the id stored in the database for this question
+     * @param id            the id stored in the database for this question
      */
-    public Tiebreaker(String questionTitle, int answer, double latitude, double longitude, int lowerBounds, int upperBounds, int ID) {
-        super(questionTitle, answer, new QLocation(latitude, longitude), ID);
+    public Tiebreaker(String questionTitle, int answer, double latitude, double longitude, int lowerBounds, int upperBounds, int id) {
+        super(questionTitle, answer, new QLocation(latitude, longitude), id);
         this.upperBounds = upperBounds;
         this.lowerBounds = lowerBounds;
     }
 
     @Override
-    public int getLowerBounds() {
+    public final int getLowerBounds() {
         return lowerBounds;
     }
 
     @Override
-    public int getUpperBounds() {
+    public final int getUpperBounds() {
         return upperBounds;
     }
 
@@ -67,7 +67,7 @@ public class Tiebreaker extends Question implements Parcelable {
      * {@inheritDoc}
      */
     @Override
-    public boolean equals(Object o) {
+    public final boolean equals(Object o) {
         if (o instanceof Tiebreaker) {
             Tiebreaker other = (Tiebreaker) o;
             return other.getLowerBounds() == getLowerBounds() &&
@@ -89,7 +89,7 @@ public class Tiebreaker extends Question implements Parcelable {
      * {@inheritDoc}
      */
     @Override
-    public int describeContents() {
+    public final int describeContents() {
         return 0;
     }
 
@@ -97,7 +97,7 @@ public class Tiebreaker extends Question implements Parcelable {
      * {@inheritDoc}
      */
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
+    public final void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
         dest.writeInt(lowerBounds);
         dest.writeInt(upperBounds);

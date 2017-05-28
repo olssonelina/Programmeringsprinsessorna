@@ -28,8 +28,8 @@ public class AnswerOptionQuestionActivity extends AppCompatActivity implements I
     private Button saveAnswer;
     private TextView title;
 
-    private static final int selectedColour = Color.parseColor("#FF09C856");
-    private static final int deselectedColour = Color.parseColor("#FF303030");
+    private static final int SELECTED_COLOUR = Color.parseColor("#FF0295d8");
+    private static final int DESELECTED_COLOUR = Color.parseColor("#FF303030");
 
     @Override
     protected final void onCreate(Bundle savedInstanceState) {
@@ -70,7 +70,11 @@ public class AnswerOptionQuestionActivity extends AppCompatActivity implements I
     }
 
     public final void showBotAnswer(int index) {
-        optionButtons[index].setBackgroundResource(R.drawable.monkeyanswer);
+        if (presenter.isSameAnswer()) {
+            optionButtons[index].setBackgroundResource(R.drawable.monkeyanswerblue);
+        } else {
+            optionButtons[index].setBackgroundResource(R.drawable.monkeyanswer);
+        }
     }
 
     public final String getButtonText() {
@@ -101,13 +105,13 @@ public class AnswerOptionQuestionActivity extends AppCompatActivity implements I
         Intent returnIntent = new Intent();
         returnIntent.putExtra("answer", chosenIndex);
         returnIntent.putExtra("question", question);
-        setResult(GetPositionActivity.RESULT_OK, returnIntent);
+        setResult(RESULT_OK, returnIntent);
         finish();
     }
 
     @Override
-    public void setOptionColour(int index, boolean isSelectedColour) {
-        optionButtons[index].setBackgroundColor(isSelectedColour ? selectedColour : deselectedColour);
+    public final void setOptionColour(int index, boolean isSelectedColour) {
+        optionButtons[index].setBackgroundColor(isSelectedColour ? SELECTED_COLOUR : DESELECTED_COLOUR);
     }
 
     @Override

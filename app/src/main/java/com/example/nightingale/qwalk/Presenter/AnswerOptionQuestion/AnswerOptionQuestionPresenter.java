@@ -21,7 +21,6 @@ public class AnswerOptionQuestionPresenter {
 
         view.setTitle(question.getQuestionTitle());
 
-        //TODO det borde vara en array från början
         String[] options = {question.getOption(0), question.getOption(1), question.getOption(2), question.getOption(3)};
         view.setOptions(options);
         for (int i = 0; i < options.length; i++) {
@@ -34,11 +33,18 @@ public class AnswerOptionQuestionPresenter {
     public final void optionPressed(int index) {
         view.setCloseButtonEnabled(true);
 
-        for (int i = 0; i < 4; i++) { //TODO detta kan inte vara en 4, samma problem som innan
+        for (int i = 0; i < 4; i++) { //TODO Magic number
             view.setOptionColour(i, i == index);
         }
 
         chosenAnswer = index;
+    }
+
+    public final boolean isSameAnswer() {
+        if(chosenAnswer == aiAnswer) {
+            return true;
+        }
+        return false;
     }
 
 

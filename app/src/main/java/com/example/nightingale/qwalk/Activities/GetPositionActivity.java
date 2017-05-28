@@ -182,7 +182,7 @@ public class GetPositionActivity extends FragmentActivity implements OnMapReadyC
         }
     }
 
-    public final void PlaceQuestionButtonClicked(View view) {
+    public final void placeQuestionButtonClicked(View view) {
         presenter.closeButtonPressed();
     }
 
@@ -259,7 +259,6 @@ public class GetPositionActivity extends FragmentActivity implements OnMapReadyC
 
                 } else {
                     Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show();
-                    //TODO lägg till vad som händer när en inte tillåter att location används
                 }
                 return;
             }

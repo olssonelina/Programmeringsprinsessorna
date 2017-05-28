@@ -29,7 +29,7 @@ public class QwalkGame {
     /**
      * The distance in meters for a question to be considered in range.
      */
-    private final static double IN_RANGE = 25;
+    private final double IN_RANGE = 25;
 
     /**
      * @param presenter the model-view-presenter presenter
@@ -44,7 +44,7 @@ public class QwalkGame {
     /**
      * Starts the game
      */
-    public void startQuiz() {
+    public final void startQuiz() {
 
         player = new Player(quiz.size());
 
@@ -112,7 +112,7 @@ public class QwalkGame {
      * @param question the question at hand
      * @param answer the players answer to the specified question
      */
-    public void setAnswer(Question question, int answer) {
+    public final void setAnswer(Question question, int answer) {
         player.setAnswer(quiz.getQuestionIndex(question), answer);
         answeredQuestions++;
         presenter.setProgress(answeredQuestions, quiz.size());
@@ -134,7 +134,7 @@ public class QwalkGame {
      * Updates the game
      * @param userLocation the players current location
      */
-    public void update(QLocation userLocation) {
+    public final void update(QLocation userLocation) {
         if (player.getLocation() == null) { // If the player hasn't yet got a location, focus the camera on the player and initalize the ai
             presenter.focusOn(userLocation);
             if (quiz.getSetting(WITH_AI)) {
@@ -195,7 +195,7 @@ public class QwalkGame {
     /**
      * @return returns the question closest to the player
      */
-    public Question getClosestQuestion() {
+    public final Question getClosestQuestion() {
         Question a = currentQuestions.get(0);
         double distance = player.getLocation().distanceTo(a.getLocation());
 
@@ -212,7 +212,7 @@ public class QwalkGame {
     /**
      * Update the arrow pointing to the closest question
      */
-    public void updateArrow() {
+    public final void updateArrow() {
         if (quiz.getSetting(QUESTIONS_ARE_HIDDEN)) {
             return;
         }
@@ -228,7 +228,7 @@ public class QwalkGame {
     /**
      * @return returns true if the game has an ai
      */
-    public boolean hasAi() {
+    public final boolean hasAi() {
         return ai != null;
     }
 
@@ -237,7 +237,7 @@ public class QwalkGame {
      * @param question the question to know the index of
      * @return returns the index of the specified question
      */
-    public int getQuestionIndex(Question question) {
+    public final int getQuestionIndex(Question question) {
         return quiz.getQuestionIndex(question);
     }
 
@@ -246,7 +246,7 @@ public class QwalkGame {
      * @param question the question to know the ai's answer to
      * @return returns the ai's answer to the specified question
      */
-    public int getAiAnswer(Question question) {
+    public final int getAiAnswer(Question question) {
         return ai.getAnswer(quiz.getQuestionIndex(question));
     }
 }

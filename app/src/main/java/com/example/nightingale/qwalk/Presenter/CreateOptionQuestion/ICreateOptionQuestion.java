@@ -27,9 +27,9 @@ public interface ICreateOptionQuestion {
 
     String[] getOptions();
 
-    void reset();
+    void reset(int questionCounter);
 
-    void setQuestionID(int ID);
+    void setQuestionID(int id);
 
     void setLocationText(String text);
 

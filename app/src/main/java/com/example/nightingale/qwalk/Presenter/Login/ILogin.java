@@ -6,10 +6,20 @@ package com.example.nightingale.qwalk.Presenter.Login;
 
 public interface ILogin {
     void setSpinnerVisible(boolean value);
+
     void openMenu();
+
     void openRegister();
+
     void enableButtons(boolean value);
+
     String getUsername();
+
     String getPassword();
-    void DatabaseComplete(String message);
+
+    void setUsername(String username);
+
+    void setPassword(String password);
+
+    void databaseComplete(String message);
 }

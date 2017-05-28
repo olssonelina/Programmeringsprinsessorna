@@ -38,14 +38,14 @@
 
 
             <Button
-                android:id="@+id/help"
+                android:id="@+id/logout"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignTop="@+id/addQuizButton"
                 android:layout_marginRight="30dp"
                 android:layout_toLeftOf="@+id/addQuizButton"
-                android:background="@drawable/help"
-                android:onClick="helpPressed" />
+                android:background="@drawable/logout"
+                android:onClick="logout" />
 
             <Button
                 android:id="@+id/friends"
@@ -91,8 +91,8 @@
                 android:layout_height="match_parent"
                 android:scrollbars="none"
                 android:layout_below="@+id/userListText"
-                android:layout_alignLeft="@+id/help"
-                android:layout_alignStart="@+id/help"
+                android:layout_alignLeft="@+id/logout"
+                android:layout_alignStart="@+id/logout"
                 android:layout_alignRight="@+id/friendsList"
                 android:layout_alignEnd="@+id/friendsList" />
 

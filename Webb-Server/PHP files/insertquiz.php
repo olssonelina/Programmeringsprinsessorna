@@ -30,11 +30,11 @@ echo $data['questionid'];
 }
     }
 else{
-        $sql = "UPDATE questions SET description='$description', option1 = '$option1', option2 = '$option2', option3 = '$option3', option4 = '$option4', longitude = '$longitude', latitude = '$latitude', correctanswer = '$correctanswer', questiontype = '$questiontype',  WHERE questionid='$questionid'";
+        $sql = "UPDATE questions SET description='$description', option1 = '$option1', option2 = '$option2', option3 = '$option3', option4 = '$option4', longitude = '$longitude', latitude = '$latitude', correctanswer = '$correctanswer', questiontype = '$questiontype' WHERE questionid='$questionid'";
     
     mysqli_query($con,$sql);
 
-    echo -1;
+    echo -3;
     }
 
 }
@@ -49,7 +49,7 @@ $questionidarray = $_POST['questionidarray'];
 $userid = $_POST['userid'];
 
     
-if($questionid == -1){
+if($quizid == -1){
 $checktaken = mysqli_query($con, "SELECT  *  FROM quiz WHERE title = '$quiztitle'");
 $nr = mysqli_num_rows($checktaken);
     
@@ -67,6 +67,7 @@ while($data = mysqli_fetch_array($savedquiz)){
 $quizid = $data['quizid'];
 
 }
+
     
     $jsonArrayQuestionId = json_decode($questionidarray, TRUE);
     $jsonArrayLength = count($jsonArrayQuestionId);
@@ -90,11 +91,31 @@ echo '-1';
     
 }
     else{
-        $sql = "UPDATE quiz SET description='$quizdescription', title = '$quiztitle',  WHERE quizid='$quizid'";
+        $sql = "UPDATE quiz SET description='$quizdescription', title = '$quiztitle' WHERE quizid='$quizid'";
 mysqli_query($con,$sql);
-        echo '0';
+        
+        
+        
+            $jsonArrayQuestionId = json_decode($questionidarray, TRUE);
+            $jsonArrayLength = count($jsonArrayQuestionId);
+    
+            for ($x = 0; $x <  $jsonArrayLength; $x++) {
+        
+                $sql = "INSERT INTO quizrelation (quizid, questionid) VALUES ('$quizid', '$jsonArrayQuestionId[$x] > 0')";
+if($jsonArrayQuestionId[$x] > 0){
+    
+
+        
+
+        mysqli_query($con,$sql);
     }
+        }
+        
+        echo '-2';
+    
 }
+}
+
     
   mysqli_close($con);
 ?>

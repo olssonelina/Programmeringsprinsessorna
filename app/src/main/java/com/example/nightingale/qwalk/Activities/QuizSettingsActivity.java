@@ -34,7 +34,7 @@ public class QuizSettingsActivity extends AppCompatActivity implements IQuizSett
     private TextView level;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quizsettings);
 
@@ -56,7 +56,7 @@ public class QuizSettingsActivity extends AppCompatActivity implements IQuizSett
     }
 
     @Override
-    public void setDifficultiesVisible(boolean value) {
+    public final void setDifficultiesVisible(boolean value) {
         if (value) {
             level.setVisibility(View.VISIBLE);
             easy.setVisibility(View.VISIBLE);
@@ -75,7 +75,7 @@ public class QuizSettingsActivity extends AppCompatActivity implements IQuizSett
     }
 
     @Override
-    public void closeWithResult(List<QuizSetting> setTrue, List<QuizSetting> setFalse, QuizDifficulty difficulty) {
+    public final void closeWithResult(List<QuizSetting> setTrue, List<QuizSetting> setFalse, QuizDifficulty difficulty) {
         Intent returnIntent = new Intent();
         returnIntent.putExtra("setTrue", (ArrayList) setTrue);
         returnIntent.putExtra("setFalse", (ArrayList) setFalse);
@@ -85,15 +85,15 @@ public class QuizSettingsActivity extends AppCompatActivity implements IQuizSett
     }
 
     @Override
-    public void onBackPressed() {
+    public final void onBackPressed() {
         presenter.backPressed();
     }
 
-    public void onBackClicked(View view) {
+    public final void onBackClicked(View view) {
         onBackPressed();
     }
 
-    public void checkBoxPressed(View view) {
+    public final void checkBoxPressed(View view) {
         CheckBox cb = (CheckBox) view;
 
         if (cb.equals(hideQuestions)){
@@ -116,7 +116,7 @@ public class QuizSettingsActivity extends AppCompatActivity implements IQuizSett
         }
     }
 
-    public void difficultyPressed(View view){
+    public final void difficultyPressed(View view){
         easy.setBackgroundResource(R.drawable.greenmonkey);
         medium.setBackgroundResource(R.drawable.yellowmonkey);
         hard.setBackgroundResource(R.drawable.redmonkey);
@@ -134,7 +134,7 @@ public class QuizSettingsActivity extends AppCompatActivity implements IQuizSett
     }
 
     @Override
-    public void setChecked(QuizSetting quizSetting, boolean value) {
+    public final void setChecked(QuizSetting quizSetting, boolean value) {
         switch (quizSetting){
             case QUESTIONS_IN_ORDER:
                 inOrder.setChecked(value);

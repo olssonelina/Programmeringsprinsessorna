@@ -10,15 +10,15 @@ import java.util.List;
 public class MessageMediator {
     private List<IOnMessageRecievedListener> listeners = new ArrayList<>();
 
-    public void addListener(IOnMessageRecievedListener listener) {
+    public final void addListener(IOnMessageRecievedListener listener) {
         listeners.add(listener);
     }
 
-    public void removeListener(IOnMessageRecievedListener listener) {
+    public final void removeListener(IOnMessageRecievedListener listener) {
         listeners.remove(listener);
     }
 
-    public void onMessageRecieved(String message) {
+    public final void onMessageRecieved(String message) {
         for (IOnMessageRecievedListener listener : listeners) {
             if(!(message.equals("Ignore"))){
                 listener.messageRecieved(message);
