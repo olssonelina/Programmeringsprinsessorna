@@ -118,7 +118,12 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
     @Override
     protected final void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REGISTER_CODE) {
-            presenter.onRegisterResult(data.getStringExtra("username"), data.getStringExtra("password"));
+            try{
+                presenter.onRegisterResult(data.getStringExtra("username"), data.getStringExtra("password"));
+            }
+            catch (NullPointerException e){
+                
+            }
         }
     }
 
