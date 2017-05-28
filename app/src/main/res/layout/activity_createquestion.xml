@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background" />
 
     <RelativeLayout
         android:id="@+id/realtiveLayout"
@@ -25,9 +32,9 @@
             android:layout_height="60dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
+            android:background="@drawable/arrow2"
             android:onClick="onBackPressed"
-            android:padding="10dp"
-            app:srcCompat="@drawable/arrow2" />
+            android:padding="10dp" />
 
         <TextView
             android:id="@+id/addPosition"
@@ -47,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="90dp"
             android:layout_marginTop="400dp"
-            android:background="@drawable/minimarkerwhite"
+            android:background="@drawable/minimarkergreen"
             android:onClick="addPosition"
             android:visibility="visible" />
 
@@ -256,24 +263,30 @@
 
         <Button
             android:id="@+id/nextQuestion"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_alignBottom="@+id/done"
-            android:layout_marginLeft="190dp"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:background="#FF09C856"
             android:ems="10"
             android:onClick="addQuestion"
-            android:text="@string/add_question" />
+            android:text="@string/add_question"
+            android:layout_alignBaseline="@+id/done"
+            android:layout_alignBottom="@+id/done"
+            android:layout_alignRight="@+id/questionField"
+            android:layout_alignEnd="@+id/questionField" />
 
         <Button
             android:id="@+id/done"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="470dp"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:background="#FF09C856"
             android:ems="10"
             android:onClick="questionsDone"
-            android:text="@string/done" />
+            android:text="@string/done"
+            android:layout_below="@+id/addPosition"
+            android:layout_alignLeft="@+id/questionField"
+            android:layout_alignStart="@+id/questionField" />
 
 
     </RelativeLayout>
-</LinearLayout>
+</FrameLayout>

@@ -17,7 +17,7 @@ public class CreateQuizPresenter implements IOnMessageRecievedListener {
     }
 
     @Override
-    public void messageRecieved(String message) {
+    public final void messageRecieved(String message) {
         view.DatabaseComplete(message);
     }
 }

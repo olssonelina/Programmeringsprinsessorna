@@ -4,6 +4,7 @@ import com.example.nightingale.qwalk.Model.Question.OptionQuestion;
 import com.example.nightingale.qwalk.Model.Question.Question;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -14,17 +15,17 @@ public class CreateOptionQuestionPresenter {
 
     //private static Context ctx;
 
-    int questionID = -1;
+    private int questionID = -1;
 
     private ICreateOptionQuestion view;
 
-    private ArrayList<Question> questions = new ArrayList<>();
+    private List<Question> questions = new ArrayList<>();
 
     public CreateOptionQuestionPresenter(ICreateOptionQuestion view) {
         this.view = view;
     }
 
-    public boolean addQuestion(boolean reset) {
+    public final boolean addQuestion(boolean reset) {
         if(validateQuestion()) {
             OptionQuestion q = buildQuestion();
             questions.add(q);
@@ -39,7 +40,7 @@ public class CreateOptionQuestionPresenter {
         return new OptionQuestion(view.getQuestionTitle(), new ArrayList<String>(Arrays.asList(opts)), view.getAnswer(), view.getLatitude(), view.getLongitude(), questionID );
     }
 
-    public void finishQuestions() {
+    public final void finishQuestions() {
         if(addQuestion(false)) {
             view.closeWithResult(questions);
         }
@@ -65,12 +66,12 @@ public class CreateOptionQuestionPresenter {
     }
 
 
-    public void backButtonPressed(){
+    public final void backButtonPressed(){
         view.closeWithResult(questions);
     }
 
 
-    public void updateLocationText() {
+    public final void updateLocationText() {
         if (view.getLatitude() == 0 && view.getLongitude() == 0) {
             view.setLocationText("Lägg till position");
         } else {
@@ -78,7 +79,7 @@ public class CreateOptionQuestionPresenter {
         }
     }
 
-    public void setAllFields(OptionQuestion question){
+    public final void setAllFields(OptionQuestion question){
         questionID = question.getQuestionID();
         view.setAnswer(question.getCorrectAnswer());
         view.setLatitude(question.getLatitude());

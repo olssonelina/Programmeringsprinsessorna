@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import com.example.nightingale.qwalk.Model.QLocation;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Elina Olsson on 2017-04-24.
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 
 public class OptionQuestion extends Question implements Parcelable {
 
-    private ArrayList<String> options = new ArrayList<>();
+    private List<String> options = new ArrayList<>();
 
     /**
      * Creates a new multiple-choice question for Qwalk
@@ -25,7 +26,7 @@ public class OptionQuestion extends Question implements Parcelable {
      * @param longitude     the longitude of the question
      * @param ID            the id stored in the database for this question
      */
-    public OptionQuestion(String title, ArrayList<String> options, int correctAnswer, double latitude, double longitude, int ID/*Image image, Position position*/) {
+    public OptionQuestion(String title, List<String> options, int correctAnswer, double latitude, double longitude, int ID/*Image image, Position position*/) {
         super(title, correctAnswer, new QLocation(latitude, longitude), ID);
         for (String option : options) {
             this.options.add(option);

@@ -23,6 +23,7 @@ import com.example.nightingale.qwalk.Presenter.CreateOptionQuestion.CreateOption
 import com.example.nightingale.qwalk.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Elina Olsson on 2017-04-24.
@@ -50,7 +51,7 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
     private int questionCounter = 1;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createquestion);
 
@@ -99,7 +100,7 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
      */
 
 
-    public void addOption(final View view) {
+    public final void addOption(final View view) {
         final int index = getIndex(view, options);
 
         options[index].addTextChangedListener(new TextWatcher() {
@@ -107,7 +108,6 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (index == 3) {
@@ -121,17 +121,15 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
                     numbers[index + 1].setText("+");
                     numbers[index + 1].setVisibility(View.VISIBLE);
                     options[index + 1].setVisibility(View.VISIBLE);
-
                 }
             }
-
             @Override
             public void afterTextChanged(Editable s) {
             }
         });
     }
 
-    public void onBackPressed(View view) {
+    public final void onBackPressed(View view) {
         finish();
     }
 
@@ -140,7 +138,7 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
      * Clears text field if the icon "×" is clicked
      */
 
-    public void removeOption(View view) {
+    public final void removeOption(View view) {
         int index = getIndex(view, numbers);
 
         if (numbers[index].getText().toString().equals("×")) {
@@ -192,17 +190,17 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
      */
 
     @Override
-    public int getAnswer() {
+    public final int getAnswer() {
         for (int index = 0; index < radioButtons.length; index++) {
             if (radioButtons[index].isChecked()) {
                 return index;
             }
         }
-        throw new RuntimeException(getResources().getString(R.string.no_correct_answer_ex));// "No correct answer chosen" (skrev om meddelande till svenska)
+        throw new NullPointerException(getResources().getString(R.string.no_correct_answer_ex));// "No correct answer chosen" (skrev om meddelande till svenska)
     }
 
     @Override
-    public boolean hasAnswer() {
+    public final boolean hasAnswer() {
         for (int i = 0; i < radioButtons.length; i++) {
             if (radioButtons[i].isChecked() && !options[i].getText().toString().equals("")) {
                 return true;
@@ -220,12 +218,12 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
      * @param view origin of clicked component
      */
 
-    public void addQuestion(View view) {
+    public final void addQuestion(View view) {
         presenter.addQuestion(true);
     }
 
     @Override
-    public String[] getOptions() {
+    public final String[] getOptions() {
         String[] options = new String[this.options.length];
         for (int i = 0; i < options.length; i++) {
             options[i] = this.options[i].getText().toString();
@@ -242,18 +240,18 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
      * @param view origin of clicked component
      */
 
-    public void questionsDone(View view) {
+    public final void questionsDone(View view) {
         presenter.finishQuestions();
     }
 
 
     @Override
-    public void setLocationText(String text) {
+    public final void setLocationText(String text) {
         locationText.setText(text);
     }
 
     @Override
-    public void reset() {
+    public final void reset() {
         questionCounter++;
         questionNumber.setText(getResources().getString(R.string.question) + " " + questionCounter + ".");
         questionText.getText().clear();
@@ -278,7 +276,7 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
      * @param view origin of clicked component
      */
 
-    public void addPosition(View view) {
+    public final void addPosition(View view) {
         Intent intent = new Intent(this, GetPositionActivity.class);
         startActivityForResult(intent, GET_POSITION_CODE);
     }
@@ -293,7 +291,7 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected final void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == GET_POSITION_CODE) {
             try {
                 Location l = (Location) data.getExtras().get("result");
@@ -308,46 +306,46 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
     }
 
     @Override
-    public void onFocusChange(View v, boolean hasFocus) {
+    public final void onFocusChange(View v, boolean hasFocus) {
         if (hasFocus) {
             addOption(v);
         }
     }
 
     @Override
-    public String getQuestionTitle() {
+    public final String getQuestionTitle() {
         return questionText.getText().toString();
     }
 
     @Override
-    public void closeWithResult(ArrayList<Question> questions) {
+    public final void closeWithResult(List<Question> questions) {
         Intent returnIntent = new Intent();
-        returnIntent.putExtra("questions", questions);
+        returnIntent.putExtra("questions", (ArrayList) questions);
         setResult(RESULT_OK, returnIntent);
         finish();
     }
 
     @Override
-    public double getLatitude() {
+    public final double getLatitude() {
         return latitude;
     }
 
     @Override
-    public double getLongitude() {
+    public final double getLongitude() {
         return longitude;
     }
 
-    public int getQuestionID() {
+    public final int getQuestionID() {
         return questionID;
     }
 
     @Override
-    public void sendError(String error) {
+    public final void sendError(String error) {
         Toast.makeText(getApplicationContext(), error, Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+    public final boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
             for (int i = 0; i < options.length - 1; i++) {
                 if (v.equals(options[i])) {
@@ -364,12 +362,12 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
     }
 
     @Override
-    public void onBackPressed() {
+    public final void onBackPressed() {
         presenter.backButtonPressed();
     }
 
     @Override
-    public void setOptions(String[] options) {
+    public final void setOptions(String[] options) {
         for (int i = 0; i < options.length; i++) {
             if (!options[i].equals("")) {
                 addOption(this.options[i]);
@@ -381,27 +379,27 @@ public class CreateOptionQuestionActivity extends AppCompatActivity
     }
 
     @Override
-    public void setQuestionTitle(String questionTitle) {
+    public final void setQuestionTitle(String questionTitle) {
         questionText.setText(questionTitle);
     }
 
     @Override
-    public void setLatitude(double latitude) {
+    public final void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
     @Override
-    public void setLongitude(double longitude) {
+    public final void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
     @Override
-    public void setQuestionID(int questionID) {
+    public final void setQuestionID(int questionID) {
         this.questionID = questionID;
     }
 
     @Override
-    public void setAnswer(int answer) {
+    public final void setAnswer(int answer) {
         radioButtons[answer].setChecked(true);
     }
 }

@@ -4,6 +4,8 @@ import com.example.nightingale.qwalk.Model.Quiz.Quiz;
 import com.example.nightingale.qwalk.Model.Quiz.QuizDifficulty;
 import com.example.nightingale.qwalk.Model.Quiz.QuizSetting;
 import java.util.ArrayList;
+import java.util.List;
+
 import static com.example.nightingale.qwalk.Model.Quiz.QuizDifficulty.*;
 import static com.example.nightingale.qwalk.Model.Quiz.QuizSetting.*;
 
@@ -71,7 +73,7 @@ public class QuizSettingsPresenter {
         view.closeWithResult(setTrue, setFalse, difficulty);
     }
 
-    private void addToLists(ArrayList<QuizSetting> setTrue, ArrayList<QuizSetting> setFalse, QuizSetting setting, boolean value) {
+    private void addToLists(List<QuizSetting> setTrue, List<QuizSetting> setFalse, QuizSetting setting, boolean value) {
         if (value) {
             setTrue.add(setting);
         } else {

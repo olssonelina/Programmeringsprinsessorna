@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -18,7 +27,7 @@
             android:layout_marginBottom="40dp"
             android:ems="12"
             android:onClick="saveButtonPressed"
-            android:background="@android:color/holo_green_light"
+            android:background="#FF09C856"
             android:text="@string/answer" />
 
         <TextView
@@ -61,4 +70,4 @@
             map:srcCompat="@drawable/arrow2" />
     </RelativeLayout>
 
-</LinearLayout>
+</FrameLayout>

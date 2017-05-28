@@ -13,13 +13,13 @@ import com.example.nightingale.qwalk.R;
 public class HelpActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
     }
 
 
-    public void onBackPressed(View view) {
+    public final void onBackPressed(View view) {
         finish();
     }
 }

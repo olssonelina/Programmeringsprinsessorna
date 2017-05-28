@@ -58,11 +58,28 @@
                 android:id="@+id/progress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
                 android:text="0 av 0"
                 android:textStyle="bold"
-                android:textSize="24dp" />
+                android:textSize="24dp"
+                android:layout_marginRight="121dp"
+                android:layout_marginEnd="121dp"
+                android:layout_alignBaseline="@+id/Question"
+                android:layout_alignBottom="@+id/Question"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <TextView
+                android:id="@+id/Question"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="11dp"
+                android:layout_marginRight="11dp"
+                android:layout_toLeftOf="@+id/progress"
+                android:layout_toStartOf="@+id/progress"
+                android:text="Fråga"
+                android:textSize="24dp"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 

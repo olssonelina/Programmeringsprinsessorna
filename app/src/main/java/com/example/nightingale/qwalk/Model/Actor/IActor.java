@@ -11,7 +11,7 @@ public interface IActor {
     /**
      * Code for no answer
      */
-    public static final int NO_ANSWER = -1;
+     int NO_ANSWER = -1;
 
     /**
      * Gets a specific answer

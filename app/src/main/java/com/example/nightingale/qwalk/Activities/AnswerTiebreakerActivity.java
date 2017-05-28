@@ -25,7 +25,7 @@ public class AnswerTiebreakerActivity extends AppCompatActivity implements IAnsw
     private SeekBar slider;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answertiebreaker);
 
@@ -42,7 +42,7 @@ public class AnswerTiebreakerActivity extends AppCompatActivity implements IAnsw
     }
 
     @Override
-    public void closeWithResult(int value, Tiebreaker question) {
+    public final void closeWithResult(int value, Tiebreaker question) {
         Intent returnIntent = new Intent();
         returnIntent.putExtra("answer", value);
         returnIntent.putExtra("question", question);
@@ -50,35 +50,35 @@ public class AnswerTiebreakerActivity extends AppCompatActivity implements IAnsw
         finish();
     }
 
-    public void onBackPressed(View view) {
+    public final void onBackPressed(View view) {
         finish();
     }
 
     @Override
-    public void setTitle(String title) {
+    public final void setTitle(String title) {
         this.title.setText(title);
     }
 
     @Override
-    public void setRange(int from, int to) {
+    public final void setRange(int from, int to) {
         int progress = slider.getProgress();
-        int val = (progress * (slider.getWidth() - 2 * slider.getThumbOffset())) / slider.getMax();
+        int val = (int) ((progress * (slider.getWidth() - 2.0 * slider.getThumbOffset())) / slider.getMax());
         value.setText("" + (progress + from));
-        value.setX(slider.getX() + val + slider.getThumbOffset() / 2);
+        value.setX((int)(slider.getX() + val + slider.getThumbOffset() / 2.0));
         slider.setMax(to - from);
     }
 
     @Override
-    public int getChoice(int from) {
+    public final int getChoice(int from) {
         return slider.getProgress() + from;
     }
 
-    public void saveButtonPressed(View view) {
+    public final void saveButtonPressed(View view) {
         presenter.closePressed();
     }
 
     @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+    public final void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         presenter.sliderChanged(progress);
     }
 

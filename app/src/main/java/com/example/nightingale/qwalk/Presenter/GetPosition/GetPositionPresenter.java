@@ -17,16 +17,16 @@ public class GetPositionPresenter {
         view.setDoneButtonEnabled(false);
     }
 
-    public boolean isMarkerPlaced() {
+    public final boolean isMarkerPlaced() {
         return isMapReady && userLatitude != 0 && userLongitude != 0;
     }
 
-    public void setMapReady() {
+    public final void setMapReady() {
         isMapReady = true;
         tryPlaceMarker();
     }
 
-    public void setUserLocation(double userLatitude, double userLongitude){
+    public final void setUserLocation(double userLatitude, double userLongitude){
         this.userLatitude = userLatitude;
         this.userLongitude = userLongitude;
         tryPlaceMarker();
@@ -41,11 +41,11 @@ public class GetPositionPresenter {
         }
     }
 
-    public void mapClicked(double latitude, double longitude){
+    public final void mapClicked(double latitude, double longitude){
         view.moveMarker(latitude, longitude);
     }
 
-    public void closeButtonPressed(){
+    public final void closeButtonPressed(){
         view.closeWithResult(view.getMarkerLatitude(), view.getMarkerLongitude());
     }
 }

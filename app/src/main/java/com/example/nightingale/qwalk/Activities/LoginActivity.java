@@ -1,6 +1,7 @@
 package com.example.nightingale.qwalk.Activities;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,7 +26,7 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
     private LoginPresenter presenter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -42,58 +43,80 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
     /**
      * Called when the user taps the Send button
      */
-    public void guestButtonClicked(View view) {
+    public final void guestButtonClicked(View view) {
         presenter.guestButtonPressed();
     }
 
-    public void registerButtonClicked(View view) {
+    public final void registerButtonClicked(View view) {
         presenter.registerButtonPressed();
     }
 
 
-    public void loginButtonClicked(View view) {
+    public final void loginButtonClicked(View view) {
         presenter.loginButtonPressed();
     }
 
     @Override
-    public void setSpinnerVisible(boolean value) {
+    public final void setSpinnerVisible(boolean value) {
         spinner.setVisibility(value ? View.VISIBLE : View.GONE);
     }
 
     @Override
-    public void openMenu() {
+    public final void openMenu() {
         Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
         startActivity(intent);
+
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                setSpinnerVisible(false);
+                enableButtons(true);
+            }
+        }, 5000);
+
     }
 
     @Override
-    public void openRegister() {
+    public final void openRegister() {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
 
     @Override
-    public void enableButtons(boolean value) {
+    public final void enableButtons(boolean value) {
         loginButton.setEnabled(value);
         registerButton.setEnabled(value);
         guestButton.setEnabled(value);
     }
 
     @Override
-    public String getUsername() {
+    public final String getUsername() {
         return usernameInput.getText().toString();
     }
 
     @Override
-    public String getPassword() {
+    public final String getPassword() {
         return passwordInput.getText().toString();
     }
 
     @Override
-    public void showText(String message) {
-        if(!(message.equals(""))){
+    public final void DatabaseComplete(String message) {
 
-        }Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+
+
+
+        if (message.equals("Loggar in")){
+            openMenu();
+        }
+        else if(!(message.equals(""))){
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            setSpinnerVisible(false);
+            enableButtons(true);
+        }
+
+
 
     }
 }
