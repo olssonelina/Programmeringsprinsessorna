@@ -67,6 +67,9 @@ public class QwalkGame {
 
     }
 
+    /**
+     * moves on to the next question when the current is answered
+     */
     private void nextQuestion() {
         if (!quiz.getSetting(QUESTIONS_IN_ORDER)) {
             throw new IllegalAccessError("Illegal method with current settings, specifically QUESTIONS_IN_ORDER");
@@ -81,6 +84,9 @@ public class QwalkGame {
         }
     }
 
+    /**
+     * Ends a quiz after the last question is answered and goes to the show result view
+     */
     private void end() {
         long time = -1;
 
@@ -94,6 +100,9 @@ public class QwalkGame {
         presenter.close();
     }
 
+    /**
+     * Calls for the presenter to mark out the positions of all questions
+     */
     private void placeAllQuestions() {
         if (quiz.getSetting(QUESTIONS_IN_ORDER)) {
             throw new IllegalAccessError("Illegal method with current settings, specifically QUESTIONS_IN_ORDER");
@@ -158,6 +167,10 @@ public class QwalkGame {
         }
     }
 
+    /**
+     *
+     * @param userLocation
+     */
     private void initializeAi(QLocation userLocation) {
         AI ai = new AI(quiz.getCorrectAnswers(), quiz.hasTieBreaker(), quiz.getLowerBounds(), quiz.getUpperBounds(), quiz.getDifficulty(), quiz.getLocations(), userLocation);
         Thread aiThread = new Thread(ai);
@@ -168,6 +181,13 @@ public class QwalkGame {
         this.ai = ai;
     }
 
+    /**
+     *
+     * Checks if the player is close enough to the current cuestion
+     *
+     * @param questions
+     * @return
+     */
     private List<Question> questionsInRange(List<Question> questions) {
         List<Question> questionsInRange = new ArrayList<>();
         for (Question q : questions) {
