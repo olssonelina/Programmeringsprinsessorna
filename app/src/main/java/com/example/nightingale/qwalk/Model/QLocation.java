@@ -84,6 +84,16 @@ public final class QLocation implements Parcelable {
         return measure(getLatitude(), getLongitude(), other.getLatitude(), other.getLongitude()); //Math.sqrt(Math.pow(this.getLatitude() - other.latitude, 2) + Math.pow(this.getLongitude() - other.getLongitude(), 2));
     }
 
+    /**
+     *
+     * calculates distance between two locations
+     *
+     * @param latitude1
+     * @param longitude1
+     * @param latitude2
+     * @param longitude2
+     * @return distance in metres
+     */
     private static double measure(double latitude1, double longitude1, double latitude2, double longitude2) {  // generally used geo measurement function
         double r = 6378.137; // Radius of earth in KM
         double dLat = latitude2 * Math.PI / 180 - latitude1 * Math.PI / 180;
