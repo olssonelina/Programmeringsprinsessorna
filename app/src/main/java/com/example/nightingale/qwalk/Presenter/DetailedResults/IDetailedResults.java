@@ -5,4 +5,5 @@ package com.example.nightingale.qwalk.Presenter.DetailedResults;
  */
 
 public interface IDetailedResults {
+    void setListColors(boolean[] isCorrect);
 }

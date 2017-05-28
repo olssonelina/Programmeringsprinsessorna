@@ -16,5 +16,14 @@ public class DetailedResultsPresenter {
         this.view = view;
         this.quiz=quiz;
         this.answers=answers;
+        view.setListColors(isCorrect());
+    }
+
+    public boolean[] isCorrect(){
+        boolean[] isCorrect=new boolean[answers.length];
+        for (int i=0; i<answers.length;i++){
+            isCorrect[i]=(answers[i]==quiz.getCorrectAnswers()[i]);
+        }
+        return isCorrect;
     }
 }

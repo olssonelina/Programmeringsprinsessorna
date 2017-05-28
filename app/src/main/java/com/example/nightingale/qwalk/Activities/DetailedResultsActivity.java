@@ -75,7 +75,7 @@ public class DetailedResultsActivity extends AppCompatActivity implements IDetai
         //resultList.setAdapter(adapter);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, answers);
+                android.R.layout.simple_list_item_1, android.R.id.text1, questions);
 
         resultList.setAdapter(adapter);
 
@@ -83,6 +83,7 @@ public class DetailedResultsActivity extends AppCompatActivity implements IDetai
 
     }
 
+    @Override
     public void setListColors(boolean[] isCorrect){
         for(int i=0;i<isCorrect.length;i++) {
             if (isCorrect[i]){
