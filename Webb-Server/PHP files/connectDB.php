@@ -2,14 +2,13 @@
 
 /**
 
-* Databasanslutning
+* Database connection
 
 * 
 
-* Funktionen fÃ¶r att ansluta till databasen persondb
-*
+* Function to connect to the database*
 
-* @param author kevin.solovjov@itggot.se
+* @param author kevin.solovjov@gmail.com
 
 */
 
